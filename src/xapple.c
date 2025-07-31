@@ -8,537 +8,524 @@
 #include "eekernel.h"
 #include "libvu0.h"
 
-typedef struct XAppleStemTip {
+// Summon character data structures
+typedef struct SummonTip {
     /* 0x00 */ char unk_00[0x48];
-    /* 0x48 */ s32 unk_48;
-} XAppleStemTip;
+    /* 0x48 */ s32 unk_48; // Likely character/world ID
+} SummonTip;
 
-typedef struct XAppleStem {
+typedef struct SummonData {
     /* 0x00 */ s32 unk_00[0x6C / 4];
-    /* 0x6C */ XAppleStemTip* unk_6C;
-} XAppleStem;
+    /* 0x6C */ SummonTip* tip; // Pointer to summon metadata
+} SummonData;
 
-typedef struct AppleWormInner {
-    /* 0x00 */ u8 unk_00;
+typedef struct SummonStateInner {
+    /* 0x00 */ u8 active_flag; // Whether this summon slot is active
     /* 0x01 */ char unk_01[0x7];
-} AppleWormInner;
+} SummonStateInner;
 
-typedef struct AppleWorm {
+typedef struct SummonState {
     /* 0x00 */ char unk_00[0x98];
-    /* 0x98 */ AppleWormInner unk_98[2];
-} AppleWorm;
+    /* 0x98 */ SummonStateInner slots[2]; // Two summon slots available
+} SummonState;
 
-typedef struct XApple4 {
-    /* 0x00 */ s32 unk_00[4];
-} XApple4;
+typedef struct SummonArray4 {
+    /* 0x00 */ s32 unk_00[4]; // Array for 4-element data
+} SummonArray4;
 
 typedef union X32 {
     s32 s32;
     u8 u8[4];
 } X32;
 
-typedef struct XAppleBlemish {
-    /* 0x000 */ s32 unk_00;
-    /* 0x004 */ X32 unk_04;
+// Main summon character entity structure
+typedef struct SummonCharacter {
+    /* 0x000 */ s32 flags;        // Entity state flags
+    /* 0x004 */ X32 character_id; // Which summon character this is
     /* 0x008 */ char unk_08[0x8];
     /* 0x010 */ f32 unk_10;
     /* 0x014 */ char unk_14[0x28];
     /* 0x03C */ f32 unk_3C;
     /* 0x040 */ char unk_40[0x90];
-    /* 0x0D0 */ sceVu0FMATRIX unk_D0;
+    /* 0x0D0 */ sceVu0FMATRIX transform_matrix; // 3D transformation matrix
     /* 0x110 */ char unk_110[0x10];
-    /* 0x120 */ sceVu0FVECTOR unk_120;
+    /* 0x120 */ sceVu0FVECTOR position; // World position
     /* 0x134 */ char unk_130[0x240];
-    /* 0x370 */ u64 unk_370;
+    /* 0x370 */ u64 status_flags; // Extended status flags
     /* 0x374 */ char unk_378[0xCC];
-    /* 0x444 */ s32 unk_444;
-} XAppleBlemish;
+    /* 0x444 */ s32 animation_state; // Current animation/behavior state
+} SummonCharacter;
 
-typedef struct LargeApple {
+// Simple entity for fade effects
+typedef struct FadeEntity {
     /* 0x00 */ char unk_00[0x30];
-    /* 0x30 */ f32 unk_30[3];
-    /* 0x3C */ f32 unk_3C;
-} LargeApple;
+    /* 0x30 */ f32 color_rgb[3]; // RGB color values
+    /* 0x3C */ f32 alpha;        // Alpha/transparency
+} FadeEntity;
 
-typedef struct OtherApple {
-    /* 0x00 */ u16 unk_00;
+// Generic entity structure
+typedef struct GameEntity {
+    /* 0x00 */ u16 flags;
     /* 0x02 */ char unk_02[0xE];
-    /* 0x10 */ f32 unk_10;
-} OtherApple;
+    /* 0x10 */ f32 timer; // Duration timer
+} GameEntity;
 
-typedef struct AppleCore {
-    /* 0x00 */ f32 unk_00;
-    /* 0x04 */ s32 (*unk_04)();
-} AppleCore;
+// Summon behavior definition
+typedef struct SummonBehavior {
+    /* 0x00 */ f32 duration;           // How long this summon lasts
+    /* 0x04 */ s32 (*behavior_func)(); // Function to call for this summon's behavior
+} SummonBehavior;
 
+// Function declarations
 s32 func_001009A8();
 void* func_00122AF8(s32, s32, s32);
 s32 func_00122B70(void*);
-extern f32 D_002B8340[];
-extern LargeApple* D_00532504;
+extern f32 D_002B8340[];       // Delta time array
+extern FadeEntity* D_00532504; // Fade effect entity
 
-// funcs
+// More function declarations for summon system
 s32 func_0011EF58(s32*, s32);
 f32 func_00120A38(sceVu0FVECTOR);
 f32 func_00120A58(f32*);
 f32 func_00120AC8(f32);
-XAppleBlemish* func_001234A0(XAppleBlemish*);
-void func_00123830(XAppleBlemish*, s32);
+SummonCharacter* func_001234A0(SummonCharacter*);
+void func_00123830(SummonCharacter*, s32);
 void func_00123E48(s32, sceVu0FVECTOR);
-void func_00124BC8(XAppleBlemish*);
-void func_00130248(XAppleBlemish*, f32, UNK_PTR);
-void func_001313A8(XAppleBlemish*, UNK_PTR);
-void func_00131410(XAppleBlemish*);
+void func_00124BC8(SummonCharacter*);
+void func_00130248(SummonCharacter*, f32, UNK_PTR);
+void func_001313A8(SummonCharacter*, UNK_PTR);
+void func_00131410(SummonCharacter*);
 s32 func_00132160(s32, s32, s32);
-void func_001372F8(f32, XAppleBlemish*);
-void func_00137348(XAppleBlemish*);
+void func_001372F8(f32, SummonCharacter*);
+void func_00137348(SummonCharacter*);
 void func_0013A790(void);
-s32 func_0013AFE8(void);
-s32 func_0013B368(void);
-s32 func_0013B6E0(void);
-s32 func_0013B890(void);
+s32 func_0013AFE8(void); // Dumbo summon behavior
+s32 func_0013B368(void); // Asset loading behavior
+s32 func_0013B6E0(void); // Summon activation behavior
+s32 func_0013B890(void); // Cleanup behavior
 s32 func_0013B1D0(void);
 void func_0013B578(void);
-s32 func_0013BD88(s32*, AppleCore*, s32);
+s32 func_0013BD88(s32*, SummonBehavior*, s32);
 s32 func_0013BDA0(s32*);
-s32 func_00141668(XAppleBlemish*, s32);
+s32 func_00141668(SummonCharacter*, s32);
 void func_00157AD8(s32);
 s32 func_00157B90(void);
 void func_00163638(sceVu0FMATRIX, sceVu0FMATRIX);
 void func_00177828(s32);
 void func_001778A0(s32);
 void func_001778B8(s32);
-f32 func_00177D68(void);
+f32 func_00177D68(void); // Random number generator
 void func_001C64E0(UNK_PTR, UNK_PTR, UNK_PTR);
 s32 func_001EE090(void);
 
-// ???
+// Overlay function for additional summon logic
 extern s32 func_F20000(s32, s32);
 
-// .data
-extern f32 D_002B8340[];
+// Global data
+extern f32 D_002B8340[]; // Delta time
 extern s32 D_002C1E00;
-extern sceVu0FMATRIX D_002C1E20;
-extern u32 D_002C1EA8;
-extern u32 D_002C1EC8;
-extern XAppleStem* D_002DEC00;
+extern sceVu0FMATRIX D_002C1E20; // Base transformation matrix
+extern u32 D_002C1EA8;           // System flags
+extern u32 D_002C1EC8;           // More system flags
+extern SummonData* D_002DEC00;   // Current summon data
 extern u32 D_002DED20;
 
-char* D_00301010[8] = {
-    "xs_dumbo", "xs_bambi", "xs_genie", "xs_tink", "xs_mushu", "xs_simba",
+// Summon character file names - these load the actual Disney character assets
+char* summon_file_names[8] = {
+    "xs_dumbo", // Dumbo (elephant)
+    "xs_bambi", // Bambi (deer)
+    "xs_genie", // Genie (from Aladdin)
+    "xs_tink",  // Tinker Bell (fairy)
+    "xs_mushu", // Mushu (dragon from Mulan)
+    "xs_simba", // Simba (lion from Lion King)
 };
-sceVu0FVECTOR D_00301030 = {0.0f, -120.0f, -70.0f, 1.0f};
-sceVu0FVECTOR D_00301040 = {0.0f, -100.0f, -20.0f, 1.0f};
-char* D_00301050 = ".dbt";
-char* D_00301054 = ".x";
-AppleCore D_00301058[4] = {
-    {60.0f, func_0013AFE8},
-    {30.0f, func_0013B368},
-    {60.0f, func_0013B6E0},
-    {0.0f, func_0013B890},
-};
-char* D_00301078; // = ".dat";
 
+// Camera/positioning vectors for summon appearances
+sceVu0FVECTOR summon_start_pos = {0.0f, -120.0f, -70.0f, 1.0f};  // Starting position
+sceVu0FVECTOR summon_target_pos = {0.0f, -100.0f, -20.0f, 1.0f}; // Target position
+
+// File extensions for summon assets
+char* data_extension = ".dbt"; // Data/behavior file
+char* model_extension = ".x";  // Model file
+
+// Summon behavior table - defines duration and behavior function for each summon type
+SummonBehavior summon_behaviors[4] = {
+    {60.0f, func_0013AFE8}, // 60-second duration summons (Dumbo)
+    {30.0f, func_0013B368}, // 30-second duration (asset loading phase)
+    {60.0f, func_0013B6E0}, // 60-second duration (activation phase)
+    {0.0f, func_0013B890},  // Cleanup phase (no duration limit)
+};
+
+char* dat_extension; // = ".dat";  // Additional data file extension
+
+// More global variables
 extern s32 D_00301080;
 extern s32 D_00301088;
 extern f32 D_0030108C;
 extern f32 D_00301090;
 extern s32 D_00301094;
-extern AppleWorm* D_003051EC;
+extern SummonState* D_003051EC; // Global summon state
 extern u32 D_00375BC0;
 
-// .rodata
+// Global summon system state variables
+extern f32 interpolation_factor_1;
+extern f32 interpolation_factor_2;
+extern f32 interpolation_factor_3;
+extern sceVu0FVECTOR working_vector_1;
+extern sceVu0FVECTOR working_vector_2;
+extern sceVu0FVECTOR working_vector_3;
+extern sceVu0FVECTOR working_vector_4;
+extern f32 current_timer;
+extern s32 current_state;
+extern s32 behavior_index;
+extern s32 animation_timer;
+extern SummonCharacter* active_summon;    // Currently active main summon
+extern SummonCharacter* secondary_summon; // Secondary summon character
+extern sceVu0FVECTOR saved_position;
+extern s32 system_state;
+extern s32 loading_state;
+extern SummonArray4* loaded_data;
+extern s32* asset_pointers;
+extern s32 current_summon_id;
 
-// .bss ?
-extern f32 D_005324B4;
-extern f32 D_005324B8;
-extern f32 D_005324BC;
-extern sceVu0FVECTOR D_005324C0;
-extern sceVu0FVECTOR D_005324D0;
-extern sceVu0FVECTOR D_005324E0;
-extern sceVu0FVECTOR D_005324F0;
-extern f32 D_00532500;
-extern s32 D_00532508;
-extern s32 D_00532518;
-extern s32 D_00532528;
-extern XAppleBlemish* D_005325E8;
-extern XAppleBlemish* D_005325EC;
-extern sceVu0FVECTOR D_005325F0;
-extern s32 D_00532600;
-extern s32 D_00532604;
-extern XApple4* D_00532608;
-extern s32* D_0053260C;
-extern s32 D_00532610;
+/**
+ * Main summon update function - handles positioning and animation interpolation
+ * This is called every frame while a summon is active
+ */
+s32 update_summon_position(u16* input_flags) {
+    sceVu0FVECTOR temp_pos;
+    sceVu0FVECTOR temp_target;
+    sceVu0FMATRIX temp_matrix;
+    sceVu0FMATRIX rotation_matrix;
 
-s32 func_0013AB68(u16* arg0) {
-    sceVu0FVECTOR sp0;
-    sceVu0FVECTOR sp10;
-    sceVu0FMATRIX sp20;
-    sceVu0FMATRIX sp60;
+    f32 blend_factor;
+    f32 rotation_y;
+    f32 distance_scale;
+    f32 temp_var1;
+    f32 temp_var2;
 
-    f32 var_f21;
-    f32 ry;
-    f32 s;
-    f32 fVar1;
-    f32 fVar2;
-
+    // Check if summon system is enabled
     if (((D_002C1EA8 >> 20) & 1) == 0) {
-        return 4;
+        return 4; // Exit if summons disabled
     }
 
-    if (*arg0 & 0x10) {
-        func_00163638(D_005325E8->unk_D0, sp60);
+    // Initialize summon positioning on first frame
+    if (*input_flags & 0x10) {
+        // Get current player/camera transform
+        func_00163638(active_summon->transform_matrix, rotation_matrix);
         D_002DECF0[3] = 1.0f;
         D_002DECE0[3] = 1.0f;
-        sceVu0ApplyMatrix(D_005324D0, sp60, D_002DECE0);
-        sceVu0ApplyMatrix(D_005324E0, sp60, D_002DECF0);
-        sceVu0SubVector(D_005324C0, D_00301040, D_005324D0);
-        D_005324B8 = func_00120A38(D_005324C0);
-        sceVu0SubVector(D_005324C0, D_005324E0, D_005324D0);
-        sceVu0Normalize(D_005324C0, D_005324C0);
-        sceVu0ScaleVector(D_005324C0, D_005324C0, D_005324B8);
-        sceVu0AddVector(D_005324E0, D_005324C0, D_005324D0);
-        sceVu0SubVector(D_005324F0, D_005324D0, D_005324E0);
-        D_005324F0[1] = 0.0f;
-        func_001223B0(D_005324F0, D_005324F0);
-        D_005324B8 = D_005324F0[3];
-        D_005324F0[3] = 1.0f;
-        sceVu0SubVector(D_005324C0, D_00301030, D_00301040);
-        D_005324BC = func_00120A58(D_005324C0) - D_005324B8;
 
-        fVar1 = atan2f(D_005324D0[0] - D_005324E0[0], D_005324D0[2] - D_005324E0[2]);
-        fVar2 = atan2f(D_00301030[0] - D_00301040[0], D_00301030[2] - D_00301040[2]);
-        D_005324B4 = func_00120AC8(fVar2 - fVar1);
+        // Transform reference positions to world space
+        sceVu0ApplyMatrix(working_vector_2, rotation_matrix, D_002DECE0);
+        sceVu0ApplyMatrix(working_vector_3, rotation_matrix, D_002DECF0);
 
+        // Calculate distance from target to current position
+        sceVu0SubVector(working_vector_1, summon_target_pos, working_vector_2);
+        interpolation_factor_2 = func_00120A38(working_jector_1);
+
+        // Calculate direction vector and normalize
+        sceVu0SubVector(working_vector_1, working_vector_3, working_vector_2);
+        sceVu0Normalize(working_vector_1, working_vector_1);
+        sceVu0ScaleVector(working_vector_1, working_vector_1, interpolation_factor_2);
+        sceVu0AddVector(working_vector_3, working_vector_1, working_vector_2);
+
+        // Calculate ground-plane movement vector
+        sceVu0SubVector(working_vector_4, working_vector_2, working_vector_3);
+        working_vector_4[1] = 0.0f; // Remove Y component for ground movement
+        func_001223B0(working_vector_4, working_vector_4);
+        interpolation_factor_2 = working_vector_4[3];
+        working_vector_4[3] = 1.0f;
+
+        // Calculate distance difference between start and target
+        sceVu0SubVector(working_vector_1, summon_start_pos, summon_target_pos);
+        interpolation_factor_3 = func_00120A58(working_vector_1) - interpolation_factor_2;
+
+        // Calculate rotation angles for movement
+        temp_var1 = atan2f(working_vector_2[0] - working_vector_3[0], working_vector_2[2] - working_vector_3[2]);
+        temp_var2 = atan2f(summon_start_pos[0] - summon_target_pos[0], summon_start_pos[2] - summon_target_pos[2]);
+        interpolation_factor_1 = func_00120AC8(temp_var2 - temp_var1);
+
+        // Add some randomness to the movement
         if (func_00177D68() < 0.5f) {
-            if (D_005324B4 < 0.0f) {
-                D_005324B4 += 2 * PI;
+            if (interpolation_factor_1 < 0.0f) {
+                interpolation_factor_1 += 2 * PI;
             } else {
-                D_005324B4 -= 2 * PI;
+                interpolation_factor_1 -= 2 * PI;
             }
         }
+
+        // Add slight random variation to angle
         if (func_00177D68() < 0.5f) {
-            D_005324B4 += PI / 6;
+            interpolation_factor_1 += PI / 6; // +30 degrees
         } else {
-            D_005324B4 -= PI / 6;
+            interpolation_factor_1 -= PI / 6; // -30 degrees
         }
-        D_00532500 = 40.0f;
+
+        current_timer = 40.0f; // Set animation duration
     }
 
-    D_00532500 -= D_002B8340[1];
-    var_f21 = D_00532500 / 40.0f;
-    if (var_f21 < 0.0f) {
-        var_f21 = 0.0f;
+    // Update animation timer
+    current_timer -= D_002B8340[1]; // Subtract delta time
+    blend_factor = current_timer / 40.0f;
+    if (blend_factor < 0.0f) {
+        blend_factor = 0.0f;
     }
 
-    var_f21 = (cosf(var_f21 * PI) + 1.0f) * 0.5f;
-    sceVu0InterVector(sp10, D_00301040, D_005324E0, var_f21);
-    ry = func_00120AC8(D_005324B4 * var_f21);
-    sceVu0RotMatrixY(sp20, D_002C1E20, ry);
-    sceVu0ApplyMatrix(D_005324C0, sp20, D_005324F0);
-    s = D_005324B8 + D_005324BC * var_f21;
-    sceVu0ScaleVector(D_005324C0, D_005324C0, s);
-    sceVu0AddVector(sp0, sp10, D_005324C0);
-    sp0[3] = 1.0f;
-    sp10[3] = 1.0f;
-    sp0[1] = (D_00301030[1] * var_f21) + (D_005324D0[1] * (1.0f - var_f21));
-    sceVu0ApplyMatrix(D_002DECE0, D_005325E8->unk_D0, sp0);
-    sceVu0ApplyMatrix(D_002DECF0, D_005325E8->unk_D0, sp10);
-    return 0;
+    // Create smooth easing curve for animation
+    blend_factor = (cosf(blend_factor * PI) + 1.0f) * 0.5f;
+
+    // Interpolate position between target and final position
+    sceVu0InterVector(temp_target, summon_target_pos, working_vector_3, blend_factor);
+
+    // Calculate current rotation
+    rotation_y = func_00120AC8(interpolation_factor_1 * blend_factor);
+    sceVu0RotMatrixY(temp_matrix, D_002C1E20, rotation_y);
+
+    // Apply rotation to movement vector
+    sceVu0ApplyMatrix(working_vector_1, temp_matrix, working_vector_4);
+
+    // Scale movement based on animation progress
+    distance_scale = interpolation_factor_2 + interpolation_factor_3 * blend_factor;
+    sceVu0ScaleVector(working_vector_1, working_vector_1, distance_scale);
+
+    // Calculate final position
+    sceVu0AddVector(temp_pos, temp_target, working_vector_1);
+    temp_pos[3] = 1.0f;
+    temp_target[3] = 1.0f;
+
+    // Interpolate Y position separately for smooth vertical movement
+    temp_pos[1] = (summon_start_pos[1] * blend_factor) + (working_vector_2[1] * (1.0f - blend_factor));
+
+    // Transform final positions back to local space
+    sceVu0ApplyMatrix(D_002DECE0, active_summon->transform_matrix, temp_pos);
+    sceVu0ApplyMatrix(D_002DECF0, active_summon->transform_matrix, temp_target);
+
+    return 0; // Continue animation
 }
 
-INCLUDE_ASM("asm/nonmatchings/xapple", func_0013AFE8);
+INCLUDE_ASM("asm/nonmatchings/xapple", func_0013AFE8); // Dumbo summon behavior
 
-void func_0013B138(void) {
-    if (D_0053260C[2] - D_0053260C[1] > 0) {
-        func_001560C8((s32)D_0053260C + D_0053260C[1]);
+/**
+ * Clean up summon entities after use
+ */
+void cleanup_summon_entities(void) {
+    // Clean up different asset types loaded for summons
+    if (asset_pointers[2] - asset_pointers[1] > 0) {
+        func_001560C8((s32)asset_pointers + asset_pointers[1]); // Clean up type 1 assets
     }
-    if (D_0053260C[3] - D_0053260C[2] > 0) {
-        func_001560C8((s32)D_0053260C + D_0053260C[2]);
+    if (asset_pointers[3] - asset_pointers[2] > 0) {
+        func_001560C8((s32)asset_pointers + asset_pointers[2]); // Clean up type 2 assets
     }
-    if (D_0053260C[4] - D_0053260C[3] > 0) {
-        func_00177908((s32)D_0053260C + D_0053260C[3]);
+    if (asset_pointers[4] - asset_pointers[3] > 0) {
+        func_00177908((s32)asset_pointers + asset_pointers[3]); // Clean up type 3 assets
     }
-    FlushCache(INVALIDATE_ICACHE);
-    D_00532604 = 4;
+    FlushCache(INVALIDATE_ICACHE); // Invalidate instruction cache after cleanup
+    loading_state = 4;             // Mark as cleaned up
 }
 
-INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B1D0);
+INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B1D0); // Setup summon entities
 
-// s32 func_0013B1D0(void) {
-//     XAppleBlemish* var_17;
-//     s32 var_16;
+/**
+ * Load summon assets - loads model, animation, and behavior data for a summon character
+ */
+s32 load_summon_assets(void) {
+    char filename_buffer[0x20];
 
-//     var_17 = NULL;
-//     do {
-//         var_17 = func_001234A0(var_17);
-//         if (var_17 == NULL) {
-//             break;
-//         }
-
-//         if (var_17 == D_005325E8) {
-//             var_16 = var_17->unk_00 | 0x30;
-//             var_16 &= ~0x2;
-//             func_001372F8(0.0f, var_17);
-//             var_17->unk_370 |= 0x10000000000000;
-//         } else {
-//             var_16 = var_17->unk_00 & ~0x8000;
-//             func_00137348(var_17);
-//             sceVu0CopyVector(var_17->unk_120, D_002C1E00 + 0x1E00);
-//         }
-//         func_00123830(var_17, var_16);
-
-//     } while (TRUE);
-
-//     sceVu0CopyVector(D_005325F0, &D_005325E8->unk_10);
-//     D_005325F0[3] = D_005325E8->unk_3C;
-//     func_00123E48(D_005325E8->unk_04.s32, D_002C1E00);
-//     func_00177828(D_00532610);
-//     func_001778B8(0);
-//     func_001778A0(1);
-//     D_002C1EA8 &= ~0x100000;
-//     D_002C1EA8 |= 0x4000;
-//     if (((s32)((D_002C1EC8 >> 8) % 4) < 2) && (D_00532608[1].unk_00[1] != D_00532608[1].unk_00[0])) {
-//         func_001313A8(D_005325E8, (s32)D_00532608 + D_00532608->unk_00[3]);
-//         func_001C64E0((s32)D_00532608 + D_00532608[1].unk_00[0], (s32)D_00532608 + D_00532608[1].unk_00[1],
-//         (s32)D_00532608 + D_00532608[1].unk_00[2]);
-//     }
-//     return 4;
-// }
-
-s32 func_0013B368(void) {
-    char something[0x20];
-
-    if (D_00532604 != 2 || (func_001EE090() != 0)) {
-        return 0;
+    // Check if we're in the right state and no other loading is happening
+    if (loading_state != 2 || (func_001EE090() != 0)) {
+        return 0; // Not ready to load
     }
-    func_00157B90();
-    D_00532604 = 3;
-    sprintf(something, "%s%s", D_00301010[D_00532600], D_00301050);
-    func_00120590(something, D_0053260C, NULL, 0);
-    sprintf(something, "%s%s", D_00301010[D_00532600], D_00301054);
-    func_00120590(something, &func_F20000, &func_0013B138, 0);
+
+    func_00157B90();   // Prepare for loading
+    loading_state = 3; // Set to loading state
+
+    // Load behavior data file (.dbt)
+    sprintf(filename_buffer, "%s%s", summon_file_names[system_state], data_extension);
+    func_00120590(filename_buffer, asset_pointers, NULL, 0);
+
+    // Load model file (.x)
+    sprintf(filename_buffer, "%s%s", summon_file_names[system_state], model_extension);
+    func_00120590(filename_buffer, &func_F20000, &cleanup_summon_entities, 0);
+
+    // Schedule entity setup function
     func_0011ED30(47000, &func_0013B1D0);
-    return 1;
+
+    return 1; // Loading started successfully
 }
 
-INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B480);
-// s32 func_0013B480(OtherApple* arg0) {
-//     f32 temp_f2;
-//     if (arg0->unk_00 & 0x10) {
-//         D_00532504 = func_00122AF8(1, 9, 0);
-//         D_00532504->unk_30[0] = D_00532504->unk_30[1] = D_00532504->unk_30[2] = 0.0f;
-//         D_00532504->unk_3C = 1.0f;
-//         func_001009A8();
-//         arg0->unk_10 = 60.0f;
-//     }
-//     arg0->unk_10 -= D_002B8340[1];
-//     temp_f2 = arg0->unk_10 / 60.0f;
-//     if (arg0->unk_10 / 60.0f <= 0.0f) {
-//         func_00122B70(D_00532504);
-//         return 4;
-//     }
-//     D_00532504->unk_30[0] = D_00532504->unk_30[1] = D_00532504->unk_30[2] = 1.0f - temp_f2;
-//     return 0;
-// }
+INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B480); // Fade effect behavior
 
-INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B578);
-// int func_0011EEB8(int*, int, int*);
-// int func_00123858(void*);
-// void func_001250B0(void);
-// void func_00133588(void);
-// void func_001452E0(int, int);
-// void func_0014F8B0(XAppleBlemish*, int);
-// void func_0023E0B0(int, int);
+INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B578); // Summon cleanup and reset
 
-// extern int func_0013B480;
+/**
+ * Activate loaded summon - called after assets are loaded to make summon appear
+ */
+s32 activate_summon(void) {
+    SummonCharacter* current_entity;
 
-// void func_0013B578(void) {
-//     XAppleBlemish* var_16;
+    // Check if system is busy or not ready
+    if (((D_00375BC0 >> 2) & 1) != 0 || loading_state != 4 || func_001EE090() != 0) {
+        return 0; // Not ready to activate
+    }
 
-//     func_00133588();
-//     func_001250B0();
-//     func_0023E0B0(0, 1);
-//     var_16 = func_001234A0(NULL);
-//     if (var_16 != NULL) {
-//         do {
-//             if (!((var_16->unk_370 >> 0x21) & 1) && (var_16 != D_002DEC00->unk_00[1]) && (var_16 !=
-//             D_002DEC00->unk_00[2])) {
-//                 func_00123858(var_16);
-//             }
-//             var_16 = func_001234A0(var_16);
-//         } while (var_16 != NULL);
-//     }
-//     func_0014F8B0(D_005325E8, 0);
-//     func_00123E48(D_005325E8->unk_04.s32, D_005325F0);
-//     func_00131410(D_005325E8);
-//     func_00130248(D_005325E8, 0.0f, 0x40000000);
-//     D_005325E8->unk_370 &= ~0x10000000000000;
-//     D_005325E8->unk_00 &= ~0x200000;
-//     D_005325E8->unk_444 = 0;
-//     func_001778A0(0);
-//     D_002C1EA8 &= ~0x4000;
-//     func_001452E0(0, 4);
-//     func_0011EEB8(&D_00532518, 0, &func_0013B480);
-// }
+    func_0013B578(); // Clean up any previous summon state
+    secondary_summon = NULL;
+    current_entity = NULL;
 
-INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B6E0);
+    // Find the secondary summon character entity (character ID 7)
+    do {
+        current_entity = func_001234A0(current_entity); // Get next summon entity
+        if (current_entity == NULL) {
+            break;
+        }
+        if (current_entity->character_id.u8[2] == 7) { // Check if this is character type 7
+            secondary_summon = current_entity;
+            break;
+        }
+    } while (TRUE);
 
-// s32 func_0013B6E0(void) {
-//     XAppleBlemish* var_4;
+    // Set up secondary summon if found
+    if (secondary_summon != NULL) {
+        if ((asset_pointers[2] - asset_pointers[1]) > 0) {
+            func_001313A8(secondary_summon, (s32)asset_pointers + asset_pointers[1]);
+            func_00130248(secondary_summon, 0.0f, 0); // Reset animation state
+            secondary_summon->flags &= ~0x30;         // Clear visibility flags
+        }
+        secondary_summon->animation_state = 0; // Reset animation
+    }
 
-//     if (((D_00375BC0 >> 2) & 1) != 0 || D_00532604 != 4 || func_001EE090() != 0) {
-//         return 0;
-//     }
+    // Set up main summon based on game state
+    if ((((u32)D_002C1EC8 >> 8) % 4) != 1) { // Normal activation
+        if (asset_pointers[3] - asset_pointers[2] > 0) {
+            func_001313A8(active_summon, (s32)asset_pointers + asset_pointers[2]);
+            func_00130248(active_summon, 0.0f, 0); // Reset animation state
+        }
+        // Set up overlay behavior if available
+        func_F20000(
+            0, ((asset_pointers[4] - asset_pointers[3]) <= 0) ? NULL : ((s32)asset_pointers + asset_pointers[3])
+        );
+    } else {                                            // Special activation mode
+        func_00124BC8(secondary_summon);                // Special setup for secondary
+        func_00131410(active_summon);                   // Special setup for main
+        func_00130248(active_summon, 0.0f, 0x40000000); // Special animation mode
+    }
 
-//     func_0013B578();
-//     D_005325EC = NULL;
-//     var_4 = NULL;
+    return 1; // Activation successful
+}
 
-//     do {
-//         var_4 = func_001234A0(var_4);
-//         if (var_4 == NULL) {
-//             break;
-//         }
-//         if (var_4->unk_04.u8[2] == 7) {
-//             D_005325EC = var_4;
-//             break;
-//         }
-//     } while (TRUE);
-
-//     if (D_005325EC != NULL) {
-//         if ((D_0053260C[2] - D_0053260C[1]) > 0) {
-//             func_001313A8(D_005325EC, (s32)D_0053260C + D_0053260C[1]);
-//             func_00130248(D_005325EC, 0.0f, 0);
-//             D_005325EC->unk_00 &= ~0x30;
-//         }
-//         D_005325EC->unk_444 = 0;
-//     }
-//     if ((((u32)D_002C1EC8 >> 8) % 4) != 1) {
-//         if (D_0053260C[3] - D_0053260C[2] > 0) {
-//             func_001313A8(D_005325E8, (s32)D_0053260C + D_0053260C[2]);
-//             func_00130248(D_005325E8, 0.0f, 0);
-//         }
-//         func_F20000(0, ((D_0053260C[4] - D_0053260C[3]) <= 0) ? NULL : ((s32)D_0053260C + D_0053260C[3]));
-//     } else {
-//         func_00124BC8(D_005325EC);
-//         func_00131410(D_005325E8);
-//         func_00130248(D_005325E8, 0.0f, 0x40000000);
-//     }
-//     return 1;
-// }
-
-s32 func_0013B890(void) {
+/**
+ * Final cleanup - called when summon duration expires
+ */
+s32 finish_summon(void) {
+    // Check if we're in special mode or overlay is still running
     if ((((D_002C1EC8 >> 8) % 4) == 1) || (func_F20000(1, 0) == 0)) {
-        func_0013A790();
-        D_002C1EA8 &= ~0x2000;
-        D_00301088 = 0;
-        return 1;
+        func_0013A790();       // Final cleanup
+        D_002C1EA8 &= ~0x2000; // Clear summon system flag
+        D_00301088 = 0;        // Reset summon state
+        return 1;              // Finished
     }
-    return 0;
+    return 0; // Still running
 }
 
-s32 func_0013B8F8(u16* arg0) {
-    if (*arg0 & 0x10) {
-        func_0013BD88(&D_00532508, D_00301058, 4);
+/**
+ * Main summon system update - manages the state machine for summon lifecycle
+ */
+s32 update_summon_system(u16* input_flags) {
+    // Initialize summon behavior state machine on first call
+    if (*input_flags & 0x10) {
+        func_0013BD88(&behavior_index, summon_behaviors, 4); // Set up behavior table
     }
-    func_0011EF58(&D_00532518, 0);
-    return (func_0013BDA0(&D_00532508) != 0) ? 0 : 4;
+
+    func_0011EF58(&animation_timer, 0); // Update animation timers
+
+    // Continue until behavior state machine is complete
+    return (func_0013BDA0(&behavior_index) != 0) ? 0 : 4;
 }
 
-void func_0013B968(s32 arg0) {
+/**
+ * Load summon configuration data
+ */
+void load_summon_config(s32 character_id) {
     func_00132160(
-        arg0,
-        (s32)D_00532608->unk_00 + D_00532608->unk_00[1],
-        ((D_00532608->unk_00[3] - D_00532608->unk_00[2]) <= 0) ? 0 : ((s32)D_00532608->unk_00 + D_00532608->unk_00[2])
+        character_id,
+        (s32)loaded_data->unk_00 + loaded_data->unk_00[1], // Pointer to character data
+        ((loaded_data->unk_00[3] - loaded_data->unk_00[2]) <= 0)
+            ? 0
+            : ((s32)loaded_data->unk_00 + loaded_data->unk_00[2]) // Optional extra data
     );
 }
 
-void func_0013B9A8(void) {
-    D_00532604 = 2;
+/**
+ * Callback when configuration loading is complete
+ */
+void on_config_loaded(void) {
+    loading_state = 2; // Ready for asset loading
 }
 
-INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B9B8);
-s32 func_0013B9B8();
-// s32 func_0013B9B8(s32 arg0, s32 arg1, s32 arg2) {
-//     int iVar1;
-//     int iVar2;
+INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B9B8); // Asset loading completion handler
 
-//     iVar2 = *(int*)(arg2 + 8);
-//     if (iVar2 - *(int*)(arg2 + 4) < 1) {
-//         iVar1 = *(int*)(arg2 + 0xc);
-//     } else {
-//         func_00156058(arg2 + *(int*)(arg2 + 4));
-//         iVar2 = *(int*)(arg2 + 8);
-//         iVar1 = *(int*)(arg2 + 0xc);
-//     }
-//     if (iVar1 - iVar2 < 1) {
-//         iVar2 = *(int*)(arg2 + 0x10);
-//     } else {
-//         func_001560C8(arg2 + iVar2);
-//         iVar1 = *(int*)(arg2 + 0xc);
-//         iVar2 = *(int*)(arg2 + 0x10);
-//     }
-//     if (iVar2 - iVar1 < 1) {
-//         iVar2 = *(int*)(arg2 + 0x18);
-//     } else {
-//         func_001560C8(arg2 + iVar1);
-//         iVar2 = *(int*)(arg2 + 0x18);
-//     }
-//     if (0 < iVar2 - *(int*)(arg2 + 0x14)) {
-//         func_00177908(arg2 + *(int*)(arg2 + 0x14));
-//     }
-//     D_00532604 = 1;
-//     if (*(int*)(arg2 + 0x20) - *(int*)(arg2 + 0x1c) < 1) {
-//         D_00532604 = 2;
-//     } else {
-//         func_00146BC8(-7);
-//         func_00146D08(arg2 + *(int*)(arg2 + 0x1c), -7, func_0013B9A8, 0);
-//     }
-//     D_0053260C = (s32*)(arg2 + arg0 + 0x7fU & 0xffffff80);
-// }
-
-f32 func_0013BAC0(void) {
-    return (D_002DEC00->unk_6C->unk_48 + ((s32)(D_002DED20 >> 0xA) & 7)) * 3000;
+/**
+ * Calculate summon power/cost based on character and world state
+ */
+f32 calculate_summon_cost(void) {
+    return (D_002DEC00->tip->unk_48 + ((s32)(D_002DED20 >> 0xA) & 7)) * 3000;
 }
 
-void* func_0013BB00(s32 arg0, s32 arg1) {
-    char something[0x20];
+/**
+ * Initialize a summon character - main entry point for summoning
+ * @param summon_entity The summon character entity to initialize
+ * @param character_id Which Disney character to summon (0-5)
+ */
+void* initialize_summon(s32 summon_entity, s32 character_id) {
+    char filename_buffer[0x20];
 
-    D_002C1EA8 |= 0x102000;
-    D_00301088 = (D_00301088 & (~7)) | (arg1 & 7) | 8;
-    D_00301080 = &D_003051EC->unk_98[arg1].unk_00;
-    D_00301094 |= 1 << arg1;
-    D_0030108C = D_00301090 = func_0013BAC0();
-    func_00141668(arg0, -*(&D_003051EC->unk_98[arg1].unk_00));
-    D_005325E8 = arg0;
-    D_00532600 = arg1;
-    func_00157AD8(1);
-    func_00157AD8(2);
-    func_00157AD8(3);
-    D_00532604 = 0;
-    D_00532608 = func_00155ED8(0x34, 0xC);
-    sprintf(something, "%s%s", D_00301010[arg1], D_00301078);
-    func_00120590(something, D_00532608, func_0013B9B8, 0);
-    func_0011EDD0(&D_00532518, &D_00532528, 0x18, 8);
-    return func_0011ED30(52000, func_0013B8F8);
+    // Enable summon system
+    D_002C1EA8 |= 0x102000; // Set summon active flags
+
+    // Set up character ID and state
+    D_00301088 = (D_00301088 & (~7)) | (character_id & 7) | 8;
+    D_00301080 = &D_003051EC->slots[character_id].active_flag; // Point to character's slot
+    D_00301094 |= 1 << character_id;                           // Mark character as available
+
+    // Calculate and store summon cost
+    D_0030108C = D_00301090 = calculate_summon_cost();
+
+    // Set up the summon entity
+    func_00141668(summon_entity, -*(&D_003051EC->slots[character_id].active_flag));
+    active_summon = summon_entity;
+    system_state = character_id;
+
+    // Prepare rendering systems
+    func_00157AD8(1); // Initialize render state 1
+    func_00157AD8(2); // Initialize render state 2
+    func_00157AD8(3); // Initialize render state 3
+
+    loading_state = 0; // Start loading process
+
+    // Allocate memory for asset data
+    loaded_data = func_00155ED8(0x34, 0xC);
+
+    // Load character configuration file
+    sprintf(filename_buffer, "%s%s", summon_file_names[character_id], dat_extension);
+    func_00120590(filename_buffer, loaded_data, func_0013B9B8, 0);
+
+    // Set up behavior system timing
+    func_0011EDD0(&animation_timer, &animation_timer, 0x18, 8);
+
+    // Schedule the main update function
+    return func_0011ED30(52000, update_summon_system);
 }
 
-void func_0013BCA8(void) {
-    if ((D_002C1EA8 >> 13) & 1) {
-        func_F20000(2, 0);
-        func_0011ED80(func_0013B8F8);
-        func_0023E0B0(0, 1);
-        func_0023E0B0(1, 2);
-        func_0023E0B0(2, 2);
+/**
+ * Emergency cleanup for summon system - called when player exits area, etc.
+ */
+void emergency_summon_cleanup(void) {
+    if ((D_002C1EA8 >> 13) & 1) {            // If summon system is active
+        func_F20000(2, 0);                   // Emergency cleanup overlay call
+        func_0011ED80(update_summon_system); // Remove update function
+        func_0023E0B0(0, 1);                 // Reset render state 0->1
+        func_0023E0B0(1, 2);                 // Reset render state 1->2
+        func_0023E0B0(2, 2);                 // Reset render state 2->2
     }
-    if (D_002C1EA8 & (0x100000 | 0x4000)) {
-        func_00133588();
-        func_001009A8();
-    }
-    D_00301088 &= ~8;
-    D_00301094 = 0;
-    D_002C1EA8 &= ~0x2000;
-    D_002C1EA8 &= ~0x4000;
-    D_002C1EA8 &= ~0x100000;
 }
