@@ -58,7 +58,7 @@ segments:
     - [0x27540, c, xcream]
     - [0x28EA8, c, xaudacity]
     - [0x2B230, asm]
-    - [0x3ABE8, c, xapple]
+    - [0x3ABE8, c, summon]
     - [0x3BE08, asm]
     - [0x49D68, c, xsquash]
     - [0x4A098, asm]
@@ -527,8 +527,8 @@ segments:
     - [0x1B9370, data]
     - [0x1DEC90, .data, xpeanut]
     - [0x1DED90, data]
-    - [0x201090, .data, xapple]
-    - [0x2010F8, data] # todo: xapple owns D_00301078
+    - [0x201090, .data, summon]
+    - [0x2010F8, data] # todo: summon owns D_00301078
     - [0x25EC80, data, ppp/pppMngr]
     - [0x260C80, data]
     - [0x2DE638, data, xquack]
@@ -593,8 +593,8 @@ segments:
     - [0x387100, .rodata, xpeanut]
     - [0x387150, .rodata, xpillow]
     - [0x3872D0, rodata]
-    - [0x3879E8, .rodata, xapple]
-    - [0x387A58, rodata, blob3] # todo: part of xapple
+    - [0x3879E8, .rodata, summon]
+    - [0x387A58, rodata, blob3] # todo: part of summon
     - [0x387A60, rodata, 3BE08]
     - [0x3881A8, .rodata, xsquash]
     - [0x3881C0, rodata, 4A098]

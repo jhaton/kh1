@@ -110,7 +110,7 @@ INCLUDE_ASM("asm/nonmatchings/xlamp", func_00122588);
 void func_00122720(void) {
     func_00235EE0();
     func_00178140(0);
-    func_0013BCA8(); // in xapple
+    emergency_summon_cleanup(); // in summon
     func_0014C498();
     func_00124CD8();
     func_0012FB18();
@@ -128,7 +128,7 @@ void func_00122720(void) {
 
 void func_001227B0(void) {
     func_00178140(0);
-    func_0013BCA8(); // in xapple
+    emergency_summon_cleanup(); // in summon
     func_0015A5D0();
     func_00124DD0();
     func_001333A0();
