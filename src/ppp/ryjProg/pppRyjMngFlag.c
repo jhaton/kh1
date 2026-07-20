@@ -7,11 +7,11 @@ typedef struct {
     /* 0x6 */ u8 bDrawPriority;
 } PRyjMngFlag;
 
-void pppRyjMngFlagCalc(pppPObject* pobj, PRyjMngFlag* p, pppCtrlTable* ctbl) {
-    if (p->cdt.time == pobj->time) {
-        ppvMng->followCam = p->bFollowCam;
-        ppvMng->stop = p->bStop;
-        ppvMng->drawPriority = p->bDrawPriority;
+void pppRyjMngFlagCalc(pppPObject* pobj, PRyjMngFlag* flags, pppCtrlTable* ctbl) {
+    if (flags->cdt.time == pobj->time) {
+        ppvMng->followCam = flags->bFollowCam;
+        ppvMng->stop = flags->bStop;
+        ppvMng->drawPriority = flags->bDrawPriority;
     }
 }
 

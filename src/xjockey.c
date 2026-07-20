@@ -24,47 +24,47 @@ s32 func_00248570(void) {
     return D_00663A4C;
 }
 
-void func_00248580(s32 arg0) {
-    D_00663A48 = arg0;
+void func_00248580(s32 value) {
+    D_00663A48 = value;
 }
 
-void func_00248590(s32 arg0) {
-    D_00663A4C = arg0;
+void func_00248590(s32 value) {
+    D_00663A4C = value;
 }
 
-void func_002485A0(s32 arg0) {
-    D_00663A48 = arg0;
+void func_002485A0(s32 value) {
+    D_00663A48 = value;
     D_00663A4C = sceCdGetError();
 }
 
 INCLUDE_ASM("asm/nonmatchings/xjockey", func_002485C8);
 
-void func_00248728(s32* arg0, char* arg1, f32* arg2) {
-    f32 local_20[4];
+void func_00248728(s32* config, char* key, f32* output) {
+    f32 values[4];
 
-    if (func_002485C8(arg0, arg1, 0, local_20) < 0) {
+    if (func_002485C8(config, key, 0, values) < 0) {
         asm("break");
     }
 
-    arg2[0] = local_20[0];
+    output[0] = values[0];
 }
 
-void func_00248768(s32* arg0, char* arg1, s32* arg2) {
-    s32 local_20[4];
+void func_00248768(s32* config, char* key, s32* output) {
+    s32 values[4];
 
-    if (func_002485C8(arg0, arg1, 0, local_20) < 0) {
+    if (func_002485C8(config, key, 0, values) < 0) {
         asm("break");
     }
 
-    arg2[0] = local_20[0];
+    output[0] = values[0];
 }
 
-void func_002487A8(s32* arg0, s32* arg1) {
-    while (*arg1 != NULL) {
-        if (func_002485C8(arg0, arg1[1], 0, *arg1) < 0) {
+void func_002487A8(s32* config, s32* entries) {
+    while (*entries != NULL) {
+        if (func_002485C8(config, entries[1], 0, *entries) < 0) {
             asm("break");
         }
-        arg1 += 2;
+        entries += 2;
     }
 }
 

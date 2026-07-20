@@ -65,14 +65,14 @@ void func_0011ECD0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011ED30);
 
-void func_0011ED60(s32 arg0) {
-    func_0011F108(&D_004DD188, arg0);
+void func_0011ED60(s32 id) {
+    func_0011F108(&D_004DD188, id);
 }
 
-s32 func_0011ED80(s32 arg0) {
-    s32 val = func_0011F108(&D_004DD188, arg0);
-    if (val != 0) {
-        return func_0011F148(&D_004DD188, val);
+s32 func_0011ED80(s32 id) {
+    s32 entry = func_0011F108(&D_004DD188, id);
+    if (entry != 0) {
+        return func_0011F148(&D_004DD188, entry);
     }
 }
 
@@ -80,83 +80,83 @@ INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011EDD0);
 
 INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011EE10);
 
-XGoblin* func_0011EE80(XGoblin* arg0, XGoblin* arg1) {
-    XGoblin* pXVar;
-    XGoblin* pXVar2 = NULL;
+XGoblin* func_0011EE80(XGoblin* list, XGoblin* target) {
+    XGoblin* current;
+    XGoblin* previous = NULL;
 
-    for (pXVar = arg0->unk_08; pXVar != NULL && pXVar != arg1; pXVar = pXVar->unk_08) {
-        pXVar2 = pXVar;
+    for (current = list->unk_08; current != NULL && current != target; current = current->unk_08) {
+        previous = current;
     }
 
-    return pXVar2;
+    return previous;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011EEB8);
 
-s32 func_0011EF58(XGoblin* arg0, s32 arg1) {
-    u32 uVar3;
+s32 func_0011EF58(XGoblin* list, s32 mask) {
+    u32 flags;
 
-    s32 sVar5 = 0;
-    XGoblin* pXVar2 = NULL;
-    XGoblin* next = arg0->unk_08;
+    s32 count = 0;
+    XGoblin* previous = NULL;
+    XGoblin* next = list->unk_08;
 
     while (next != 0) {
-        if ((next->unk_02 & arg1) == arg1) {
-            uVar3 = next->unk_0C(next);
+        if ((next->unk_02 & mask) == mask) {
+            flags = next->unk_0C(next);
             next->unk_00 &= 0xFFEF;
 
-            if (uVar3 & 4) {
-                if (pXVar2 != 0) {
-                    if (pXVar2->unk_08 != next) {
-                        pXVar2 = func_0011EE80(arg0, next);
+            if (flags & 4) {
+                if (previous != 0) {
+                    if (previous->unk_08 != next) {
+                        previous = func_0011EE80(list, next);
                     }
-                    pXVar2->unk_08 = next->unk_08;
+                    previous->unk_08 = next->unk_08;
                 } else {
-                    arg0->unk_08 = next->unk_08;
+                    list->unk_08 = next->unk_08;
                 }
                 next->unk_00 = 0;
             } else {
-                pXVar2 = next;
+                previous = next;
             }
 
-            sVar5++;
+            count++;
 
-            if (uVar3 & 8) {
-                pXVar2 = next;
+            if (flags & 8) {
+                previous = next;
                 break;
             }
         }
         next = next->unk_08;
     }
 
-    arg0->unk_0C = NULL;
-    return sVar5;
+    list->unk_0C = NULL;
+    return count;
 }
 
-s32 func_0011F050(XGoblin* arg0, u16 (*arg1)(XGoblin*)) {
+s32 func_0011F050(XGoblin* list, u16 (*callback)(XGoblin*)) {
     XGoblin* next;
-    XGoblin* gob;
+    XGoblin* previous;
 
-    s32 iVar1 = 0;
+    s32 count = 0;
 
-    for (next = arg0->unk_08; next != NULL; next = next->unk_08) {
-        if (((next->unk_00 | arg1(next)) & 4) != 0) {
-            gob = func_0011EE80(arg0, next);
-            if (gob != NULL) {
-                gob->unk_08 = next->unk_08;
+    for (next = list->unk_08; next != NULL; next = next->unk_08) {
+        if (((next->unk_00 | callback(next)) & 4) != 0) {
+            previous = func_0011EE80(list, next);
+            if (previous != NULL) {
+                previous->unk_08 = next->unk_08;
             } else {
-                arg0->unk_08 = next->unk_08;
+                list->unk_08 = next->unk_08;
             }
             next->unk_00 = 0;
         }
-        iVar1++;
+        count++;
     }
 
-    return iVar1;
+    return count;
 }
 
-b32 func_0011F0F8(XOtherCrown* arg0) {
-    return arg0->unk_00 & 1;
+b32 func_0011F0F8(XOtherCrown* entry) {
+    return entry->unk_00 & 1;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011F108);
@@ -167,17 +167,17 @@ INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011F1A0);
 
 INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011F388);
 
-u32 func_0011F478(u32 arg0) {
+u32 func_0011F478(u32 flags) {
     u32 i;
-    u32 uVar3 = 0;
+    u32 result = 0;
 
     for (i = 0; i < ARRAY_COUNT(D_002C1EE0); i++) {
-        if ((arg0 & D_002C1EE0[i][0]) == D_002C1EE0[i][0]) {
-            uVar3 |= D_002C1EE0[i][1];
+        if ((flags & D_002C1EE0[i][0]) == D_002C1EE0[i][0]) {
+            result |= D_002C1EE0[i][1];
         }
     }
 
-    return uVar3;
+    return result;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xgoblin", func_0011F4B8);

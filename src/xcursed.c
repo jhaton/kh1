@@ -8,64 +8,64 @@ s32 D_003F4480;
 s32 D_00408480;
 s32 D_00408880;
 
-s32 func_0022F578(s32 arg0) {
-    s32* puVar1;
-    int i;
+s32 func_0022F578(s32 bufferIndex) {
+    s32* cursor;
+    int remainingBlocks;
 
-    switch (arg0) {
+    switch (bufferIndex) {
         case -1:
-            for (i = 0x16C0, puVar1 = &D_003F2080; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0x16C0, cursor = &D_003F2080; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
         case 0:
-            for (i = 0xC0, puVar1 = &D_003F2080; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0xC0, cursor = &D_003F2080; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
         case 1:
-            for (i = 0x100, puVar1 = &D_003F2C80; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0x100, cursor = &D_003F2C80; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
         case 2:
-            for (i = 0x40, puVar1 = &D_003F3C80; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0x40, cursor = &D_003F3C80; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
         case 3:
-            for (i = 0x40, puVar1 = &D_003F4080; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0x40, cursor = &D_003F4080; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
         case 4:
-            for (i = 0x1400, puVar1 = &D_003F4480; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0x1400, cursor = &D_003F4480; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
         case 5:
-            for (i = 0x40, puVar1 = &D_00408480; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0x40, cursor = &D_00408480; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
         case 6:
-            for (i = 0x40, puVar1 = &D_00408880; i > 0; i--) {
-                *(u_long128*)puVar1 = 0;
-                puVar1 += 4;
+            for (remainingBlocks = 0x40, cursor = &D_00408880; remainingBlocks > 0; remainingBlocks--) {
+                *(u_long128*)cursor = 0;
+                cursor += 4;
             }
             return 0;
 
@@ -74,8 +74,8 @@ s32 func_0022F578(s32 arg0) {
     }
 }
 
-void* func_0022F768(s32 arg0) {
-    switch (arg0) {
+void* func_0022F768(s32 bufferIndex) {
+    switch (bufferIndex) {
         case 0:
             return &D_003F2080;
         case 1:

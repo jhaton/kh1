@@ -73,11 +73,11 @@ INCLUDE_ASM("asm/nonmatchings/ppp/draw/draw", func_001AB3A8);
 
 INCLUDE_ASM("asm/nonmatchings/ppp/draw/draw", func_001AB3E0);
 
-void func_001AB408(sceVu0FVECTOR arg0, sceVu0FVECTOR arg1) {
-    sceVu0FVECTOR stack;
+void func_001AB408(sceVu0FVECTOR end, sceVu0FVECTOR start) {
+    sceVu0FVECTOR direction;
 
-    sceVu0SubVector(stack, arg0, arg1);
-    func_001AB3A8(stack);
+    sceVu0SubVector(direction, end, start);
+    func_001AB3A8(direction);
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/draw/draw", func_001AB438);

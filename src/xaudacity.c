@@ -24,16 +24,16 @@ INCLUDE_ASM("asm/nonmatchings/xaudacity", func_00128E80);
 //     *arg0 = cosf(x);
 // }
 
-void func_00128ED8(f32* arg0) {
-    *arg0 = func_00177D68();
+void func_00128ED8(f32* output) {
+    *output = func_00177D68();
 }
 
-void func_00128F00(f32* arg0) {
-    *arg0 = D_002B8344[0];
+void func_00128F00(f32* output) {
+    *output = D_002B8344[0];
 }
 
-void func_00128F10(s32* arg0) {
-    *arg0 = func_00147A10(*arg0);
+void func_00128F10(s32* value) {
+    *value = func_00147A10(*value);
 }
 
 void func_00128F40(void) {
@@ -50,22 +50,22 @@ INCLUDE_ASM("asm/nonmatchings/xaudacity", func_00128F58);
 //     *arg0 = func_00120AC8((*arg0 / 180.0f) * PI);
 // }
 
-void func_00128FA8(f32* arg0) {
-    D_002B8348 = *arg0;
+void func_00128FA8(f32* value) {
+    D_002B8348 = *value;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xaudacity", func_00128FB8);
 
-void func_00128FE8(f32** arg0) {
-    sceVu0AddVector(arg0[0], arg0[0], arg0[1]);
+void func_00128FE8(f32** vectors) {
+    sceVu0AddVector(vectors[0], vectors[0], vectors[1]);
 }
 
-void func_00129010(f32** arg0) {
-    sceVu0SubVector(arg0[0], arg0[0], arg0[1]);
+void func_00129010(f32** vectors) {
+    sceVu0SubVector(vectors[0], vectors[0], vectors[1]);
 }
 
-void func_00129038(f32** arg0) {
-    func_001223B0(arg0[0], arg0[0]);
+void func_00129038(f32** vectors) {
+    func_001223B0(vectors[0], vectors[0]);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xaudacity", func_00129058);
@@ -401,32 +401,32 @@ INCLUDE_ASM("asm/nonmatchings/xaudacity", func_0012B068);
 
 INCLUDE_ASM("asm/nonmatchings/xaudacity", func_0012B088);
 
-void func_0012B0A8(s32* arg0) {
-    *arg0 = func_0012CBC0(*arg0);
+void func_0012B0A8(s32* value) {
+    *value = func_0012CBC0(*value);
 }
 
-void func_0012B0D8(s32* arg0) {
-    *arg0 = &D_002DF430;
+void func_0012B0D8(s32* output) {
+    *output = &D_002DF430;
 }
 
-void func_0012B0E8(s32* arg0) {
-    *arg0 = &D_002DF43C;
+void func_0012B0E8(s32* output) {
+    *output = &D_002DF43C;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xaudacity", func_0012B0F8);
 
-void func_0012B120(s32* arg0) {
-    *arg0 = func_00146740(*arg0);
+void func_0012B120(s32* value) {
+    *value = func_00146740(*value);
 }
 
-void func_0012B150(s32* arg0) {
-    func_00146610(arg0[0], arg0[1], 1);
+void func_0012B150(s32* arguments) {
+    func_00146610(arguments[0], arguments[1], 1);
 }
 
-void func_0012B170(s32* arg0) {
-    *arg0 = func_001C6530(arg0[0], arg0[1]);
+void func_0012B170(s32* arguments) {
+    *arguments = func_001C6530(arguments[0], arguments[1]);
 }
 
-void func_0012B1A0(s32* arg0) {
-    *arg0 = D_002979E8;
+void func_0012B1A0(s32* output) {
+    *output = D_002979E8;
 }

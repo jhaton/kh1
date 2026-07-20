@@ -119,7 +119,7 @@ void* func_001124E8(void) {
     return func_0011ED30(50000, func_001016E8);
 }
 
-s32 func_00112508(UNK_TYPE arg0, UNK_TYPE arg1, s32* arg2) {
+s32 func_00112508(UNK_TYPE unused0, UNK_TYPE unused1, s32* fileData) {
     func_001ED888(2);
     func_001EE1E0(3, -9);
     func_00101528();
@@ -138,14 +138,14 @@ s32 func_00112508(UNK_TYPE arg0, UNK_TYPE arg1, s32* arg2) {
     func_001EE1E0(0, -8);
     func_001EE1E0(3, -8);
     func_001EE1E0(3, -10);
-    return func_0011CC20(-1, arg2, func_001124E8);
+    return func_0011CC20(-1, fileData, func_001124E8);
 }
 
 s32 func_001125F0(void) {
-    char stack[64];
+    char path[64];
 
-    func_0011C938(stack);
-    return func_00120590(stack, func_00155ED8(0x34, 4), func_00112508, 0);
+    func_0011C938(path);
+    return func_00120590(path, func_00155ED8(0x34, 4), func_00112508, 0);
 }
 
 s32 func_00112630(void) {
@@ -463,11 +463,11 @@ s32 func_00113380(void) {
     return 4;
 }
 
-s32 func_001133E0(s32 arg0, s32 arg1) {
-    if ((arg0 % arg1) != 0) {
-        arg0 = ((arg0 / arg1) * arg1) + arg1;
+s32 func_001133E0(s32 value, s32 alignment) {
+    if ((value % alignment) != 0) {
+        value = ((value / alignment) * alignment) + alignment;
     }
-    return arg0;
+    return value;
 }
 
 #ifndef NON_MATCHING
@@ -484,60 +484,60 @@ extern s32 D_002B9650;
 s32 func_001F0EF0(s32);
 
 void func_00113410(void) {
-    s32 temp_16;
-    s32 temp_7;
-    u64 temp_3;
-    u64 temp_5;
-    u64 new_var2;
-    s32 new_var4;
-    s32 *new_var6;
+    s32 packedColor;
+    s32 colorBytes12;
+    u64 firstRegisterValue;
+    u64 secondRegisterValue;
+    u64 secondByte3;
+    s32 colorByte3;
+    s32 *colorByte3Source;
 
-    new_var6 = &D_004D2A98;
-    new_var4 = (*new_var6) << 0x18;
-    temp_7 = D_004D2A94 << 0x10;
-    new_var2 = (u64) D_004D2A9C << 0x18;
-    temp_7 = temp_7 | D_004D2A90 << 8;
+    colorByte3Source = &D_004D2A98;
+    colorByte3 = (*colorByte3Source) << 0x18;
+    colorBytes12 = D_004D2A94 << 0x10;
+    secondByte3 = (u64) D_004D2A9C << 0x18;
+    colorBytes12 = colorBytes12 | D_004D2A90 << 8;
 
-    temp_3 = ((u64) D_004D2AA0 << 0x18) | 0x100D17A88;
+    firstRegisterValue = ((u64) D_004D2AA0 << 0x18) | 0x100D17A88;
 
-    D_002B9350.unk_00[0x140 / 8] = temp_3;
-    D_002B9350.unk_00[0x160 / 8] = temp_3;
-    D_002B9350.unk_00[0x180 / 8] = temp_3;
-    D_002B9350.unk_00[0x190 / 8] = temp_3;
-    D_002B9350.unk_00[0x1A0 / 8] = temp_3;
-    D_002B9350.unk_00[0x1B0 / 8] = temp_3;
-    D_002B9350.unk_00[0x1D0 / 8] = temp_3;
-    D_002B9350.unk_00[0x1F0 / 8] = temp_3;
-    D_002B9350.unk_00[0x230 / 8] = temp_3;
-    D_002B9350.unk_00[0x250 / 8] = temp_3;
-    D_002B9350.unk_00[0x270 / 8] = temp_3;
-    D_002B9350.unk_00[0x280 / 8] = temp_3;
-    D_002B9350.unk_00[0x290 / 8] = temp_3;
-    D_002B9350.unk_00[0x2A0 / 8] = temp_3;
-    D_002B9350.unk_00[0x2C0 / 8] = temp_3;
-    D_002B9350.unk_00[0x2E0 / 8] = temp_3;
+    D_002B9350.unk_00[0x140 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x160 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x180 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x190 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x1A0 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x1B0 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x1D0 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x1F0 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x230 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x250 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x270 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x280 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x290 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x2A0 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x2C0 / 8] = firstRegisterValue;
+    D_002B9350.unk_00[0x2E0 / 8] = firstRegisterValue;
     
-    temp_5 = new_var2 | 0x100000000;
+    secondRegisterValue = secondByte3 | 0x100000000;
     
-    D_002B9350.unk_00[0x50 / 8] = temp_5;
-    D_002B9350.unk_00[0x70 / 8] = temp_5;
-    D_002B9350.unk_00[0x90 / 8] = temp_5;
-    D_002B9350.unk_00[0xA0 / 8] = temp_5;
-    D_002B9350.unk_00[0xB0 / 8] = temp_5;
-    D_002B9350.unk_00[0xC0 / 8] = temp_5;
-    D_002B9350.unk_00[0xE0 / 8] = temp_5;
-    D_002B9350.unk_00[0x100 / 8] = temp_5;
+    D_002B9350.unk_00[0x50 / 8] = secondRegisterValue;
+    D_002B9350.unk_00[0x70 / 8] = secondRegisterValue;
+    D_002B9350.unk_00[0x90 / 8] = secondRegisterValue;
+    D_002B9350.unk_00[0xA0 / 8] = secondRegisterValue;
+    D_002B9350.unk_00[0xB0 / 8] = secondRegisterValue;
+    D_002B9350.unk_00[0xC0 / 8] = secondRegisterValue;
+    D_002B9350.unk_00[0xE0 / 8] = secondRegisterValue;
+    D_002B9350.unk_00[0x100 / 8] = secondRegisterValue;
 
-    temp_16 = D_004D2A8C | new_var4 | temp_7;
+    packedColor = D_004D2A8C | colorByte3 | colorBytes12;
     
     func_001102C0();
     func_0010F3D0();
     func_00106948(&D_002B9650);
-    func_001F2EF8(temp_16, 0xB6, 0x36, func_001F0EF0(5), 18);
-    func_001F2EF8(temp_16, 0xD6, 0x36, func_001F0EF0(6), 18);
-    func_001F2EF8(temp_16, 0xF6, 0x36, func_001F0EF0(7), 18);
-    func_001F2EF8(temp_16, 0x116, 0x36, func_001F0EF0(8), 18);
-    func_001F2EF8(temp_16, 0x136, 0x36, func_001F0EF0(9), 18);
+    func_001F2EF8(packedColor, 0xB6, 0x36, func_001F0EF0(5), 18);
+    func_001F2EF8(packedColor, 0xD6, 0x36, func_001F0EF0(6), 18);
+    func_001F2EF8(packedColor, 0xF6, 0x36, func_001F0EF0(7), 18);
+    func_001F2EF8(packedColor, 0x116, 0x36, func_001F0EF0(8), 18);
+    func_001F2EF8(packedColor, 0x136, 0x36, func_001F0EF0(9), 18);
     func_0010F420();
     sceGsSyncPath(0, 0);
 
@@ -642,23 +642,23 @@ void func_001139F8(void) {
     D_004D2A6C = 0;
 }
 
-void* func_00113A10(s32 arg0) {
-    void* p0 = func_001EE280(arg0);
-    D_004D2A6C = arg0;
-    return p0;
+void* func_00113A10(s32 pauseState) {
+    void* result = func_001EE280(pauseState);
+    D_004D2A6C = pauseState;
+    return result;
 }
 
-void func_00113A40(s32 arg0) {
-    if (arg0 == 0) {
+void func_00113A40(s32 pauseEnabled) {
+    if (pauseEnabled == 0) {
         D_004D2A68--;
         if (D_004D2A68 == 0) {
             if (D_004D2A6C == 1) {
-                func_00113A10(arg0);
+                func_00113A10(pauseEnabled);
                 func_001EEC58();
                 func_001102C0();
                 func_00113A10(1);
             } else {
-                func_00113A10(arg0);
+                func_00113A10(pauseEnabled);
             }
         }
     } else {
@@ -681,16 +681,16 @@ s32 func_00113AF8(void) {
 }
 
 s32 func_00113B30(void) {
-    XPointy* p0 = func_0011ED30(10499, func_00113AF8);
-    p0->unk_02 = 1;
+    XPointy* task = func_0011ED30(10499, func_00113AF8);
+    task->unk_02 = 1;
     func_00102970(0x80, 0x10);
     D_004D2A70 = 3;
     return 4;
 }
 
 s32 func_00113B78(void) {
-    XPointy* p0 = func_0011ED30(190019, func_00113B30);
-    p0->unk_02 = 1;
+    XPointy* task = func_0011ED30(190019, func_00113B30);
+    task->unk_02 = 1;
     func_0010A108();
     func_00102970(0x80, 0x10);
     return 4;
@@ -712,11 +712,11 @@ s32 func_00113BC0(void) {
 }
 
 s32 func_00113C40(void) {
-    XPointy* p0;
+    XPointy* task;
 
     func_00102970(0x80, 0x10);
-    p0 = func_0011ED30(190019, func_00113BC0);
-    p0->unk_02 = -1;
+    task = func_0011ED30(190019, func_00113BC0);
+    task->unk_02 = -1;
     return 4;
 }
 
@@ -996,34 +996,34 @@ INCLUDE_ASM("asm/nonmatchings/xblade", func_001149B0);
 
 INCLUDE_ASM("asm/nonmatchings/xblade", func_00114A50);
 
-void func_00114B18(f32* arg0, s32 arg1) {
-    if (arg1 == -1) {
-        func_00117588(arg0);
+void func_00114B18(f32* vector, s32 index) {
+    if (index == -1) {
+        func_00117588(vector);
         return;
     }
-    func_0011AED0(arg1, arg0);
+    func_0011AED0(index, vector);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xblade", func_00114B50);
 
-s32 func_00114C18(s32 arg0, s32 arg1, s32 arg2) {
-    if (arg0 == -1) {
+s32 func_00114C18(s32 contextIndex, s32 arg1, s32 arg2) {
+    if (contextIndex == -1) {
         return func_00104AA8(arg1, arg2);
     }
-    return func_0011A648(arg0, arg1, arg2);
+    return func_0011A648(contextIndex, arg1, arg2);
 }
 
-s32 func_00114C58(s32 arg0, s32 arg1, s32 arg2) {
-    if (arg0 == -1) {
+s32 func_00114C58(s32 contextIndex, s32 arg1, s32 arg2) {
+    if (contextIndex == -1) {
         return func_00104AA8(arg1, arg2);
     }
-    return func_0011A7F8(arg0, arg1, arg2);
+    return func_0011A7F8(contextIndex, arg1, arg2);
 }
 
-void func_00114C98(s32 arg0, s32 arg1, s32 arg2) {
-    if (arg0 == -1) {
+void func_00114C98(s32 contextIndex, s32 arg1, s32 arg2) {
+    if (contextIndex == -1) {
         func_00104CF8(arg1, arg2);
         return;
     }
-    func_0011A758(arg0, arg1, arg2);
+    func_0011A758(contextIndex, arg1, arg2);
 }

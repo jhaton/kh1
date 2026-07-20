@@ -9,8 +9,8 @@ typedef struct {
     pppIVECTOR angle;
 } VAngle;
 
-void pppAngleCalc(pppPObject* pobj, PAngle* p, pppCtrlTable* ctbl) {
-    VAngle* v;
+void pppAngleCalc(pppPObject* pobj, PAngle* params, pppCtrlTable* ctbl) {
+    VAngle* angle;
 
     if (ppvUserStopPartF != 0) {
         return;
@@ -20,18 +20,18 @@ void pppAngleCalc(pppPObject* pobj, PAngle* p, pppCtrlTable* ctbl) {
         return;
     }
 
-    if (p->cdt.time != pobj->time) {
+    if (params->cdt.time != pobj->time) {
         return;
     }
 
-    v = (VAngle*)&pobj->val[ctbl->useVal[0]];
-    v->angle.x += p->angle.x;
-    v->angle.y += p->angle.y;
-    v->angle.z += p->angle.z;
+    angle = (VAngle*)&pobj->val[ctbl->useVal[0]];
+    angle->angle.x += params->angle.x;
+    angle->angle.y += params->angle.y;
+    angle->angle.z += params->angle.z;
 }
 
 void pppAngleCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VAngle* v = (VAngle*)&pobj->val[ctbl->useVal[0]];
+    VAngle* angle = (VAngle*)&pobj->val[ctbl->useVal[0]];
 
-    v->angle.x = v->angle.y = v->angle.z = 0;
+    angle->angle.x = angle->angle.y = angle->angle.z = 0;
 }

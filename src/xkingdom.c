@@ -51,9 +51,9 @@ void func_0011FB78(void) {
     func_001102C0();
 }
 
-void func_0011FB98(u32 lbn, u32 sectors, char* buf) {
+void func_0011FB98(u32 lbn, u32 sectors, char* buffer) {
     do {
-        while (sceCdDiskReady(1) != SCECdComplete || sceCdRead(lbn, sectors, buf, &D_002C2188) == SCECdErNO) {
+        while (sceCdDiskReady(1) != SCECdComplete || sceCdRead(lbn, sectors, buffer, &D_002C2188) == SCECdErNO) {
             func_0011FB78();
         }
         // Command is not complete
@@ -144,13 +144,13 @@ s32 cdvd_Decompress(u8* data, s32 compressedLength) {
 }
 
 // hash
-s32 cdvd_Hash(char* str) {
-    s32 len = strlen(str);
+s32 cdvd_Hash(char* filename) {
+    s32 length = strlen(filename);
     s32 hash = 0;
     s32 i;
 
-    for (i = 0; i < len; i++) {
-        hash = (hash * 2) ^ ((str[i] << 0x10) % 69665);
+    for (i = 0; i < length; i++) {
+        hash = (hash * 2) ^ ((filename[i] << 0x10) % 69665);
     }
     return hash;
 }
@@ -168,7 +168,7 @@ KingdomFile* cdvd_FindFile(char* filename) {
 
 void func_00120018(IOReadTask* task) {
     u32 numSectors = (u32)(task->length + 0x7FF) >> 11;
-    s32 length;
+    s32 bytesRead;
 
     do {
         while (TRUE) {
@@ -185,49 +185,49 @@ void func_00120018(IOReadTask* task) {
 
     if ((task->flags >> 1) & 1) {
         FlushCache(WRITEBACK_DCACHE);
-        length = cdvd_Decompress(task->dst, task->length);
+        bytesRead = cdvd_Decompress(task->dst, task->length);
     } else {
-        length = task->length;
+        bytesRead = task->length;
     }
 
     func_0010BF50(func_00120018);
-    task->bytesRead = length;
+    task->bytesRead = bytesRead;
 }
 
 void cdvd_ReadImgFile(IOReadTask* task) {
-    s32 cond;
+    s32 failed;
     s32 fd;
-    s32 nbyte;
+    s32 remainingBytes;
 
     fd = sceOpen("pfs0:kingdom.img\0\0\0\0", SCE_RDONLY);
-    cond = FALSE;
+    failed = FALSE;
 
     if (fd < 0 || D_002C2094 & 0x2000) {
-        cond = TRUE;
+        failed = TRUE;
     } else {
-        s32 numReadBytes = 0;
+        s32 bytesRead = 0;
 
         sceLseek(fd, task->nSector * SECTOR_SIZE, SCE_SEEK_SET);
 
-        for (nbyte = task->length; nbyte > 0; nbyte -= numReadBytes) {
-            numReadBytes = sceRead(fd, task->dst, nbyte);
-            if (numReadBytes < 0) { // error
-                cond = TRUE;
+        for (remainingBytes = task->length; remainingBytes > 0; remainingBytes -= bytesRead) {
+            bytesRead = sceRead(fd, task->dst, remainingBytes);
+            if (bytesRead < 0) { // error
+                failed = TRUE;
                 break;
             }
         }
 
         sceClose(fd);
-        if (!cond) {
+        if (!failed) {
             if ((task->flags >> 1) & 1) {
                 FlushCache(WRITEBACK_DCACHE);
-                numReadBytes = cdvd_Decompress(task->dst, task->length);
+                bytesRead = cdvd_Decompress(task->dst, task->length);
             }
-            task->bytesRead = numReadBytes;
+            task->bytesRead = bytesRead;
         }
     }
 
-    if (cond) {
+    if (failed) {
         disk_Mgr.unk_20(4);
         D_002C1EB8.s8 |= 4;
         do {
@@ -240,19 +240,19 @@ void cdvd_ReadImgFile(IOReadTask* task) {
     func_0010BF50(cdvd_ReadImgFile);
 }
 
-void cdvd_TryLoadFile(sceCdlFILE* fp, char* name) {
+void cdvd_TryLoadFile(sceCdlFILE* fileInfo, char* filename) {
     // DVD-ROM is not ready or file was not found
-    while (sceCdDiskReady(1) != SCECdComplete || sceCdSearchFile(fp, name) == 0) {
+    while (sceCdDiskReady(1) != SCECdComplete || sceCdSearchFile(fileInfo, filename) == 0) {
         func_0011FB78();
     }
 }
 
-IOReadTask* func_001202E8(char* filename, void* dst) {
+IOReadTask* func_001202E8(char* filename, void* destination) {
     IOReadTask* task;
     KingdomFile* kingdomFile;
 
     task = cdvd_FindFreeTask();
-    task->dst = dst;
+    task->dst = destination;
     task->bytesRead = -1;
 
     kingdomFile = cdvd_FindFile(filename);
@@ -272,12 +272,12 @@ IOReadTask* func_001202E8(char* filename, void* dst) {
     return task;
 }
 
-s32 func_001203C8(char* name, char* buf) {
-    sceCdlFILE fp;
+s32 func_001203C8(char* filename, char* destination) {
+    sceCdlFILE fileInfo;
 
-    cdvd_TryLoadFile(&fp, name);
-    func_0011FB98(fp.lsn, (fp.size + 0x7FF) >> 11, buf);
-    D_002C2198 = fp.size;
+    cdvd_TryLoadFile(&fileInfo, filename);
+    func_0011FB98(fileInfo.lsn, (fileInfo.size + 0x7FF) >> 11, destination);
+    D_002C2198 = fileInfo.size;
     FlushCache(WRITEBACK_DCACHE);
     FlushCache(INVALIDATE_ICACHE);
     return D_002C2198;
@@ -301,28 +301,28 @@ INCLUDE_ASM("asm/nonmatchings/xkingdom", func_00120438);
 INCLUDE_ASM("asm/nonmatchings/xkingdom", func_001204C0);
 s32 func_001204C0(XOtherCrown*);
 
-s32 func_00120590(char* arg0, s32 arg1, s32 arg2, s32 arg3) {
-    XOtherCrown* temp_2 = func_0011EEB8(&D_004DE128, 0, func_001204C0);
-    s32* new_var2 = &D_004DDC60; // TODO fake match
-    s32* new_var;
+s32 func_00120590(char* filename, s32 destination, s32 (*completionCallback)(void), s32 arg3) {
+    XOtherCrown* entry = func_0011EEB8(&D_004DE128, 0, func_001204C0);
+    s32* counterPtr = &D_004DDC60; // TODO fake match
+    s32* idPtr;
     
-    temp_2->unk_44 = D_004DDC60++;
-    temp_2->unk_40 = arg3;
-    strcpy(temp_2->unk_10, arg0);
-    temp_2->unk_38 = arg1;
-    temp_2->unk_3C = arg2;
-    D_004DDC60 = (u16) *new_var2;
+    entry->unk_44 = D_004DDC60++;
+    entry->unk_40 = arg3;
+    strcpy(entry->unk_10, filename);
+    entry->unk_38 = destination;
+    entry->unk_3C = completionCallback;
+    D_004DDC60 = (u16) *counterPtr;
     
-    new_var = &temp_2->unk_44; // TODO fake match
-    return *new_var;
+    idPtr = &entry->unk_44; // TODO fake match
+    return *idPtr;
 }
 
-s32 func_00120640(s32 arg0) {
+s32 func_00120640(s32 taskId) {
     XOtherCrown* it = &D_004DDC68[0];
     s32 i;
     
     for (i = 0; i < ARRAY_COUNT(D_004DDC68); i++, it++) {
-        if (func_0011F0F8(it) && (arg0 == -1 || arg0 == it->unk_44)) {
+        if (func_0011F0F8(it) && (taskId == -1 || taskId == it->unk_44)) {
             return 1;
         }
     }
@@ -340,8 +340,8 @@ void cdvd_Seek(char* filename) {
     }
 }
 
-void func_00120728(void* arg0) {
-    func_0011EEB8(&D_004DE128, 0, arg0);
+void func_00120728(void* callback) {
+    func_0011EEB8(&D_004DE128, 0, callback);
 }
 
 s32 func_00120750(void) {
@@ -349,39 +349,39 @@ s32 func_00120750(void) {
     return 0;
 }
 
-char* cdvd_GetFileName(char* arg0) {
+char* cdvd_GetFileName(char* file) {
     static char D_0048DB00[0x50140]; // TODO REMOVE THIS
     
     static char D_004DDC40[0x100];
 
-    s32 len;
+    s32 length;
     s32 i;
-    char* new_var5;
-    s32 blah;
+    char* characterTypes;
+    s32 character;
     
     strcpy(D_004DDC40, "cdrom0:\\");
-    strcat(D_004DDC40, arg0);
-    len = strlen(D_004DDC40);
+    strcat(D_004DDC40, file);
+    length = strlen(D_004DDC40);
 
-    for (i = 8; i < len; i++) {
-        blah = D_004DDC40[i];
+    for (i = 8; i < length; i++) {
+        character = D_004DDC40[i];
 
-        if ((new_var5 = D_0048B549)[blah] & 2) {
-            blah -= 0x20;
+        if ((characterTypes = D_0048B549)[character] & 2) {
+            character -= 0x20;
         }
 
-        D_004DDC40[i] = blah;
+        D_004DDC40[i] = character;
     }
     return D_004DDC40;
 }
 
-void cdvd_TryLoadModule(char* file) {
+void cdvd_TryLoadModule(char* filename) {
     s32 loadStatus;
 
-    char* module = cdvd_GetFileName(file);
+    char* modulePath = cdvd_GetFileName(filename);
     // Retry until module is loaded
     do {
-        loadStatus = sceSifLoadModule(module, 0, NULL);
+        loadStatus = sceSifLoadModule(modulePath, 0, NULL);
     } while (loadStatus < 0);
 }
 
@@ -410,7 +410,7 @@ void func_001208E8(void) {
 }
 
 s32 cdvd_Initialize(void) {
-    s32 val;
+    s32 result;
 
     // Initialize SIF RPC API
     sceSifInitRpc(0);
@@ -421,12 +421,12 @@ s32 cdvd_Initialize(void) {
 
     // Attempt to reboot IOP system until successful
     do {
-        val = sceSifRebootIop("cdrom0:\\IOPRP243.IMG");
-    } while (val == 0);
+        result = sceSifRebootIop("cdrom0:\\IOPRP243.IMG");
+    } while (result == 0);
     // Attempt to confirm IOP was rebooted until successful
     do {
-        val = sceSifSyncIop();
-    } while (val == 0);
+        result = sceSifSyncIop();
+    } while (result == 0);
 
     // Initialize SIF RPC API
     sceSifInitRpc(0);

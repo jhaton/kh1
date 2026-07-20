@@ -25,27 +25,27 @@ void* func_001F19F0(s32, s32, s32, s32, s32, s32, s32, s32);
 void* func_001F1FA8(s32, s32, s32, s32, s32, s32, s32, s32);
 
 void func_001F0C30(void) {
-    void* dst;
-    u64 stack0[22];
-    u64 stack1[22];
+    void* fontData;
+    u64 texturePacket[22];
+    u64 palettePacket[22];
 
-    dst = func_00155ED8(0x34, 12);
+    fontData = func_00155ED8(0x34, 12);
 
-    func_00120438(D_0048A590, dst);
+    func_00120438(D_0048A590, fontData);
 
-    func_0011F9E8(0x3FFC, 1, 0, 0, 0, 0x10, 0x10, 0x40, dst + 0x10000, stack1);
+    func_0011F9E8(0x3FFC, 1, 0, 0, 0, 0x10, 0x10, 0x40, fontData + 0x10000, palettePacket);
     FlushCache(0);
-    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), stack1);
+    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), palettePacket);
     sceGsSyncPath(0, 0);
 
-    func_0011F9E8(0x1000, 4, 36, 0, 0, 0x100, 0x100, 0x800, dst, stack0);
+    func_0011F9E8(0x1000, 4, 36, 0, 0, 0x100, 0x100, 0x800, fontData, texturePacket);
     FlushCache(0);
-    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), stack0);
+    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), texturePacket);
     sceGsSyncPath(0, 0);
 
-    func_0011F9E8(0x1000, 4, 44, 0, 0, 0x100, 0x100, 0x800, dst + 0x8000, stack0);
+    func_0011F9E8(0x1000, 4, 44, 0, 0, 0x100, 0x100, 0x800, fontData + 0x8000, texturePacket);
     FlushCache(0);
-    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), stack0);
+    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), texturePacket);
     sceGsSyncPath(0, 0);
 }
 
@@ -64,15 +64,15 @@ void func_001F0DD0(void) {
     func_001F0DF8(&D_003E0810, &D_003E2BE0);
 }
 
-void func_001F0DF8(s32* arg0, s32* arg1) {
-    D_00639A84 = arg0;
-    D_00639A88 = arg1;
+void func_001F0DF8(s32* firstData, s32* secondData) {
+    D_00639A84 = firstData;
+    D_00639A88 = secondData;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F0E10);
 
-void func_001F0E38(s32 arg0) {
-    D_00639A80 = arg0 << 4;
+void func_001F0E38(s32 value) {
+    D_00639A80 = value << 4;
 }
 
 s32 func_001F0E48(void) {
@@ -85,8 +85,8 @@ s32 func_001F0E68(void) {
     return D_003E3080;
 }
 
-void func_001F0E78(s32 arg0) {
-    D_003E3084 = arg0;
+void func_001F0E78(s32 value) {
+    D_003E3084 = value;
 }
 
 s32 func_001F0E88(void) {
@@ -96,22 +96,22 @@ s32 func_001F0E88(void) {
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F0E98);
 
 s32 func_001F0EC0(s32 arg0, s32 arg1) {
-    s32 val = func_001F0E98(arg0);
-    return func_001F0FF8(val, arg1);
+    s32 lookupResult = func_001F0E98(arg0);
+    return func_001F0FF8(lookupResult, arg1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F0EF0);
 
 s32 func_001F0F10(s32 arg0, s32 arg1) {
-    s32 val = func_001F0EF0(arg0);
-    return func_001F0FF8(val, arg1);
+    s32 lookupResult = func_001F0EF0(arg0);
+    return func_001F0FF8(lookupResult, arg1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F0F40);
 
 s32 func_001F0F58(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 val = func_001F0F40(arg0, arg1, arg2);
-    return func_001F0FF8(val, arg3);
+    s32 lookupResult = func_001F0F40(arg0, arg1, arg2);
+    return func_001F0FF8(lookupResult, arg3);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F0F88);
@@ -121,8 +121,8 @@ INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F0FB0);
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F0FF8);
 
 s32 func_001F1070(s32 arg0) {
-    s32 val = func_001F0E98(arg0);
-    return func_001F1090(val);
+    s32 lookupResult = func_001F0E98(arg0);
+    return func_001F1090(lookupResult);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F1090);
@@ -136,13 +136,13 @@ s32 func_001F1160(s32 arg0) {
 }
 
 s32 func_001F1180(s32 arg0) {
-    s32 val = func_001F0E98(arg0);
-    return func_001F11C0(val);
+    s32 lookupResult = func_001F0E98(arg0);
+    return func_001F11C0(lookupResult);
 }
 
 s32 func_001F11A0(s32 arg0, s32 arg1, s32 arg2) {
-    s32 val = func_001F0F40(arg0, arg1, arg2);
-    return func_001F11C0(val);
+    s32 lookupResult = func_001F0F40(arg0, arg1, arg2);
+    return func_001F11C0(lookupResult);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F11C0);
@@ -162,8 +162,8 @@ s32 func_001F12A8(s32 arg0) {
 }
 
 s32 func_001F12C0(s32 arg0, s32 arg1) {
-    s32 val = func_001F0E98(arg0);
-    return func_001F12F0(val, arg1);
+    s32 lookupResult = func_001F0E98(arg0);
+    return func_001F12F0(lookupResult, arg1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F12F0);
@@ -205,8 +205,8 @@ void* func_001F1920(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
 }
 
 void* func_001F1960(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
-    s32 val = func_001F0E98(arg6);
-    return func_001F19F0(arg0, arg1, arg2, arg3, arg4, arg5, val, arg7);
+    s32 lookupResult = func_001F0E98(arg6);
+    return func_001F19F0(arg0, arg1, arg2, arg3, arg4, arg5, lookupResult, arg7);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F19F0);
@@ -219,8 +219,8 @@ void* func_001F2670(s32, s32, s32, s32, s32, s32, s32);
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F2670);
 
 void* func_001F2888(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
-    s32 val = func_001F1228(arg5);
-    return func_001F2670(arg0, arg1, arg2, arg3, arg4, val, arg6);
+    s32 adjustedValue = func_001F1228(arg5);
+    return func_001F2670(arg0, arg1, arg2, arg3, arg4, adjustedValue, arg6);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F2908);
@@ -269,9 +269,9 @@ INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F34E0);
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F35E8);
 
-void func_001F3718(s32** arg0, s32** arg1) {
-    *arg0 = &D_003E38C0;
-    *arg1 = &D_003EB8C0;
+void func_001F3718(s32** firstOutput, s32** secondOutput) {
+    *firstOutput = &D_003E38C0;
+    *secondOutput = &D_003EB8C0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbiscuit", func_001F3738);

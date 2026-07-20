@@ -13,19 +13,19 @@ INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjDrawShipoly", pppRyjDrawShipolyC
 INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjDrawShipoly", pppRyjDrawShipolyDraw);
 
 void pppRyjDrawShipolyCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjDrawShipoly* p = (VRyjDrawShipoly*)&pobj->val[ctbl->useVal[2]];
-    p->pvecSmp = NULL;
-    p->unFrameCt = 0;
-    p->bSmp = FALSE;
-    p->bStandby = TRUE;
+    VRyjDrawShipoly* shipoly = (VRyjDrawShipoly*)&pobj->val[ctbl->useVal[2]];
+    shipoly->pvecSmp = NULL;
+    shipoly->unFrameCt = 0;
+    shipoly->bSmp = FALSE;
+    shipoly->bStandby = TRUE;
 }
 
 void pppRyjDrawShipolyDes(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjDrawShipoly* p = (VRyjDrawShipoly*)&pobj->val[ctbl->useVal[2]];
+    VRyjDrawShipoly* shipoly = (VRyjDrawShipoly*)&pobj->val[ctbl->useVal[2]];
 
-    if (p->pvecSmp != NULL) {
-        pppFree(ppvEnv, p->pvecSmp);
-        p->pvecSmp = NULL;
+    if (shipoly->pvecSmp != NULL) {
+        pppFree(ppvEnv, shipoly->pvecSmp);
+        shipoly->pvecSmp = NULL;
     }
 }
 

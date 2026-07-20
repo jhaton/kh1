@@ -24,7 +24,7 @@ typedef struct XTrumpet {
     /* 0x050 */ u8 unk_50[28];
     /* 0x06C */ u8 unk_6C[234];
     /* 0x156 */ // u16 unk_156; possibly unused space, unnecessary for match
-    /* 0x158 */ s32 unk_158;
+    /* 0x158 */ s32 availableFlags;
     /* 0x15C */ void* unk_15C;
 } XTrumpet;
 
@@ -67,7 +67,7 @@ void func_001110D0(void) {
     D_002B90B0->unk_34 = 0;
     D_002B90B0->unk_38 = 0;
     D_002B90B0->unk_3C = 0;
-    D_002B90B0->unk_158 = 0;
+    D_002B90B0->availableFlags = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xtrumpet", func_00111158);
@@ -92,8 +92,8 @@ INCLUDE_ASM("asm/nonmatchings/xtrumpet", func_00111468);
 
 INCLUDE_ASM("asm/nonmatchings/xtrumpet", func_001114B8);
 
-void func_00111580(s32 param1) {
-    func_001114B8(D_002B8678, param1);
+void func_00111580(s32 value) {
+    func_001114B8(D_002B8678, value);
 }
 
 void* func_001115A0(void) {
@@ -137,61 +137,61 @@ void func_001116C8(void) {
 }
 
 void func_001116F8(void) {
-    s32 iVar1 = func_0013C2A8(3);
-    if (iVar1 != -1) {
-        D_002B90B0->unk_158 |= 8;
+    s32 index = func_0013C2A8(3);
+    if (index != -1) {
+        D_002B90B0->availableFlags |= 8;
     }
-    iVar1 = func_0013C2A8(5);
-    if (iVar1 != -1) {
-        D_002B90B0->unk_158 |= 0x20;
+    index = func_0013C2A8(5);
+    if (index != -1) {
+        D_002B90B0->availableFlags |= 0x20;
     }
-    iVar1 = func_0013C2A8(6);
-    if (iVar1 != -1) {
-        D_002B90B0->unk_158 |= 0x40;
+    index = func_0013C2A8(6);
+    if (index != -1) {
+        D_002B90B0->availableFlags |= 0x40;
     }
-    iVar1 = func_0013C2A8(7);
-    if (iVar1 != -1) {
-        D_002B90B0->unk_158 |= 0x80;
+    index = func_0013C2A8(7);
+    if (index != -1) {
+        D_002B90B0->availableFlags |= 0x80;
     }
-    iVar1 = func_0013C2A8(8);
-    if (iVar1 != -1) {
-        D_002B90B0->unk_158 |= 0x100;
+    index = func_0013C2A8(8);
+    if (index != -1) {
+        D_002B90B0->availableFlags |= 0x100;
     }
-    iVar1 = func_0013C2A8(9);
-    if (iVar1 != -1) {
-        D_002B90B0->unk_158 |= 0x200;
+    index = func_0013C2A8(9);
+    if (index != -1) {
+        D_002B90B0->availableFlags |= 0x200;
     }
 }
 
 void func_001117D8(void) {
   switch (D_002B8678) {
   case 5:
-    if (D_002B90B0->unk_158 & 8) {
+    if (D_002B90B0->availableFlags & 8) {
       func_0013C768(3);
     }
     break;
   case 8:
-    if (D_002B90B0->unk_158 & 0x20) {
+    if (D_002B90B0->availableFlags & 0x20) {
       func_0013C768(5);
     }
     break;
   case 9:
-    if (D_002B90B0->unk_158 & 0x40) {
+    if (D_002B90B0->availableFlags & 0x40) {
       func_0013C768(6);
     }
     break;
   case 10:
-    if (D_002B90B0->unk_158 & 0x80) {
+    if (D_002B90B0->availableFlags & 0x80) {
       func_0013C768(7);
     }
     break;
   case 0xd:
-    if (D_002B90B0->unk_158 & 0x100) {
+    if (D_002B90B0->availableFlags & 0x100) {
       func_0013C768(8);
     }
     break;
   case 0xf:
-    if (D_002B90B0->unk_158 & 0x200) {
+    if (D_002B90B0->availableFlags & 0x200) {
       func_0013C768(9);
     }
   }
@@ -225,29 +225,29 @@ s32 func_00111C08(void) {
     return D_002B916C;
 }
 
-void func_00111C20(s32 param1) {
-    D_002B916C = param1 * 60;
+void func_00111C20(s32 seconds) {
+    D_002B916C = seconds * 60;
 }
 
-void func_00111C38(s32 param1) {
-    D_004D29C4 = param1;
+void func_00111C38(s32 duration) {
+    D_004D29C4 = duration;
     D_002B9170 = 0;
 }
 
-void func_00111C50(s32 param1) {
-    D_002B9170 = param1;
+void func_00111C50(s32 elapsed) {
+    D_002B9170 = elapsed;
 }
 
-s32 func_00111C60(s32 param1) {
-    s32 result;
+s32 func_00111C60(s32 increment) {
+    s32 reachedDuration;
 
-    D_002B9170 += param1;
+    D_002B9170 += increment;
     if (D_004D29C4 == 0 || D_002B9170 < D_004D29C4) {
-        result = 0;
+        reachedDuration = 0;
     } else {
-        result = 1;
+        reachedDuration = 1;
     }
-    return result;
+    return reachedDuration;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xtrumpet", func_00111C98);

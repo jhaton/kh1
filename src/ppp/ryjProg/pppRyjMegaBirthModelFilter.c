@@ -27,27 +27,27 @@ void pppRyjMegaBirthModelFilterSta(void) {
 }
 
 void pppRyjMegaBirthModelFilterCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjMegaBirthModelFilter* v = (VRyjMegaBirthModelFilter*)&pobj->val[ctbl->useVal[2]];
+    VRyjMegaBirthModelFilter* modelFilter = (VRyjMegaBirthModelFilter*)&pobj->val[ctbl->useVal[2]];
 
-    v->pvParticleData = NULL;
-    v->pvParticleColor = NULL;
-    v->nParticle = 0;
-    v->fAlphaScale = 1.0f;
-    v->ushTimingCt = 0;
-    v->bActive = 1;
+    modelFilter->pvParticleData = NULL;
+    modelFilter->pvParticleColor = NULL;
+    modelFilter->nParticle = 0;
+    modelFilter->fAlphaScale = 1.0f;
+    modelFilter->ushTimingCt = 0;
+    modelFilter->bActive = 1;
     
     ppvMng->unk_B3 = 1;
 }
 
 void pppRyjMegaBirthModelFilterDes(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjMegaBirthModelFilter* v = (VRyjMegaBirthModelFilter*)&pobj->val[ctbl->useVal[2]];
+    VRyjMegaBirthModelFilter* modelFilter = (VRyjMegaBirthModelFilter*)&pobj->val[ctbl->useVal[2]];
 
-    if (v->pvParticleData != NULL) {
-        pppFree(ppvEnv, v->pvParticleData);
-        v->pvParticleData = NULL;
+    if (modelFilter->pvParticleData != NULL) {
+        pppFree(ppvEnv, modelFilter->pvParticleData);
+        modelFilter->pvParticleData = NULL;
     }
-    if (v->pvParticleColor != NULL) {
-        pppFree(ppvEnv, v->pvParticleColor);
-        v->pvParticleColor = NULL;
+    if (modelFilter->pvParticleColor != NULL) {
+        pppFree(ppvEnv, modelFilter->pvParticleColor);
+        modelFilter->pvParticleColor = NULL;
     }
 }

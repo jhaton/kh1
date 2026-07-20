@@ -24,20 +24,20 @@ XGumiThing D_0061B960;
 extern void func_F20000();
 extern void func_001C0370(void*, s32);
 
-s32 func_001BBCD8(s32 arg0) {
-    XGumi* pvVar1 = func_0022F768(4);
+s32 func_001BBCD8(s32 index) {
+    XGumi* gumi = func_0022F768(4);
 
-    return pvVar1->unk_9BC0[arg0];
+    return gumi->unk_9BC0[index];
 }
 
-void func_001BBD10(s32 arg0, s32 arg1) {
-    XGumi* pvVar1 = func_0022F768(4);
+void func_001BBD10(s32 index, s32 value) {
+    XGumi* gumi = func_0022F768(4);
 
-    pvVar1->unk_9BC0[arg0] = arg1;
+    gumi->unk_9BC0[index] = value;
 }
 
-void func_001BBD58(double arg0) {
-    asin(arg0);
+void func_001BBD58(double value) {
+    asin(value);
 }
 
 s32 func_001BBD70(void) {
@@ -55,46 +55,46 @@ s32 func_001BBD70(void) {
 INCLUDE_ASM("asm/nonmatchings/gumi", func_001BBDD0);
 
 void func_001BBE38(void) {
-    XGumi* pvVar1 = func_0022F768(4);
+    XGumi* gumi = func_0022F768(4);
 
-    if (pvVar1->unk_9B00 == 0) {
-        pvVar1->unk_9B00 = 0x4000;
+    if (gumi->unk_9B00 == 0) {
+        gumi->unk_9B00 = 0x4000;
     }
-    if (pvVar1->unk_9B04 == 0) {
-        pvVar1->unk_9B04 = 0x8000;
+    if (gumi->unk_9B04 == 0) {
+        gumi->unk_9B04 = 0x8000;
     }
-    if (pvVar1->unk_9B08 == 0) {
-        pvVar1->unk_9B08 = 0x400;
+    if (gumi->unk_9B08 == 0) {
+        gumi->unk_9B08 = 0x400;
     }
-    if (pvVar1->unk_9B0C == 0) {
-        pvVar1->unk_9B0C = 0x2000;
+    if (gumi->unk_9B0C == 0) {
+        gumi->unk_9B0C = 0x2000;
     }
-    if (pvVar1->unk_9B10 == 0) {
-        pvVar1->unk_9B10 = 0x2000;
+    if (gumi->unk_9B10 == 0) {
+        gumi->unk_9B10 = 0x2000;
     }
-    if (pvVar1->unk_9B14 == 0) {
-        pvVar1->unk_9B14 = 0x2000;
+    if (gumi->unk_9B14 == 0) {
+        gumi->unk_9B14 = 0x2000;
     }
-    if (pvVar1->unk_9B18 == 0) {
-        pvVar1->unk_9B18 = 0x1000;
+    if (gumi->unk_9B18 == 0) {
+        gumi->unk_9B18 = 0x1000;
     }
-    if (pvVar1->unk_9B1C == 0) {
-        pvVar1->unk_9B1C = 0x1000;
+    if (gumi->unk_9B1C == 0) {
+        gumi->unk_9B1C = 0x1000;
     }
-    if (pvVar1->unk_9B20 == 0) {
-        pvVar1->unk_9B20 = 0x1000;
+    if (gumi->unk_9B20 == 0) {
+        gumi->unk_9B20 = 0x1000;
     }
 }
 
-s32 func_001BBF78(s32 arg0) {
-    XGumi* pvVar1 = func_0022F768(4);
+s32 func_001BBF78(s32 index) {
+    XGumi* gumi = func_0022F768(4);
     func_001BBE38();
-    return (&pvVar1->unk_9B00)[arg0];
+    return (&gumi->unk_9B00)[index];
 }
 
-void func_001BBFC8(s32 arg0, s32 arg1) {
-    XGumi* pvVar1 = func_0022F768(4);
-    (&pvVar1->unk_9B00)[arg0] = arg1;
+void func_001BBFC8(s32 index, s32 value) {
+    XGumi* gumi = func_0022F768(4);
+    (&gumi->unk_9B00)[index] = value;
 }
 
 s32 func_001BC010(void) {
@@ -105,25 +105,25 @@ s32 func_001BC010(void) {
 }
 
 void func_001BC048(void) {
-    XGumi* pXVar1;
-    XGumiBlock* pXVar2;
+    XGumi* gumi;
+    XGumiBlock* block;
 
     func_001BD210();
-    pXVar1 = (XGumi*)func_0022F768(4);
-    func_001C0370(pXVar1, sizeof(XGumi));
+    gumi = (XGumi*)func_0022F768(4);
+    func_001C0370(gumi, sizeof(XGumi));
 
-    pXVar1->unk_0004 = 0x100;
-    pXVar1->unk_0000[0] = 'G';
-    pXVar1->unk_0000[1] = 'U';
-    pXVar1->unk_0000[2] = 'M';
-    pXVar1->unk_0000[3] = 'I';
+    gumi->unk_0004 = 0x100;
+    gumi->unk_0000[0] = 'G';
+    gumi->unk_0000[1] = 'U';
+    gumi->unk_0000[2] = 'M';
+    gumi->unk_0000[3] = 'I';
 
-    func_001BCCA0(pXVar1);
+    func_001BCCA0(gumi);
     func_001BC100(0);
 
-    pXVar2 = func_001BCB58();
-    pXVar2->unk_44 = 1;
-    pXVar2->unk_47 = 1;
+    block = func_001BCB58();
+    block->unk_44 = 1;
+    block->unk_47 = 1;
     func_001BCBD0(func_001BCB30());
     func_001BCD30(10, func_001BCB88(0));
     func_001BC290(func_001BCB88(0), 0);
@@ -139,32 +139,32 @@ s32 func_001BC368(void) {
     return sizeof(XGumi);
 }
 
-u16 func_001BC370(s32 arg0) {
-    return *(u16*)(func_001BD288(arg0) + 0x14); // todo: struct
+u16 func_001BC370(s32 index) {
+    return *(u16*)(func_001BD288(index) + 0x14); // todo: struct
 }
 
-u16 func_001BC390(s32 arg0) {
-    return *(u16*)(func_001BD288(arg0) + 0x16); // todo: struct
+u16 func_001BC390(s32 index) {
+    return *(u16*)(func_001BD288(index) + 0x16); // todo: struct
 }
 
-s32 func_001BC3B0(s32 arg0) {
-    s32 iVar1;
+s32 func_001BC3B0(s32 id) {
+    s32 result;
 
     func_001BD1E8();
-    iVar1 = func_001C0148(arg0);
-    iVar1 = func_001F0E98(iVar1);
+    result = func_001C0148(id);
+    result = func_001F0E98(result);
     func_001F0DD0();
-    return iVar1;
+    return result;
 }
 
-s32 func_001BC3F0(s32 arg0) {
-    s32 iVar1;
+s32 func_001BC3F0(s32 id) {
+    s32 result;
 
     func_001BD1E8();
-    iVar1 = func_001C0150(arg0);
-    iVar1 = func_001F0E98(iVar1);
+    result = func_001C0150(id);
+    result = func_001F0E98(result);
     func_001F0DD0();
-    return iVar1;
+    return result;
 }
 
 INCLUDE_ASM("asm/nonmatchings/gumi", func_001BC430);
@@ -193,18 +193,18 @@ s32 func_001BC578(void) {
     return func_001BD360();
 }
 
-u8 func_001BC590(s32 arg0) {
-    XGumiBlock* pXVar1 = func_001BCB58();
-    return pXVar1->unk_00[arg0];
+u8 func_001BC590(s32 index) {
+    XGumiBlock* block = func_001BCB58();
+    return block->unk_00[index];
 }
 
-void func_001BC5C0(s32 arg0, s32 arg1) {
-    XGumiBlock* pXVar1 = func_001BCB58();
-    pXVar1->unk_00[arg0] = arg1;
+void func_001BC5C0(s32 index, s32 value) {
+    XGumiBlock* block = func_001BCB58();
+    block->unk_00[index] = value;
 }
 
-u8 func_001BC5F8(s32 arg0) {
-    return *(u8*)(func_001BD288(arg0) + 0xB); // todo: struct
+u8 func_001BC5F8(s32 index) {
+    return *(u8*)(func_001BD288(index) + 0xB); // todo: struct
 }
 
 INCLUDE_ASM("asm/nonmatchings/gumi", func_001BC618);
@@ -217,9 +217,9 @@ void func_001BC888(void) {
     D_00373790 = 0;
 }
 
-void func_001BC898(s32 arg0) {
-    D_00373790 = arg0;
-    if (arg0 != 0) {
+void func_001BC898(s32 enabled) {
+    D_00373790 = enabled;
+    if (enabled != 0) {
         func_001C0370(&D_0061B960, sizeof(XGumiThing));
         D_0061BA40 = 0;
         D_0061BA48[0][0] = 0;
@@ -232,13 +232,13 @@ void func_001BC898(s32 arg0) {
     }
 }
 
-void func_001BC8F8(s32 arg0) {
-    D_0061BA40 = arg0;
+void func_001BC8F8(s32 value) {
+    D_0061BA40 = value;
 }
 
-void func_001BC908(s32 arg0, s32 arg1, s32 arg2) {
-    D_0061BA48[arg0][0] = arg1;
-    D_0061BA48[arg0][1] = arg2;
+void func_001BC908(s32 index, s32 firstValue, s32 secondValue) {
+    D_0061BA48[index][0] = firstValue;
+    D_0061BA48[index][1] = secondValue;
 }
 
 void func_001BC928(void) {
@@ -291,8 +291,8 @@ INCLUDE_ASM("asm/nonmatchings/gumi", func_001BCA00);
 //     D_00373798++;
 // }
 
-void func_001BCAA0(void* arg0) {
-    D_0061BA58 = arg0;
+void func_001BCAA0(void* callback) {
+    D_0061BA58 = callback;
 }
 
 void* func_001BCAB0(void) {
@@ -302,27 +302,27 @@ void* func_001BCAB0(void) {
 INCLUDE_ASM("asm/nonmatchings/gumi", func_001BCAC0);
 
 void func_001BCAE8(void) {
-    XGumi* piVar1 = func_0022F768(4);
+    XGumi* gumi = func_0022F768(4);
 
-    if ((*(s32*)piVar1->unk_0000 != 'IMUG') || (piVar1->unk_0004 != 0x100)) {
+    if ((*(s32*)gumi->unk_0000 != 'IMUG') || (gumi->unk_0004 != 0x100)) {
         func_001BC048();
     }
 }
 
 s32* func_001BCB30(void) {
-    XGumi* piVar1;
+    XGumi* gumi;
 
     func_001BCAE8();
-    piVar1 = func_0022F768(4);
-    return &piVar1->unk_0008;
+    gumi = func_0022F768(4);
+    return &gumi->unk_0008;
 }
 
 XGumiBlock* func_001BCB58(void) {
-    XGumi* piVar1;
+    XGumi* gumi;
 
     func_001BCAE8();
-    piVar1 = func_0022F768(4);
-    return &piVar1->unk_9A78;
+    gumi = func_0022F768(4);
+    return &gumi->unk_9A78;
 }
 
 INCLUDE_ASM("asm/nonmatchings/gumi", func_001BCB88);
@@ -335,25 +335,25 @@ INCLUDE_ASM("asm/nonmatchings/gumi", func_001BCC58);
 
 INCLUDE_ASM("asm/nonmatchings/gumi", func_001BCC80);
 
-void func_001BCCA0(XGumi* arg0) {
-    arg0->unk_9B00 = 0x4000;
-    arg0->unk_9B04 = 0x8000;
-    arg0->unk_9B08 = 0x400;
-    arg0->unk_9B0C = 0x2000;
-    arg0->unk_9B10 = 0x2000;
-    arg0->unk_9B14 = 0x2000;
-    arg0->unk_9B18 = 0x1000;
-    arg0->unk_9B1C = 0x1000;
-    arg0->unk_9B20 = 0x1000;
-    arg0->unk_9B24 = 0;
+void func_001BCCA0(XGumi* gumi) {
+    gumi->unk_9B00 = 0x4000;
+    gumi->unk_9B04 = 0x8000;
+    gumi->unk_9B08 = 0x400;
+    gumi->unk_9B0C = 0x2000;
+    gumi->unk_9B10 = 0x2000;
+    gumi->unk_9B14 = 0x2000;
+    gumi->unk_9B18 = 0x1000;
+    gumi->unk_9B1C = 0x1000;
+    gumi->unk_9B20 = 0x1000;
+    gumi->unk_9B24 = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/gumi", func_001BCD30);
 
 void func_001BCD98(void) {
-    XGumiBlock* iVar1 = func_001BCB58();
+    XGumiBlock* block = func_001BCB58();
 
-    iVar1->unk_31 += 1;
+    block->unk_31 += 1;
     func_001BCAC0(0, 4);
     func_001BCAC0(1, 4);
     func_001BCAC0(2, 4);
@@ -386,14 +386,14 @@ void func_001BCD98(void) {
     func_001BCAC0(38, -1);
 }
 
-s32 func_001BCF28(s32 arg0) {
-    XGumi* pvVar1 = func_0022F768(4);
+s32 func_001BCF28(s32 index) {
+    XGumi* gumi = func_0022F768(4);
 
-    switch (arg0) {
+    switch (index) {
         case 0:
-            return pvVar1->unk_9AF8;
+            return gumi->unk_9AF8;
         case 1:
-            return pvVar1->unk_9AFC;
+            return gumi->unk_9AFC;
         default:
             return 0;
     }

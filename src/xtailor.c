@@ -78,16 +78,16 @@ void func_0010F448(void) {
     DPUT_GS_DISPLAY1(SCE_GS_SET_DISPLAY1(0, 160, 4, 0, (DISPWIDTH * 4) - 1, 128 - 1));
 }
 
-void func_0010F4A8(u32 arg0) {
+void func_0010F4A8(u32 displayFlags) {
     if ((D_002C1EB8.u8 >> 3 & 3) == 0) {
-        if (arg0 == 0) {
+        if (displayFlags == 0) {
             sceGsSyncPath(0, 0);
             func_001102C0();
             DPUT_GS_PMODE(0x22);
         } else {
             sceGsSyncPath(0, 0);
             func_001102C0();
-            if (arg0 & 4) {
+            if (displayFlags & 4) {
                 func_0010F3D0();
                 func_00106948(&D_002B8210);
                 if (D_004CF58C == 0) {
@@ -105,7 +105,7 @@ void func_0010F4A8(u32 arg0) {
                 func_0010F448();
                 return;
             }
-            if (arg0 & 2) {
+            if (displayFlags & 2) {
                 func_0010F3D0();
                 func_00106948(&D_002B8210);
                 func_001FD4C0(104, 30);
@@ -116,7 +116,7 @@ void func_0010F4A8(u32 arg0) {
                 func_0010F448();
                 return;
             }
-            if (arg0 & 1) {
+            if (displayFlags & 1) {
                 func_0010F3D0();
                 func_00106948(&D_002B8210);
                 func_001FD4C0(84, 30);
@@ -139,10 +139,10 @@ void func_0010F708(void) {
     D_004CF588 = D_002C1EB8.s32;
 }
 
-void func_0010F720(u32 arg0) {
-    func_0010F4A8(arg0);
+void func_0010F720(u32 displayFlags) {
+    func_0010F4A8(displayFlags);
     if (func_00110EA8() != 0) {
-        func_00110F88(arg0);
+        func_00110F88(displayFlags);
     }
 }
 
@@ -151,16 +151,16 @@ INCLUDE_ASM("asm/nonmatchings/xtailor", func_0010F768);
 INCLUDE_ASM("asm/nonmatchings/xtailor", func_0010FA30);
 
 void func_0010FA88(void) {
-    void* src = func_00155ED8(0x34, 0xC);
-    s32 size = func_00120438("allset.set", src);
-    memcpy(&D_004CF590, src, size);
+    void* buffer = func_00155ED8(0x34, 0xC);
+    s32 size = func_00120438("allset.set", buffer);
+    memcpy(&D_004CF590, buffer, size);
     func_0010FA30(&D_004CF590);
 }
 
 void func_0010FAE8(void) {
-    void* src = func_00155ED8(0x34, 0xC);
-    s32 size = func_00120438("allarea.nam", src);
-    memcpy(&D_004D0590, src, size);
+    void* buffer = func_00155ED8(0x34, 0xC);
+    s32 size = func_00120438("allarea.nam", buffer);
+    memcpy(&D_004D0590, buffer, size);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xtailor", func_0010FB38);
@@ -283,9 +283,9 @@ void func_00110E18(void) {
     D_002B9084 = 0;
 }
 
-s32 func_00110E38(s32 arg0) {
+s32 func_00110E38(s32 movieId) {
     D_002B9030 = 0;
-    D_004D2994 = arg0;
+    D_004D2994 = movieId;
     return func_00120590("dkmovie.x", &func_F20000, func_00110DE0, NULL);
 }
 
@@ -315,8 +315,8 @@ void func_00110F68(void) {
     func_F20000(5, 0);
 }
 
-void func_00110F88(s32 arg0) {
-    func_F20000(6, arg0);
+void func_00110F88(s32 displayFlags) {
+    func_F20000(6, displayFlags);
 }
 
 void func_00110FA8(void) {

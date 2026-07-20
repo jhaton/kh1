@@ -22,19 +22,19 @@ INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjMegaBirthModel", pppRyjMegaBirth
 INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjMegaBirthModel", pppRyjMegaBirthModelCon);
 
 void pppRyjMegaBirthModelDes(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjMegaBirthModel* v = (VRyjMegaBirthModel*)&pobj->val[ctbl->useVal[2]];
+    VRyjMegaBirthModel* birthModel = (VRyjMegaBirthModel*)&pobj->val[ctbl->useVal[2]];
     
-    if (v->pvParticleData != NULL) {
-        pppFree(ppvEnv, v->pvParticleData);
-        v->pvParticleData = NULL;
+    if (birthModel->pvParticleData != NULL) {
+        pppFree(ppvEnv, birthModel->pvParticleData);
+        birthModel->pvParticleData = NULL;
     }
-    if (v->pvParticleWmat != NULL) {
-        pppFree(ppvEnv, v->pvParticleWmat);
-        v->pvParticleWmat = NULL;
+    if (birthModel->pvParticleWmat != NULL) {
+        pppFree(ppvEnv, birthModel->pvParticleWmat);
+        birthModel->pvParticleWmat = NULL;
     }
-    if (v->pvParticleColor != NULL) {
-        pppFree(ppvEnv, v->pvParticleColor);
-        v->pvParticleColor = NULL;
+    if (birthModel->pvParticleColor != NULL) {
+        pppFree(ppvEnv, birthModel->pvParticleColor);
+        birthModel->pvParticleColor = NULL;
     }
 }
 

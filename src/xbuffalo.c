@@ -13,12 +13,12 @@ s32 func_001C1838(void) {
     return D_003759DC;
 }
 
-void func_001C1848(s32 arg0) {
-    D_003759C4 = arg0;
+void func_001C1848(s32 value) {
+    D_003759C4 = value;
 }
 
-void func_001C1858(s32 arg0) {
-    D_003759C8 = arg0;
+void func_001C1858(s32 value) {
+    D_003759C8 = value;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xbuffalo", func_001C1868);

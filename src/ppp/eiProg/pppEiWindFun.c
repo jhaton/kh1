@@ -21,11 +21,11 @@ typedef struct {
 } VEiWindFun;
 
 void pppEiWindFunCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VEiWindFun* v = (VEiWindFun*)&pobj->val[ctbl->useVal[0]];
+    VEiWindFun* windState = (VEiWindFun*)&pobj->val[ctbl->useVal[0]];
 
-    v->len = 0;
-    v->r = 0;
-    v->wv = v->wdv = v->wddv = 0; 
+    windState->len = 0;
+    windState->r = 0;
+    windState->wv = windState->wdv = windState->wddv = 0; 
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/eiProg/pppEiWindFun", pppEiWindFunCalc);

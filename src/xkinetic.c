@@ -9,9 +9,9 @@ s32 func_001C2270(void) {
     return 2;
 }
 
-s32 func_001C2278(Script* arg0, s32 arg1) {
-    arg0->unk_174[2] += arg1;
-    if (arg1 < 0) {
+s32 func_001C2278(Script* script, s32 offset) {
+    script->unk_174[2] += offset;
+    if (offset < 0) {
         return 4;
     }
     return 1;
@@ -35,69 +35,69 @@ INCLUDE_ASM("asm/nonmatchings/xkinetic", func_001C2410);
 
 INCLUDE_ASM("asm/nonmatchings/xkinetic", func_001C2460);
 
-s32 func_001C24B0(Script* arg0) {
-    arg0->unk_2F0--;
+s32 func_001C24B0(Script* script) {
+    script->unk_2F0--;
     return 2;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xkinetic", func_001C24C8);
 
-s64 func_001C2578(s64 arg0, s32 arg1) {
-    switch (arg1) {
+s64 func_001C2578(s64 value, s32 type) {
+    switch (type) {
         case 0:
         case 1:
-            arg0 &= 1;
+            value &= 1;
         case 2:
-            if (arg0 < -0x80) {
-                arg0 = -0x80;
-            } else if (arg0 >= 0x7f) {
-                arg0 = 0x7f;
+            if (value < -0x80) {
+                value = -0x80;
+            } else if (value >= 0x7f) {
+                value = 0x7f;
             }
             break;
         case 3:
-            if (arg0 < -0x8000) {
-                arg0 = -0x8000;
-            } else if (arg0 >= 0x7fff) {
-                arg0 = 0x7fff;
+            if (value < -0x8000) {
+                value = -0x8000;
+            } else if (value >= 0x7fff) {
+                value = 0x7fff;
             }
             break;
         case 4:
-            if (arg0 < -0x800000) {
-                arg0 = -0x800000;
-            } else if (arg0 >= 0x7fffff) {
-                arg0 = 0x7fffff;
+            if (value < -0x800000) {
+                value = -0x800000;
+            } else if (value >= 0x7fffff) {
+                value = 0x7fffff;
             }
             break;
         case 5:
-            if (arg0 < 0) {
-                arg0 = 0;
-            } else if (arg0 >= 0xff) {
-                arg0 = 0xff;
+            if (value < 0) {
+                value = 0;
+            } else if (value >= 0xff) {
+                value = 0xff;
             }
             break;
         case 6:
-            if (arg0 < 0) {
-                arg0 = 0;
-            } else if (arg0 >= 0xffff) {
-                arg0 = 0xffff;
+            if (value < 0) {
+                value = 0;
+            } else if (value >= 0xffff) {
+                value = 0xffff;
             }
             break;
         case 7:
-            if (arg0 < 0) {
-                arg0 = 0;
-            } else if (arg0 >= 0xffffff) {
-                arg0 = 0xffffff;
+            if (value < 0) {
+                value = 0;
+            } else if (value >= 0xffffff) {
+                value = 0xffffff;
             }
             break;
     }
-    return arg0;
+    return value;
 }
 
-s32 func_001C26A8(Script* arg0, s64 arg1) {
-    s32 val = func_001C2578(arg1, 4);
+s32 func_001C26A8(Script* script, s64 value) {
+    s32 clampedValue = func_001C2578(value, 4);
 
-    arg0->unk_174[3]++;
-    arg0->unk_174[arg0->unk_174[3] + 4] = val;
+    script->unk_174[3]++;
+    script->unk_174[script->unk_174[3] + 4] = clampedValue;
     return 2;
 }
 
@@ -105,9 +105,9 @@ INCLUDE_ASM("asm/nonmatchings/xkinetic", func_001C26F8);
 
 INCLUDE_ASM("asm/nonmatchings/xkinetic", func_001C2728);
 
-s32 func_001C27D8(s32 arg0) {
-    void* temp = func_0022F768(2); // todo: find proper struct for this argument
-    return temp + arg0;
+s32 func_001C27D8(s32 offset) {
+    void* base = func_0022F768(2); // todo: find proper struct for this argument
+    return base + offset;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xkinetic", func_001C2808);

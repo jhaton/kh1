@@ -32,30 +32,30 @@ _sceFsPoffData _sif_FsRcv_Data __attribute__((aligned (64)));
 _sceFsPoffData _sif_FsPoff_Data __attribute__((aligned (64)));
 
 static void _sceFsIobSemaMK(void) {
-    struct SemaParam param;
+    struct SemaParam semaParam;
 
     if (_fs_iob_semid == -1) {
-        param.option = 0;
-        param.initCount = 1;
-        param.maxCount = 1;
+        semaParam.option = 0;
+        semaParam.initCount = 1;
+        semaParam.maxCount = 1;
 
-        _fs_iob_semid = CreateSema(&param);
-        _fs_fsq_semid = CreateSema(&param);
+        _fs_iob_semid = CreateSema(&semaParam);
+        _fs_fsq_semid = CreateSema(&semaParam);
     }
 }
 
 static _sceFsIob* new_iob(void) {
-    _sceFsIob* io;
-    s32 i;
+    _sceFsIob* iob;
+    s32 unusedIndex;
     
     _sceFsIobSemaMK();
     WaitSema(_fs_iob_semid);
     
-    for (io = &_iob[0]; io < &_iob[MAX_IOB_COUNT]; io++) {
-        if (io->i_flag == 0){
-            io->i_flag = 0x10000000;
+    for (iob = &_iob[0]; iob < &_iob[MAX_IOB_COUNT]; iob++) {
+        if (iob->i_flag == 0){
+            iob->i_flag = 0x10000000;
             SignalSema(_fs_iob_semid);
-            return io;
+            return iob;
         }
     }
     
@@ -64,7 +64,7 @@ static _sceFsIob* new_iob(void) {
 }
 
 static _sceFsIob* get_iob(s32 fd) {
-    _sceFsIob* ret;
+    _sceFsIob* iob;
     
     _sceFsIobSemaMK();
     WaitSema(_fs_iob_semid);
@@ -74,58 +74,58 @@ static _sceFsIob* get_iob(s32 fd) {
         return 0;
     }
     
-    ret = &_iob[fd];
+    iob = &_iob[fd];
     SignalSema(_fs_iob_semid);
-    return ret;
+    return iob;
 }
 
-static void _sceFs_Rcv_Intr(void* pkt, void* data) {
-    s32 ee_semid;
-    void* ee_retadr;
-    u32 ee_retsiz;
-    u32 ee_retmod;
-    s32 i;
-    u8* cp;
-    _sceFsReadIntrData* ridp;
-    void* r_addr;
-    u32 r_size;
+static void _sceFs_Rcv_Intr(void* packet, void* handlerData) {
+    s32 semaphoreId;
+    void* returnAddress;
+    u32 returnSize;
+    u32 returnMode;
+    s32 index;
+    u8* copyDestination;
+    _sceFsReadIntrData* readData;
+    void* resultAddress;
+    u32 resultSize;
     
-    memcpy(&ee_semid, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_semid), sizeof(s32));
-    memcpy(&ee_retmod, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_retmod), sizeof(s32));
-    memcpy(&ee_retadr, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_retadr), sizeof(s32));
-    memcpy(&ee_retsiz, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_retsiz), sizeof(s32));
+    memcpy(&semaphoreId, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_semid), sizeof(s32));
+    memcpy(&returnMode, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_retmod), sizeof(s32));
+    memcpy(&returnAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_retadr), sizeof(s32));
+    memcpy(&returnSize, (void*)UNCACHED(&_rcv_data_cmd.rcvData.ee_retsiz), sizeof(s32));
     
-    if (-0x1 < ee_semid) {
-        memcpy(ee_retadr, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[0]), ee_retsiz);
+    if (-0x1 < semaphoreId) {
+        memcpy(returnAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[0]), returnSize);
     }
 
-    switch (ee_retmod) {
+    switch (returnMode) {
         case 0x2:
             // _sceFsReadIntrData
-            ridp = (_sceFsReadIntrData *)UNCACHED(&_rcv_data_cmd.rcvData.data_top[1]);
-            if (ridp->psize > 0) {
-                cp = (u8*)ridp->paddr;
-                for (i = 0; i < ridp->psize; i++) {
-                    cp[i] = ridp->pdata[i];
+            readData = (_sceFsReadIntrData *)UNCACHED(&_rcv_data_cmd.rcvData.data_top[1]);
+            if (readData->psize > 0) {
+                copyDestination = (u8*)readData->paddr;
+                for (index = 0; index < readData->psize; index++) {
+                    copyDestination[index] = readData->pdata[index];
                 }
             }
             
-            if (ridp->ssize > 0) {
-                cp = (u8*)ridp->saddr;
-                for (i = 0; i < ridp->ssize; i++) {
-                    cp[i] = ridp->sdata[i];
+            if (readData->ssize > 0) {
+                copyDestination = (u8*)readData->saddr;
+                for (index = 0; index < readData->ssize; index++) {
+                    copyDestination[index] = readData->sdata[index];
                 }
             }
             break;
         case 0xb:
             // _sceFsIntrRcvDirData
-            memcpy(&r_addr, (void*)UNCACHED(&_rcv_data_cmd.rcvDirData.ee_dentadr), sizeof(s32));
-            memcpy(r_addr, (void*)UNCACHED(&_rcv_data_cmd.rcvDirData.dent), sizeof(struct sce_dirent));
+            memcpy(&resultAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvDirData.ee_dentadr), sizeof(s32));
+            memcpy(resultAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvDirData.dent), sizeof(struct sce_dirent));
             break;
         case 0xc:
             // unk
-            memcpy(&r_addr, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[1]), sizeof(s32));
-            memcpy(r_addr, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[2]), 0x40);
+            memcpy(&resultAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[1]), sizeof(s32));
+            memcpy(resultAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[2]), 0x40);
             break;
         case 0x17:
         case 0x19:
@@ -133,37 +133,37 @@ static void _sceFs_Rcv_Intr(void* pkt, void* data) {
             // _sceFsIntrRcvReadLData
             // _sceFsIntrRcvIoctlData
             // _sceFsIntrRcvDevctlData
-            memcpy(&r_addr, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[1]), sizeof(s32));
-            memcpy(&r_size, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[2]), sizeof(s32));
-            if (r_size > 0x400){
-                r_size = 0x400;
+            memcpy(&resultAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[1]), sizeof(s32));
+            memcpy(&resultSize, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[2]), sizeof(s32));
+            if (resultSize > 0x400){
+                resultSize = 0x400;
             }
-            memcpy(r_addr, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[3]), r_size);
+            memcpy(resultAddress, (void*)UNCACHED(&_rcv_data_cmd.rcvData.data_top[3]), resultSize);
             break;
     }
 
     
-    if (ee_semid < 0x0) {
-        ee_semid = -ee_semid;
-        for (i = 0; i < ARRAY_COUNT(_sceFs_q); i++) {
-            if (_sceFs_q[i] == ee_semid) {
-                _sceFs_q[i] = -1;
+    if (semaphoreId < 0x0) {
+        semaphoreId = -semaphoreId;
+        for (index = 0; index < ARRAY_COUNT(_sceFs_q); index++) {
+            if (_sceFs_q[index] == semaphoreId) {
+                _sceFs_q[index] = -1;
                 break;
             }
         }
     } else {
-        iSignalSema(ee_semid);
+        iSignalSema(semaphoreId);
     }
     return;
 }
 
 static void _sceFsSemInit(void) {
-    struct SemaParam param;
+    struct SemaParam semaParam;
     if (_fs_semid == -1) {
-        param.option = 0;
-        param.initCount = 1;
-        param.maxCount = 1;
-        _fs_semid = CreateSema(&param);
+        semaParam.option = 0;
+        semaParam.initCount = 1;
+        semaParam.maxCount = 1;
+        _fs_semid = CreateSema(&semaParam);
     }
 }
 
@@ -177,52 +177,52 @@ static void _sceFsSigSema(void) {
     SignalSema(_fs_semid);
 }
 
-int* scePowerOffHandler(void (*func)(void*), void* addr) {
-    int* ret;
-    _sceFsPoffData* pd;
+int* scePowerOffHandler(void (*callback)(void*), void* callbackData) {
+    int* previousCallback;
+    _sceFsPoffData* powerOffData;
 
-    pd = &_sif_FsPoff_Data;
+    powerOffData = &_sif_FsPoff_Data;
     _sceFsWaitS(0x1b);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
     DIntr();
-    ret = (int*)_sif_FsPoff_Data.sceFsPoffCbfunc;
-    pd->sceFsPoffCbdata = addr;
-    pd->sceFsPoffCbfunc = func;
+    previousCallback = (int*)_sif_FsPoff_Data.sceFsPoffCbfunc;
+    powerOffData->sceFsPoffCbdata = callbackData;
+    powerOffData->sceFsPoffCbfunc = callback;
     EIntr();
     _sceFsSigSema();
-    return ret;
+    return previousCallback;
 }
 
-static void _sceFs_Poff_Intr(void* pkt, void* data) {
-    _sceFsPoffData* p;
-    p = (_sceFsPoffData*)data;
-    if (p->sceFsPoffCbfunc != NULL) {
-        p->sceFsPoffCbfunc(p->sceFsPoffCbdata);
+static void _sceFs_Poff_Intr(void* packet, void* handlerData) {
+    _sceFsPoffData* powerOffData;
+    powerOffData = (_sceFsPoffData*)handlerData;
+    if (powerOffData->sceFsPoffCbfunc != NULL) {
+        powerOffData->sceFsPoffCbfunc(powerOffData->sceFsPoffCbdata);
     }
     ExitHandler();
 }
 
 int sceFsInit(void) {
-    s32 i;
-    s32 istat;
-    s32 bufmode;
-    _sceFsIob* io;
-    _sceFsPoffData* pd;
+    s32 spinCount;
+    s32 rpcStatus;
+    s32 unusedBufferMode;
+    _sceFsIob* iob;
+    _sceFsPoffData* powerOffData;
 
-    pd = &_sif_FsPoff_Data;
+    powerOffData = &_sif_FsPoff_Data;
     sceSifInitRpc(0x0);
-    pd->sceFsPoffCbfunc = NULL;
-    pd->sceFsPoffCbdata = NULL;
+    powerOffData->sceFsPoffCbfunc = NULL;
+    powerOffData->sceFsPoffCbdata = NULL;
     DIntr();
     sceSifAddCmdHandler(SIF_CMDI_SYSTEM | 0x11, &_sceFs_Rcv_Intr, &_sif_FsRcv_Data);
     sceSifAddCmdHandler(SIF_CMDI_SYSTEM | 0x13, &_sceFs_Poff_Intr, &_sif_FsPoff_Data);
     EIntr();
 
     while( 1 ) {
-        istat = sceSifBindRpc(&_cd, 0x80000001, 0x0);
-        if (istat < 0x0) {
+        rpcStatus = sceSifBindRpc(&_cd, 0x80000001, 0x0);
+        if (rpcStatus < 0x0) {
             return -1;
         }
         
@@ -230,20 +230,20 @@ int sceFsInit(void) {
             break;
         }
 
-        for (i = 0x100000; i != -1; i--) {}
+        for (spinCount = 0x100000; spinCount != -1; spinCount--) {}
     }
 
     _sceFsIobSemaMK();
     WaitSema(_fs_iob_semid);
     
-    for (io = &_iob[0]; io < &_iob[MAX_IOB_COUNT]; io++) {
-        io->i_flag = 0;
+    for (iob = &_iob[0]; iob < &_iob[MAX_IOB_COUNT]; iob++) {
+        iob->i_flag = 0;
     }
     
     SignalSema(_fs_iob_semid);
     rcv_adr = (u32)&_rcv_data_cmd;
-    istat = sceSifCallRpc(&_cd, 0xff, 0x0, &rcv_adr, sizeof(rcv_adr), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (istat < 0x0) {
+    rpcStatus = sceSifCallRpc(&_cd, 0xff, 0x0, &rcv_adr, sizeof(rcv_adr), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
         return -SCE_ECALLMISS;
     }
     else {
@@ -264,16 +264,16 @@ extern char D_00464B18; // TODO use the proper symbol for this
 
 
 static s32 _fs_version(void) {
-    s32 ret = FALSE;
-    char* libver;
+    s32 versionMismatch = FALSE;
+    char* libraryVersion;
 
-    libver = &D_00464B18; // TODO use the proper symbol for this
+    libraryVersion = &D_00464B18; // TODO use the proper symbol for this
     // libver = &__ps2_klibinfo_[12];
 
-    if (memcmp(&_fsversion, libver, 4) != 0 && memcmp(&_fsversion, _fswildcard, 4) != 0) {
-        ret = memcmp(libver, _fswildcard, 4) != 0;
+    if (memcmp(&_fsversion, libraryVersion, 4) != 0 && memcmp(&_fsversion, _fswildcard, 4) != 0) {
+        versionMismatch = memcmp(libraryVersion, _fswildcard, 4) != 0;
     }
-    return ret;
+    return versionMismatch;
 }
 
 /**
@@ -290,17 +290,17 @@ s32 sceFsReset(void) {
 
 int sceOpen(const char* filename, int flag, ...) {
     u32 mode;
-    s32 nsize;
-    s32 ret;
-    s32 retfd;
-    _sceFsOpenData* od;
-    _sceFsIob* io;
-    struct SemaParam sparam;
-    s32 i;
-    va_list arg;
-    s32 semaId;
+    s32 descriptorIndex;
+    s32 result;
+    s32 remoteFd;
+    _sceFsOpenData* openData;
+    _sceFsIob* iob;
+    struct SemaParam semaParam;
+    s32 nameLength;
+    va_list arguments;
+    s32 semaphoreId;
 
-    od = &_send_data.openData;
+    openData = &_send_data.openData;
     
     _sceFsWaitS(0x0);
     if (_fs_init == 0x0) {
@@ -313,409 +313,409 @@ int sceOpen(const char* filename, int flag, ...) {
         return -SCE_EVERSIONMISS;
     } 
         
-    io = new_iob();
-    if (io == NULL) {
+    iob = new_iob();
+    if (iob == NULL) {
         _sceFsSigSema();
         return -ENODEV;
     }
 
-    va_start (arg, flag);
-    mode = va_arg (arg, int);
-    va_end (arg);
+    va_start (arguments, flag);
+    mode = va_arg (arguments, int);
+    va_end (arguments);
     
-    for (i = 0; i < MAX_ARG_SIZE && (od->name[i] = filename[i]) != 0; i++) { }
-    if (i == MAX_ARG_SIZE) {
-        od->name[MAX_ARG_SIZE-1] = 0x0;
+    for (nameLength = 0; nameLength < MAX_ARG_SIZE && (openData->name[nameLength] = filename[nameLength]) != 0; nameLength++) { }
+    if (nameLength == MAX_ARG_SIZE) {
+        openData->name[MAX_ARG_SIZE-1] = 0x0;
     }
 
-    nsize = io - _iob;
-    od->flag = flag & ~0x90000000;
-    od->ee_fds = nsize;
-    od->mode = mode;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaId = CreateSema(&sparam);
-    od->ee_semid = semaId;
-    od->ee_retadr = (u32)&retfd;
-    od->ee_retsiz = sizeof(retfd);
+    descriptorIndex = iob - _iob;
+    openData->flag = flag & ~0x90000000;
+    openData->ee_fds = descriptorIndex;
+    openData->mode = mode;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    openData->ee_semid = semaphoreId;
+    openData->ee_retadr = (u32)&remoteFd;
+    openData->ee_retsiz = sizeof(remoteFd);
 
-    ret = sceSifCallRpc(&_cd, 0x0, 0x0, &_send_data, sizeof(_sceFsOpenData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), 0x0, 0x0);
-    if (ret < 0x0) {
-        DeleteSema(semaId);
+    result = sceSifCallRpc(&_cd, 0x0, 0x0, &_send_data, sizeof(_sceFsOpenData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), 0x0, 0x0);
+    if (result < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
     
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    result = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaId);
+    if (result == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
         
-    WaitSema(semaId);
-    DeleteSema(semaId);
-    if (retfd < 0x0) {
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    if (remoteFd < 0x0) {
         WaitSema(_fs_iob_semid);
-        io->i_flag = 0x0;
+        iob->i_flag = 0x0;
         SignalSema(_fs_iob_semid);
-        return retfd;
+        return remoteFd;
     }
     
-    ret = nsize;
+    result = descriptorIndex;
     WaitSema(_fs_iob_semid);
-    io->i_fd = retfd;
-    io->i_flag |= flag;
+    iob->i_fd = remoteFd;
+    iob->i_flag |= flag;
     SignalSema(_fs_iob_semid);
 
-    return ret;
+    return result;
 }
 
 int sceClose(int fd) {
-    _sceFsCloseData* cd;
-    _sceFsIob* io;
-    s32 ret;
-    s32 nsize;
-    s32 ret_close;
-    struct SemaParam sparam;
-    s32 semaid;
+    _sceFsCloseData* closeData;
+    _sceFsIob* iob;
+    s32 rpcStatus;
+    s32 descriptorIndex;
+    s32 closeResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    cd = &_send_data.closeData;
+    closeData = &_send_data.closeData;
     
-    io = get_iob(fd);
+    iob = get_iob(fd);
     _sceFsWaitS(0x1);
     if (_fs_init == 0x0) {
         _sceFsSigSema();
         return -0x1; // errno.h says this would be "Not super-user" but that doesn't make sense
     }
     
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
     
-    nsize = io - _iob;
-    cd->fd = io->i_fd;
-    cd->ee_fds = nsize;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    cd->ee_semid = semaid;
-    cd->ee_retadr = (u32)&ret_close;
-    cd->ee_retsiz = sizeof(ret_close);
-    ret = sceSifCallRpc(&_cd, 0x1, 0x0, &_send_data, sizeof(_sceFsCloseData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    descriptorIndex = iob - _iob;
+    closeData->fd = iob->i_fd;
+    closeData->ee_fds = descriptorIndex;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    closeData->ee_semid = semaphoreId;
+    closeData->ee_retadr = (u32)&closeResult;
+    closeData->ee_retsiz = sizeof(closeResult);
+    rpcStatus = sceSifCallRpc(&_cd, 0x1, 0x0, &_send_data, sizeof(_sceFsCloseData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    io->i_flag = 0x0;
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    iob->i_flag = 0x0;
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
         
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    if (ret_close < 0) {
-        return ret_close;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    if (closeResult < 0) {
+        return closeResult;
     }
     
     return 0; // SCE_OK
 }
 
 int sceLseek(int fd, int offset, int how) {
-    _sceFsLseekData* ld;
-    s32 ret_lseek;
-    s32 ret1;
-    s32 i;
-    s32 flag;
-    _sceFsIob* io;
-    s32 ret;
-    struct SemaParam sparam;
-    s32 semaid;
+    _sceFsLseekData* seekData;
+    s32 seekResult;
+    s32 unusedResult;
+    s32 queueIndex;
+    s32 fileFlags;
+    _sceFsIob* iob;
+    s32 rpcStatus;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    ld = &_send_data.lSeekData;
+    seekData = &_send_data.lSeekData;
     
-    io = get_iob(fd);
+    iob = get_iob(fd);
     _sceFsWaitS(0x4);
     if (_fs_init == 0x0) {
         _sceFsSigSema();
         return -0x1; // errno.h says this would be "Not super-user" but that doesn't make sense
     }
     
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
     
-    flag = io->i_flag;
-    ld->fd = io->i_fd;
-    ld->offset = offset;
-    ld->how = how;
-    ld->ee_fds = io - _iob;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    ld->ee_semid = semaid;
-    ld->ee_retadr = (u32)&ret_lseek;
-    ld->ee_retsiz = sizeof(ret_lseek);
+    fileFlags = iob->i_flag;
+    seekData->fd = iob->i_fd;
+    seekData->offset = offset;
+    seekData->how = how;
+    seekData->ee_fds = iob - _iob;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    seekData->ee_semid = semaphoreId;
+    seekData->ee_retadr = (u32)&seekResult;
+    seekData->ee_retsiz = sizeof(seekResult);
         
-    if ((flag & 0x8000) != 0x0) {
+    if ((fileFlags & 0x8000) != 0x0) {
         WaitSema(_fs_fsq_semid);
-        for (i = 0; i < 32; i++) {
-            if (_sceFs_q[i] == -1) {
-                _sceFs_q[i] = ld->ee_semid;
-                ld->ee_semid = -ld->ee_semid;
+        for (queueIndex = 0; queueIndex < 32; queueIndex++) {
+            if (_sceFs_q[queueIndex] == -1) {
+                _sceFs_q[queueIndex] = seekData->ee_semid;
+                seekData->ee_semid = -seekData->ee_semid;
                 break;
             }
         }
         SignalSema(_fs_fsq_semid);
     }
     
-    ret = sceSifCallRpc(&_cd, 0x4, 0x0, &_send_data, sizeof(_sceFsLseekData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0x4, 0x0, &_send_data, sizeof(_sceFsLseekData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    if ((flag & 0x8000) != 0x0) {
-        DeleteSema(semaid);
+    if ((fileFlags & 0x8000) != 0x0) {
+        DeleteSema(semaphoreId);
         return 0; // SCE_OK
     } 
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_lseek;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return seekResult;
 }
 
-int sceRead(int fd, void* addr, int size) {
-    _sceFsReadData* rd;
-    _sceFsIob* io;
-    s32 ret;
-    s32 ret_read;
-    s32 cnt0;
-    s32 i;
-    s32 flag;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceRead(int fd, void* buffer, int size) {
+    _sceFsReadData* readData;
+    _sceFsIob* iob;
+    s32 rpcStatus;
+    s32 readResult;
+    s32 unusedCount;
+    s32 queueIndex;
+    s32 fileFlags;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    rd = &_send_data.readData;
+    readData = &_send_data.readData;
     
-    io = get_iob(fd);
+    iob = get_iob(fd);
     _sceFsWaitS(0x2);
     if (_fs_init == 0x0) {
         _sceFsSigSema();
         return -0x1; // errno.h says this would be "Not super-user" but that doesn't make sense
     }
     
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
     
-    flag = io->i_flag;
-    rd->fd = io->i_fd;
-    rd->addr = (u32)addr;
-    rd->size = size;
-    rd->ee_fds = io - _iob;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    rd->ee_semid = semaid;
-    rd->ee_retadr = (u32)&ret_read;
-    rd->ee_retsiz = sizeof(ret_read);
+    fileFlags = iob->i_flag;
+    readData->fd = iob->i_fd;
+    readData->addr = (u32)buffer;
+    readData->size = size;
+    readData->ee_fds = iob - _iob;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    readData->ee_semid = semaphoreId;
+    readData->ee_retadr = (u32)&readResult;
+    readData->ee_retsiz = sizeof(readResult);
         
-    if ((flag & 0x8000) != 0x0) {
+    if ((fileFlags & 0x8000) != 0x0) {
         WaitSema(_fs_fsq_semid);
-        for (i = 0; i < 32; i++) {
-            if (_sceFs_q[i] == -1) {
-                _sceFs_q[i] = rd->ee_semid;
-                rd->ee_semid = -rd->ee_semid;
+        for (queueIndex = 0; queueIndex < 32; queueIndex++) {
+            if (_sceFs_q[queueIndex] == -1) {
+                _sceFs_q[queueIndex] = readData->ee_semid;
+                readData->ee_semid = -readData->ee_semid;
                 break;
             }
         }
         SignalSema(_fs_fsq_semid);
     }
-    if ((flag & 0x20000000) == 0x0) {
-        sceSifWriteBackDCache(addr, size);
+    if ((fileFlags & 0x20000000) == 0x0) {
+        sceSifWriteBackDCache(buffer, size);
     }
     sceSifWriteBackDCache(&_rcv_data_cmd, 0xA4);
-    sceSifWriteBackDCache(rd, sizeof(_sceFsReadData));
-    ret = sceSifCallRpc(&_cd, 0x2, 0x0, &_send_data, sizeof(_sceFsReadData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    sceSifWriteBackDCache(readData, sizeof(_sceFsReadData));
+    rpcStatus = sceSifCallRpc(&_cd, 0x2, 0x0, &_send_data, sizeof(_sceFsReadData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    if ((flag & 0x8000) != 0x0) {
-        DeleteSema(semaid);
+    if ((fileFlags & 0x8000) != 0x0) {
+        DeleteSema(semaphoreId);
         return 0; // SCE_OK
     } 
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_read;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return readResult;
 }
 
-int sceWrite(int fd, const void* buf, int nbyte) {
-    _sceFsWriteData* wd;
-    _sceFsIob* io;
-    s32 i;
-    s32 cnt0;
-    s32 psize;
-    s32 ret;
-    s32 ret_write;
-    struct SemaParam sparam;
-    s32 flag;
-    s32 semaid;
-    void* p;
+int sceWrite(int fd, const void* buffer, int size) {
+    _sceFsWriteData* writeData;
+    _sceFsIob* iob;
+    s32 prefixIndex;
+    s32 queueIndex;
+    s32 prefixSize;
+    s32 rpcStatus;
+    s32 writeResult;
+    struct SemaParam semaParam;
+    s32 fileFlags;
+    s32 semaphoreId;
+    void* unusedPointer;
 
-    wd = &_send_data.writeData;
+    writeData = &_send_data.writeData;
     
-    io = get_iob(fd);
+    iob = get_iob(fd);
     _sceFsWaitS(0x3);
     if (_fs_init == 0x0) {
         _sceFsSigSema();
         return -0x1; // errno.h says this would be "Not super-user" but that doesn't make sense
     }
     
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
     
-    flag = io->i_flag;
-    wd->fd = io->i_fd;
-    wd->size = nbyte;
-    wd->addr = (u32)buf;
-    wd->ee_fds = io - _iob;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    wd->ee_semid = semaid;
-    wd->ee_retadr = (u32)&ret_write;
-    wd->ee_retsiz = sizeof(ret_write);
+    fileFlags = iob->i_flag;
+    writeData->fd = iob->i_fd;
+    writeData->size = size;
+    writeData->addr = (u32)buffer;
+    writeData->ee_fds = iob - _iob;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    writeData->ee_semid = semaphoreId;
+    writeData->ee_retadr = (u32)&writeResult;
+    writeData->ee_retsiz = sizeof(writeResult);
     
-    if ((flag & 0x8000) != 0x0) {
+    if ((fileFlags & 0x8000) != 0x0) {
         WaitSema(_fs_fsq_semid);
-        for (cnt0 = 0; cnt0 < 32; cnt0++) {
-            if (_sceFs_q[cnt0] == -1) {
-                _sceFs_q[cnt0] = wd->ee_semid;
-                wd->ee_semid = -wd->ee_semid;
+        for (queueIndex = 0; queueIndex < 32; queueIndex++) {
+            if (_sceFs_q[queueIndex] == -1) {
+                _sceFs_q[queueIndex] = writeData->ee_semid;
+                writeData->ee_semid = -writeData->ee_semid;
                 break;
             }
         }
         SignalSema(_fs_fsq_semid);
     }
 
-    if (((u32)buf & 15) == 0x0) {
-        psize = 0x0;
+    if (((u32)buffer & 15) == 0x0) {
+        prefixSize = 0x0;
     } else {
-        int temp_v1;
-        temp_v1 = ((u32)buf - 0x10);
-        psize = ((u32)buf / 16) * 16 - temp_v1;
+        int prefixBase;
+        prefixBase = ((u32)buffer - 0x10);
+        prefixSize = ((u32)buffer / 16) * 16 - prefixBase;
     }
     
-    if (nbyte < psize) {
-        psize = nbyte;
+    if (size < prefixSize) {
+        prefixSize = size;
     }
-    if ((flag & 0x20000000) == 0x0) {
-        sceSifWriteBackDCache(buf, nbyte);
+    if ((fileFlags & 0x20000000) == 0x0) {
+        sceSifWriteBackDCache(buffer, size);
     }
     
-    wd->psize = psize;
-    buf = (void*)UNCACHED(buf);
-    for (i = 0; i < psize; i++) {
-        wd->pdata[i] = *(char*)(buf + i);
+    writeData->psize = prefixSize;
+    buffer = (void*)UNCACHED(buffer);
+    for (prefixIndex = 0; prefixIndex < prefixSize; prefixIndex++) {
+        writeData->pdata[prefixIndex] = *(char*)(buffer + prefixIndex);
     }    
     
-    ret = sceSifCallRpc(&_cd, 0x3, 0x0, &_send_data, sizeof(_sceFsWriteData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0x3, 0x0, &_send_data, sizeof(_sceFsWriteData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    if ((flag & 0x8000) != 0x0) {
-        DeleteSema(semaid);
+    if ((fileFlags & 0x8000) != 0x0) {
+        DeleteSema(semaphoreId);
         return 0; // SCE_OK
     } 
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_write;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return writeResult;
 }
 
-int sceIoctl(int fd, int cmd, void* arg) {
-    _sceFsIoctlData* id;
-    _sceFsIob* io;
-    s32 ret;
-    s32 ret_ioctl;
-    s32 cnt0;
-    s32 wait;
-    struct SemaParam sparam;
-    s32 i;
-    s32 semaid;
-    s32 sz;
-    s32 temp;
+int sceIoctl(int fd, int cmd, void* argument) {
+    _sceFsIoctlData* ioctlData;
+    _sceFsIob* iob;
+    s32 rpcStatus;
+    s32 ioctlResult;
+    s32 unusedCount;
+    s32 unusedWait;
+    struct SemaParam semaParam;
+    s32 queueIndex;
+    s32 semaphoreId;
+    s32 unusedSize;
+    s32 rpcAccepted;
 
-    ret = 1;
-    id = &_send_data.ioctlData;
+    rpcStatus = 1;
+    ioctlData = &_send_data.ioctlData;
 
-    io = get_iob(fd);
+    iob = get_iob(fd);
     _sceFsWaitS(5);
-    ip0 = arg;
+    ip0 = argument;
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
 
-    id->ret_argadr = 0;
-    id->ret_argsiz = 0;
+    ioctlData->ret_argadr = 0;
+    ioctlData->ret_argsiz = 0;
     
     switch(cmd) {
         case 1:
             WaitSema(_fs_fsq_semid);
-            i = 0;
-            for (; i < 32 && (_sceFs_q[i] == -1); i++) {
+            queueIndex = 0;
+            for (; queueIndex < 32 && (_sceFs_q[queueIndex] == -1); queueIndex++) {
             }
-            if (i == 32) {
+            if (queueIndex == 32) {
                 *ip0 = 0x0;
             }
             else {
@@ -726,169 +726,169 @@ int sceIoctl(int fd, int cmd, void* arg) {
             return 0x0;
         break;
         case 2:
-            *(u32*)arg = *(u32*)UNCACHED(&_rcv_data_cmd.rcvIoctlData.ee_ret);
+            *(u32*)argument = *(u32*)UNCACHED(&_rcv_data_cmd.rcvIoctlData.ee_ret);
             _sceFsSigSema();
             return 0x0;
         break;
         case 3:
-            *(u64*)arg = *(u64*)UNCACHED(&_rcv_data_cmd.rcvIoctlData.ee_ret);
+            *(u64*)argument = *(u64*)UNCACHED(&_rcv_data_cmd.rcvIoctlData.ee_ret);
             _sceFsSigSema();
             return 0x0;
         break;
     }
     
-    id->fd = io->i_fd;
-    id->cmd = cmd;
+    ioctlData->fd = iob->i_fd;
+    ioctlData->cmd = cmd;
     
-    if (arg == NULL) {
-        id->arglen = 0;
+    if (argument == NULL) {
+        ioctlData->arglen = 0;
     } else {
-        id->arglen = 0x400;
-        memcpy(&id->arg, arg, 0x400);
+        ioctlData->arglen = 0x400;
+        memcpy(&ioctlData->arg, argument, 0x400);
     }
     
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    id->ee_semid = semaid;
-    id->ee_retadr = (u32)&ret_ioctl;
-    id->ee_retsiz = sizeof(ret_ioctl);
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    ioctlData->ee_semid = semaphoreId;
+    ioctlData->ee_retadr = (u32)&ioctlResult;
+    ioctlData->ee_retsiz = sizeof(ioctlResult);
     
     sceSifWriteBackDCache(&_send_data, sizeof(_sceFsIoctlData));
-    ret = sceSifCallRpc(&_cd, 0x5, 0x0, &_send_data, sizeof(_sceFsIoctlData), &_rcv_data_rpc, 0x4, NULL, NULL);
+    rpcStatus = sceSifCallRpc(&_cd, 0x5, 0x0, &_send_data, sizeof(_sceFsIoctlData), &_rcv_data_rpc, 0x4, NULL, NULL);
     
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    temp = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcAccepted = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (temp == 0x0) {
-        DeleteSema(semaid);
+    if (rpcAccepted == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_ioctl;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return ioctlResult;
 }
 
-int sceIoctl2(int fd, int cmd, const void* arg, unsigned int arglen, void* bufp,  unsigned int buflen) {
-    _sceFsIoctlData* id;
-    _sceFsIob* io;
-    s32 ret;
-    s32 ret_ioctl;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceIoctl2(int fd, int cmd, const void* input, unsigned int inputLength, void* output, unsigned int outputLength) {
+    _sceFsIoctlData* ioctlData;
+    _sceFsIob* iob;
+    s32 rpcStatus;
+    s32 ioctlResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
     
-    id = &_send_data.ioctlData;
+    ioctlData = &_send_data.ioctlData;
 
-    io = get_iob(fd);
+    iob = get_iob(fd);
     _sceFsWaitS(0x1A);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
     
-    if ((arglen > MAX_ARG_SIZE) || (buflen > MAX_ARG_SIZE)) {
+    if ((inputLength > MAX_ARG_SIZE) || (outputLength > MAX_ARG_SIZE)) {
         _sceFsSigSema();
         return -EINVAL;
     }
     
-    if (arg == NULL) {
-        id->arglen = 0;
+    if (input == NULL) {
+        ioctlData->arglen = 0;
     } else {
-        memcpy(&id->arg, arg, arglen);
+        memcpy(&ioctlData->arg, input, inputLength);
     }
     
-    id->fd = io->i_fd;
-    id->cmd = cmd;
-    id->arglen = arglen;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    id->ee_semid = semaid;
-    id->ee_retadr = (u32)&ret_ioctl;
-    id->ee_retsiz = sizeof(ret_ioctl);
-    id->ret_argadr = bufp;
-    id->ret_argsiz = buflen;
+    ioctlData->fd = iob->i_fd;
+    ioctlData->cmd = cmd;
+    ioctlData->arglen = inputLength;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    ioctlData->ee_semid = semaphoreId;
+    ioctlData->ee_retadr = (u32)&ioctlResult;
+    ioctlData->ee_retsiz = sizeof(ioctlResult);
+    ioctlData->ret_argadr = output;
+    ioctlData->ret_argsiz = outputLength;
     
     sceSifWriteBackDCache(&_send_data, sizeof(_sceFsIoctlData));
-    ret = sceSifCallRpc(&_cd, 0x1a, 0x0, &_send_data, sizeof(_sceFsIoctlData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    rpcStatus = sceSifCallRpc(&_cd, 0x1a, 0x0, &_send_data, sizeof(_sceFsIoctlData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
     
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_ioctl;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return ioctlResult;
 }
 
 static s32 _sceCallCode(const char* name, u32 callcode) {
-    _sceFsNameData* cc;
-    s32 nsize;
-    s32 ret;
-    s32 ret_code;
-    struct SemaParam sparam;
-    s32 semaid;
+    _sceFsNameData* nameData;
+    s32 nameLength;
+    s32 rpcStatus;
+    s32 callResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    cc = &_send_data.nameData;
+    nameData = &_send_data.nameData;
     
     _sceFsWaitS(callcode);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
     
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (cc->name[nsize] = name[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        cc->name[MAX_ARG_SIZE-1] = 0x0;
-        nsize = MAX_ARG_SIZE-1;
+    for (nameLength = 0; nameLength < MAX_ARG_SIZE && (nameData->name[nameLength] = name[nameLength]) != 0; nameLength++) { }
+    if (nameLength == MAX_ARG_SIZE) {
+        nameData->name[MAX_ARG_SIZE-1] = 0x0;
+        nameLength = MAX_ARG_SIZE-1;
     }
     
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    cc->ee_semid = semaid;
-    cc->ee_retadr = (u32)&ret_code;
-    cc->ee_retsiz = sizeof(ret_code);
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    nameData->ee_semid = semaphoreId;
+    nameData->ee_retadr = (u32)&callResult;
+    nameData->ee_retsiz = sizeof(callResult);
     
-    ret = sceSifCallRpc(&_cd, callcode, 0x0, &_send_data, nsize + 0xC + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    rpcStatus = sceSifCallRpc(&_cd, callcode, 0x0, &_send_data, nameLength + 0xC + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
     
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_code;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return callResult;
 }
 
 /**
@@ -901,52 +901,52 @@ s32 sceRemove(const char* filename) {
 }
 
 int sceMkdir(const char* name, int flag) {
-    _sceFsMkdirData* mkd;
-    s32 nsize;
-    s32 ret;
-    s32 ret_mkdir;
-    struct SemaParam sparam;
-    s32 semaid;
+    _sceFsMkdirData* mkdirData;
+    s32 nameLength;
+    s32 rpcStatus;
+    s32 mkdirResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    mkd = &_send_data.mkdirData;
+    mkdirData = &_send_data.mkdirData;
     
     _sceFsWaitS(0x7);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (mkd->name[nsize] = name[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        mkd->name[MAX_ARG_SIZE-1] = 0x0;
-        nsize = MAX_ARG_SIZE-1;
+    for (nameLength = 0; nameLength < MAX_ARG_SIZE && (mkdirData->name[nameLength] = name[nameLength]) != 0; nameLength++) { }
+    if (nameLength == MAX_ARG_SIZE) {
+        mkdirData->name[MAX_ARG_SIZE-1] = 0x0;
+        nameLength = MAX_ARG_SIZE-1;
     }
     
-    mkd->flag = flag;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    mkd->ee_semid = semaid;
-    mkd->ee_retadr = (u32)&ret_mkdir;
-    mkd->ee_retsiz = sizeof(ret_mkdir);
+    mkdirData->flag = flag;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    mkdirData->ee_semid = semaphoreId;
+    mkdirData->ee_retadr = (u32)&mkdirResult;
+    mkdirData->ee_retsiz = sizeof(mkdirResult);
     
-    ret = sceSifCallRpc(&_cd, 0x7, 0x0, &_send_data, nsize + 0x10 + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0x7, 0x0, &_send_data, nameLength + 0x10 + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_mkdir;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return mkdirResult;
 }
 
 /**
@@ -958,114 +958,114 @@ s32 sceRmdir(const char* dirname) {
     return _sceCallCode(dirname, 8);
 }
 
-int sceFormat(const char* path, const char* blkdevname, void* arg, int arglen) {
-    _sceFsFormatData* fd;
-    s32 nsize;
-    s32 ret;
-    s32 ret_format;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceFormat(const char* path, const char* blkdevname, void* argument, int argumentLength) {
+    _sceFsFormatData* formatData;
+    s32 copyIndex;
+    s32 rpcStatus;
+    s32 formatResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    fd = &_send_data.formatData;
+    formatData = &_send_data.formatData;
     
     _sceFsWaitS(0xE);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (fd->path[nsize] = path[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        fd->path[MAX_ARG_SIZE-1] = 0x0;
+    for (copyIndex = 0; copyIndex < MAX_ARG_SIZE && (formatData->path[copyIndex] = path[copyIndex]) != 0; copyIndex++) { }
+    if (copyIndex == MAX_ARG_SIZE) {
+        formatData->path[MAX_ARG_SIZE-1] = 0x0;
     }
 
     if (blkdevname == NULL) {
-        fd->blkdevname[0] = 0x0;
+        formatData->blkdevname[0] = 0x0;
     } else {   
-        for (nsize = 0; nsize < MAX_ARG_SIZE && (fd->blkdevname[nsize] = blkdevname[nsize]) != 0; nsize++) { }
-        if (nsize == MAX_ARG_SIZE) {
-            fd->blkdevname[MAX_ARG_SIZE-1] = 0x0;
+        for (copyIndex = 0; copyIndex < MAX_ARG_SIZE && (formatData->blkdevname[copyIndex] = blkdevname[copyIndex]) != 0; copyIndex++) { }
+        if (copyIndex == MAX_ARG_SIZE) {
+            formatData->blkdevname[MAX_ARG_SIZE-1] = 0x0;
         }
     }
 
-    if (arglen > MAX_ARG_SIZE) {
+    if (argumentLength > MAX_ARG_SIZE) {
         _sceFsSigSema();
         return -E2BIG;
     }
 
-    for (nsize = 0; nsize < arglen; nsize++) {
-        fd->arg[nsize] = ((char*)arg)[nsize];
+    for (copyIndex = 0; copyIndex < argumentLength; copyIndex++) {
+        formatData->arg[copyIndex] = ((char*)argument)[copyIndex];
     }
 
-    fd->arglen = arglen;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    fd->ee_semid = semaid;
-    fd->ee_retadr = (u32)&ret_format;
-    fd->ee_retsiz = sizeof(ret_format);
+    formatData->arglen = argumentLength;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    formatData->ee_semid = semaphoreId;
+    formatData->ee_retadr = (u32)&formatResult;
+    formatData->ee_retsiz = sizeof(formatResult);
 
     sceSifWriteBackDCache(&_send_data, sizeof(_sceFsFormatData));
-    ret = sceSifCallRpc(&_cd, 0xE, 0x0, &_send_data, sizeof(_sceFsFormatData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0xE, 0x0, &_send_data, sizeof(_sceFsFormatData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_format;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return formatResult;
 }
 
-int sceAddDrv(void* addr) {
-    _sceFsAddrData* id;
-    s32 nsize;
-    s32 ret;
-    s32 ret_adddrv;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceAddDrv(void* driverAddress) {
+    _sceFsAddrData* addressData;
+    s32 unusedNameSize;
+    s32 rpcStatus;
+    s32 addDriverResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    id = &_send_data.addrData;
+    addressData = &_send_data.addrData;
     
     _sceFsWaitS(0xF);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    id->addr = addr;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    id->ee_semid = semaid;
-    id->ee_retadr = (u32)&ret_adddrv;
-    id->ee_retsiz = sizeof(ret_adddrv);
+    addressData->addr = driverAddress;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    addressData->ee_semid = semaphoreId;
+    addressData->ee_retadr = (u32)&addDriverResult;
+    addressData->ee_retsiz = sizeof(addDriverResult);
 
-    ret = sceSifCallRpc(&_cd, 0xF, 0x0, &_send_data, sizeof(_sceFsAddrData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0xF, 0x0, &_send_data, sizeof(_sceFsAddrData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -1;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -1;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_adddrv;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return addDriverResult;
 }
 
 s32 sceDelDrv(const char* name) {
@@ -1073,8 +1073,8 @@ s32 sceDelDrv(const char* name) {
 }
 
 int sceDopen(const char* name) {
-    _sceFsIob* io;
-    s32 ret;
+    _sceFsIob* iob;
+    s32 descriptor;
     
     _sceFsWaitS(0x9);
     if (_fs_init == 0x0) {
@@ -1082,38 +1082,38 @@ int sceDopen(const char* name) {
     }
     
     _sceFsSigSema();
-    io = new_iob();
-    if (io == NULL) {
+    iob = new_iob();
+    if (iob == NULL) {
         return -ENODEV;
     }
     
-    ret = _sceCallCode(name, 0x9);
-    if (ret < 0x0) {
+    descriptor = _sceCallCode(name, 0x9);
+    if (descriptor < 0x0) {
         WaitSema(_fs_iob_semid);
-        io->i_flag = 0x0;
+        iob->i_flag = 0x0;
         SignalSema(_fs_iob_semid);
-        return ret;
+        return descriptor;
     }
         
     WaitSema(_fs_iob_semid);
-    io->i_fd = ret;
-    ret = io - _iob;
+    iob->i_fd = descriptor;
+    descriptor = iob - _iob;
     SignalSema(_fs_iob_semid);
     
-    return ret;
+    return descriptor;
 }
 
 int sceDclose(int fd) {
-    _sceFsCloseData* cd;
-    _sceFsIob* io;
-    s32 ret;
-    s32 ret_dclose;
-    struct SemaParam sparam;
-    s32 semaid;
-    s32 temp;
+    _sceFsCloseData* closeData;
+    _sceFsIob* iob;
+    s32 rpcStatus;
+    s32 closeResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
+    s32 errorThreshold;
 
-    io = get_iob(fd);
-    cd = &_send_data.closeData;
+    iob = get_iob(fd);
+    closeData = &_send_data.closeData;
     
     _sceFsWaitS(0xA);
     if (_fs_init == 0x0) {
@@ -1121,54 +1121,54 @@ int sceDclose(int fd) {
         return -1;
     }
 
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
 
-    cd->fd = io->i_fd;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    cd->ee_semid = semaid;
-    cd->ee_retadr = (u32)&ret_dclose;
-    cd->ee_retsiz = sizeof(ret_dclose);
+    closeData->fd = iob->i_fd;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    closeData->ee_semid = semaphoreId;
+    closeData->ee_retadr = (u32)&closeResult;
+    closeData->ee_retsiz = sizeof(closeResult);
 
-    ret = sceSifCallRpc(&_cd, 0xA, 0x0, &_send_data, sizeof(_sceFsCloseData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0xA, 0x0, &_send_data, sizeof(_sceFsCloseData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    io->i_flag = 0;
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    iob->i_flag = 0;
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    temp = -1;
-    if (temp < ret_dclose) {
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    errorThreshold = -1;
+    if (errorThreshold < closeResult) {
         return 0;
     }
-    return ret_dclose;
+    return closeResult;
 }
 
-int sceDread(int fd, struct sce_dirent* dp) {
-    _sceFsReadData* rd;
-    _sceFsIob* io;
-    s32 ret;
-    s32 ret_dread;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceDread(int fd, struct sce_dirent* dirEntry) {
+    _sceFsReadData* readData;
+    _sceFsIob* iob;
+    s32 rpcStatus;
+    s32 readResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    io = get_iob(fd);
-    rd = &_send_data.readData;
+    iob = get_iob(fd);
+    readData = &_send_data.readData;
     
     _sceFsWaitS(0xB);
     if (_fs_init == 0x0) {
@@ -1176,191 +1176,191 @@ int sceDread(int fd, struct sce_dirent* dp) {
         return -1;
     }
 
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
 
-    rd->fd = io->i_fd;
-    rd->addr = (u32)dp;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    rd->ee_semid = semaid;
-    rd->ee_retadr = (u32)&ret_dread;
-    rd->ee_retsiz = sizeof(ret_dread);
+    readData->fd = iob->i_fd;
+    readData->addr = (u32)dirEntry;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    readData->ee_semid = semaphoreId;
+    readData->ee_retadr = (u32)&readResult;
+    readData->ee_retsiz = sizeof(readResult);
 
-    ret = sceSifCallRpc(&_cd, 0xB, 0x0, &_send_data, sizeof(_sceFsReadData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        WaitSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0xB, 0x0, &_send_data, sizeof(_sceFsReadData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        WaitSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_dread;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return readResult;
 }
 
-int sceGetstat(const char* name, struct sce_stat* dp) {
-    _sceFsGStatData* sd;
-    s32 ret;
-    s32 nsize;
-    s32 ret_getstat;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceGetstat(const char* name, struct sce_stat* stat) {
+    _sceFsGStatData* statData;
+    s32 rpcStatus;
+    s32 nameLength;
+    s32 getStatResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    sd = &_send_data.gStatData;
+    statData = &_send_data.gStatData;
     
     _sceFsWaitS(0xC);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (sd->name[nsize] = name[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        sd->name[MAX_ARG_SIZE-1] = 0x0;
-        nsize = MAX_ARG_SIZE-1;
+    for (nameLength = 0; nameLength < MAX_ARG_SIZE && (statData->name[nameLength] = name[nameLength]) != 0; nameLength++) { }
+    if (nameLength == MAX_ARG_SIZE) {
+        statData->name[MAX_ARG_SIZE-1] = 0x0;
+        nameLength = MAX_ARG_SIZE-1;
     }
 
-    sd->addr = dp;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    sd->ee_semid = semaid;
-    sd->ee_retadr = (u32)&ret_getstat;
-    sd->ee_retsiz = sizeof(ret_getstat);
+    statData->addr = stat;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    statData->ee_semid = semaphoreId;
+    statData->ee_retadr = (u32)&getStatResult;
+    statData->ee_retsiz = sizeof(getStatResult);
 
-    ret = sceSifCallRpc(&_cd, 0xC, 0x0, &_send_data, nsize + 0x10 + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0xC, 0x0, &_send_data, nameLength + 0x10 + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_getstat;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return getStatResult;
 }
 
-int sceChstat(const char* name, struct sce_stat* buf, unsigned int cbit) {
-    _sceFsCStatData* cd;
-    s32 ret;
-    s32 nsize;
-    s32 ret_chstat;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceChstat(const char* name, struct sce_stat* stat, unsigned int cbit) {
+    _sceFsCStatData* statData;
+    s32 rpcStatus;
+    s32 nameLength;
+    s32 changeStatResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    cd = &_send_data.cStatData;
+    statData = &_send_data.cStatData;
     
     _sceFsWaitS(0xD);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (cd->name[nsize] = name[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        cd->name[MAX_ARG_SIZE-1] = 0x0;
-        nsize = MAX_ARG_SIZE-1;
+    for (nameLength = 0; nameLength < MAX_ARG_SIZE && (statData->name[nameLength] = name[nameLength]) != 0; nameLength++) { }
+    if (nameLength == MAX_ARG_SIZE) {
+        statData->name[MAX_ARG_SIZE-1] = 0x0;
+        nameLength = MAX_ARG_SIZE-1;
     }
 
-    cd->stat = *buf;
-    cd->cbit = cbit;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    cd->ee_semid = semaid;
-    cd->ee_retadr = (u32)&ret_chstat;
-    cd->ee_retsiz = sizeof(ret_chstat);
+    statData->stat = *stat;
+    statData->cbit = cbit;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    statData->ee_semid = semaphoreId;
+    statData->ee_retadr = (u32)&changeStatResult;
+    statData->ee_retsiz = sizeof(changeStatResult);
     
     sceSifWriteBackDCache(&_send_data, sizeof(_sceFsCStatData));
-    ret = sceSifCallRpc(&_cd, 0xD, 0x0, &_send_data, nsize + 0x50 + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0xD, 0x0, &_send_data, nameLength + 0x50 + 1, &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_chstat;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return changeStatResult;
 }
 
 int sceRename(const char* oldname, const char* newname) {
-    _sceFsRenameData* rd;
-    s32 ret;
-    s32 nsize;
-    s32 ret_chstat;
-    struct SemaParam sparam;
-    s32 semaid;
+    _sceFsRenameData* renameData;
+    s32 rpcStatus;
+    s32 pathLength;
+    s32 renameResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    rd = &_send_data.renameData;
+    renameData = &_send_data.renameData;
     
     _sceFsWaitS(0x11);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (rd->oldpath[nsize] = oldname[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        rd->oldpath[MAX_ARG_SIZE-1] = 0x0;
+    for (pathLength = 0; pathLength < MAX_ARG_SIZE && (renameData->oldpath[pathLength] = oldname[pathLength]) != 0; pathLength++) { }
+    if (pathLength == MAX_ARG_SIZE) {
+        renameData->oldpath[MAX_ARG_SIZE-1] = 0x0;
     }
     
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (rd->newpath[nsize] = newname[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        rd->newpath[MAX_ARG_SIZE-1] = 0x0;
+    for (pathLength = 0; pathLength < MAX_ARG_SIZE && (renameData->newpath[pathLength] = newname[pathLength]) != 0; pathLength++) { }
+    if (pathLength == MAX_ARG_SIZE) {
+        renameData->newpath[MAX_ARG_SIZE-1] = 0x0;
     }
 
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    rd->ee_semid = semaid;
-    rd->ee_retadr = (u32)&ret_chstat;
-    rd->ee_retsiz = sizeof(ret_chstat);
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    renameData->ee_semid = semaphoreId;
+    renameData->ee_retadr = (u32)&renameResult;
+    renameData->ee_retsiz = sizeof(renameResult);
     
     sceSifWriteBackDCache(&_send_data, sizeof(_sceFsRenameData));
-    ret = sceSifCallRpc(&_cd, 0x11, 0x0, &_send_data, sizeof(_sceFsRenameData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0x11, 0x0, &_send_data, sizeof(_sceFsRenameData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_chstat;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return renameResult;
 }
 
 /**
@@ -1373,117 +1373,117 @@ s32 sceChdir(const char* name) {
 }
 
 int sceSync(const char* path, int flag) {
-    _sceFsSyncData* sd;
-    s32 nsize;
-    s32 ret;
-    s32 ret_sync;
-    struct SemaParam sparam;
-    s32 i;
-    s32 semaid;
+    _sceFsSyncData* syncData;
+    s32 unusedPathLength;
+    s32 rpcStatus;
+    s32 syncResult;
+    struct SemaParam semaParam;
+    s32 pathLength;
+    s32 semaphoreId;
 
-    sd = &_send_data.syncData;
+    syncData = &_send_data.syncData;
     
     _sceFsWaitS(0x13);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
     
-    for (i = 0; i < MAX_ARG_SIZE && (sd->path[i] = path[i]) != 0; i++) { }
-    if (i == MAX_ARG_SIZE) {
-        sd->path[MAX_ARG_SIZE-1] = 0x0;
+    for (pathLength = 0; pathLength < MAX_ARG_SIZE && (syncData->path[pathLength] = path[pathLength]) != 0; pathLength++) { }
+    if (pathLength == MAX_ARG_SIZE) {
+        syncData->path[MAX_ARG_SIZE-1] = 0x0;
     }
     
-    sd->flag = flag;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    sd->ee_semid = semaid;
-    sd->ee_retadr = (u32)&ret_sync;
-    sd->ee_retsiz = sizeof(ret_sync);
+    syncData->flag = flag;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    syncData->ee_semid = semaphoreId;
+    syncData->ee_retadr = (u32)&syncResult;
+    syncData->ee_retsiz = sizeof(syncResult);
     
-    ret = sceSifCallRpc(&_cd, 0x13, 0x0, &_send_data, sizeof(_sceFsSyncData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    rpcStatus = sceSifCallRpc(&_cd, 0x13, 0x0, &_send_data, sizeof(_sceFsSyncData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
     
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_sync;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return syncResult;
 }
 
-int sceMount(const char* fsdevname, const char* blkdevname, int flag, void* arg, int arglen) {
-    _sceFsMountData* md;
-    s32 nsize;
-    s32 ret;
-    s32 ret_sync;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceMount(const char* fsdevname, const char* blkdevname, int flag, void* argument, int argumentLength) {
+    _sceFsMountData* mountData;
+    s32 copyIndex;
+    s32 rpcStatus;
+    s32 mountResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    md = &_send_data.mountData;
+    mountData = &_send_data.mountData;
     
     _sceFsWaitS(0x14);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
     
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (md->fsdevname[nsize] = fsdevname[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        md->fsdevname[MAX_ARG_SIZE-1] = 0x0;
+    for (copyIndex = 0; copyIndex < MAX_ARG_SIZE && (mountData->fsdevname[copyIndex] = fsdevname[copyIndex]) != 0; copyIndex++) { }
+    if (copyIndex == MAX_ARG_SIZE) {
+        mountData->fsdevname[MAX_ARG_SIZE-1] = 0x0;
     }
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (md->blkdevname[nsize] = blkdevname[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        md->blkdevname[MAX_ARG_SIZE-1] = 0x0;
+    for (copyIndex = 0; copyIndex < MAX_ARG_SIZE && (mountData->blkdevname[copyIndex] = blkdevname[copyIndex]) != 0; copyIndex++) { }
+    if (copyIndex == MAX_ARG_SIZE) {
+        mountData->blkdevname[MAX_ARG_SIZE-1] = 0x0;
     }
 
-    if (arglen > MAX_ARG_SIZE) {
+    if (argumentLength > MAX_ARG_SIZE) {
         _sceFsSigSema();
         return -E2BIG;
     }
 
-    for (nsize = 0; nsize < arglen; nsize++) {
-        md->arg[nsize] = ((char*)arg)[nsize];
+    for (copyIndex = 0; copyIndex < argumentLength; copyIndex++) {
+        mountData->arg[copyIndex] = ((char*)argument)[copyIndex];
     }
     
-    md->flag = flag;
-    md->arglen = arglen;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    md->ee_semid = semaid;
-    md->ee_retadr = (u32)&ret_sync;
-    md->ee_retsiz = sizeof(ret_sync);
+    mountData->flag = flag;
+    mountData->arglen = argumentLength;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    mountData->ee_semid = semaphoreId;
+    mountData->ee_retadr = (u32)&mountResult;
+    mountData->ee_retsiz = sizeof(mountResult);
     
     sceSifWriteBackDCache(&_send_data, sizeof(_sceFsMountData));
-    ret = sceSifCallRpc(&_cd, 0x14, 0x0, &_send_data, sizeof(_sceFsMountData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    rpcStatus = sceSifCallRpc(&_cd, 0x14, 0x0, &_send_data, sizeof(_sceFsMountData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
     
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_sync;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return mountResult;
 }
 
 /**
@@ -1496,244 +1496,244 @@ s32 sceUmount(const char* name) {
 }
 
 long sceLseek64(int fd, long offset, int how) {
-    _sceFsLseek64Data* ld;
-    _sceFsIob* io;
-    s32 cnt0;
-    s32 ret;
-    s64 ret_lseek64;
-    s32 i;
-    s32 flag;
-    struct SemaParam sparam;
-    s32 semaid;
+    _sceFsLseek64Data* seekData;
+    _sceFsIob* iob;
+    s32 unusedCount;
+    s32 rpcStatus;
+    s64 seekResult;
+    s32 queueIndex;
+    s32 fileFlags;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    ld = &_send_data.lSeek64Data;
+    seekData = &_send_data.lSeek64Data;
     
-    io = get_iob(fd);
+    iob = get_iob(fd);
     _sceFsWaitS(0x16);
     if (_fs_init == 0x0) {
         _sceFsSigSema();
         return -0x1; // errno.h says this would be "Not super-user" but that doesn't make sense
     }
     
-    if ((io == NULL) || (io->i_flag == 0x0)) {
+    if ((iob == NULL) || (iob->i_flag == 0x0)) {
         _sceFsSigSema();
         return -EBADF;
     }
     
-    flag = io->i_flag;
-    ld->fd = io->i_fd;
-    ld->offset = offset;
-    ld->how = how;
-    ld->ee_fds = io - _iob;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    ld->ee_semid = semaid;
-    ld->ee_retadr = (u32)&ret_lseek64;
-    ld->ee_retsiz = sizeof(ret_lseek64);
+    fileFlags = iob->i_flag;
+    seekData->fd = iob->i_fd;
+    seekData->offset = offset;
+    seekData->how = how;
+    seekData->ee_fds = iob - _iob;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    seekData->ee_semid = semaphoreId;
+    seekData->ee_retadr = (u32)&seekResult;
+    seekData->ee_retsiz = sizeof(seekResult);
         
-    if ((flag & 0x8000) != 0x0) {
+    if ((fileFlags & 0x8000) != 0x0) {
         WaitSema(_fs_fsq_semid);
-        for (i = 0; i < 32; i++) {
-            if (_sceFs_q[i] == -1) {
-                _sceFs_q[i] = ld->ee_semid;
-                ld->ee_semid = -ld->ee_semid;
+        for (queueIndex = 0; queueIndex < 32; queueIndex++) {
+            if (_sceFs_q[queueIndex] == -1) {
+                _sceFs_q[queueIndex] = seekData->ee_semid;
+                seekData->ee_semid = -seekData->ee_semid;
                 break;
             }
         }
         SignalSema(_fs_fsq_semid);
     }
     
-    ret = sceSifCallRpc(&_cd, 0x16, 0x0, &_send_data, sizeof(_sceFsLseek64Data), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0x16, 0x0, &_send_data, sizeof(_sceFsLseek64Data), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
 
-    if ((flag & 0x8000) != 0x0) {
-        DeleteSema(semaid);
+    if ((fileFlags & 0x8000) != 0x0) {
+        DeleteSema(semaphoreId);
         return 0; // SCE_OK
     } 
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_lseek64;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return seekResult;
 }
 
-int sceDevctl(const char* devname, int cmd, const void* arg, unsigned int arglen, void* bufp, unsigned int buflen) {
-    _sceFsDevctlData* dd;
-    s32 nsize;
-    s32 ret;
-    s32 ret_devctl;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceDevctl(const char* devname, int cmd, const void* input, unsigned int inputLength, void* output, unsigned int outputLength) {
+    _sceFsDevctlData* devctlData;
+    s32 copyIndex;
+    s32 rpcStatus;
+    s32 devctlResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    dd = &_send_data.devctlData;
+    devctlData = &_send_data.devctlData;
     
     _sceFsWaitS(0x17);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (dd->path[nsize] = devname[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        dd->path[MAX_ARG_SIZE-1] = 0x0;
+    for (copyIndex = 0; copyIndex < MAX_ARG_SIZE && (devctlData->path[copyIndex] = devname[copyIndex]) != 0; copyIndex++) { }
+    if (copyIndex == MAX_ARG_SIZE) {
+        devctlData->path[MAX_ARG_SIZE-1] = 0x0;
     }
 
-    if ((arglen > MAX_ARG_SIZE) || (buflen > MAX_ARG_SIZE)) {
+    if ((inputLength > MAX_ARG_SIZE) || (outputLength > MAX_ARG_SIZE)) {
         _sceFsSigSema();
         return -EINVAL;
     }
 
-    for (nsize = 0; nsize < arglen; nsize++) {
-        dd->arg_buf[nsize] = ((char*)arg)[nsize];
+    for (copyIndex = 0; copyIndex < inputLength; copyIndex++) {
+        devctlData->arg_buf[copyIndex] = ((char*)input)[copyIndex];
     }
     
-    dd->cmd = cmd;
-    dd->arglen = arglen;
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    dd->ee_semid = semaid;
-    dd->ee_retadr = (u32)&ret_devctl;
-    dd->ee_retsiz = sizeof(ret_devctl);
-    dd->ret_argadr = bufp;
-    dd->ret_arglen = buflen;
+    devctlData->cmd = cmd;
+    devctlData->arglen = inputLength;
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    devctlData->ee_semid = semaphoreId;
+    devctlData->ee_retadr = (u32)&devctlResult;
+    devctlData->ee_retsiz = sizeof(devctlResult);
+    devctlData->ret_argadr = output;
+    devctlData->ret_arglen = outputLength;
     
     sceSifWriteBackDCache(&_send_data, sizeof(_sceFsDevctlData));
-    ret = sceSifCallRpc(&_cd, 0x17, 0x0, &_send_data, sizeof(_sceFsDevctlData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    rpcStatus = sceSifCallRpc(&_cd, 0x17, 0x0, &_send_data, sizeof(_sceFsDevctlData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
     
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_devctl;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return devctlResult;
 }
 
 int sceSymlink(const char* existing, const char* new) {
-    _sceFsSymlinkData* rd;
-    s32 nsize;
-    s32 ret;
-    s32 ret_link;
-    struct SemaParam sparam;
-    s32 semaid;
+    _sceFsSymlinkData* symlinkData;
+    s32 pathLength;
+    s32 rpcStatus;
+    s32 linkResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    rd = &_send_data.symlinkData;
+    symlinkData = &_send_data.symlinkData;
     
     _sceFsWaitS(0x11);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (rd->existing[nsize] = existing[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        rd->existing[MAX_ARG_SIZE-1] = 0x0;
+    for (pathLength = 0; pathLength < MAX_ARG_SIZE && (symlinkData->existing[pathLength] = existing[pathLength]) != 0; pathLength++) { }
+    if (pathLength == MAX_ARG_SIZE) {
+        symlinkData->existing[MAX_ARG_SIZE-1] = 0x0;
     }
     
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (rd->new[nsize] = new[nsize]) != 0; nsize++) { }
-    if (nsize == MAX_ARG_SIZE) {
-        rd->new[MAX_ARG_SIZE-1] = 0x0;
+    for (pathLength = 0; pathLength < MAX_ARG_SIZE && (symlinkData->new[pathLength] = new[pathLength]) != 0; pathLength++) { }
+    if (pathLength == MAX_ARG_SIZE) {
+        symlinkData->new[MAX_ARG_SIZE-1] = 0x0;
     }
 
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    rd->ee_semid = semaid;
-    rd->ee_retadr = (u32)&ret_link;
-    rd->ee_retsiz = sizeof(ret_link);
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    symlinkData->ee_semid = semaphoreId;
+    symlinkData->ee_retadr = (u32)&linkResult;
+    symlinkData->ee_retsiz = sizeof(linkResult);
     
-    ret = sceSifCallRpc(&_cd, 0x18, 0x0, &_send_data, sizeof(_sceFsSymlinkData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0x18, 0x0, &_send_data, sizeof(_sceFsSymlinkData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_link;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return linkResult;
 }
 
-int sceReadlink(const char* path, char* buf, unsigned int bufsize) {
-    _sceFsReadlinkData* rd;
-    s32 nsize;
-    s32 ret;
-    s32 ret_link;
-    struct SemaParam sparam;
-    s32 semaid;
+int sceReadlink(const char* path, char* buffer, unsigned int bufferSize) {
+    _sceFsReadlinkData* readlinkData;
+    s32 pathLength;
+    s32 rpcStatus;
+    s32 linkResult;
+    struct SemaParam semaParam;
+    s32 semaphoreId;
 
-    rd = &_send_data.readLinkData;
+    readlinkData = &_send_data.readLinkData;
     
     _sceFsWaitS(0x11);
     if (_fs_init == 0x0) {
         sceFsInit();
     }
 
-    for (nsize = 0; nsize < MAX_ARG_SIZE && (rd->path[nsize] = path[nsize]) != 0; nsize++) { }
+    for (pathLength = 0; pathLength < MAX_ARG_SIZE && (readlinkData->path[pathLength] = path[pathLength]) != 0; pathLength++) { }
     
-    if (nsize == MAX_ARG_SIZE) {
-        rd->path[MAX_ARG_SIZE-1] = 0x0;
+    if (pathLength == MAX_ARG_SIZE) {
+        readlinkData->path[MAX_ARG_SIZE-1] = 0x0;
     }
 
-    if (bufsize >= MAX_ARG_SIZE) {
-        bufsize = MAX_ARG_SIZE-1;
+    if (bufferSize >= MAX_ARG_SIZE) {
+        bufferSize = MAX_ARG_SIZE-1;
     }
 
-    rd->bufsize = bufsize;
-    rd->bufaddr = (u32)buf;
-    sceSifWriteBackDCache(buf, bufsize);
-    sparam.maxCount = 0x1;
-    sparam.initCount = 0x0;
-    sparam.option = 0x0;
-    semaid = CreateSema(&sparam);
-    rd->ee_semid = semaid;
-    rd->ee_retadr = (u32)&ret_link;
-    rd->ee_retsiz = sizeof(ret_link);
+    readlinkData->bufsize = bufferSize;
+    readlinkData->bufaddr = (u32)buffer;
+    sceSifWriteBackDCache(buffer, bufferSize);
+    semaParam.maxCount = 0x1;
+    semaParam.initCount = 0x0;
+    semaParam.option = 0x0;
+    semaphoreId = CreateSema(&semaParam);
+    readlinkData->ee_semid = semaphoreId;
+    readlinkData->ee_retadr = (u32)&linkResult;
+    readlinkData->ee_retsiz = sizeof(linkResult);
     
-    ret = sceSifCallRpc(&_cd, 0x19, 0x0, &_send_data, sizeof(_sceFsSymlinkData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
-    if (ret < 0x0) {
-        DeleteSema(semaid);
+    rpcStatus = sceSifCallRpc(&_cd, 0x19, 0x0, &_send_data, sizeof(_sceFsSymlinkData), &_rcv_data_rpc, sizeof(_rcv_data_rpc), NULL, NULL);
+    if (rpcStatus < 0x0) {
+        DeleteSema(semaphoreId);
         _sceFsSigSema();
         return -EAGAIN;
     }
    
-    ret = *(u32*)UNCACHED(&_rcv_data_rpc);
+    rpcStatus = *(u32*)UNCACHED(&_rcv_data_rpc);
     _sceFsSigSema();
-    if (ret == 0x0) {
-        DeleteSema(semaid);
+    if (rpcStatus == 0x0) {
+        DeleteSema(semaphoreId);
         return -EAGAIN;
     }
     
-    WaitSema(semaid);
-    DeleteSema(semaid);
-    return ret_link;
+    WaitSema(semaphoreId);
+    DeleteSema(semaphoreId);
+    return linkResult;
 }

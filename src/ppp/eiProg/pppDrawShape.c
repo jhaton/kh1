@@ -7,10 +7,10 @@ typedef struct {
 } VDrawShape;
 
 void pppDrawShapeCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VDrawShape* vds = (VDrawShape*)&pobj->val[ctbl->useVal[0]];
-    vds->seq_now = 0;
-    vds->seq = 0;
-    vds->wait = 0;
+    VDrawShape* shapeState = (VDrawShape*)&pobj->val[ctbl->useVal[0]];
+    shapeState->seq_now = 0;
+    shapeState->seq = 0;
+    shapeState->wait = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/eiProg/pppDrawShape", pppDrawShapeCalc);

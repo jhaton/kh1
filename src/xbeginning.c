@@ -112,7 +112,7 @@ void func_00100118(void) {
 }
 
 void func_00100168(void) {
-    s32 new_var;
+    s32 repeatInitialization;
 
     D_002A30D4 = sceDmaGetChan(SCE_DMA_GIF);
     D_002B2CC0 = 0;
@@ -124,10 +124,10 @@ void func_00100168(void) {
     D_002A0514 = 0;
     D_002B8C90 = 0;
 
-    new_var = 0;
+    repeatInitialization = 0;
     do {
         D_002B8C94 = 0;
-    } while (new_var); // TODO improve
+    } while (repeatInitialization); // TODO improve
 
     func_00113CA8();
     func_001139F8();
@@ -171,18 +171,18 @@ INCLUDE_ASM("asm/nonmatchings/xbeginning", func_00100240);
 #endif
 
 s32 func_00100328(void) {
-    s32 temp_16;
-    s32 temp_3;
+    s32 bit1Set;
+    s32 bit0Set;
 
     D_002B8C94 = D_002B8C90;
     D_002B8C90 = D_00375BC0 & 1;
     func_00114800();
-    temp_16 = (D_002B85F8 >> 1) & 1;
-    if (temp_16 == 1) {
+    bit1Set = (D_002B85F8 >> 1) & 1;
+    if (bit1Set == 1) {
         func_001006C8();
-        temp_3 = D_002B85F8 & 1;
-        if (temp_3 == temp_16) {
-            if (((D_002B85F8 >> 3) & 1) == temp_3) {
+        bit0Set = D_002B85F8 & 1;
+        if (bit0Set == bit1Set) {
+            if (((D_002B85F8 >> 3) & 1) == bit0Set) {
                 func_001006F8();
                 func_001007E0();
             }
@@ -211,18 +211,18 @@ int main(void) {
     } while (TRUE);
 }
 
-void func_00100460(s32 arg0, XArg1* arg1) {
-    s32 i;
+void func_00100460(s32 configIndex, XArg1* outputConfigs) {
+    s32 copyIndex;
 
-    for (i = 0; i < 2; i++) {
-        arg1[i].data[0] = D_00486430[arg0][0];
-        arg1[i].data[1] = D_00486430[arg0][1];
-        arg1[i].data[2] = D_00486430[arg0][2];
-        arg1[i].data[3] = D_00486430[arg0][3];
-        arg1[i].data[4] = D_0046BE90[0][0];
-        arg1[i].data[5] = D_0046BE90[0][1];
-        arg1[i].data[6] = D_0046BE90[0][2];
-        arg1[i].data[7] = D_0046BE90[0][3];
+    for (copyIndex = 0; copyIndex < 2; copyIndex++) {
+        outputConfigs[copyIndex].data[0] = D_00486430[configIndex][0];
+        outputConfigs[copyIndex].data[1] = D_00486430[configIndex][1];
+        outputConfigs[copyIndex].data[2] = D_00486430[configIndex][2];
+        outputConfigs[copyIndex].data[3] = D_00486430[configIndex][3];
+        outputConfigs[copyIndex].data[4] = D_0046BE90[0][0];
+        outputConfigs[copyIndex].data[5] = D_0046BE90[0][1];
+        outputConfigs[copyIndex].data[6] = D_0046BE90[0][2];
+        outputConfigs[copyIndex].data[7] = D_0046BE90[0][3];
     }
 }
 
@@ -255,8 +255,8 @@ void func_001006C8(void) {
 void func_001006F8(void);
 INCLUDE_ASM("asm/nonmatchings/xbeginning", func_001006F8);
 
-void func_001007D0(f32 arg0) {
-    D_0048DDA0[1].unk_44 = arg0;
+void func_001007D0(f32 value) {
+    D_0048DDA0[1].unk_44 = value;
 }
 
 void func_001007E0(void) {
@@ -270,7 +270,7 @@ void func_001007E0(void) {
 }
 
 void func_00100880(void) {
-    s32 val = FALSE;
+    s32 flagSet = FALSE;
 
     D_002978C0 = 0;
     func_00106CB0(0x2724);
@@ -281,8 +281,8 @@ void func_00100880(void) {
         func_00107B68(0x2724, 1);
     }
     if (D_002978CC != 0) {
-        val = TRUE;
-        if (((D_002B85F8 >> 4) & 1) == val) {
+        flagSet = TRUE;
+        if (((D_002B85F8 >> 4) & 1) == flagSet) {
             func_00100550(6, 0x2724);
         } else {
             func_00100550(0, 0x2724);

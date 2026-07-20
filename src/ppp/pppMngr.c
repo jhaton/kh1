@@ -37,8 +37,8 @@ void drawStart(void) {
     ppvVertex = NULL;
 }
 
-s32 pppDbgAlloc(s32 arg0, s32 arg1) {
-    return pppAlloc(arg0, arg1);
+s32 pppDbgAlloc(s32 environment, s32 size) {
+    return pppAlloc(environment, size);
 }
 
 void drawEnd(void) {
@@ -123,14 +123,14 @@ INCLUDE_ASM("asm/nonmatchings/ppp/pppMngr", dpd_set_rsd_data);
 INCLUDE_ASM("asm/nonmatchings/ppp/pppMngr", dpd_set_vsf_data);
 
 s32 dpd_set_object_data(ppvmng* pMng) {
-    s32* piVar1;
-    s16** ppsVar2;
+    s32* dpdData;
+    s16** objectData;
 
-    piVar1 = dpd_h_skip_version(pMng->pchDpd);
-    piVar1 = dpd_h_skip_datainfo(piVar1, 2);
-    ppsVar2 = dpd_set_shape_data(piVar1, pMng->pEtc->abUseShape);
-    ppsVar2 = dpd_set_rsd_data(ppsVar2, pMng->pEtc->abUseRsd);
-    return dpd_set_vsf_data(ppsVar2, pMng->pEtc->abUseVsf);
+    dpdData = dpd_h_skip_version(pMng->pchDpd);
+    dpdData = dpd_h_skip_datainfo(dpdData, 2);
+    objectData = dpd_set_shape_data(dpdData, pMng->pEtc->abUseShape);
+    objectData = dpd_set_rsd_data(objectData, pMng->pEtc->abUseRsd);
+    return dpd_set_vsf_data(objectData, pMng->pEtc->abUseVsf);
 }
 
 void func_00182110(s32 arg0) {
@@ -172,22 +172,22 @@ void vramcachemng_clear(_VRAMCACHE_MNG* cacheMng) {
 INCLUDE_ASM("asm/nonmatchings/ppp/pppMngr", func_00182580);
 
 void vramcache_texture(_VRAMCACHE_MNG* cacheMng, ppvmng* pMng) {
-    s32 lVar1 = func_00182580(cacheMng, 10, pMng, pMng->unk_91);
+    s32 blockStart = func_00182580(cacheMng, 10, pMng, pMng->unk_91);
 
-    if (lVar1 < 0) {
+    if (blockStart < 0) {
         pMng->texpStart = 0;
     } else {
-        pMng->texpStart = (lVar1 << 7) + 0x3800;
+        pMng->texpStart = (blockStart << 7) + 0x3800;
     }
 }
 
 void vramcache_clut(_VRAMCACHE_MNG* cacheMng, ppvmng* pMng) {
-    s32 lVar1 = func_00182580(cacheMng->vramCacheClut, 6, pMng, pMng->unk_92);
+    s32 blockStart = func_00182580(cacheMng->vramCacheClut, 6, pMng, pMng->unk_92);
 
-    if (lVar1 < 0) {
+    if (blockStart < 0) {
         pMng->clutpStart = 0;
     } else {
-        pMng->clutpStart = (lVar1 << 5) + 0x3D40;
+        pMng->clutpStart = (blockStart << 5) + 0x3D40;
     }
 }
 

@@ -3,7 +3,7 @@
 
 typedef struct {
     /* 0x00 */ char unk_00[0x11];
-    /* 0x11 */ s8 unk_11;
+    /* 0x11 */ s8 isEnabled;
     /* 0x12 */ char unk_12[0x12];
     /* 0x24 */ s32 unk_24;
 } XSauce;
@@ -29,7 +29,7 @@ s32 D_002B7FF0;
 s32 D_004CF574;
 s32 D_004CF57C;
 
-extern u_long128* func_00121C98(s32 arg0, u_long128** arg1);
+extern u_long128* func_00121C98(s32 size, u_long128** allocation);
 
 INCLUDE_ASM("asm/nonmatchings/xsauce", func_0010C2D8);
 
@@ -134,17 +134,17 @@ void func_0010E700(void) {
     func_0010C1D0(16363, &D_002B7F30);
 }
 
-void func_0010E830(XSauce* arg0) {
+void func_0010E830(XSauce* state) {
     func_00106948(&D_002B7FF0);
-    arg0->unk_11 = 1;
-    func_0010E330(arg0);
+    state->isEnabled = 1;
+    func_0010E330(state);
 }
 
-void func_0010E868(XSauce* arg0) {
+void func_0010E868(XSauce* state) {
     func_00106948(&D_002B7FF0);
-    arg0->unk_24 = 0;
-    arg0->unk_11 = 0;
-    func_0010E330(arg0);
+    state->unk_24 = 0;
+    state->isEnabled = 0;
+    func_0010E330(state);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xsauce", func_0010E8A0);
@@ -163,10 +163,10 @@ INCLUDE_ASM("asm/nonmatchings/xsauce", func_0010EDA0);
 
 INCLUDE_ASM("asm/nonmatchings/xsauce", func_0010EDC0);
 
-s32 func_0010EEC8(s32 arg0) {
-    s32 stack[4];
+s32 func_0010EEC8(s32 input) {
+    s32 output[4];
 
-    return func_0010EDC0(arg0, stack) / 24 + 1;
+    return func_0010EDC0(input, output) / 24 + 1;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xsauce", func_0010EF00);
@@ -181,8 +181,8 @@ void func_0010F380(void) {
     }
 }
 
-void func_0010F3B8(s32 arg0, s32 arg1) {
-    *(s32*)(arg1 + 0xA8) = arg0; // todo: figure out what struct this is
+void func_0010F3B8(s32 value, s32 context) {
+    *(s32*)(context + 0xA8) = value; // todo: figure out what struct this is
     D_004CF574 = 0;
     D_004CF57C = 0;
 }

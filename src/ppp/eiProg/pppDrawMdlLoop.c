@@ -20,7 +20,7 @@ typedef struct {
 } PDrawMdlLoop;
 
 typedef struct {
-    /* 0x0 */ void* m_pp;
+    /* 0x0 */ void* params;
     /* 0x4 */ f32 m_tu;
     /* 0x8 */ f32 m_dtu;
     /* 0xC */ f32 m_ddtu;
@@ -33,44 +33,44 @@ typedef struct {
 INCLUDE_ASM("asm/nonmatchings/ppp/eiProg/pppDrawMdlLoop", func_0018C818);
 
 void pppDrawMdlLoopCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    ((VDrawMdlLoop*)&pobj->val[ctbl->useVal[2]])->m_pp = NULL;
+    ((VDrawMdlLoop*)&pobj->val[ctbl->useVal[2]])->params = NULL;
 }
 
 void pppDrawMdlLoopCon2(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VDrawMdlLoop* vmdl = (VDrawMdlLoop*)&pobj->val[ctbl->useVal[2]];
+    VDrawMdlLoop* loopState = (VDrawMdlLoop*)&pobj->val[ctbl->useVal[2]];
 
-    vmdl->m_dtu = vmdl->m_ddtu = vmdl->m_dtv = vmdl->m_ddtv = 0;
+    loopState->m_dtu = loopState->m_ddtu = loopState->m_dtv = loopState->m_ddtv = 0;
 }
 
 void pppDrawMdlLoopDes(void) {
 }
 
-void pppDrawMdlLoopCalc(pppPObject* pobj, PDrawMdlLoop* p, pppCtrlTable* ctbl) {
-    VDrawMdlLoop* vmdl = (VDrawMdlLoop*)&pobj->val[ctbl->useVal[2]];
-    PDrawMdlLoop* pmdl = (PDrawMdlLoop*)&pobj->val[ctbl->useVal[2]];
+void pppDrawMdlLoopCalc(pppPObject* pobj, PDrawMdlLoop* params, pppCtrlTable* ctbl) {
+    VDrawMdlLoop* loopState = (VDrawMdlLoop*)&pobj->val[ctbl->useVal[2]];
+    PDrawMdlLoop* stateParamsView = (PDrawMdlLoop*)&pobj->val[ctbl->useVal[2]];
 
-    if (vmdl->m_pp == NULL) {
-        func_0018C818(p, vmdl);
+    if (loopState->params == NULL) {
+        func_0018C818(params, loopState);
     }
 
     if (ppvUserStopPartF != 0 || ppvMng->stop || ppvMng->unk_B4 != 0) {
         return;
     }
 
-    if (p->cdt.time == pobj->time) {
-        pmdl->m_tu += p->m_dtu;
-        pmdl->m_dtu += p->m_ddtu;
-        pmdl->m_tv += p->m_dtv;
-        pmdl->m_dtv += p->m_ddtv;
+    if (params->cdt.time == pobj->time) {
+        stateParamsView->m_tu += params->m_dtu;
+        stateParamsView->m_dtu += params->m_ddtu;
+        stateParamsView->m_tv += params->m_dtv;
+        stateParamsView->m_dtv += params->m_ddtv;
     }
 
     if (!ppvEmptyLoop) {
-        vmdl->m_dtu += vmdl->m_ddtu;
-        vmdl->m_dtv += vmdl->m_ddtv;
-        vmdl->m_tu += vmdl->m_dtu;
-        vmdl->m_tv += vmdl->m_dtv;
-        vmdl->m_tu = fmodf(vmdl->m_tu, 32768.0f);
-        vmdl->m_tv = fmodf(vmdl->m_tv, 32768.0f);
+        loopState->m_dtu += loopState->m_ddtu;
+        loopState->m_dtv += loopState->m_ddtv;
+        loopState->m_tu += loopState->m_dtu;
+        loopState->m_tv += loopState->m_dtv;
+        loopState->m_tu = fmodf(loopState->m_tu, 32768.0f);
+        loopState->m_tv = fmodf(loopState->m_tv, 32768.0f);
     }
 }
 

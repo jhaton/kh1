@@ -3,13 +3,13 @@
 
 XWhiskey* D_00663A28[8];
 
-void func_00247778(s32 arg0, XWhiskey* arg1) {
-    if (arg0 > 0) {
-        while (arg0 != 0) {
-            arg0 += -1;
-            arg1->unk_10 = 0;
-            arg1->unk_14 = 0;
-            arg1 = &arg1->unk_20;
+void func_00247778(s32 entryCount, XWhiskey* entry) {
+    if (entryCount > 0) {
+        while (entryCount != 0) {
+            entryCount += -1;
+            entry->unk_10 = 0;
+            entry->unk_14 = 0;
+            entry = &entry->unk_20;
         };
     }
 }
@@ -22,10 +22,10 @@ INCLUDE_ASM("asm/nonmatchings/xpackage", func_002479A0);
 
 INCLUDE_ASM("asm/nonmatchings/xpackage", func_00247A30);
 
-void func_00247AA0(s32 arg0) {
-    func_00247030(arg0, 1);
-    func_00246B50(arg0, 1);
-    func_00246D68(arg0, 1);
+void func_00247AA0(s32 packageIndex) {
+    func_00247030(packageIndex, 1);
+    func_00246B50(packageIndex, 1);
+    func_00246D68(packageIndex, 1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xpackage", func_00247AE0);
@@ -165,8 +165,8 @@ INCLUDE_ASM("asm/nonmatchings/xpackage", func_00248318);
 
 INCLUDE_ASM("asm/nonmatchings/xpackage", func_00248340);
 
-void func_002484F8(s32 arg0) {
-    func_00248340(arg0, malloc(func_00248318(arg0)), 1);
+void func_002484F8(s32 packageIndex) {
+    func_00248340(packageIndex, malloc(func_00248318(packageIndex)), 1);
 }
 
 void func_00248530(void) {

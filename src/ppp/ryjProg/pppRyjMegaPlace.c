@@ -22,18 +22,18 @@ INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjMegaPlace", pppRyjMegaPlaceDraw)
 INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjMegaPlace", pppRyjMegaPlaceCon);
 
 void pppRyjMegaPlaceDes(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjMegaPlace* v = (VRyjMegaPlace*)&pobj->val[ctbl->useVal[0]];
+    VRyjMegaPlace* megaPlace = (VRyjMegaPlace*)&pobj->val[ctbl->useVal[0]];
 
-    if (v->pvShape != NULL) {
-        pppFree(ppvEnv, v->pvShape);
-        v->pvShape = NULL;
+    if (megaPlace->pvShape != NULL) {
+        pppFree(ppvEnv, megaPlace->pvShape);
+        megaPlace->pvShape = NULL;
     }
-    if (v->pvModel != NULL) {
-        pppFree(ppvEnv, v->pvModel);
-        v->pvModel = NULL;
+    if (megaPlace->pvModel != NULL) {
+        pppFree(ppvEnv, megaPlace->pvModel);
+        megaPlace->pvModel = NULL;
     }
-    if (v->pvLamp != NULL) {
-        pppFree(ppvEnv, v->pvLamp);
-        v->pvLamp = NULL;
+    if (megaPlace->pvLamp != NULL) {
+        pppFree(ppvEnv, megaPlace->pvLamp);
+        megaPlace->pvLamp = NULL;
     }
 }

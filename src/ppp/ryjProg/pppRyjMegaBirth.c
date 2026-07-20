@@ -20,32 +20,32 @@ INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjMegaBirth", func_0019ED48);
 INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjMegaBirth", pppRyjMegaBirthDraw);
 
 void pppRyjMegaBirthCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjMegaBirth* v = (VRyjMegaBirth*)&pobj->val[ctbl->useVal[2]];
+    VRyjMegaBirth* megaBirth = (VRyjMegaBirth*)&pobj->val[ctbl->useVal[2]];
 
-    sceVu0UnitMatrix(v->matPar);
-    *(u_long128*)v->vecForce = 0;
-    v->pvParticleData = 0;
-    v->pvParticleWmat = 0;
-    v->pvParticleColor = 0;
-    v->nParticle = 0;
-    v->ushTimingCt = 0;
-    v->ushIct = 0;
+    sceVu0UnitMatrix(megaBirth->matPar);
+    *(u_long128*)megaBirth->vecForce = 0;
+    megaBirth->pvParticleData = 0;
+    megaBirth->pvParticleWmat = 0;
+    megaBirth->pvParticleColor = 0;
+    megaBirth->nParticle = 0;
+    megaBirth->ushTimingCt = 0;
+    megaBirth->ushIct = 0;
     sceVu0UnitMatrix(g_matUnit);
 }
 
 void pppRyjMegaBirthDes(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjMegaBirth* data = (VRyjMegaBirth*)&pobj->val[ctbl->useVal[2]];
+    VRyjMegaBirth* megaBirth = (VRyjMegaBirth*)&pobj->val[ctbl->useVal[2]];
 
-    if (data->pvParticleData != NULL) {
-        pppFree(ppvEnv, data->pvParticleData);
-        data->pvParticleData = NULL;
+    if (megaBirth->pvParticleData != NULL) {
+        pppFree(ppvEnv, megaBirth->pvParticleData);
+        megaBirth->pvParticleData = NULL;
     }
-    if (data->pvParticleWmat != NULL) {
-        pppFree(ppvEnv, data->pvParticleWmat);
-        data->pvParticleWmat = NULL;
+    if (megaBirth->pvParticleWmat != NULL) {
+        pppFree(ppvEnv, megaBirth->pvParticleWmat);
+        megaBirth->pvParticleWmat = NULL;
     }
-    if (data->pvParticleColor != NULL) {
-        pppFree(ppvEnv, data->pvParticleColor);
-        data->pvParticleColor = NULL;
+    if (megaBirth->pvParticleColor != NULL) {
+        pppFree(ppvEnv, megaBirth->pvParticleColor);
+        megaBirth->pvParticleColor = NULL;
     }
 }

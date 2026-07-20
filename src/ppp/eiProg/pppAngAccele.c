@@ -9,25 +9,25 @@ typedef struct {
     /* 0x0 */ pppIVECTOR ddang;
 } VAngAccele;
 
-void pppAngAcceleCalc(pppPObject* pobj, PAngAccele* p, pppCtrlTable* ctbl) {
-    VAngAccele* ac0 = (VAngAccele*)&pobj->val[ctbl->useVal[0]];
-    VAngAccele* ac1 = (VAngAccele*)&pobj->val[ctbl->useVal[1]];
+void pppAngAcceleCalc(pppPObject* pobj, PAngAccele* params, pppCtrlTable* ctbl) {
+    VAngAccele* angularVelocity = (VAngAccele*)&pobj->val[ctbl->useVal[0]];
+    VAngAccele* angularAcceleration = (VAngAccele*)&pobj->val[ctbl->useVal[1]];
 
     if (ppvUserStopPartF != 0 || ppvMng->stop || ppvMng->unk_B4 != 0) {
         return;
     }
 
-    if (p->cdt.time == pobj->time) {
-        ac1->ddang.x += p->ddang.x;
-        ac1->ddang.y += p->ddang.y;
-        ac1->ddang.z += p->ddang.z;
+    if (params->cdt.time == pobj->time) {
+        angularAcceleration->ddang.x += params->ddang.x;
+        angularAcceleration->ddang.y += params->ddang.y;
+        angularAcceleration->ddang.z += params->ddang.z;
     }
-    ac0->ddang.x += ac1->ddang.x;
-    ac0->ddang.y += ac1->ddang.y;
-    ac0->ddang.z += ac1->ddang.z;
+    angularVelocity->ddang.x += angularAcceleration->ddang.x;
+    angularVelocity->ddang.y += angularAcceleration->ddang.y;
+    angularVelocity->ddang.z += angularAcceleration->ddang.z;
 }
 
 void pppAngAcceleCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VAngAccele* ac = (VAngAccele*)&pobj->val[ctbl->useVal[1]];
-    ac->ddang.x = ac->ddang.y = ac->ddang.z = 0;
+    VAngAccele* angularAcceleration = (VAngAccele*)&pobj->val[ctbl->useVal[1]];
+    angularAcceleration->ddang.x = angularAcceleration->ddang.y = angularAcceleration->ddang.z = 0;
 }

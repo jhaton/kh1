@@ -9,28 +9,28 @@ typedef struct {
     /* 0x4 */ pppHCVECTOR ddcol;
 } PColAccele;
 
-void pppColAcceleCalc(pppPObject* pobj, PColAccele* p, pppCtrlTable* ctbl) {
-    VColAccele* col = (VColAccele*)&pobj->val[ctbl->useVal[0]];
-    VColAccele* ac = (VColAccele*)&pobj->val[ctbl->useVal[1]];
+void pppColAcceleCalc(pppPObject* pobj, PColAccele* params, pppCtrlTable* ctbl) {
+    VColAccele* colorVelocity = (VColAccele*)&pobj->val[ctbl->useVal[0]];
+    VColAccele* colorAcceleration = (VColAccele*)&pobj->val[ctbl->useVal[1]];
 
     if (ppvUserStopPartF != 0 || ppvMng->stop || ppvMng->unk_B4 != 0) {
         return;
     }
 
-    if (p->cdt.time == pobj->time) {
-        ac->ddcol.r += p->ddcol.r;
-        ac->ddcol.g += p->ddcol.g;
-        ac->ddcol.b += p->ddcol.b;
-        ac->ddcol.a += p->ddcol.a;
+    if (params->cdt.time == pobj->time) {
+        colorAcceleration->ddcol.r += params->ddcol.r;
+        colorAcceleration->ddcol.g += params->ddcol.g;
+        colorAcceleration->ddcol.b += params->ddcol.b;
+        colorAcceleration->ddcol.a += params->ddcol.a;
     }
 
-    col->ddcol.r += ac->ddcol.r;
-    col->ddcol.g += ac->ddcol.g;
-    col->ddcol.b += ac->ddcol.b;
-    col->ddcol.a += ac->ddcol.a;
+    colorVelocity->ddcol.r += colorAcceleration->ddcol.r;
+    colorVelocity->ddcol.g += colorAcceleration->ddcol.g;
+    colorVelocity->ddcol.b += colorAcceleration->ddcol.b;
+    colorVelocity->ddcol.a += colorAcceleration->ddcol.a;
 }
 
 void pppColAcceleCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VColAccele* col = (VColAccele*)&pobj->val[ctbl->useVal[1]];
-    col->ddcol.r = col->ddcol.g = col->ddcol.b = col->ddcol.a = 0;
+    VColAccele* colorAcceleration = (VColAccele*)&pobj->val[ctbl->useVal[1]];
+    colorAcceleration->ddcol.r = colorAcceleration->ddcol.g = colorAcceleration->ddcol.b = colorAcceleration->ddcol.a = 0;
 }

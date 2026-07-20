@@ -2,47 +2,47 @@
 
 typedef struct {
     /* 0x0 */ pppCDT cdt;
-    /* 0x4 */ pppFVECTOR m_scl;
+    /* 0x4 */ pppFVECTOR scale;
 } PScaleLoop;
 
 typedef struct {
-    /* 0x0 */ pppFVECTOR m_scl;
-    /* 0xC */ void* m_pp;
+    /* 0x0 */ pppFVECTOR appliedScale;
+    /* 0xC */ void* activeParams;
 } VScaleLoop;
 
-void func_0018C6A0(PScaleLoop* p, VScaleLoop* ac) {
-    ac->m_pp = p;
-    ac->m_scl.x = ac->m_scl.y = ac->m_scl.z = 0.0f;
+void func_0018C6A0(PScaleLoop* params, VScaleLoop* state) {
+    state->activeParams = params;
+    state->appliedScale.x = state->appliedScale.y = state->appliedScale.z = 0.0f;
 }
 
 void pppScaleLoopCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VScaleLoop* ac = (VScaleLoop*)&pobj->val[ctbl->useVal[0]];
-    ac->m_pp = NULL;
+    VScaleLoop* state = (VScaleLoop*)&pobj->val[ctbl->useVal[0]];
+    state->activeParams = NULL;
 }
 
 void pppScaleLoopCon2(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VScaleLoop* vac = (VScaleLoop*)&pobj->val[ctbl->useVal[0]];
-    PScaleLoop* pac = ((VScaleLoop*)&pobj->val[ctbl->useVal[0]])->m_pp;
+    VScaleLoop* state = (VScaleLoop*)&pobj->val[ctbl->useVal[0]];
+    PScaleLoop* activeParams = ((VScaleLoop*)&pobj->val[ctbl->useVal[0]])->activeParams;
 
-    vac->m_scl.x -= pac->m_scl.x;
-    vac->m_scl.y -= pac->m_scl.y;
-    vac->m_scl.z -= pac->m_scl.z;
+    state->appliedScale.x -= activeParams->scale.x;
+    state->appliedScale.y -= activeParams->scale.y;
+    state->appliedScale.z -= activeParams->scale.z;
 }
 
-void pppScaleLoopCalc(pppPObject* pobj, PScaleLoop* p, pppCtrlTable* ctbl) {
-    VScaleLoop* ac = (VScaleLoop*)&pobj->val[ctbl->useVal[0]];
+void pppScaleLoopCalc(pppPObject* pobj, PScaleLoop* params, pppCtrlTable* ctbl) {
+    VScaleLoop* state = (VScaleLoop*)&pobj->val[ctbl->useVal[0]];
 
     if (ppvUserStopPartF != 0 || ppvMng->stop || ppvMng->unk_B4 != 0) {
         return;
     }
 
-    if (ac->m_pp == NULL) {
-        func_0018C6A0(p, ac);
+    if (state->activeParams == NULL) {
+        func_0018C6A0(params, state);
     }
 
-    if (p->cdt.time == pobj->time) {
-        ac->m_scl.x += p->m_scl.x;
-        ac->m_scl.y += p->m_scl.y;
-        ac->m_scl.z += p->m_scl.z;
+    if (params->cdt.time == pobj->time) {
+        state->appliedScale.x += params->scale.x;
+        state->appliedScale.y += params->scale.y;
+        state->appliedScale.z += params->scale.z;
     }
 }

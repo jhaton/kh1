@@ -65,15 +65,15 @@ s32 disk_GetTimer(void) {
     return disk_Timer;
 }
 
-void func_0024A188(void* sema) {
-    int iVar1;
+void func_0024A188(void* semaphoreId) {
+    int diskState;
     int stat[4];
 
     do {
-        WaitSema((s32)sema);
+        WaitSema((s32)semaphoreId);
         D_002C1EB8.u8 = D_002C1EB8.u8 & ~0x18 | 0x10;
-        iVar1 = func_0024A010();
-        if (iVar1 != 0) {
+        diskState = func_0024A010();
+        if (diskState != 0) {
             /* close all files */
             sceDevctl("pfs:", PDIOC_CLOSEALL, NULL, 0, NULL, 0);
         }
@@ -88,31 +88,31 @@ void func_0024A188(void* sema) {
     } while (TRUE);
 }
 
-void func_0024A278(void* sema) {
+void func_0024A278(void* semaphoreId) {
     D_002C1EB8.s8 = D_002C1EB8.s8 & ~(0x10 | 0x8) | 0x8;
     if (func_0024A010() != 0) {
-        iSignalSema((s32)sema);
+        iSignalSema((s32)semaphoreId);
     }
 }
 
 s32* disk_StartThread(void) {
     struct ThreadParam threadParam;
-    s32 sema;
+    s32 semaphoreId;
     struct SemaParam semaParam;
-    int thread;
+    int threadId;
 
     semaParam.maxCount = 1;
     semaParam.initCount = 0;
     semaParam.option = 0;
-    sema = CreateSema(&semaParam);
+    semaphoreId = CreateSema(&semaParam);
     threadParam.initPriority = 1;
     threadParam.stackSize = sizeof(disk_ThreadStack);
     threadParam.gpReg = &D_0048DB00;
     threadParam.entry = func_0024A188;
     threadParam.stack = disk_ThreadStack;
-    thread = CreateThread(&threadParam);
-    StartThread(thread, (void*)sema);
-    return sceCdPOffCallback(func_0024A278, (void*)sema);
+    threadId = CreateThread(&threadParam);
+    StartThread(threadId, (void*)semaphoreId);
+    return sceCdPOffCallback(func_0024A278, (void*)semaphoreId);
 }
 
 char* func_0024A368(void) {
@@ -136,11 +136,11 @@ char* disk_GetImgName(void) {
 }
 
 b32 disk_Mount(void) {
-    char blkdevname[128];
+    char blockDeviceName[128];
 
     if (disk_Mgr.isMounted == FALSE) {
-        sprintf(blkdevname, "hdd0:%s,%s", disk_Mgr.getGamecode(), disk_Mgr.unk_08());
-        if (sceMount("pfs0:", blkdevname, SCE_MT_RDWR, NULL, 0) < 0) {
+        sprintf(blockDeviceName, "hdd0:%s,%s", disk_Mgr.getGamecode(), disk_Mgr.unk_08());
+        if (sceMount("pfs0:", blockDeviceName, SCE_MT_RDWR, NULL, 0) < 0) {
             return TRUE;
         }
         disk_Mgr.isMounted = TRUE;
@@ -161,48 +161,48 @@ b32 disk_Unmount(void) {
 b32 func_0024A4A8(void) {
     char* filename;
     s32 fd;
-    u64 offset;
-    s32 ret;
+    u64 imageSize;
+    s32 sizeMismatch;
 
     D_004642F4 = 90;
     filename = disk_GetImgName();
     fd = sceOpen(filename, SCE_RDONLY);
     D_004642F4 = 100;
-    ret = TRUE;
+    sizeMismatch = TRUE;
     if (fd >= 0) {
-        offset = sceLseek64(fd, 0, 2);
+        imageSize = sceLseek64(fd, 0, 2);
         D_004642F4 = 110;
         sceClose(fd);
         D_004642F4 = 120;
-        ret = disk_BlockSize; // seems fake?
-        ret = TRUE;
-        if ((u32)disk_BlockSize == offset) {
-            ret = FALSE;
+        sizeMismatch = disk_BlockSize; // seems fake?
+        sizeMismatch = TRUE;
+        if ((u32)disk_BlockSize == imageSize) {
+            sizeMismatch = FALSE;
         }
     }
-    return ret;
+    return sizeMismatch;
 }
 
 s32 disk_GetStatus(void) {
     return sceDevctl("hdd0:", HDIOC_STATUS, NULL, 0, NULL, 0);
 }
 
-b32 disk_IsSpaceAvailable(char* devname, s32 filesize) {
-    u32 bufp; // installable size, in number of 256kB sectors
+b32 disk_IsSpaceAvailable(char* deviceName, s32 requiredPartitions) {
+    u32 freeSectors; // installable size, in number of 256kB sectors
 
     // get total number of sectors on the disk
-    sceDevctl(devname, HDIOC_TOTALSECTOR, NULL, 0, NULL, 0);
+    sceDevctl(deviceName, HDIOC_TOTALSECTOR, NULL, 0, NULL, 0);
 
     D_004642F4 = 60;
-    bufp = NULL;
+    freeSectors = NULL;
 
-    // return installable size into bufp if space is available
-    if (sceDevctl(devname, HDIOC_FREESECTOR, NULL, 0, &bufp, 4) != 0) {
+    // return installable size into freeSectors if space is available
+    if (sceDevctl(deviceName, HDIOC_FREESECTOR, NULL, 0, &freeSectors, 4) != 0) {
         return FALSE;
     }
 
     D_004642F4 = 70;
-    if ((s32)((u32)bufp >> 0x12) < filesize) {
+    if ((s32)((u32)freeSectors >> 0x12) < requiredPartitions) {
         return FALSE;
     }
     return TRUE;
@@ -212,12 +212,12 @@ s32 func_0024A620(void) {
     return D_00464354;
 }
 
-s32 func_0024A630(s32 blocksize) {
+s32 func_0024A630(s32 imageSize) {
     char filename[0x40];
     s32 fd;
-    int val;
+    int requiredPartitions;
 
-    s32 temp = 0;
+    s32 subpartitionCount = 0;
     s32 mounted = disk_Mgr.isMounted;
 
     D_00464354 = 0;
@@ -228,16 +228,16 @@ s32 func_0024A630(s32 blocksize) {
     sprintf(filename, "hdd0:%s,,%s", disk_Mgr.getGamecode(), &D_00464330);
     fd = sceOpen(filename, SCE_RDONLY);
     if (fd >= 0) {
-        temp = sceIoctl2(fd, HIOCNSUB, NULL, 0, NULL, 0);
-        if (temp < 0) {
-            temp = 0;
+        subpartitionCount = sceIoctl2(fd, HIOCNSUB, NULL, 0, NULL, 0);
+        if (subpartitionCount < 0) {
+            subpartitionCount = 0;
         }
-        temp++;
+        subpartitionCount++;
         sceDclose(fd);
     }
     D_004642F4 = 50;
-    val = (((((u32)(blocksize + 0xFFFFF)) >> 20) + 0x7F) >> 7) + 1;
-    if (disk_IsSpaceAvailable("hdd0:", val - temp) == FALSE) {
+    requiredPartitions = (((((u32)(imageSize + 0xFFFFF)) >> 20) + 0x7F) >> 7) + 1;
+    if (disk_IsSpaceAvailable("hdd0:", requiredPartitions - subpartitionCount) == FALSE) {
         D_00464354 = -1;
     }
     if (mounted != FALSE) {
@@ -247,61 +247,61 @@ s32 func_0024A630(s32 blocksize) {
     return D_00464354;
 }
 
-b32 disk_Seek(char* dirname, char* query) {
-    struct sce_dirent sp;
-    s32 fd;
-    s32 buflen;
-    s32 bFoundQuery = FALSE;
+b32 disk_Seek(char* directoryName, char* entryName) {
+    struct sce_dirent entry;
+    s32 directoryFd;
+    s32 entryCount;
+    s32 found = FALSE;
 
-    fd = sceDopen(dirname);
-    if (fd < 0) {
+    directoryFd = sceDopen(directoryName);
+    if (directoryFd < 0) {
         return FALSE;
     }
 
-    buflen = 0;
-    while (sceDread(fd, &sp) > 0) {
-        buflen += 1;
+    entryCount = 0;
+    while (sceDread(directoryFd, &entry) > 0) {
+        entryCount += 1;
     }
-    sceDclose(fd);
+    sceDclose(directoryFd);
 
-    if (buflen == 0) {
+    if (entryCount == 0) {
         return FALSE;
     }
 
-    fd = sceDopen(dirname);
-    if (fd < 0) {
+    directoryFd = sceDopen(directoryName);
+    if (directoryFd < 0) {
         return FALSE;
     }
 
-    while (sceDread(fd, &sp) > 0) {
-        if (strcmp(sp.d_name, query) == 0) {
-            bFoundQuery = TRUE;
+    while (sceDread(directoryFd, &entry) > 0) {
+        if (strcmp(entry.d_name, entryName) == 0) {
+            found = TRUE;
         }
     }
-    sceDclose(fd);
-    return bFoundQuery;
+    sceDclose(directoryFd);
+    return found;
 }
 
-s32 disk_SetBlock(s32* isoBlock) {
+s32 disk_SetBlock(s32* outputIsoBlock) {
     s32 length = 0;
     KingdomFile* kingdomFile;
 
-    if (isoBlock != NULL) {
-        *isoBlock = 0;
+    if (outputIsoBlock != NULL) {
+        *outputIsoBlock = 0;
     }
 
     kingdomFile = cdvd_FindFile("kingdom.img");
     if (kingdomFile != NULL) {
         length = kingdomFile->length;
-        if (isoBlock != NULL) {
-            *isoBlock = kingdomFile->isoBlock;
+        if (outputIsoBlock != NULL) {
+            *outputIsoBlock = kingdomFile->isoBlock;
         }
     }
     return length;
 }
 
 s32 func_0024A8B0(s32 arg0) {
-    s32 cond;
+    s32 partitionExists;
     s32 diskStatus;
 
     D_004642F4 = 0;
@@ -314,10 +314,10 @@ s32 func_0024A8B0(s32 arg0) {
     D_004642F4 = 10;
     disk_Unmount();
     if (disk_Seek("hdd0:", disk_Gamecode)) {
-        cond = TRUE;
+        partitionExists = TRUE;
         D_00464384 = 1;
     } else {
-        cond = FALSE;
+        partitionExists = FALSE;
         D_00464384 = 0;
     }
     disk_BlockSize = disk_SetBlock(NULL);
@@ -329,7 +329,7 @@ s32 func_0024A8B0(s32 arg0) {
             func_0024A630(disk_BlockSize);
             if (disk_Mount() != 0) {
                 D_00464358 = 1;
-                if (cond) {
+                if (partitionExists) {
                     D_00464358 = 3;
                     D_0046435C = 2;
                 }
@@ -362,8 +362,8 @@ s32 func_0024AA88(void) {
     return D_00464358;
 }
 
-void func_0024AA98(s32 arg0) {
-    D_00464358 = arg0;
+void func_0024AA98(s32 status) {
+    D_00464358 = status;
 }
 
 // blocked by subsequent 4-byte aligned function breaking split

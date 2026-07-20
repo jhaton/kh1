@@ -2,12 +2,12 @@
 
 typedef struct {
     /* 0x00 */ char unk_0x00[0x10];
-    /* 0x10 */ sceVu0FVECTOR* unk_10;
-    /* 0x20 */ sceVu0FVECTOR unk_20;
-    /* 0x30 */ sceVu0FVECTOR unk_30;
-    /* 0x40 */ f32 unk_40;
-    /* 0x44 */ f32 unk_44;
-    /* 0x48 */ void (*unk_48)(sceVu0FVECTOR*);
+    /* 0x10 */ sceVu0FVECTOR* targetVectors;
+    /* 0x20 */ sceVu0FVECTOR start;
+    /* 0x30 */ sceVu0FVECTOR end;
+    /* 0x40 */ f32 duration;
+    /* 0x44 */ f32 remainingTime;
+    /* 0x48 */ void (*completionCallback)(sceVu0FVECTOR*);
 } XHoot;
 
 extern f32 D_002B8340[];
@@ -15,25 +15,25 @@ extern f32 D_002B8340[];
 s32 D_004FA670;
 s32 D_004FA680;
 
-s32 func_00122828(XHoot* arg0) {
-    s32 uVar1;
-    f32 fVar2;
-    f32 r;
+s32 func_00122828(XHoot* interpolation) {
+    s32 status;
+    f32 remainingTime;
+    f32 ratio;
 
-    uVar1 = 0;
-    fVar2 = arg0->unk_44 - D_002B8340[1];
+    status = 0;
+    remainingTime = interpolation->remainingTime - D_002B8340[1];
 
-    r = fVar2 / arg0->unk_40;
-    arg0->unk_44 = fVar2;
-    if (r < 0.0f) {
-        r = 0.0f;
-        if (arg0->unk_48 != NULL) {
-            arg0->unk_48(arg0->unk_10);
+    ratio = remainingTime / interpolation->duration;
+    interpolation->remainingTime = remainingTime;
+    if (ratio < 0.0f) {
+        ratio = 0.0f;
+        if (interpolation->completionCallback != NULL) {
+            interpolation->completionCallback(interpolation->targetVectors);
         }
-        uVar1 = 4;
+        status = 4;
     }
-    sceVu0InterVector(arg0->unk_10[3], &arg0->unk_20, &arg0->unk_30, r);
-    return uVar1;
+    sceVu0InterVector(interpolation->targetVectors[3], &interpolation->start, &interpolation->end, ratio);
+    return status;
 }
 
 // Nonmatch: Preprocessor is adding nops unintentionally
@@ -58,8 +58,8 @@ INCLUDE_ASM("asm/nonmatchings/xowl", func_00122988);
 
 INCLUDE_ASM("asm/nonmatchings/xowl", func_00122AF8);
 
-void func_00122B70(s32* arg0) {
-    *arg0 = 0;
+void func_00122B70(s32* value) {
+    *value = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xowl", func_00122B78);

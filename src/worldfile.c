@@ -51,51 +51,51 @@ char worldBinImgFile[0x40] = {};
 char roomArchiveRaw[0x40] = {};
 char roomArchiveFile[0x40] = {};
 
-const char* worldfile_getAbbr(int idx, char* dest) {
-    return strcpy(dest, worldAbbrs[idx]);
+const char* worldfile_getAbbr(int worldIndex, char* dest) {
+    return strcpy(dest, worldAbbrs[worldIndex]);
 }
 
-char* worldfile_getNameNoSet(s32 idx, s32 fileidx, UNK_TYPE arg2, char* dest) {
-    char filenum[0x10];
-    char abbr[0x40];
+char* worldfile_getNameNoSet(s32 worldIndex, s32 roomIndex, UNK_TYPE unused, char* dest) {
+    char fileNumber[0x10];
+    char worldAbbr[0x40];
 
-    worldfile_getAbbr(idx, abbr);
-    sprintf(filenum, "%2d", fileidx + 1);
-    if (filenum[0] == ' ') {
-        filenum[0] = '0';
+    worldfile_getAbbr(worldIndex, worldAbbr);
+    sprintf(fileNumber, "%2d", roomIndex + 1);
+    if (fileNumber[0] == ' ') {
+        fileNumber[0] = '0';
     }
-    strcpy(dest, abbr);
-    return strcat(dest, filenum);
+    strcpy(dest, worldAbbr);
+    return strcat(dest, fileNumber);
 }
 
 char* worldfile_getNames(void) {
-    char filenum[0x10];
-    char abbr[0x40];
+    char fileNumber[0x10];
+    char worldAbbr[0x40];
 
-    worldfile_getAbbr(D_002B8678, abbr);
-    sprintf(filenum, "%2d", D_002B8680 + 1);
-    if (filenum[0] == ' ') {
-        filenum[0] = '0';
+    worldfile_getAbbr(D_002B8678, worldAbbr);
+    sprintf(fileNumber, "%2d", D_002B8680 + 1);
+    if (fileNumber[0] == ' ') {
+        fileNumber[0] = '0';
     }
-    strcpy(worldDataFile, abbr);
+    strcpy(worldDataFile, worldAbbr);
     strcat(worldDataFile, worldDataExt);
-    strcpy(roomArchiveFile, abbr);
-    strcat(roomArchiveFile, filenum);
+    strcpy(roomArchiveFile, worldAbbr);
+    strcat(roomArchiveFile, fileNumber);
     strcat(roomArchiveFile, roomArchiveExt);
-    strcpy(roomArchiveRaw, abbr);
-    return strcat(roomArchiveRaw, filenum);
+    strcpy(roomArchiveRaw, worldAbbr);
+    return strcat(roomArchiveRaw, fileNumber);
 }
 
-char* worldfile_getBinImgName(s32 arg0) {
-    char filenum[0x10];
-    char abbr[0x40];
+char* worldfile_getBinImgName(s32 roomIndex) {
+    char fileNumber[0x10];
+    char worldAbbr[0x40];
 
-    worldfile_getAbbr(D_002B8678, abbr);
-    sprintf(filenum, "%2d", arg0 + 1);
-    if (filenum[0] == ' ') {
-        filenum[0] = '0';
+    worldfile_getAbbr(D_002B8678, worldAbbr);
+    sprintf(fileNumber, "%2d", roomIndex + 1);
+    if (fileNumber[0] == ' ') {
+        fileNumber[0] = '0';
     }
-    strcpy(worldBinImgFile, abbr);
+    strcpy(worldBinImgFile, worldAbbr);
     strcat(worldBinImgFile, "00_");
-    return strcat(worldBinImgFile, filenum);
+    return strcat(worldBinImgFile, fileNumber);
 }

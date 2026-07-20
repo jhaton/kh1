@@ -4,14 +4,14 @@
 #include "xturtle.h"
 
 typedef struct XTurtle {
-    /* 0x00 */ s32 unk_00;
-    /* 0x04 */ s32 unk_04;
-    /* 0x08 */ s32 unk_08;
-    /* 0x0C */ s32 unk_0C;
-    /* 0x10 */ s32 unk_10;
-    /* 0x14 */ u8 unk_14;
+    /* 0x00 */ s32 soundId;
+    /* 0x04 */ s32 context;
+    /* 0x08 */ s32 volume;
+    /* 0x0C */ s32 bank;
+    /* 0x10 */ s32 channel;
+    /* 0x14 */ u8 state;
     /* 0x15 */ u8 unk_15;
-    /* 0x16 */ u8 unk_16;
+    /* 0x16 */ u8 mode;
     /* 0x17 */ char unk_17;
 } XTurtle;
 
@@ -54,49 +54,49 @@ void func_0011C5D8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     func_001EE570(arg0, arg1, arg2, arg3, arg4, arg5);
 }
 
-s32 func_0011C5F0(s32 arg0, s32 arg1, s32 arg2) {
-    return func_001EE618(arg0, arg1, arg2);
+s32 func_0011C5F0(s32 channel, s32 targetVolume, s32 duration) {
+    return func_001EE618(channel, targetVolume, duration);
 }
 
-void* func_0011C608(s32 arg0) {
-    return func_001EE5D8(arg0);
+void* func_0011C608(s32 channel) {
+    return func_001EE5D8(channel);
 }
 
-void* func_0011C620(void* arg0) {
-    return func_001EE660(arg0);
+void* func_0011C620(void* buffer) {
+    return func_001EE660(buffer);
 }
 
-void* func_0011C638(void* arg0) {
-    return func_001EE6B8(arg0);
+void* func_0011C638(void* buffer) {
+    return func_001EE6B8(buffer);
 }
 
 s32 func_0011C650(void) {
     return func_001EE090();
 }
 
-void* func_0011C668(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    return func_001EE330(arg0, arg1, arg2, arg3, arg4);
+void* func_0011C668(s32 bank, s32 soundId, s32 channel, s32 leftVolume, s32 rightVolume) {
+    return func_001EE330(bank, soundId, channel, leftVolume, rightVolume);
 }
 
-s32 func_0011C680(s32 arg0, s32 arg1, s32 arg2) {
-    return func_001EE390(arg0, arg1, arg2);
+s32 func_0011C680(s32 bank, s32 soundId, s32 channel) {
+    return func_001EE390(bank, soundId, channel);
 }
 
-void* func_0011C698(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    return func_001EE428(arg0, arg1, arg2, arg3, arg4);
+void* func_0011C698(s32 bank, s32 soundId, s32 channel, s32 arg3, s32 arg4) {
+    return func_001EE428(bank, soundId, channel, arg3, arg4);
 }
 
-void* func_0011C6B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    return func_001EE478(arg0, arg1, arg2, arg3, arg4);
+void* func_0011C6B0(s32 bank, s32 soundId, s32 channel, s32 leftVolume, s32 rightVolume) {
+    return func_001EE478(bank, soundId, channel, leftVolume, rightVolume);
 }
 
-void func_0011C6C8(s32 arg0) {
-    XScale* var_2;
-    XTurtle* var_3;
-    XShell* var_4;
+void func_0011C6C8(s32 useAllocatedStorage) {
+    XScale* scale;
+    XTurtle* entry;
+    XShell* shell;
     s32 i;
 
-    if (arg0 == 0) {
+    if (useAllocatedStorage == 0) {
         D_004DCB90 = &D_004DCB98;
         D_004DCB94 = &D_004DCF58;
         D_004DCB8C = 0x28;
@@ -106,22 +106,22 @@ void func_0011C6C8(s32 arg0) {
         D_004DCB8C = 0x80;
     }
 
-    var_3 = D_004DCB90;
-    var_4 = D_004DCB94;
+    entry = D_004DCB90;
+    shell = D_004DCB94;
     for (i = 0; i < D_004DCB8C; i++) {
-        var_3->unk_14 = 0;
-        var_4->unk_00 = 0;
-        var_4->unk_04 = 0;
-        var_4->unk_08 = 0;
-        var_3++;
-        var_4++;
+        entry->state = 0;
+        shell->unk_00 = 0;
+        shell->unk_04 = 0;
+        shell->unk_08 = 0;
+        entry++;
+        shell++;
     }
 
-    var_2 = &D_004DD138;
+    scale = &D_004DD138;
     for (i = 0; i < 4; i++) {
-        var_2->unk_00 = 0;
-        var_2->unk_04 = 0;
-        var_2++;
+        scale->unk_00 = 0;
+        scale->unk_04 = 0;
+        scale++;
     }
 }
 
@@ -155,8 +155,8 @@ INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011C898);
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011C938);
 
-s32 func_0011C9B0(void* arg0) {
-    return func_00120438("amusic/se000.dat", arg0); // in xkingdom.c
+s32 func_0011C9B0(void* buffer) {
+    return func_00120438("amusic/se000.dat", buffer); // in xkingdom.c
 }
 
 s32 func_0011C9D0(void) {
@@ -177,26 +177,26 @@ INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011CB50);
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011CC20);
 
-void func_0011CDB8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, XTurtle* arg5, s32 arg6) {
-    arg5->unk_0C = arg6;
-    arg5->unk_00 = arg0;
-    arg5->unk_10 = arg1;
-    arg5->unk_04 = arg2;
-    arg5->unk_08 = arg3;
-    arg5->unk_16 = arg4;
-    arg5->unk_15 = 0;
+void func_0011CDB8(s32 soundId, s32 channel, s32 context, s32 volume, s32 mode, XTurtle* entry, s32 bank) {
+    entry->bank = bank;
+    entry->soundId = soundId;
+    entry->channel = channel;
+    entry->context = context;
+    entry->volume = volume;
+    entry->mode = mode;
+    entry->unk_15 = 0;
 }
 
-XTurtle* func_0011CDD8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    XTurtle* it = D_004DCB90;
+XTurtle* func_0011CDD8(s32 soundId, s32 channel, s32 context, s32 volume, s32 mode) {
+    XTurtle* entry = D_004DCB90;
     s32 i;
 
-    for (i = 0; i < D_004DCB8C; i++, it++) {
-        s32 val = (arg0 < 1000) ? 2 : -1;
+    for (i = 0; i < D_004DCB8C; i++, entry++) {
+        s32 bank = (soundId < 1000) ? 2 : -1;
 
-        if (it->unk_14 == 0) {
-            func_0011CDB8(arg0, arg1, arg2, arg3, arg4, it, val);
-            return it;
+        if (entry->state == 0) {
+            func_0011CDB8(soundId, channel, context, volume, mode, entry, bank);
+            return entry;
         }
     }
 
@@ -206,80 +206,80 @@ XTurtle* func_0011CDD8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011CE58);
 
-void func_0011CEB0(s32 arg0, s32 arg1) {
-    s32 val = arg0 < 1000 ? 2 : -8;
+void func_0011CEB0(s32 soundId, s32 channel) {
+    s32 bank = soundId < 1000 ? 2 : -8;
 
-    func_0011C668(val, arg0, arg1, 0x3FFF, 0x3FFF);
-    func_0011CE58(arg0, arg1);
+    func_0011C668(bank, soundId, channel, 0x3FFF, 0x3FFF);
+    func_0011CE58(soundId, channel);
 }
 
-s32 func_0011CF08(s32 arg0, s32 arg1) {
-    s32 val = arg0 < 1000 ? 2 : -8;
+s32 func_0011CF08(s32 soundId, s32 channel) {
+    s32 bank = soundId < 1000 ? 2 : -8;
 
-    return func_0011C680(val, arg0, arg1);
+    return func_0011C680(bank, soundId, channel);
 }
 
-void* func_0011CF38(s32 arg0, s32 arg1, s32 arg2) {
-    s32 val = arg0 < 1000 ? 2 : -8;
+void* func_0011CF38(s32 soundId, s32 channel, s32 arg2) {
+    s32 bank = soundId < 1000 ? 2 : -8;
 
-    return func_0011C698(val, arg0, arg1, -1, arg2);
+    return func_0011C698(bank, soundId, channel, -1, arg2);
 }
 
-void* func_0011CF70(s32 arg0, s32 arg1) {
-    s32 val = arg0 < 1000 ? 2 : -1;
+void* func_0011CF70(s32 soundId, s32 channel) {
+    s32 bank = soundId < 1000 ? 2 : -1;
 
-    return func_0011C668(val, arg0, arg1, 0x3FFF, 0x3FFF);
+    return func_0011C668(bank, soundId, channel, 0x3FFF, 0x3FFF);
 }
 
-s32 func_0011CFA8(s32 arg0, s32 arg1) {
-    s32 val = arg0 < 1000 ? 2 : -1;
+s32 func_0011CFA8(s32 soundId, s32 channel) {
+    s32 bank = soundId < 1000 ? 2 : -1;
 
-    return func_0011C680(val, arg0, arg1);
+    return func_0011C680(bank, soundId, channel);
 }
 
-void* func_0011CFD8(s32 arg0, s32 arg1, s32 arg2) {
-    s32 val = arg0 < 1000 ? 2 : -1;
+void* func_0011CFD8(s32 soundId, s32 channel, s32 arg2) {
+    s32 bank = soundId < 1000 ? 2 : -1;
 
-    return func_0011C698(val, arg0, arg1, -1, arg2);
+    return func_0011C698(bank, soundId, channel, -1, arg2);
 }
 
-void func_0011D010(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    XTurtle* bleb = func_0011CDD8(arg0, arg1, arg2, arg3, 0);
+void func_0011D010(s32 soundId, s32 channel, s32 context, s32 volume) {
+    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 0);
 
-    if (bleb != NULL) {
-        bleb->unk_14 = 1;
+    if (entry != NULL) {
+        entry->state = 1;
     }
 }
 
-void func_0011D040(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    XTurtle* bleb = func_0011CDD8(arg0, arg1, arg2, arg3, 1);
+void func_0011D040(s32 soundId, s32 channel, s32 context, s32 volume) {
+    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 1);
 
-    if (bleb != NULL) {
-        bleb->unk_14 = 2;
+    if (entry != NULL) {
+        entry->state = 2;
     }
 }
 
-void func_0011D070(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    XTurtle* bleb = func_0011CDD8(arg0, arg1, arg2, arg3, 2);
+void func_0011D070(s32 soundId, s32 channel, s32 context, s32 volume) {
+    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 2);
 
-    if (bleb != NULL) {
-        bleb->unk_14 = 1;
+    if (entry != NULL) {
+        entry->state = 1;
     }
 }
 
-void func_0011D0A0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    XTurtle* bleb = func_0011CDD8(arg0, arg1, arg2, arg3, 3);
+void func_0011D0A0(s32 soundId, s32 channel, s32 context, s32 volume) {
+    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 3);
 
-    if (bleb != NULL) {
-        bleb->unk_14 = 2;
+    if (entry != NULL) {
+        entry->state = 2;
     }
 }
 
-void func_0011D0D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    XTurtle* bleb = func_0011CDD8(arg0, arg1, arg2, arg3, 4);
+void func_0011D0D0(s32 soundId, s32 channel, s32 context, s32 volume) {
+    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 4);
 
-    if (bleb != NULL) {
-        bleb->unk_14 = 2;
+    if (entry != NULL) {
+        entry->state = 2;
     }
 }
 
@@ -301,56 +301,56 @@ INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011D4B8);
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011D520);
 
-void* func_0011D598(s32 arg0) {
-    return func_0011C668(2, arg0, 0, 0x3FFF, 0x3FFF);
+void* func_0011D598(s32 soundId) {
+    return func_0011C668(2, soundId, 0, 0x3FFF, 0x3FFF);
 }
 
-void* func_0011D5C0(s32 arg0, s32 arg1) {
-    s32 val = 0x3FFF;
-    if (arg1 != 0) {
-        val = 0x1FFF;
+void* func_0011D5C0(s32 soundId, s32 reducedVolume) {
+    s32 volume = 0x3FFF;
+    if (reducedVolume != 0) {
+        volume = 0x1FFF;
     }
 
-    return func_0011C6B0(2, arg0, 0, val, val);
+    return func_0011C6B0(2, soundId, 0, volume, volume);
 }
 
-s32 func_0011D5F0(s32 arg0) {
-    return func_0011C680(2, arg0, 0);
+s32 func_0011D5F0(s32 soundId) {
+    return func_0011C680(2, soundId, 0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011D610);
 
-void func_0011D978(s32* arg0, s32* arg1) {
-    s32 val;
+void func_0011D978(s32* leftVolume, s32* rightVolume) {
+    s32 clampedRightVolume;
 
-    if (*arg0 < 0) {
-        *arg0 = 0;
+    if (*leftVolume < 0) {
+        *leftVolume = 0;
     }
-    if (*arg1 < 0) {
-        *arg1 = 0;
+    if (*rightVolume < 0) {
+        *rightVolume = 0;
     }
-    if (*arg0 < 0x4000) {
-        val = *arg1;
+    if (*leftVolume < 0x4000) {
+        clampedRightVolume = *rightVolume;
     } else {
-        *arg0 = 0x3FFF;
-        val = *arg1;
+        *leftVolume = 0x3FFF;
+        clampedRightVolume = *rightVolume;
     }
-    if (val > 0x3FFF) {
-        *arg1 = 0x3FFF;
+    if (clampedRightVolume > 0x3FFF) {
+        *rightVolume = 0x3FFF;
     }
 }
 
-void func_0011D9C8(s32* arg0, s32* arg1, s32 arg2, s32 arg3) {
-    if ((arg3 == 2) && (D_002A0514 != 0)) {
-        *arg0 = 0;
-        *arg1 = 0;
-    } else if (arg2 == 0x3FFF) {
-        *arg0 = 0x3FFF;
-        *arg1 = 0x3FFF;
+void func_0011D9C8(s32* leftVolume, s32* rightVolume, s32 adjustment, s32 mode) {
+    if ((mode == 2) && (D_002A0514 != 0)) {
+        *leftVolume = 0;
+        *rightVolume = 0;
+    } else if (adjustment == 0x3FFF) {
+        *leftVolume = 0x3FFF;
+        *rightVolume = 0x3FFF;
     } else {
-        *arg0 = *arg0 + arg2;
-        *arg1 = *arg1 + arg2;
-        func_0011D978(arg0, arg1);
+        *leftVolume = *leftVolume + adjustment;
+        *rightVolume = *rightVolume + adjustment;
+        func_0011D978(leftVolume, rightVolume);
     }
 }
 
@@ -413,40 +413,40 @@ void func_0011E520();
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011E578);
 
-s32 func_0011E5E8(UNK_TYPE arg0, UNK_TYPE arg1, s32 arg2) {
-    return func_0011CA10(0, arg2, D_002BD8C8, func_0011E520);
+s32 func_0011E5E8(UNK_TYPE unused0, UNK_TYPE unused1, s32 value) {
+    return func_0011CA10(0, value, D_002BD8C8, func_0011E520);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011E618);
 void func_0011E618();
 
-s32 func_0011E6C0(UNK_TYPE arg0, UNK_TYPE arg1, s32 arg2) {
-    return func_0011CA10(1, arg2, D_002BD8CC, func_0011E618);
+s32 func_0011E6C0(UNK_TYPE unused0, UNK_TYPE unused1, s32 value) {
+    return func_0011CA10(1, value, D_002BD8CC, func_0011E618);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011E6F0);
 
-void func_0011E7C8(s32 arg0, void* arg1) {
-    func_0011E6F0(0, 0x3000, 0, arg0, 0, arg1);
+void func_0011E7C8(s32 callback, void* buffer) {
+    func_0011E6F0(0, 0x3000, 0, callback, 0, buffer);
 }
 
 void func_0011E7F8(s32 arg0, s32 arg1, s32 arg2, void* arg3) {
     func_0011E6F0(1, arg0, arg1, arg2, 0, arg3);
 }
 
-void func_0011E830(s32 arg0, void* arg1) {
-    func_0011E6F0(0, 0x3000, 0, arg0, 1, arg1);
+void func_0011E830(s32 callback, void* callbackArg) {
+    func_0011E6F0(0, 0x3000, 0, callback, 1, callbackArg);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011E860);
 
 INCLUDE_ASM("asm/nonmatchings/xturtle", func_0011E900);
 
-void* func_0011E9A8(s32 arg0, s32 arg1, s32 arg2, void* arg3) {
-    D_002BD8B8[arg0] = -1;
-    D_004DCB70 = arg3;
-    func_001EE1E0(1, arg0);
-    func_001EE518(arg0, arg1, arg2);
+void* func_0011E9A8(s32 slot, s32 arg1, s32 arg2, void* callback) {
+    D_002BD8B8[slot] = -1;
+    D_004DCB70 = callback;
+    func_001EE1E0(1, slot);
+    func_001EE518(slot, arg1, arg2);
     return func_0011ED30(10000, func_0011C9D0);
 }
 

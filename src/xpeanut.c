@@ -31,33 +31,33 @@ extern void func_00110848(f32);
 extern f32 func_00120AC8(f32);
 void func_00120B40(f32, sceVu0FVECTOR, sceVu0FMATRIX);
 
-void func_00125010(f32 arg0) {
-    D_002DED00 = arg0;
-    D_004FAE00 = 256.0f / tanf(((arg0 * 0.5f) / 180.0f) * PI);
+void func_00125010(f32 fovDegrees) {
+    D_002DED00 = fovDegrees;
+    D_004FAE00 = 256.0f / tanf(((fovDegrees * 0.5f) / 180.0f) * PI);
 }
 
-void func_00125088(f32 arg0) {
+void func_00125088(f32 fovDegrees) {
     D_004FAF94 = D_002DED00;
-    func_00125010(arg0);
+    func_00125010(fovDegrees);
 }
 
 void func_001250B0(void) {
     func_00125010(D_004FAF94);
 }
 
-void func_001250D0(f32* arg0, f32* arg1) {
-    atan2f(arg0[0] - arg1[0], arg0[2] - arg1[2]);
+void func_001250D0(f32* cameraPosition, f32* targetPosition) {
+    atan2f(cameraPosition[0] - targetPosition[0], cameraPosition[2] - targetPosition[2]);
 }
 
-void func_00125100(f32 arg0, f32 arg1, f32* arg2, f32* arg3) {
-    sceVu0FMATRIX m;
+void func_00125100(f32 yawRadians, f32 wComponent, f32* inputVector, f32* outputVector) {
+    sceVu0FMATRIX rotationMatrix;
 
-    sceVu0RotMatrixY(m, D_002C1E20, -func_00120AC8(D_002DED04));
-    sceVu0ApplyMatrix(arg3, m, arg2);
-    arg3[0] = -arg3[0];
-    arg3[3] = arg1;
-    sceVu0RotMatrixY(m, D_002C1E20, arg0);
-    sceVu0ApplyMatrix(arg3, m, arg3);
+    sceVu0RotMatrixY(rotationMatrix, D_002C1E20, -func_00120AC8(D_002DED04));
+    sceVu0ApplyMatrix(outputVector, rotationMatrix, inputVector);
+    outputVector[0] = -outputVector[0];
+    outputVector[3] = wComponent;
+    sceVu0RotMatrixY(rotationMatrix, D_002C1E20, yawRadians);
+    sceVu0ApplyMatrix(outputVector, rotationMatrix, outputVector);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xpeanut", func_001251B0);

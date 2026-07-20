@@ -24,14 +24,14 @@ extern void func_0011C6C8(s32);
 INCLUDE_ASM("asm/nonmatchings/xporcupine", func_001011E0);
 
 s32 func_001014A8() {
-    char stack[64];
+    char imagePath[64];
 
-    strcpy(stack, worldBinImgFile);
-    strcat(stack, D_00486970);
+    strcpy(imagePath, worldBinImgFile);
+    strcat(imagePath, D_00486970);
     // strcat(stack, ".img");
     D_002A050C = func_00155ED8(0x34, 8);
     D_002A050C = func_001133E0(D_002A050C, 0x80);
-    return func_00120590(stack, D_002A050C, func_001011B8, 0);
+    return func_00120590(imagePath, D_002A050C, func_001011B8, 0);
 }
 
 void func_00101528() {
@@ -50,24 +50,24 @@ void func_00101560() {
 }
 
 void func_00101580() {
-    s32 i;
+    s32 slotIndex;
 
-    for (i = 0; i < ARRAY_COUNT(D_0048DE90); i++) {
-        if (D_0048DE90[i] != D_002A0520[i]) {
-            if (D_002A0520[i] != 0) {
-                func_0011D070(D_002A0520[i], i, &D_002B9040, 0x3FFF);
+    for (slotIndex = 0; slotIndex < ARRAY_COUNT(D_0048DE90); slotIndex++) {
+        if (D_0048DE90[slotIndex] != D_002A0520[slotIndex]) {
+            if (D_002A0520[slotIndex] != 0) {
+                func_0011D070(D_002A0520[slotIndex], slotIndex, &D_002B9040, 0x3FFF);
             }
-            D_0048DE90[i] = D_002A0520[i];
+            D_0048DE90[slotIndex] = D_002A0520[slotIndex];
         }
     }
 }
 
-void func_00101628(s32 arg0) {
-    s32 i;
+void func_00101628(s32 fadeDuration) {
+    s32 slotIndex;
     
-    for (i = 0; i < ARRAY_COUNT(D_0048DE90); i++) {
-        if ((D_0048DE90[i] != D_002A0520[i]) || (D_0048DE90[i] == 0)) {
-            func_0011D1F8(D_0048DE90[i], i, arg0);
+    for (slotIndex = 0; slotIndex < ARRAY_COUNT(D_0048DE90); slotIndex++) {
+        if ((D_0048DE90[slotIndex] != D_002A0520[slotIndex]) || (D_0048DE90[slotIndex] == 0)) {
+            func_0011D1F8(D_0048DE90[slotIndex], slotIndex, fadeDuration);
         }
     }
 }

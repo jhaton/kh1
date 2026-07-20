@@ -39,15 +39,15 @@ INCLUDE_ASM("asm/nonmatchings/ppp/draw/global", op_spr_rev_free);
 //     spr_rev_index--;
 // }
 
-s32 op_spr_rev_check(s32 arg0) {
-    if ((s32)spr_a + arg0 <= spr_rev_a[spr_rev_index + 1]) {
+s32 op_spr_rev_check(s32 size) {
+    if ((s32)spr_a + size <= spr_rev_a[spr_rev_index + 1]) {
         return 0;
     }
     return -1;
 }
 
-s32 op_spr_check(s32 arg0) {
-    if (spr_a[spr_index + 1] <= (s32)spr_rev_a - arg0) {
+s32 op_spr_check(s32 size) {
+    if (spr_a[spr_index + 1] <= (s32)spr_rev_a - size) {
         return 0;
     }
     return -1;

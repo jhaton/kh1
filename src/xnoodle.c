@@ -40,47 +40,47 @@ INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010A4A0);
 
 INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010AD58);
 
-void func_0010AE98(XNoodle* arg0) {
-    arg0->unk_38 = 0.0f;
-    arg0->unk_3C = 1.0f;
-    arg0->unk_5C = 1.0f;
-    arg0->unk_58 = 1.0f;
+void func_0010AE98(XNoodle* noodle) {
+    noodle->unk_38 = 0.0f;
+    noodle->unk_3C = 1.0f;
+    noodle->unk_5C = 1.0f;
+    noodle->unk_58 = 1.0f;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010AEB8);
 
-void func_0010AF38(sceVu0FMATRIX arg0, sceVu0FMATRIX arg1, sceVu0FVECTOR arg2) {
-    sceVu0FMATRIX m;
+void func_0010AF38(sceVu0FMATRIX output, sceVu0FMATRIX input, sceVu0FVECTOR scale) {
+    sceVu0FMATRIX scaleMatrix;
 
-    sceVu0UnitMatrix(m);
-    m[0][0] = arg2[0];
-    m[1][1] = arg2[1];
-    m[2][2] = arg2[2];
-    sceVu0MulMatrix(arg0, arg1, m);
+    sceVu0UnitMatrix(scaleMatrix);
+    scaleMatrix[0][0] = scale[0];
+    scaleMatrix[1][1] = scale[1];
+    scaleMatrix[2][2] = scale[2];
+    sceVu0MulMatrix(output, input, scaleMatrix);
 }
 
-void func_0010AFA0(sceVu0FMATRIX arg0, XNoodle* arg1) {
-    sceVu0FMATRIX m;
+void func_0010AFA0(sceVu0FMATRIX output, XNoodle* noodle) {
+    sceVu0FMATRIX transform;
 
-    sceVu0RotMatrixX(m, D_002B9040, arg1->unk_20);
-    sceVu0MulMatrix(m, D_0048EC10, m);
-    sceVu0MulMatrix(arg0, D_0048EC90, m);
+    sceVu0RotMatrixX(transform, D_002B9040, noodle->unk_20);
+    sceVu0MulMatrix(transform, D_0048EC10, transform);
+    sceVu0MulMatrix(output, D_0048EC90, transform);
 }
 
-void func_0010B000(sceVu0FMATRIX arg0, XNoodle* arg1, sceVu0FVECTOR arg2) {
-    sceVu0FMATRIX m;
+void func_0010B000(sceVu0FMATRIX output, XNoodle* noodle, sceVu0FVECTOR translation) {
+    sceVu0FMATRIX transform;
 
-    f32 val = arg1->unk_1C;
-    if (180.0f < val) {
-        val -= 180.0f;
+    f32 angleDegrees = noodle->unk_1C;
+    if (180.0f < angleDegrees) {
+        angleDegrees -= 180.0f;
     } else {
-        val += -180.0f;
+        angleDegrees += -180.0f;
     }
 
-    sceVu0RotMatrixZ(m, D_002B9040, (val / 180.0f) * PI);
-    sceVu0TransMatrix(m, m, arg2);
-    sceVu0MulMatrix(m, D_0048EC10, m);
-    sceVu0MulMatrix(arg0, D_0048EC90, m);
+    sceVu0RotMatrixZ(transform, D_002B9040, (angleDegrees / 180.0f) * PI);
+    sceVu0TransMatrix(transform, transform, translation);
+    sceVu0MulMatrix(transform, D_0048EC10, transform);
+    sceVu0MulMatrix(output, D_0048EC90, transform);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010B0D0);
@@ -89,11 +89,11 @@ INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010B428);
 
 INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010B810);
 
-void func_0010BB10(XNoodle* arg0, s32 arg1) {
-    if (arg0->unk_18 != 0) {
-        arg0->unk_14 = arg1;
-        arg0->unk_18 = 3;
-        func_0010E230(&arg0->unk_80);
+void func_0010BB10(XNoodle* noodle, s32 request) {
+    if (noodle->unk_18 != 0) {
+        noodle->unk_14 = request;
+        noodle->unk_18 = 3;
+        func_0010E230(&noodle->unk_80);
     }
 }
 
@@ -137,18 +137,18 @@ INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010C0E0);
 INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010C110);
 
 void func_0010C158(void) {
-    void* p0 = func_00155ED8(0x34, 0xC);
-    s32 val = func_00120438("kanji.knj", p0);
-    memcpy(&D_0048ED00, p0, val);
+    void* fileData = func_00155ED8(0x34, 0xC);
+    s32 fileSize = func_00120438("kanji.knj", fileData);
+    memcpy(&D_0048ED00, fileData, fileSize);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xnoodle", func_0010C1A8);
 
-s32 func_0010C1D0(s16 dest, u_long128* src) {
-    sceGsSetDefLoadImage(&D_002B8700, dest, 1, SCE_GS_PSMCT32, 0, 0, 8, 2);
+s32 func_0010C1D0(s16 destination, u_long128* source) {
+    sceGsSetDefLoadImage(&D_002B8700, destination, 1, SCE_GS_PSMCT32, 0, 0, 8, 2);
     sceGsSyncPath(0, 0);
     FlushCache(WRITEBACK_DCACHE);
-    return sceGsExecLoadImage(&D_002B8700, src);
+    return sceGsExecLoadImage(&D_002B8700, source);
 }
 
 s32 func_0010C248(void) {

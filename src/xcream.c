@@ -5,11 +5,11 @@ extern s32 D_0051C6C4;
 
 typedef struct {
     /* 0x00 */ char unk_00[0x10];
-    /* 0x10 */ void* unk_10;
+    /* 0x10 */ void* dmaPacket;
 } XCream;
 
-s32 func_001274C0(XCream* arg0) {
-    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), arg0->unk_10);
+s32 func_001274C0(XCream* context) {
+    sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), context->dmaPacket);
     return 2;
 }
 
@@ -39,8 +39,8 @@ INCLUDE_ASM("asm/nonmatchings/xcream", func_00128CA8);
 
 INCLUDE_ASM("asm/nonmatchings/xcream", func_00128D10);
 
-void func_00128D40(s32* arg0) {
-    func_0012B850(*arg0);
+void func_00128D40(s32* value) {
+    func_0012B850(*value);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xcream", func_00128D58);

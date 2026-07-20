@@ -7,7 +7,7 @@ typedef struct {
 
 typedef struct {
     /* 0x000 */ char unk_000[0x130];
-    /* 0x130 */ XToast* unk_130;
+    /* 0x130 */ XToast* toast;
 } XToaster;
 
 INCLUDE_RODATA("asm/nonmatchings/xtoaster", D_00487018);
@@ -36,8 +36,8 @@ INCLUDE_ASM("asm/nonmatchings/xtoaster", func_001231E0);
 
 INCLUDE_ASM("asm/nonmatchings/xtoaster", func_00123318);
 
-void func_00123340(f32 arg0, XToaster* arg1) {
-    arg1->unk_130->unk_44 = arg0;
+void func_00123340(f32 value, XToaster* toaster) {
+    toaster->toast->unk_44 = value;
 }
 
 INCLUDE_ASM("asm/nonmatchings/xtoaster", func_00123350);

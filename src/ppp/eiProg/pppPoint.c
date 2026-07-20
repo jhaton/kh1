@@ -9,8 +9,8 @@ typedef struct {
     pppFVECTOR pos;
 } VPoint;
 
-void pppPoint(pppPObject* pobj, PPoint* p, pppCtrlTable* ctbl) {
-    VPoint* v;
+void pppPoint(pppPObject* pobj, PPoint* params, pppCtrlTable* ctbl) {
+    VPoint* state;
 
     if (ppvUserStopPartF != 0) {
         return;
@@ -20,19 +20,19 @@ void pppPoint(pppPObject* pobj, PPoint* p, pppCtrlTable* ctbl) {
         return;
     }
 
-    if (p->cdt.time != pobj->time) {
+    if (params->cdt.time != pobj->time) {
         return;
     }
 
-    v = (VPoint*)&pobj->val[ctbl->useVal[0]];
-    v->pos.x += p->pos.x;
-    v->pos.y += p->pos.y;
-    v->pos.z += p->pos.z;
+    state = (VPoint*)&pobj->val[ctbl->useVal[0]];
+    state->pos.x += params->pos.x;
+    state->pos.y += params->pos.y;
+    state->pos.z += params->pos.z;
 }
 
 void pppPointCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    f32 val = 0.0f;
-    VPoint* v = (VPoint*)&pobj->val[ctbl->useVal[0]];
+    f32 zero = 0.0f;
+    VPoint* state = (VPoint*)&pobj->val[ctbl->useVal[0]];
 
-    v->pos.x = v->pos.y = v->pos.z = val;
+    state->pos.x = state->pos.y = state->pos.z = zero;
 }

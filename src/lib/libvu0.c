@@ -2,7 +2,7 @@
 #include "libvu0.h"
 #include "eeregs.h"
 
-void sceVu0ApplyMatrix(sceVu0FVECTOR v0, sceVu0FMATRIX m0, sceVu0FVECTOR v1) {
+void sceVu0ApplyMatrix(sceVu0FVECTOR output, sceVu0FMATRIX matrix, sceVu0FVECTOR input) {
     __asm__ __volatile__("          \n\
 	lqc2            vf4, 0x0(%1)    \n\
 	lqc2            vf5, 0x10(%1)   \n\
@@ -14,7 +14,7 @@ void sceVu0ApplyMatrix(sceVu0FVECTOR v0, sceVu0FMATRIX m0, sceVu0FVECTOR v1) {
 	vmaddaz.xyzw	ACC, vf6,vf8    \n\
 	vmaddw.xyzw	    vf9, vf7,vf8    \n\
 	sqc2            vf9,0x0(%0)     \n\
-	" : : "r"(v0), "r"(m0), "r"(v1) : "memory");
+	" : : "r"(output), "r"(matrix), "r"(input) : "memory");
 }
 
 INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0MulMatrix);
@@ -39,7 +39,7 @@ INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0MulMatrix);
 // 	":: "r" (m0), "r" (m2), "r" (m1) : "$7", "memory");
 // }
 
-void sceVu0OuterProduct(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2) {
+void sceVu0OuterProduct(sceVu0FVECTOR output, sceVu0FVECTOR left, sceVu0FVECTOR right) {
     __asm__ __volatile__("      \n\
 	lqc2    vf4,0x0(%1)         \n\
 	lqc2    vf5,0x0(%2)         \n\
@@ -47,10 +47,10 @@ void sceVu0OuterProduct(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2) {
 	vopmsub.xyz	vf6,vf5,vf4     \n\
 	vsub.w vf6,vf6,vf6		    \n\
 	sqc2    vf6,0x0(%0)         \n\
-	": : "r" (v0) , "r" (v1) ,"r" (v2) : "memory");
+	": : "r" (output) , "r" (left) ,"r" (right) : "memory");
 }
 
-f32 sceVu0InnerProduct(sceVu0FVECTOR v0, sceVu0FVECTOR v1) {
+f32 sceVu0InnerProduct(sceVu0FVECTOR left, sceVu0FVECTOR right) {
     register f32 product;
 
     __asm__ __volatile__("      \n\
@@ -61,10 +61,10 @@ f32 sceVu0InnerProduct(sceVu0FVECTOR v0, sceVu0FVECTOR v1) {
 	vaddz.x vf5,vf5,vf5         \n\
 	qmfc2   $2 ,vf5             \n\
 	mtc1    $2,%0               \n\
-	": "=f" (product) :"r" (v0) ,"r" (v1) :"$2", "memory" );
+	": "=f" (product) :"r" (left) ,"r" (right) :"$2", "memory" );
 }
 
-void sceVu0Normalize(sceVu0FVECTOR v0, sceVu0FVECTOR v1) {
+void sceVu0Normalize(sceVu0FVECTOR output, sceVu0FVECTOR input) {
     __asm__ __volatile__("      \n\
     lqc2        vf4,0x0(%1)     \n\
     vmul.xyz    vf5,vf4,vf4     \n\
@@ -80,7 +80,7 @@ void sceVu0Normalize(sceVu0FVECTOR v0, sceVu0FVECTOR v1) {
     vwaitq                      \n\
     vmulq.xyz   vf6,vf4,Q       \n\
     sqc2        vf6,0x0(%0)     \n\
-    ": : "r" (v0) , "r" (v1) : "memory");
+    ": : "r" (output) , "r" (input) : "memory");
 }
 
 INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0TransposeMatrix);
@@ -105,7 +105,7 @@ INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0TransposeMatrix);
 // 	": : "r" (m0) , "r" (m1) : "memory");
 // }
 
-void sceVu0InversMatrix(sceVu0FMATRIX m0, sceVu0FMATRIX m1) {
+void sceVu0InversMatrix(sceVu0FMATRIX output, sceVu0FMATRIX input) {
     __asm__ __volatile__("      \n\
 	lq          $8,0x0000(%1)   \n\
 	lq          $9,0x0010(%1)   \n\
@@ -133,10 +133,10 @@ void sceVu0InversMatrix(sceVu0FMATRIX m0, sceVu0FMATRIX m1) {
 	sq 			$9,0x0010(%0)   \n\
 	sq 			$10,0x0020(%0)  \n\
 	sqc2 		vf4,0x0030(%0)  \n\
-	": : "r" (m0) , "r" (m1):"$8","$9","$10","$11","$12","$13","$14","$15", "memory");
+	": : "r" (output) , "r" (input):"$8","$9","$10","$11","$12","$13","$14","$15", "memory");
 }
 
-void sceVu0DivVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 q) {
+void sceVu0DivVector(sceVu0FVECTOR output, sceVu0FVECTOR input, f32 divisor) {
     __asm__ __volatile__("		\n\
 	lqc2 		vf4,0x0(%1)		\n\
 	mfc1 		$8,%2			\n\
@@ -145,10 +145,10 @@ void sceVu0DivVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 q) {
 	vwaitq						\n\
 	vmulq.xyzw	vf4,vf4,Q		\n\
 	sqc2    	vf4,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "f" (q):"$8", "memory");
+	": : "r" (output) , "r" (input), "f" (divisor):"$8", "memory");
 }
 
-void sceVu0DivVectorXYZ(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 q) {
+void sceVu0DivVectorXYZ(sceVu0FVECTOR output, sceVu0FVECTOR input, f32 divisor) {
     __asm__ __volatile__("		\n\
 	lqc2		vf4,0x0(%1)		\n\
 	mfc1		$8,%2			\n\
@@ -157,10 +157,10 @@ void sceVu0DivVectorXYZ(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 q) {
 	vwaitq						\n\
 	vmulq.xyz	vf4,vf4,Q		\n\
 	sqc2		vf4,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "f" (q) : "$8", "memory");
+	": : "r" (output) , "r" (input), "f" (divisor) : "$8", "memory");
 }
 
-void sceVu0InterVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2, f32 t) {
+void sceVu0InterVector(sceVu0FVECTOR output, sceVu0FVECTOR first, sceVu0FVECTOR second, f32 ratio) {
     __asm__ __volatile__("		\n\
 	lqc2		vf4,0x0(%1)		\n\
 	lqc2		vf5,0x0(%2)		\n\
@@ -171,47 +171,47 @@ void sceVu0InterVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2, f32
 	vmulax.xyzw	ACC,vf4,vf6		\n\
 	vmaddx.xyzw	vf9,vf5,vf8		\n\
 	sqc2    	vf9,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "r" (v2), "f" (t) : "$8", "memory");
+	": : "r" (output) , "r" (first), "r" (second), "f" (ratio) : "$8", "memory");
 }
 
-void sceVu0AddVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2) {
+void sceVu0AddVector(sceVu0FVECTOR output, sceVu0FVECTOR left, sceVu0FVECTOR right) {
     __asm__ __volatile__("		\n\
 	lqc2		vf4,0x0(%1)		\n\
 	lqc2		vf5,0x0(%2)		\n\
 	vadd.xyzw	vf6,vf4,vf5		\n\
 	sqc2    	vf6,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "r" (v2) : "memory");
+	": : "r" (output) , "r" (left), "r" (right) : "memory");
 }
 
-void sceVu0SubVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2) {
+void sceVu0SubVector(sceVu0FVECTOR output, sceVu0FVECTOR left, sceVu0FVECTOR right) {
     __asm__ __volatile__("		\n\
 	lqc2    	vf4,0x0(%1)		\n\
 	lqc2    	vf5,0x0(%2)		\n\
 	vsub.xyzw	vf6,vf4,vf5		\n\
 	sqc2		vf6,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "r" (v2) : "memory");
+	": : "r" (output) , "r" (left), "r" (right) : "memory");
 }
 
-void sceVu0MulVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2) {
+void sceVu0MulVector(sceVu0FVECTOR output, sceVu0FVECTOR left, sceVu0FVECTOR right) {
     __asm__ __volatile__("		\n\
 	lqc2		vf4,0x0(%1)		\n\
 	lqc2		vf5,0x0(%2)		\n\
 	vmul.xyzw	vf6,vf4,vf5		\n\
 	sqc2		vf6,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "r" (v2) : "memory");
+	": : "r" (output) , "r" (left), "r" (right) : "memory");
 }
 
-void sceVu0ScaleVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 t) {
+void sceVu0ScaleVector(sceVu0FVECTOR output, sceVu0FVECTOR input, f32 scale) {
     __asm__ __volatile__("		\n\
 	lqc2		vf4,0x0(%1)		\n\
 	mfc1    	$8,%2			\n\
 	qmtc2    	$8,vf5			\n\
 	vmulx.xyzw	vf6,vf4,vf5		\n\
 	sqc2    	vf6,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "f" (t):"$8", "memory");
+	": : "r" (output) , "r" (input), "f" (scale):"$8", "memory");
 }
 
-void sceVu0TransMatrix(sceVu0FMATRIX m0, sceVu0FMATRIX m1, sceVu0FVECTOR tv) {
+void sceVu0TransMatrix(sceVu0FMATRIX output, sceVu0FMATRIX input, sceVu0FVECTOR translation) {
     __asm__ __volatile__("		\n\
 	lqc2		vf4,0x0(%2)		\n\
 	lqc2    	vf5,0x30(%1)	\n\
@@ -223,7 +223,7 @@ void sceVu0TransMatrix(sceVu0FMATRIX m0, sceVu0FMATRIX m1, sceVu0FVECTOR tv) {
 	sq    		$8,0x10(%0)		\n\
 	sq    		$9,0x20(%0)		\n\
 	sqc2    	vf5,0x30(%0)	\n\
-	": : "r" (m0) , "r" (m1), "r" (tv):"$7","$8","$9","memory");
+	": : "r" (output) , "r" (input), "r" (translation):"$7","$8","$9","memory");
 }
 
 INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0CopyVector);
@@ -248,39 +248,39 @@ INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0CopyMatrix);
 // 	": : "r" (m0) , "r" (m1):"$6","$7","$8","$9","memory");
 // }
 
-void sceVu0FTOI4Vector(sceVu0IVECTOR v0, sceVu0FVECTOR v1) {
+void sceVu0FTOI4Vector(sceVu0IVECTOR output, sceVu0FVECTOR input) {
     __asm__ __volatile__("		\n\
 	lqc2    	vf4,0x0(%1)		\n\
 	vftoi4.xyzw	vf5,vf4			\n\
 	sqc2    	vf5,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1) : "memory");
+	": : "r" (output) , "r" (input) : "memory");
 }
 
-void sceVu0FTOI0Vector(sceVu0IVECTOR v0, sceVu0FVECTOR v1) {
+void sceVu0FTOI0Vector(sceVu0IVECTOR output, sceVu0FVECTOR input) {
     __asm__ __volatile__("		\n\
 	lqc2    	vf4,0x0(%1)		\n\
 	vftoi0.xyzw	vf5,vf4			\n\
 	sqc2    	vf5,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1) : "memory");
+	": : "r" (output) , "r" (input) : "memory");
 }
 
-void sceVu0ITOF4Vector(sceVu0FVECTOR v0, sceVu0IVECTOR v1) {
+void sceVu0ITOF4Vector(sceVu0FVECTOR output, sceVu0IVECTOR input) {
     __asm__ __volatile__("		\n\
 	lqc2    	vf4,0x0(%1)		\n\
 	vitof4.xyzw	vf5,vf4			\n\
 	sqc2    	vf5,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1) : "memory");
+	": : "r" (output) , "r" (input) : "memory");
 }
 
-void sceVu0ITOF0Vector(sceVu0FVECTOR v0, sceVu0IVECTOR v1) {
+void sceVu0ITOF0Vector(sceVu0FVECTOR output, sceVu0IVECTOR input) {
     __asm__ __volatile__("		\n\
 	lqc2    	vf4,0x0(%1)		\n\
 	vitof0.xyzw	vf5,vf4			\n\
 	sqc2    	vf5,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1) : "memory");
+	": : "r" (output) , "r" (input) : "memory");
 }
 
-void sceVu0UnitMatrix(sceVu0FMATRIX m0) {
+void sceVu0UnitMatrix(sceVu0FMATRIX output) {
     __asm__ __volatile__("		\n\
 	vsub.xyzw	vf4,vf0,vf0		\n\
 	vadd.w		vf4,vf4,vf0		\n\
@@ -291,7 +291,7 @@ void sceVu0UnitMatrix(sceVu0FMATRIX m0) {
 	sqc2   		vf5,0x20(%0)	\n\
 	sqc2   		vf6,0x10(%0)	\n\
 	sqc2   		vf7,0x0(%0)		\n\
-	": : "r" (m0) : "memory");
+	": : "r" (output) : "memory");
 }
 
 // Coefficients for sceVu0ecossin
@@ -306,7 +306,7 @@ __asm__ ("				\n\
 	.text				\n\
 ");
 
-static void _sceVu0ecossin(f32 t) {
+static void _sceVu0ecossin(f32 angle) {
     __asm__ __volatile__("          \n\
 	la          $8,S5432       		\n\
 	lqc2        vf05,0x0($8)        \n\
@@ -473,13 +473,13 @@ INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0RotMatrixY);
 // 	": : "r" (m0) , "r" (m1), "f" (ry):"$6","$7","$8","$f0","memory");
 // }
 
-void sceVu0RotMatrix(sceVu0FMATRIX m0, sceVu0FMATRIX m1, sceVu0FVECTOR rot) {
-	sceVu0RotMatrixZ(m0, m1, rot[2]);
-	sceVu0RotMatrixY(m0, m0, rot[1]);
-	sceVu0RotMatrixX(m0, m0, rot[0]);
+void sceVu0RotMatrix(sceVu0FMATRIX output, sceVu0FMATRIX input, sceVu0FVECTOR rotation) {
+	sceVu0RotMatrixZ(output, input, rotation[2]);
+	sceVu0RotMatrixY(output, output, rotation[1]);
+	sceVu0RotMatrixX(output, output, rotation[0]);
 }
 
-void sceVu0ClampVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 min, f32 max) {
+void sceVu0ClampVector(sceVu0FVECTOR output, sceVu0FVECTOR input, f32 minimum, f32 maximum) {
     __asm__ __volatile__("			\n\
 	mfc1		$8,%2				\n\
 	mfc1		$9,%3				\n\
@@ -489,45 +489,45 @@ void sceVu0ClampVector(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 min, f32 max) {
 	vmaxx.xyzw 	$vf06,$vf06,$vf04	\n\
 	vminix.xyzw $vf06,$vf06,$vf05	\n\
 	sqc2    	vf6,0x0(%0)			\n\
-	": : "r" (v0) , "r" (v1), "f" (min), "f" (max):"$8","$9","memory");
+	": : "r" (output) , "r" (input), "f" (minimum), "f" (maximum):"$8","$9","memory");
 }
 
-void sceVu0CameraMatrix(sceVu0FMATRIX m, sceVu0FVECTOR p, sceVu0FVECTOR zd, sceVu0FVECTOR yd) {
-    sceVu0FMATRIX m0;
-    sceVu0FVECTOR xd;
+void sceVu0CameraMatrix(sceVu0FMATRIX output, sceVu0FVECTOR position, sceVu0FVECTOR zDirection, sceVu0FVECTOR yDirection) {
+    sceVu0FMATRIX cameraMatrix;
+    sceVu0FVECTOR xDirection;
 
-    sceVu0UnitMatrix(m0);
-    sceVu0OuterProduct(xd, yd, zd);
-    sceVu0Normalize(m0[0], xd);
-    sceVu0Normalize(m0[2], zd);
-    sceVu0OuterProduct(m0[1], m0[2], m0[0]);
-    sceVu0TransMatrix(m0, m0, p);
-    sceVu0InversMatrix(m, m0);
+    sceVu0UnitMatrix(cameraMatrix);
+    sceVu0OuterProduct(xDirection, yDirection, zDirection);
+    sceVu0Normalize(cameraMatrix[0], xDirection);
+    sceVu0Normalize(cameraMatrix[2], zDirection);
+    sceVu0OuterProduct(cameraMatrix[1], cameraMatrix[2], cameraMatrix[0]);
+    sceVu0TransMatrix(cameraMatrix, cameraMatrix, position);
+    sceVu0InversMatrix(output, cameraMatrix);
 }
 
-void sceVu0NormalLightMatrix(sceVu0FMATRIX m, sceVu0FVECTOR l0, sceVu0FVECTOR l1, sceVu0FVECTOR l2) {
-    sceVu0FVECTOR t;
+void sceVu0NormalLightMatrix(sceVu0FMATRIX output, sceVu0FVECTOR light0, sceVu0FVECTOR light1, sceVu0FVECTOR light2) {
+    sceVu0FVECTOR negatedLight;
 
-    sceVu0ScaleVector(t, l0, -1);
-	sceVu0Normalize(m[0], t);
+    sceVu0ScaleVector(negatedLight, light0, -1);
+	sceVu0Normalize(output[0], negatedLight);
 
-    sceVu0ScaleVector(t, l1, -1);
-	sceVu0Normalize(m[1], t);
+    sceVu0ScaleVector(negatedLight, light1, -1);
+	sceVu0Normalize(output[1], negatedLight);
 
-    sceVu0ScaleVector(t, l2, -1);
-	sceVu0Normalize(m[2], t);
+    sceVu0ScaleVector(negatedLight, light2, -1);
+	sceVu0Normalize(output[2], negatedLight);
 
-	m[3][0] = m[3][1] = m[3][2] = 0.0f;
-	m[3][3] = 1.0f;
+	output[3][0] = output[3][1] = output[3][2] = 0.0f;
+	output[3][3] = 1.0f;
 
-	sceVu0TransposeMatrix(m, m);
+	sceVu0TransposeMatrix(output, output);
 }
 
-void sceVu0LightColorMatrix(sceVu0FMATRIX m, sceVu0FVECTOR c0, sceVu0FVECTOR c1, sceVu0FVECTOR c2, sceVu0FVECTOR a) {
-    sceVu0CopyVector(m[0], c0);
-    sceVu0CopyVector(m[1], c1);
-    sceVu0CopyVector(m[2], c2);
-    sceVu0CopyVector(m[3], a);
+void sceVu0LightColorMatrix(sceVu0FMATRIX output, sceVu0FVECTOR color0, sceVu0FVECTOR color1, sceVu0FVECTOR color2, sceVu0FVECTOR ambient) {
+    sceVu0CopyVector(output[0], color0);
+    sceVu0CopyVector(output[1], color1);
+    sceVu0CopyVector(output[2], color2);
+    sceVu0CopyVector(output[3], ambient);
 }
 
 INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0ViewScreenMatrix);
@@ -608,7 +608,7 @@ INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0RotTransPersN);
 // 	": : "r" (v0) , "r" (m0) ,"r" (v1), "r" (n) ,"r" (mode):"memory");
 // }
 
-void sceVu0RotTransPers(sceVu0IVECTOR v0, sceVu0FMATRIX m0, sceVu0FVECTOR v1, s32 mode) {
+void sceVu0RotTransPers(sceVu0IVECTOR output, sceVu0FMATRIX matrix, sceVu0FVECTOR input, s32 mode) {
     __asm__ __volatile__("			\n\
 	lqc2			vf4,0x0(%1)		\n\
 	lqc2			vf5,0x10(%1)	\n\
@@ -627,16 +627,16 @@ void sceVu0RotTransPers(sceVu0IVECTOR v0, sceVu0FMATRIX m0, sceVu0FVECTOR v1, s3
 	vftoi0.zw		vf10,vf9		\n\
 _rotTP:								\n\
 	sqc2	vf10,0x0(%0)			\n\
-	": : "r" (v0) , "r" (m0) ,"r" (v1), "r" (mode):"memory");
+	": : "r" (output) , "r" (matrix) ,"r" (input), "r" (mode):"memory");
 }
 
-void sceVu0CopyVectorXYZ(sceVu0FVECTOR v0, sceVu0FVECTOR v1) {
-    v0[0] = v1[0];
-    v0[1] = v1[1];
-    v0[2] = v1[2];
+void sceVu0CopyVectorXYZ(sceVu0FVECTOR output, sceVu0FVECTOR input) {
+    output[0] = input[0];
+    output[1] = input[1];
+    output[2] = input[2];
 }
 
-void sceVu0InterVectorXYZ(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2, f32 r) {
+void sceVu0InterVectorXYZ(sceVu0FVECTOR output, sceVu0FVECTOR first, sceVu0FVECTOR second, f32 ratio) {
     __asm__ __volatile__("			\n\
 	lqc2		vf4,0x0(%1)			\n\
 	lqc2		vf5,0x0(%2)			\n\
@@ -648,17 +648,17 @@ void sceVu0InterVectorXYZ(sceVu0FVECTOR v0, sceVu0FVECTOR v1, sceVu0FVECTOR v2, 
 	vmulax.xyz	ACC,vf4,vf6			\n\
 	vmaddx.xyz	vf9,vf5,vf8			\n\
 	sqc2    	vf9,0x0(%0)			\n\
-	": : "r" (v0) , "r" (v1), "r" (v2), "f" (r) : "$8","memory");
+	": : "r" (output) , "r" (first), "r" (second), "f" (ratio) : "$8","memory");
 }
 
-void sceVu0ScaleVectorXYZ(sceVu0FVECTOR v0, sceVu0FVECTOR v1, f32 s) {
+void sceVu0ScaleVectorXYZ(sceVu0FVECTOR output, sceVu0FVECTOR input, f32 scale) {
     __asm__ __volatile__("		\n\
 	lqc2		vf4,0x0(%1)		\n\
 	mfc1		$8,%2			\n\
 	qmtc2		$8,vf5			\n\
 	vmulx.xyz	vf4,vf4,vf5		\n\
 	sqc2		vf4,0x0(%0)		\n\
-	": : "r" (v0) , "r" (v1), "f" (s):"$8","memory");
+	": : "r" (output) , "r" (input), "f" (scale):"$8","memory");
 }
 
 INCLUDE_ASM("asm/nonmatchings/lib/libvu0", sceVu0ClipScreen);

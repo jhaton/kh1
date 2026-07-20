@@ -20,21 +20,21 @@ INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjDrawShipolyBone", func_0019D100)
 INCLUDE_ASM("asm/nonmatchings/ppp/ryjProg/pppRyjDrawShipolyBone", pppRyjDrawShipolyBoneDraw);
 
 void pppRyjDrawShipolyBoneCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjDrawShipolyBone* p = (VRyjDrawShipolyBone*)&pobj->val[ctbl->useVal[1]];
+    VRyjDrawShipolyBone* shipolyBone = (VRyjDrawShipolyBone*)&pobj->val[ctbl->useVal[1]];
 
-    p->unFrameCt = 0;
-    p->bSmp = 0;
-    p->bStandby = 1;
-    p->pvecSmp = NULL;
+    shipolyBone->unFrameCt = 0;
+    shipolyBone->bSmp = 0;
+    shipolyBone->bStandby = 1;
+    shipolyBone->pvecSmp = NULL;
     ppvMng->unk_B3 = 1;
 }
 
 void pppRyjDrawShipolyBoneDes(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VRyjDrawShipolyBone* p = (VRyjDrawShipolyBone*)&pobj->val[ctbl->useVal[1]];
+    VRyjDrawShipolyBone* shipolyBone = (VRyjDrawShipolyBone*)&pobj->val[ctbl->useVal[1]];
 
-    if (p->pvecSmp != NULL) {
-        pppFree(ppvEnv, p->pvecSmp);
-        p->pvecSmp = NULL;
+    if (shipolyBone->pvecSmp != NULL) {
+        pppFree(ppvEnv, shipolyBone->pvecSmp);
+        shipolyBone->pvecSmp = NULL;
     }
 }
 

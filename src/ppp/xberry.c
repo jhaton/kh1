@@ -15,43 +15,43 @@ INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A7668);
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A76E8);
 
-void KeLnsLp_Init(KeLnsLp* lp) {
+void KeLnsLp_Init(KeLnsLp* lensState) {
     ppvMng->drawPriority = 2;
-    sceVu0UnitMatrix(lp->zMat);
-    lp->preHidePow = 1.0f;
+    sceVu0UnitMatrix(lensState->zMat);
+    lensState->preHidePow = 1.0f;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A7C40);
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A7F48);
 
-void KeLnsClm_Init(KeLnsClm* p) {
-    p->flag = 0;
-    p->lp = &ppvDbgTemp;
-    p->shp = NULL;
+void KeLnsClm_Init(KeLnsClm* column) {
+    column->flag = 0;
+    column->lp = &ppvDbgTemp;
+    column->shp = NULL;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A8060);
 
-void KeLnsArnd_Init(KeLnsArnd* p) {
-    p->shp = NULL;
-    p->lp = &ppvDbgTemp;
+void KeLnsArnd_Init(KeLnsArnd* surround) {
+    surround->shp = NULL;
+    surround->lp = &ppvDbgTemp;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A8248);
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A84B8);
 
-void KeLnsCrn_Init(KeLnsCrn* p) {
-    p->shp = NULL;
-    p->lp = &ppvDbgTemp;
+void KeLnsCrn_Init(KeLnsCrn* corner) {
+    corner->shp = NULL;
+    corner->lp = &ppvDbgTemp;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", KeLnsFls_Draw);
 
-void KeLnsFls_Init(KeLnsFls* p) {
-    p->shp = NULL;
-    p->lp = &ppvDbgTemp;
+void KeLnsFls_Init(KeLnsFls* flash) {
+    flash->shp = NULL;
+    flash->lp = &ppvDbgTemp;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/xberry", func_001A8770);

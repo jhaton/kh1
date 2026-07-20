@@ -170,28 +170,28 @@ extern XApple4* D_00532608;
 extern s32* D_0053260C;
 extern s32 D_00532610;
 
-s32 func_0013AB68(u16* arg0) {
-    sceVu0FVECTOR sp0;
-    sceVu0FVECTOR sp10;
-    sceVu0FMATRIX sp20;
-    sceVu0FMATRIX sp60;
+s32 func_0013AB68(u16* stateFlags) {
+    sceVu0FVECTOR localPosition;
+    sceVu0FVECTOR localTarget;
+    sceVu0FMATRIX rotationMatrix;
+    sceVu0FMATRIX inverseMatrix;
 
-    f32 var_f21;
-    f32 ry;
-    f32 s;
-    f32 fVar1;
-    f32 fVar2;
+    f32 blend;
+    f32 yaw;
+    f32 radius;
+    f32 currentAngle;
+    f32 targetAngle;
 
     if (((D_002C1EA8 >> 20) & 1) == 0) {
         return 4;
     }
 
-    if (*arg0 & 0x10) {
-        func_00163638(D_005325E8->unk_D0, sp60);
+    if (*stateFlags & 0x10) {
+        func_00163638(D_005325E8->unk_D0, inverseMatrix);
         D_002DECF0[3] = 1.0f;
         D_002DECE0[3] = 1.0f;
-        sceVu0ApplyMatrix(D_005324D0, sp60, D_002DECE0);
-        sceVu0ApplyMatrix(D_005324E0, sp60, D_002DECF0);
+        sceVu0ApplyMatrix(D_005324D0, inverseMatrix, D_002DECE0);
+        sceVu0ApplyMatrix(D_005324E0, inverseMatrix, D_002DECF0);
         sceVu0SubVector(D_005324C0, D_00301040, D_005324D0);
         D_005324B8 = func_00120A38(D_005324C0);
         sceVu0SubVector(D_005324C0, D_005324E0, D_005324D0);
@@ -206,9 +206,9 @@ s32 func_0013AB68(u16* arg0) {
         sceVu0SubVector(D_005324C0, D_00301030, D_00301040);
         D_005324BC = func_00120A58(D_005324C0) - D_005324B8;
 
-        fVar1 = atan2f(D_005324D0[0] - D_005324E0[0], D_005324D0[2] - D_005324E0[2]);
-        fVar2 = atan2f(D_00301030[0] - D_00301040[0], D_00301030[2] - D_00301040[2]);
-        D_005324B4 = func_00120AC8(fVar2 - fVar1);
+        currentAngle = atan2f(D_005324D0[0] - D_005324E0[0], D_005324D0[2] - D_005324E0[2]);
+        targetAngle = atan2f(D_00301030[0] - D_00301040[0], D_00301030[2] - D_00301040[2]);
+        D_005324B4 = func_00120AC8(targetAngle - currentAngle);
 
         if (func_00177D68() < 0.5f) {
             if (D_005324B4 < 0.0f) {
@@ -226,24 +226,24 @@ s32 func_0013AB68(u16* arg0) {
     }
 
     D_00532500 -= D_002B8340[1];
-    var_f21 = D_00532500 / 40.0f;
-    if (var_f21 < 0.0f) {
-        var_f21 = 0.0f;
+    blend = D_00532500 / 40.0f;
+    if (blend < 0.0f) {
+        blend = 0.0f;
     }
 
-    var_f21 = (cosf(var_f21 * PI) + 1.0f) * 0.5f;
-    sceVu0InterVector(sp10, D_00301040, D_005324E0, var_f21);
-    ry = func_00120AC8(D_005324B4 * var_f21);
-    sceVu0RotMatrixY(sp20, D_002C1E20, ry);
-    sceVu0ApplyMatrix(D_005324C0, sp20, D_005324F0);
-    s = D_005324B8 + D_005324BC * var_f21;
-    sceVu0ScaleVector(D_005324C0, D_005324C0, s);
-    sceVu0AddVector(sp0, sp10, D_005324C0);
-    sp0[3] = 1.0f;
-    sp10[3] = 1.0f;
-    sp0[1] = (D_00301030[1] * var_f21) + (D_005324D0[1] * (1.0f - var_f21));
-    sceVu0ApplyMatrix(D_002DECE0, D_005325E8->unk_D0, sp0);
-    sceVu0ApplyMatrix(D_002DECF0, D_005325E8->unk_D0, sp10);
+    blend = (cosf(blend * PI) + 1.0f) * 0.5f;
+    sceVu0InterVector(localTarget, D_00301040, D_005324E0, blend);
+    yaw = func_00120AC8(D_005324B4 * blend);
+    sceVu0RotMatrixY(rotationMatrix, D_002C1E20, yaw);
+    sceVu0ApplyMatrix(D_005324C0, rotationMatrix, D_005324F0);
+    radius = D_005324B8 + D_005324BC * blend;
+    sceVu0ScaleVector(D_005324C0, D_005324C0, radius);
+    sceVu0AddVector(localPosition, localTarget, D_005324C0);
+    localPosition[3] = 1.0f;
+    localTarget[3] = 1.0f;
+    localPosition[1] = (D_00301030[1] * blend) + (D_005324D0[1] * (1.0f - blend));
+    sceVu0ApplyMatrix(D_002DECE0, D_005325E8->unk_D0, localPosition);
+    sceVu0ApplyMatrix(D_002DECF0, D_005325E8->unk_D0, localTarget);
     return 0;
 }
 
@@ -307,17 +307,17 @@ INCLUDE_ASM("asm/nonmatchings/xapple", func_0013B1D0);
 // }
 
 s32 func_0013B368(void) {
-    char something[0x20];
+    char path[0x20];
 
     if (D_00532604 != 2 || (func_001EE090() != 0)) {
         return 0;
     }
     func_00157B90();
     D_00532604 = 3;
-    sprintf(something, "%s%s", D_00301010[D_00532600], D_00301050);
-    func_00120590(something, D_0053260C, NULL, 0);
-    sprintf(something, "%s%s", D_00301010[D_00532600], D_00301054);
-    func_00120590(something, &func_F20000, &func_0013B138, 0);
+    sprintf(path, "%s%s", D_00301010[D_00532600], D_00301050);
+    func_00120590(path, D_0053260C, NULL, 0);
+    sprintf(path, "%s%s", D_00301010[D_00532600], D_00301054);
+    func_00120590(path, &func_F20000, &func_0013B138, 0);
     func_0011ED30(47000, &func_0013B1D0);
     return 1;
 }
@@ -438,8 +438,8 @@ s32 func_0013B890(void) {
     return 0;
 }
 
-s32 func_0013B8F8(u16* arg0) {
-    if (*arg0 & 0x10) {
+s32 func_0013B8F8(u16* stateFlags) {
+    if (*stateFlags & 0x10) {
         func_0013BD88(&D_00532508, D_00301058, 4);
     }
     func_0011EF58(&D_00532518, 0);
@@ -502,24 +502,24 @@ f32 func_0013BAC0(void) {
     return (D_002DEC00->unk_6C->unk_48 + ((s32)(D_002DED20 >> 0xA) & 7)) * 3000;
 }
 
-void* func_0013BB00(s32 arg0, s32 arg1) {
-    char something[0x20];
+void* func_0013BB00(s32 actor, s32 characterIndex) {
+    char path[0x20];
 
     D_002C1EA8 |= 0x102000;
-    D_00301088 = (D_00301088 & (~7)) | (arg1 & 7) | 8;
-    D_00301080 = &D_003051EC->unk_98[arg1].unk_00;
-    D_00301094 |= 1 << arg1;
+    D_00301088 = (D_00301088 & (~7)) | (characterIndex & 7) | 8;
+    D_00301080 = &D_003051EC->unk_98[characterIndex].unk_00;
+    D_00301094 |= 1 << characterIndex;
     D_0030108C = D_00301090 = func_0013BAC0();
-    func_00141668(arg0, -*(&D_003051EC->unk_98[arg1].unk_00));
-    D_005325E8 = arg0;
-    D_00532600 = arg1;
+    func_00141668(actor, -*(&D_003051EC->unk_98[characterIndex].unk_00));
+    D_005325E8 = actor;
+    D_00532600 = characterIndex;
     func_00157AD8(1);
     func_00157AD8(2);
     func_00157AD8(3);
     D_00532604 = 0;
     D_00532608 = func_00155ED8(0x34, 0xC);
-    sprintf(something, "%s%s", D_00301010[arg1], D_00301078);
-    func_00120590(something, D_00532608, func_0013B9B8, 0);
+    sprintf(path, "%s%s", D_00301010[characterIndex], D_00301078);
+    func_00120590(path, D_00532608, func_0013B9B8, 0);
     func_0011EDD0(&D_00532518, &D_00532528, 0x18, 8);
     return func_0011ED30(52000, func_0013B8F8);
 }

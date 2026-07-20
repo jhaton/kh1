@@ -1,11 +1,11 @@
 #include "ppp/pppUtil.h"
 
-void pppGetRotMatrixZXY(sceVu0FMATRIX mp, pppIVECTOR* angle) {
-    sceVu0FMATRIX m0, m1, m2, m3;
+void pppGetRotMatrixZXY(sceVu0FMATRIX outputMatrix, pppIVECTOR* angles) {
+    sceVu0FMATRIX yRotation, xRotation, combinedRotation, zRotation;
 
-    pppGetRotMatrixY(m0, angle->y);
-    pppGetRotMatrixX(m1, angle->x);
-    sceVu0MulMatrix(m2, m0, m1);
-    pppGetRotMatrixZ(m3, angle->z);
-    sceVu0MulMatrix(mp, m2, m3);
+    pppGetRotMatrixY(yRotation, angles->y);
+    pppGetRotMatrixX(xRotation, angles->x);
+    sceVu0MulMatrix(combinedRotation, yRotation, xRotation);
+    pppGetRotMatrixZ(zRotation, angles->z);
+    sceVu0MulMatrix(outputMatrix, combinedRotation, zRotation);
 }

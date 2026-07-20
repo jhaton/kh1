@@ -9,12 +9,12 @@ typedef struct {
     pppFVECTOR vec;
 } VMove;
 
-void pppMove(pppPObject* pobj, PMove* p, pppCtrlTable* ctbl) {
-    VMove* v;
-    pppFVECTOR* move;
+void pppMove(pppPObject* pobj, PMove* params, pppCtrlTable* ctbl) {
+    VMove* displacement;
+    pppFVECTOR* velocity;
 
-    v = (VMove*)&pobj->val[ctbl->useVal[0]];
-    move = (pppFVECTOR*)&pobj->val[ctbl->useVal[1]];
+    displacement = (VMove*)&pobj->val[ctbl->useVal[0]];
+    velocity = (pppFVECTOR*)&pobj->val[ctbl->useVal[1]];
     if (ppvUserStopPartF != 0) {
         return;
     }
@@ -23,19 +23,19 @@ void pppMove(pppPObject* pobj, PMove* p, pppCtrlTable* ctbl) {
         return;
     }
 
-    if (p->cdt.time == pobj->time) {
-        move->x = move->x + p->vec.x;
-        move->y = move->y + p->vec.y;
-        move->z = move->z + p->vec.z;
+    if (params->cdt.time == pobj->time) {
+        velocity->x = velocity->x + params->vec.x;
+        velocity->y = velocity->y + params->vec.y;
+        velocity->z = velocity->z + params->vec.z;
     }
-    v->vec.x = v->vec.x + move->x;
-    v->vec.y = v->vec.y + move->y;
-    v->vec.z = v->vec.z + move->z;
+    displacement->vec.x = displacement->vec.x + velocity->x;
+    displacement->vec.y = displacement->vec.y + velocity->y;
+    displacement->vec.z = displacement->vec.z + velocity->z;
 }
 
 void pppMoveCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    f32 val = 0.0f;
-    VMove* v = (VMove*)&pobj->val[ctbl->useVal[1]];
+    f32 zero = 0.0f;
+    VMove* velocity = (VMove*)&pobj->val[ctbl->useVal[1]];
 
-    v->vec.x = v->vec.y = v->vec.z = val;
+    velocity->vec.x = velocity->vec.y = velocity->vec.z = zero;
 }

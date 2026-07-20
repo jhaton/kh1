@@ -13,7 +13,7 @@ typedef struct {
 INCLUDE_ASM("asm/nonmatchings/ppp/eiProg/pppColor", pppColorCalc);
 
 void pppColorCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VColor* v = (VColor*)&pobj->val[ctbl->useVal[0]];
+    VColor* colorState = (VColor*)&pobj->val[ctbl->useVal[0]];
     
-    v->col.r = v->col.g = v->col.b = v->col.a = 0;
+    colorState->col.r = colorState->col.g = colorState->col.b = colorState->col.a = 0;
 }

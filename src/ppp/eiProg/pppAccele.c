@@ -9,25 +9,25 @@ typedef struct {
     /* 0x0 */ pppFVECTOR vec;
 } VAccele;
 
-void pppAcceleCalc(pppPObject* pobj, PAccele* p, pppCtrlTable* ctbl) {
-    VAccele* ac0 = (VAccele*)&pobj->val[ctbl->useVal[0]];
-    VAccele* ac1 = (VAccele*)&pobj->val[ctbl->useVal[1]];
+void pppAcceleCalc(pppPObject* pobj, PAccele* params, pppCtrlTable* ctbl) {
+    VAccele* velocity = (VAccele*)&pobj->val[ctbl->useVal[0]];
+    VAccele* acceleration = (VAccele*)&pobj->val[ctbl->useVal[1]];
 
     if (ppvUserStopPartF != 0 || ppvMng->stop || ppvMng->unk_B4 != 0) {
         return;
     }
 
-    if (p->cdt.time == pobj->time) {
-        ac1->vec.x += p->vec.x;
-        ac1->vec.y += p->vec.y;
-        ac1->vec.z += p->vec.z;
+    if (params->cdt.time == pobj->time) {
+        acceleration->vec.x += params->vec.x;
+        acceleration->vec.y += params->vec.y;
+        acceleration->vec.z += params->vec.z;
     }
-    ac0->vec.x += ac1->vec.x;
-    ac0->vec.y += ac1->vec.y;
-    ac0->vec.z += ac1->vec.z;
+    velocity->vec.x += acceleration->vec.x;
+    velocity->vec.y += acceleration->vec.y;
+    velocity->vec.z += acceleration->vec.z;
 }
 
 void pppAcceleCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VAccele* ac = (VAccele*)&pobj->val[ctbl->useVal[1]];
-    ac->vec.x = ac->vec.y = ac->vec.z = 0.0f;
+    VAccele* acceleration = (VAccele*)&pobj->val[ctbl->useVal[1]];
+    acceleration->vec.x = acceleration->vec.y = acceleration->vec.z = 0.0f;
 }

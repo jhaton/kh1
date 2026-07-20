@@ -6,10 +6,10 @@ typedef struct {
 } VVertexAp;
 
 void pppVertexApCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VVertexAp* v = (VVertexAp*)&pobj->val[ctbl->useVal[0]];
+    VVertexAp* state = (VVertexAp*)&pobj->val[ctbl->useVal[0]];
     
-    v->ict = 0;
-    v->aptct = 0;
+    state->ict = 0;
+    state->aptct = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/eiProg/pppVertexAp", func_00185F30);

@@ -9,8 +9,8 @@ typedef struct {
     pppFVECTOR scale;
 } VScale;
 
-void pppScaleCalc(pppPObject* pobj, PScale* p, pppCtrlTable* ctbl) {
-    VScale* v;
+void pppScaleCalc(pppPObject* pobj, PScale* params, pppCtrlTable* ctbl) {
+    VScale* state;
 
     if (ppvUserStopPartF != 0) {
         return;
@@ -20,19 +20,19 @@ void pppScaleCalc(pppPObject* pobj, PScale* p, pppCtrlTable* ctbl) {
         return;
     }
 
-    if (p->cdt.time != pobj->time) {
+    if (params->cdt.time != pobj->time) {
         return;
     }
 
-    v = (VScale*)&pobj->val[ctbl->useVal[0]];
-    v->scale.x += p->scale.x;
-    v->scale.y += p->scale.y;
-    v->scale.z += p->scale.z;
+    state = (VScale*)&pobj->val[ctbl->useVal[0]];
+    state->scale.x += params->scale.x;
+    state->scale.y += params->scale.y;
+    state->scale.z += params->scale.z;
 }
 
 void pppScaleCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    f32 val = 0.0f;
-    VScale* v = (VScale*)&pobj->val[ctbl->useVal[0]];
+    f32 zero = 0.0f;
+    VScale* state = (VScale*)&pobj->val[ctbl->useVal[0]];
 
-    v->scale.x = v->scale.y = v->scale.z = val;
+    state->scale.x = state->scale.y = state->scale.z = zero;
 }

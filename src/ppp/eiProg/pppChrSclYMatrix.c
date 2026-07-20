@@ -2,19 +2,19 @@
 
 typedef struct {
     /* 0x0 */ pppCDT cdt;
-    /* 0x4 */ f32 sclr;
-    /* 0x8 */ f32 maxscl;
+    /* 0x4 */ f32 scaleRatio;
+    /* 0x8 */ f32 maxScale;
 } PChrSclYMatrix;
 
-void pppChrSclYMatrixCalc(pppPObject* pobj, PChrSclYMatrix* p) {
-    sceVu0FMATRIX m;
+void pppChrSclYMatrixCalc(pppPObject* pobj, PChrSclYMatrix* params) {
+    sceVu0FMATRIX scaleMatrix;
 
-    sceVu0UnitMatrix(m);
+    sceVu0UnitMatrix(scaleMatrix);
 
-    m[1][1] = ppvMng->scaleY + (ppvMng->scaleY * p->sclr);
-    if (m[1][1] > p->maxscl) {
-        m[1][1] = p->maxscl;
+    scaleMatrix[1][1] = ppvMng->scaleY + (ppvMng->scaleY * params->scaleRatio);
+    if (scaleMatrix[1][1] > params->maxScale) {
+        scaleMatrix[1][1] = params->maxScale;
     }
 
-    sceVu0MulMatrix(ppvPObj.next->cmat, m, ppvPObj.next->cmat);
+    sceVu0MulMatrix(ppvPObj.next->cmat, scaleMatrix, ppvPObj.next->cmat);
 }

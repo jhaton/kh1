@@ -22,7 +22,7 @@ typedef struct {
     /* 0x00C */ s32 maxent;
     /* 0x010 */ sceMcTblGetDir* table;
     /* 0x014 */ char name[0x3FF];
-    /* 0x413 */ s8 unk_413;
+    /* 0x413 */ s8 nameTerminator;
 } McStatus; // size = 0x414
 
 // todo: data split, blocked by lib version string
@@ -44,15 +44,15 @@ sceMcTblGetDir mcCachedTables[16];
  * @return `sceMcIni` macro value
  */
 s32 sceMcInit(void) {
-    struct SemaParam sParam;
+    struct SemaParam semaParam;
     s32 sifServerStat;
-    s32 i;
+    s32 retryDelay;
 
     if (semaidRegFunc < 0) {
-        sParam.option = 0;
-        sParam.initCount = 1;
-        sParam.maxCount = 1;
-        semaidRegFunc = CreateSema(&sParam);
+        semaParam.option = 0;
+        semaParam.initCount = 1;
+        semaParam.maxCount = 1;
+        semaidRegFunc = CreateSema(&semaParam);
     }
     sceMcSync(0, NULL, NULL);
     WaitSema(semaidRegFunc);
@@ -69,10 +69,10 @@ s32 sceMcInit(void) {
             break;
         }
 
-        i = 0x100000;
+        retryDelay = 0x100000;
         do {
-            i--;
-        } while (i != 0);
+            retryDelay--;
+        } while (retryDelay != 0);
     }
 
     sifServerStat = sceSifCallRpc(&mcClientID, 0xFE, 0, &mcSifParams, sizeof(mcSifParams), &mcRetVal, 12, NULL, NULL);
@@ -89,8 +89,9 @@ s32 sceMcInit(void) {
             printf("libmc: too old release of mcman.irx\n");
             mcClientID.serve = NULL;
             return sceMcIniOldMcman;
+        } else {
+            return mcRetVal[0];
         }
-        return mcRetVal[0];
     }
 }
 
@@ -186,7 +187,7 @@ s32 sceMcOpen(s32 port, s32 slot, const char* name, s32 mode) {
         return sceMcErrNullStr;
     } else {
         strncpy(mcStatus.name, name, sizeof(mcStatus.name));
-        mcStatus.unk_413 = '\0';
+        mcStatus.nameTerminator = '\0';
         mcStatus.port = port;
         mcStatus.mode = mode;
         mcStatus.slot = slot;
@@ -210,12 +211,12 @@ s32 sceMcOpen(s32 port, s32 slot, const char* name, s32 mode) {
  * @return `sceMsRes` macro value
  */
 s32 sceMcMkdir(s32 port, s32 slot, const char* name) {
-    s32 iVar1 = sceMcOpen(port, slot, name, 0x40);
+    s32 sifServerStat = sceMcOpen(port, slot, name, 0x40);
 
-    if (iVar1 == 0) {
+    if (sifServerStat == 0) {
         mcRunCmdNo = sceMcFuncNoMkdir;
     }
-    return iVar1;
+    return sifServerStat;
 }
 
 /**
@@ -319,13 +320,13 @@ s32 sceMcRead(s32 fd, void* buff, s32 size) {
 
 INCLUDE_ASM("asm/nonmatchings/lib/libmc", sceMcWrite);
 
-void mcHearAlarm(s32 arg0, u16 arg1, void* thread) {
-    iWakeupThread((s32)thread);
+void mcHearAlarm(s32 alarmId, u16 time, void* threadId) {
+    iWakeupThread((s32)threadId);
     ExitHandler();
 }
 
-void mcDelayThread(u16 arg0) {
-    SetAlarm(arg0, mcHearAlarm, (void*)GetThreadId());
+void mcDelayThread(u16 delay) {
+    SetAlarm(delay, mcHearAlarm, (void*)GetThreadId());
     SleepThread();
 }
 
@@ -374,7 +375,7 @@ s32 sceMcGetDir(s32 port, s32 slot, const char* name, u32 mode, s32 maxent, sceM
         mcStatus.maxent = maxent;
         mcStatus.table = table;
         strncpy(mcStatus.name, name, sizeof(mcStatus.name));
-        mcStatus.unk_413 = 0;
+        mcStatus.nameTerminator = 0;
         if (-1 < maxent) {
             sceSifWriteBackDCache(table, maxent << 6);
         }
@@ -416,7 +417,7 @@ s32 sceMcChdir(s32 port, s32 slot, const char* path, char* pwd) {
         mcStatus.port = port;
         mcStatus.slot = slot;
         strncpy(mcStatus.name, path, sizeof(mcStatus.name));
-        mcStatus.unk_413 = 0;
+        mcStatus.nameTerminator = 0;
         sceSifWriteBackDCache(&mcCachedTables, sizeof(mcCachedTables));
         sifServerStat = sceSifCallRpc(
             &mcClientID, sceMcFuncNoChDir, 1, &mcStatus, sizeof(mcStatus), &mcRetVal, 4, mceStorePwd, pwd
@@ -481,7 +482,7 @@ s32 sceMcDelete(s32 port, s32 slot, const char* name) {
         return sceMcErrNullStr;
     } else {
         strncpy(mcStatus.name, name, sizeof(mcStatus.name));
-        mcStatus.unk_413 = 0;
+        mcStatus.nameTerminator = 0;
         mcStatus.port = port;
         mcStatus.slot = slot;
         mcStatus.mode = 0;
@@ -550,7 +551,7 @@ s32 sceMcRename(s32 port, s32 slot, const char* org, const char* new) {
         mcStatus.slot = slot;
         mcStatus.mode = 0x10;
         strncpy(mcStatus.name, org, sizeof(mcStatus.name));
-        mcStatus.unk_413 = '\0';
+        mcStatus.nameTerminator = '\0';
         strncpy(mcFileTable.EntryName, new, 0x20);
         mcFileTable.EntryName[31] = '\0';
         mcStatus.table = &mcFileTable;
@@ -619,7 +620,7 @@ s32 sceMcGetEntSpace(s32 port, s32 slot, const char* path) {
         mcStatus.port = port;
         mcStatus.slot = slot;
         strncpy(mcStatus.name, path, sizeof(mcStatus.name));
-        mcStatus.unk_413 = '\0';
+        mcStatus.nameTerminator = '\0';
         sifServerStat =
             sceSifCallRpc(&mcClientID, sceMcFuncNoEntSpace, 1, &mcStatus, sizeof(mcStatus), &mcRetVal, 4, NULL, NULL);
         if (sifServerStat == 0) {

@@ -21,9 +21,9 @@ typedef struct {
 } VDrawMdlTs;
 
 void pppDrawMdlTsCon(pppPObject* pobj, pppCtrlTable* ctbl) {
-    VDrawMdlTs* v = (VDrawMdlTs*)&pobj->val[ctbl->useVal[2]];
-    v->tv = v->dtv = v->ddtv = 0;
-    v->tu = v->dtu = v->ddtu = 0;
+    VDrawMdlTs* textureState = (VDrawMdlTs*)&pobj->val[ctbl->useVal[2]];
+    textureState->tv = textureState->dtv = textureState->ddtv = 0;
+    textureState->tu = textureState->dtu = textureState->ddtu = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ppp/eiProg/pppDrawMdlTs", pppDrawMdlTsCalc);

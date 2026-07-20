@@ -143,9 +143,9 @@ s32 func_00230948(void) {
     return D_006417B8;
 }
 
-void func_00230958(s32 arg0) {
+void func_00230958(s32 pollInterval) {
     D_006417B8 = 1;
-    D_00641FE4 = arg0;
+    D_00641FE4 = pollInterval;
     D_00641FE8 = 0;
 }
 
@@ -153,15 +153,15 @@ void func_00230978(void) {
     D_006417B8 = 0;
 }
 
-void func_00230988(s32 arg0, s32 arg1) {
-    D_00641FEC = arg0;
-    D_00641FF0 = arg1;
+void func_00230988(s32 port, s32 slot) {
+    D_00641FEC = port;
+    D_00641FF0 = slot;
 }
 
 s32 func_002309A0(s32 port, s32 slot) {
-    s32 iVar1 = D_0041F940[port][slot];
+    s32 status = D_0041F940[port][slot];
     D_0041F940[port][slot] = 0;
-    return iVar1;
+    return status;
 }
 
 void func_002309C8(s32 port, s32 slot) {
@@ -169,9 +169,9 @@ void func_002309C8(s32 port, s32 slot) {
 }
 
 s32 func_002309E8(s32 port, s32 slot) {
-    s32 iVar1 = D_0041F960[port][slot];
+    s32 status = D_0041F960[port][slot];
     D_0041F960[port][slot] = 0;
-    return iVar1;
+    return status;
 }
 
 void func_00230A10(s32 port, s32 slot) {
@@ -179,9 +179,9 @@ void func_00230A10(s32 port, s32 slot) {
 }
 
 s32 func_00230A30(s32 port, s32 slot) {
-    s32 iVar1 = D_0041F980[port][slot];
+    s32 status = D_0041F980[port][slot];
     D_0041F980[port][slot] = 0;
-    return iVar1;
+    return status;
 }
 
 void func_00230A58(s32 port, s32 slot) {
@@ -715,8 +715,8 @@ void memcard_Mkdir(void) {
 
 // todo: match without goto
 void memcard_Create(void) {
-    int iVar1;
-    s32 sVar2;
+    int unusedInt;
+    s32 unusedValue;
 
     switch (memcardLoopStep) {
         case 0: // Open the file

@@ -16,8 +16,8 @@ s32 D_004FA668;
 
 extern void* func_0011EEB8(); //  todo: conflicting signatures already used, figure out correct one
 
-void* func_00121DE0(s32 arg0, s32 arg1) {
-    return func_0011EEB8(D_004FA560, arg0, arg1);
+void* func_00121DE0(s32 entryIndex, s32 callback) {
+    return func_0011EEB8(D_004FA560, entryIndex, callback);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xlamp", func_00121E08);
@@ -43,8 +43,8 @@ INCLUDE_ASM("asm/nonmatchings/xlamp", func_00122030);
 
 INCLUDE_ASM("asm/nonmatchings/xlamp", func_00122110);
 
-void* func_00122228(s32 arg0, s32 arg1) {
-    return func_0011EEB8(D_004F8530, arg0, arg1);
+void* func_00122228(s32 entryIndex, s32 callback) {
+    return func_0011EEB8(D_004F8530, entryIndex, callback);
 }
 
 INCLUDE_ASM("asm/nonmatchings/xlamp", func_00122250);

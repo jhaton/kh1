@@ -63,8 +63,8 @@ void func_0011C540(void) {
     func_0011D4B8(120);
 }
 
-void func_0011C598(s32 arg0) {
-    D_002BD858 = arg0;
+void func_0011C598(s32 requestValue) {
+    D_002BD858 = requestValue;
 }
 
 void func_0011C5A8(void) {
