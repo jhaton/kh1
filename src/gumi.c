@@ -1,6 +1,6 @@
 #include "common.h"
 #include "gumi.h"
-#include "xcursed.h"
+#include "work_buffers.h"
 
 s32 D_00373790;
 s32 D_00373794;

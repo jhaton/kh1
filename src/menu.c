@@ -1,0 +1,268 @@
+#include "game_data.h"
+#include "menu.h"
+
+extern u32 D_003DE6A0;
+extern s32 D_003E3088;
+extern s32 D_003ED728;
+extern s32 D_003ED72C;
+extern u32 D_003ED730;
+extern s32 D_003EE8B0;
+
+extern void* D_0063CF00;
+extern s32 D_0063CF04;
+extern u32 D_0063CF18;
+extern u32 D_0063CF38;
+extern u32 D_0063CF3C;
+extern u32 D_0063CF40;
+extern u32 D_0063CF44;
+extern u32 D_0063CF48;
+extern u32 D_0063CF4C;
+extern u32 D_0063CF50;
+extern u32 D_0063CF88;
+extern u32 D_0063CFA0;
+extern u32 D_0063D050;
+
+extern void* func_001F3A20(void*, s32);
+extern void func_001F9B50(s32);
+
+void func_00215A88(void) {
+    s32 entryIndex;
+
+    for (entryIndex = 0; entryIndex < ARRAY_COUNT(D_003ED718->unk_20); entryIndex++) {
+        D_003ED718->unk_20[entryIndex] = 4;
+        func_00215AF0(entryIndex, 4);
+    }
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00215AF0);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00215B88);
+
+s32 func_00215C48(s32 menuState) {
+    s32 displayValue;
+
+    func_001F9B50(23);
+    displayValue = 239;
+    if (D_0063CF44 != D_0063CF38 - 1) {
+        displayValue = func_00132EF0(D_0063CF44);
+        displayValue = (&D_0063CF18)[D_0063CF44] * 3 + displayValue + 217;
+    }
+    return func_001F9F78(menuState, 0, 174, 12, displayValue, 17, 0x80c87850);
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00215CE8);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00215EE8);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00215F48);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00216198);
+
+s32 func_00216758(XWhiskey* menuState) {
+    func_001F9B50(23);
+    return func_001F9F78(menuState, 0, 174, 12, menuState->munny, 17, 0x80c87850);
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_002167A0);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_002168F8);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00216D88);
+
+s32 func_00217038(s32 menuState) {
+    s32 displayValue = 213;
+    if (D_0063CF3C != 0) {
+        displayValue = 214;
+        D_003E3088 = func_001EF960(D_0063CF3C);
+    }
+    func_001F9B50(23);
+    return func_001F9F78(menuState, 0, 174, 12, displayValue, 17, 0x80c87850);
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_002170B0);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00217420);
+
+s32 func_00217810(s32 menuState) {
+    return func_00207728(menuState, 4, 2, 0, 0, 122, 117);
+}
+
+void func_00217840(void* predecessor) {
+    void* kitten = func_001F3A20(&D_003EE8B0, 0);
+
+    if (kitten != NULL) {
+        func_001F4690(kitten, predecessor);
+    }
+    D_0063CF00 = predecessor;
+    D_0063CF04 = NULL;
+}
+
+void func_00217898(void) {
+    if (D_0063CF3C > D_003DE6A0 - 1) {
+        D_0063CF3C = D_003DE6A0 - 1;
+    }
+    func_00215B88();
+}
+
+void func_002178D0(void) {
+    D_0063CF3C = 0;
+    D_0063CF40 = 0;
+    D_0063CF44 = 0;
+    D_0063CF48 = 0;
+    D_0063CF4C = 0;
+    D_0063CF50 = 0;
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00217908);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00217B00);
+
+s32 func_00218648(s32 menuState) {
+    s32 displayValue = 277;
+
+    func_001F9B50(23);
+    if (D_0063CF88 != 0) {
+        D_003E3088 = func_001EF960(D_0063CF88);
+        displayValue = 278;
+    }
+    return func_001F9F78(menuState, 0, 174, 12, displayValue, 17, 0x80c87850);
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_002186B8);
+
+s32 func_00218840(s32 menuState) {
+    return func_00207728(menuState, 4, 2, 0, 0, 122, 118);
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00218870);
+
+void func_002189D0(void) {
+    if (D_0063CF88 > D_003DE6A0 - 1) {
+        D_0063CF88 = D_003DE6A0 - 1;
+    }
+}
+
+void func_00218A00(void) {
+    D_0063CF88 = 0;
+}
+
+void func_00218A10(void) {
+    D_003ED718->unk_00 = 0;
+    D_003ED718->unk_08 = 0;
+    D_003ED718->unk_04 = 0;
+    D_003ED718->unk_0C = 0;
+    D_003ED718->unk_10 = 0;
+    D_003ED718->unk_14 = 0;
+    D_003ED718->unk_18 = 0;
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00218A38);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00218AC0);
+
+u32 func_00218B48(void) {
+    return D_003ED718->unk_00;
+}
+
+u32 func_00218B58(void) {
+    return func_00218B48();
+}
+
+void func_00218B70(s32 value) {
+    D_003ED718->unk_00 = value;
+}
+
+u32 func_00218B80(void) {
+    return D_003ED718->unk_04;
+}
+
+u32 func_00218B90(void) {
+    return func_00218B80();
+}
+
+u32 func_00218BA8(u32 value) {
+    D_003ED718->unk_04 = value;
+}
+
+s32 func_00218BB8(void) {
+    return D_003ED718->unk_08;
+}
+
+u32 func_00218BC8(void) {
+    return func_00218BB8();
+}
+
+void func_00218BE0(s32 value) {
+    D_003ED718->unk_08 = value;
+}
+
+u32 func_00218BF0(void) {
+    return 0;
+}
+
+u32 func_00218BF8(void) {
+    return 0;
+}
+
+void func_00218C00(void) {
+}
+
+u32 func_00218C08(void) {
+    return D_003ED718->unk_10;
+}
+
+s32 func_00218C18(void) {
+    return func_00218C08();
+}
+
+void func_00218C30(s32 value) {
+    D_003ED718->unk_10 = value;
+}
+
+u32 func_00218C40(void) {
+    return D_003ED718->unk_14;
+}
+
+s32 func_00218C50(void) {
+    return func_00218C40();
+}
+
+void func_00218C68(s32 value) {
+    D_003ED718->unk_14 = value;
+}
+
+u32 func_00218C78(void) {
+    return D_003ED718->unk_18;
+}
+
+s32 func_00218C88(void) {
+    return func_00218C78();
+}
+
+void func_00218CA0(s32 value) {
+    D_003ED718->unk_18 = value;
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00218CB0);
+
+void func_00218D08(void) {
+    D_003ED72C++;
+    D_003ED728--;
+}
+
+void func_00218D38(void) {
+    func_0011F9E8(0x3600, 4, 19, 0, 0, 138, 0x58, 759, D_003ED730, &D_0063CFA0);
+    func_0011F9E8(0x3680, 1, 0, 0, 0, 16, 16, 64, D_003ED730 + 0x2F70, &D_0063D050);
+}
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00218DD0);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_002190C0);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_002192D8);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00219468);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_002195F8);
+
+INCLUDE_ASM("asm/nonmatchings/menu", func_00219788);

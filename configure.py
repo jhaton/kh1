@@ -37,7 +37,7 @@ GAME_COMPILE_CMD = f"{GAME_GCC_CMD} -S -o - | {TOOLS_DIR}/masps2.py | {GAME_CC_D
 LIB_COMPILE_CMD = f"{LIB_CC_DIR}/ee-gcc -c -isystem include/gcc-991111 {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS}"
 
 NO_G_FILES = [
-    "xblade.c",
+    "world.c",
     "gumi.c",
 ]
 
