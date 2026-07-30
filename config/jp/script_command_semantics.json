@@ -1,0 +1,693 @@
+{
+  "schema_version": 1,
+  "commands": {
+    "0": {
+      "name": "open_text_window",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CD738 consumes a configured window ID, copies its descriptor into an active window slot, and starts func_001CD620",
+      "notes": "The command activates a window configured by the neighboring text-window commands."
+    },
+    "1": {
+      "name": "set_text_window_text",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "text_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CD4D0 consumes a window ID and text resource ID, resolves D_00383CD0[text_id], and attaches func_001CD8E8 to the active window"
+    },
+    "2": {
+      "name": "close_text_window",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CC9A8 consumes a window ID, schedules func_001CC950 for its active slot, and advances that slot to the closing state"
+    },
+    "3": {
+      "name": "set_text_window_position",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CDDB8 consumes a window ID and two coordinates and stores the coordinates in the window descriptor position fields"
+    },
+    "4": {
+      "name": "set_text_window_size",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "width",
+          "type": "s32"
+        },
+        {
+          "name": "height",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CDE20 consumes a window ID, width, and height and stores the dimensions in the window descriptor fields used with 12-pixel half extents"
+    },
+    "5": {
+      "name": "set_text_window_orientation",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "orientation_preset",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CDE88 consumes a window ID and preset index and stores it at window descriptor +0x04; func_0010BB50 maps that preset to the descriptor's geometry orientation and X-axis tilt, which func_0010A4A0 and func_0010AFA0 use to build and transform the window mesh",
+      "notes": "The preset selects a coupled window geometry orientation and tilt rather than a raw angle."
+    },
+    "6": {
+      "name": "set_text_window_open_transition",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "transition_preset",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CDED8 consumes a window ID and preset index and stores it at window descriptor +0x0C; func_0010BB50 maps that preset through D_002B2D10 to the opening countdown, and func_0010B810 branches on it while opening the window",
+      "notes": "Known preset indices 0 through 3 select opening countdowns of 0, 6, 9, and 20 ticks."
+    },
+    "8": {
+      "name": "wait_ticks",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "ticks",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CECE0 consumes one value, stores twice that value in Script+0x2F4, and sets the scheduler timer flag",
+      "notes": "The scheduler decrements Script+0x2F4 and resumes execution when it reaches zero."
+    },
+    "9": {
+      "name": "discard_value",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "value",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CED20 only decrements Script stackTop by one and has no other side effects"
+    },
+    "10": {
+      "name": "select_object",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001EB7C8 consumes an object ID, resolves it with func_00123880, and stores the resulting object pointer in the Script context"
+    },
+    "11": {
+      "name": "turn_object_toward_position",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        },
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        },
+        {
+          "name": "z",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CED38 consumes a duration and three coordinates, computes the selected object's yaw toward that position, and queues a type-2 object operation"
+    },
+    "12": {
+      "name": "set_object_rotation",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "x_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "y_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "z_degrees",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF070 consumes three angles, converts each from degrees to radians, and stores them in the selected object's rotation fields"
+    },
+    "13": {
+      "name": "set_object_animation",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "animation_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF128 consumes an animation ID and queues a type-5 operation; the operation dispatcher passes that ID to the selected object's animation setter"
+    },
+    "16": {
+      "name": "get_selected_object_position_x",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF320 converts the selected object's X position to s32 and pushes it on the Script value stack"
+    },
+    "17": {
+      "name": "get_selected_object_position_y",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF350 converts the selected object's Y position to s32 and pushes it on the Script value stack"
+    },
+    "18": {
+      "name": "get_selected_object_position_z",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF380 converts the selected object's Z position to s32 and pushes it on the Script value stack"
+    },
+    "19": {
+      "name": "set_object_position",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        },
+        {
+          "name": "z",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF3B0 consumes three coordinates and queues a type-3 operation; the dispatcher copies that vector into the selected object's position"
+    },
+    "20": {
+      "name": "wait_for_object_action",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF458 has no value-stack access and returns the scheduler wait status while the Script object-action flags remain set",
+      "notes": "Scripts issue this immediately after queued movement and animation commands to block until the action completes."
+    },
+    "21": {
+      "name": "show_object",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF488 queues operation type 6; its dispatcher sets the selected object's visible flag and opacity to 1.0"
+    },
+    "22": {
+      "name": "hide_object",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF4D0 queues operation type 7; its dispatcher clears the selected object's visible flag"
+    },
+    "23": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF518 queues a type-8 object operation without accessing the Script value stack"
+    },
+    "24": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF560 queues a type-9 object operation without accessing the Script value stack"
+    },
+    "25": {
+      "name": "enable_selected_object_collision",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF5A8 queues operation type 10; the object-operation dispatcher clears object flag 0x20, allowing the object's registered model entry to participate in the collision-query passes"
+    },
+    "26": {
+      "name": "disable_selected_object_collision",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF5F0 queues operation type 11; the object-operation dispatcher sets object flag 0x20, which propagates to the registered model entry and causes the collision-query passes to skip it"
+    },
+    "27": {
+      "name": "fade_screen_in",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF788 passes the top stack value to Fade_StartScreenIn and decrements Script stackTop"
+    },
+    "28": {
+      "name": "fade_screen_out",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF7D0 passes the top stack value to Fade_StartScreenOut and decrements Script stackTop"
+    },
+    "29": {
+      "name": "fade_overlay_out",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF818 passes the top stack value to Fade_StartOverlayOut and decrements Script stackTop"
+    },
+    "30": {
+      "name": "fade_overlay_in",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF860 passes the top stack value to Fade_StartOverlayIn and decrements Script stackTop"
+    },
+    "34": {
+      "inputs": 1,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001C8470 decrements Script stackTop by one"
+    },
+    "36": {
+      "inputs": 3,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001C99C8 decrements Script stackTop by three"
+    },
+    "56": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF6C8 does not access or change the Script value stack"
+    },
+    "57": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF728 does not access or change the Script value stack"
+    },
+    "68": {
+      "name": "random_integer_up_to",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "upper_bound_inclusive",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CFEB0 replaces the top stack value with round(func_00177D68() * upper_bound), where func_00177D68 returns a random float in [0, 1)"
+    },
+    "69": {
+      "name": "turn_selected_object_to_angle",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "angle_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D0078 consumes an angle and duration, converts the angle to a horizontal unit vector, and queues operation type 4; the object-operation dispatcher turns the selected object toward that vector over the encoded duration using the shortest angular path"
+    },
+    "80": {
+      "inputs": 2,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CDCC8 decrements Script stackTop by two"
+    },
+    "83": {
+      "name": "set_text_window_close_transition",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "transition_preset",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CDF28 consumes a window ID and preset index and stores it at window descriptor +0x0E; func_0010BB50 maps that preset through D_002B2D18 to the closing countdown consumed by func_0010B810",
+      "notes": "Known preset indices 0 through 3 select closing countdowns of 0, 4, 8, and 20 ticks."
+    },
+    "90": {
+      "inputs": 5,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D0B98 decrements Script stackTop by five"
+    },
+    "103": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D1568 does not access or change the Script value stack"
+    },
+    "107": {
+      "inputs": 1,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CE060 decrements Script stackTop by one"
+    },
+    "108": {
+      "inputs": 1,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D1628 decrements Script stackTop by one"
+    },
+    "183": {
+      "inputs": 1,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D3138 decrements Script stackTop by one"
+    },
+    "219": {
+      "name": "turn_script_object_toward_position",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        },
+        {
+          "name": "z",
+          "type": "s32"
+        },
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D4540 consumes X, Y, Z, and duration, converts the coordinates to a vector, and passes the script-bound object, target vector, and doubled duration to func_0014FC10; that routine stores the look target and initializes the object's facing interpolation"
+    },
+    "281": {
+      "inputs": 1,
+      "outputs": 1,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D59B8 replaces the top stack value with D_003010F8->unk_48E[index]"
+    },
+    "284": {
+      "name": "get_object_position_x",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D59F8 resolves the top value with func_001EAB00 and replaces it with the integer-converted float at object offset 0x10"
+    },
+    "285": {
+      "name": "get_object_position_y",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D5A70 resolves the top value with func_001EAB00 and replaces it with the integer-converted float at object offset 0x14"
+    },
+    "286": {
+      "name": "get_object_position_z",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D5AE8 resolves the top value with func_001EAB00 and replaces it with the integer-converted float at object offset 0x18"
+    },
+    "306": {
+      "inputs": 3,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D6478 decrements Script stackTop by three"
+    },
+    "307": {
+      "name": "sin_degrees_times_10000",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "angle_degrees",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D6520 converts degrees to radians, calls sin, multiplies by 10000.0, and replaces the top value"
+    },
+    "308": {
+      "name": "cos_degrees_times_10000",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "angle_degrees",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D65D0 converts degrees to radians, calls cos, multiplies by 10000.0, and replaces the top value"
+    },
+    "319": {
+      "inputs": 1,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D6968 decrements Script stackTop by one"
+    },
+    "353": {
+      "name": "play_sound",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "sound_id",
+          "type": "s32"
+        },
+        {
+          "name": "channel",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9EB0 consumes a sound ID and channel and passes them to func_0011CEB0; sound.c selects the sound bank from the ID, plays it at full left/right volume, and registers the sound"
+    },
+    "365": {
+      "name": "fit_text_window_to_text",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "text_id",
+          "type": "s32"
+        },
+        {
+          "name": "left",
+          "type": "s32"
+        },
+        {
+          "name": "top",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CE758 consumes a window ID, text resource ID, and origin; it measures the text with func_0010EEC8, sets the window width, and converts the top-left origin to the descriptor's center coordinates"
+    },
+    "395": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CC300 takes no Script context and does not access the value stack"
+    },
+    "452": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8A68 does not access or change the Script value stack"
+    },
+    "454": {
+      "inputs": 2,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8C50 decrements Script stackTop by two"
+    },
+    "511": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF1B8 does not access or change the Script value stack"
+    },
+    "512": {
+      "inputs": 0,
+      "outputs": 0,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF258 does not access or change the Script value stack"
+    }
+  }
+}
