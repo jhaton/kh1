@@ -3,7 +3,7 @@
 #include "sound_rpc.h"
 #include "sound.h"
 
-typedef struct XTurtle {
+typedef struct SoundEntry {
     /* 0x00 */ s32 soundId;
     /* 0x04 */ s32 context;
     /* 0x08 */ s32 volume;
@@ -13,7 +13,7 @@ typedef struct XTurtle {
     /* 0x15 */ u8 unk_15;
     /* 0x16 */ u8 mode;
     /* 0x17 */ char unk_17;
-} XTurtle;
+} SoundEntry;
 
 typedef struct XScale {
     /* 0x00 */ s32 unk_00;
@@ -41,14 +41,14 @@ const char D_00486E60[] = "amusic/se";
 
 void (*D_004DCB70)(void);
 extern s32 D_004DCB8C;
-extern XTurtle* D_004DCB90;
+extern SoundEntry* D_004DCB90;
 extern XShell* D_004DCB94;
-extern XTurtle* D_004DCB98;
-extern XTurtle* D_004DCF58;
+extern SoundEntry* D_004DCB98;
+extern SoundEntry* D_004DCF58;
 extern XScale* D_004DD138;
 extern s32 D_004DD180;
 
-XTurtle* func_0011CDD8(s32, s32, s32, s32, s32);
+SoundEntry* SoundEntry_Allocate(s32, s32, s32, s32, s32);
 
 void func_0011C5D8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     func_001EE570(arg0, arg1, arg2, arg3, arg4, arg5);
@@ -92,7 +92,7 @@ void* func_0011C6B0(s32 bank, s32 soundId, s32 channel, s32 leftVolume, s32 righ
 
 void func_0011C6C8(s32 useAllocatedStorage) {
     XScale* scale;
-    XTurtle* entry;
+    SoundEntry* entry;
     XShell* shell;
     s32 i;
 
@@ -177,7 +177,7 @@ INCLUDE_ASM("asm/nonmatchings/sound", func_0011CB50);
 
 INCLUDE_ASM("asm/nonmatchings/sound", func_0011CC20);
 
-void func_0011CDB8(s32 soundId, s32 channel, s32 context, s32 volume, s32 mode, XTurtle* entry, s32 bank) {
+void SoundEntry_Initialize(s32 soundId, s32 channel, s32 context, s32 volume, s32 mode, SoundEntry* entry, s32 bank) {
     entry->bank = bank;
     entry->soundId = soundId;
     entry->channel = channel;
@@ -187,15 +187,15 @@ void func_0011CDB8(s32 soundId, s32 channel, s32 context, s32 volume, s32 mode, 
     entry->unk_15 = 0;
 }
 
-XTurtle* func_0011CDD8(s32 soundId, s32 channel, s32 context, s32 volume, s32 mode) {
-    XTurtle* entry = D_004DCB90;
+SoundEntry* SoundEntry_Allocate(s32 soundId, s32 channel, s32 context, s32 volume, s32 mode) {
+    SoundEntry* entry = D_004DCB90;
     s32 i;
 
     for (i = 0; i < D_004DCB8C; i++, entry++) {
         s32 bank = (soundId < 1000) ? 2 : -1;
 
         if (entry->state == 0) {
-            func_0011CDB8(soundId, channel, context, volume, mode, entry, bank);
+            SoundEntry_Initialize(soundId, channel, context, volume, mode, entry, bank);
             return entry;
         }
     }
@@ -244,7 +244,7 @@ void* func_0011CFD8(s32 soundId, s32 channel, s32 arg2) {
 }
 
 void func_0011D010(s32 soundId, s32 channel, s32 context, s32 volume) {
-    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 0);
+    SoundEntry* entry = SoundEntry_Allocate(soundId, channel, context, volume, 0);
 
     if (entry != NULL) {
         entry->state = 1;
@@ -252,7 +252,7 @@ void func_0011D010(s32 soundId, s32 channel, s32 context, s32 volume) {
 }
 
 void func_0011D040(s32 soundId, s32 channel, s32 context, s32 volume) {
-    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 1);
+    SoundEntry* entry = SoundEntry_Allocate(soundId, channel, context, volume, 1);
 
     if (entry != NULL) {
         entry->state = 2;
@@ -260,7 +260,7 @@ void func_0011D040(s32 soundId, s32 channel, s32 context, s32 volume) {
 }
 
 void func_0011D070(s32 soundId, s32 channel, s32 context, s32 volume) {
-    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 2);
+    SoundEntry* entry = SoundEntry_Allocate(soundId, channel, context, volume, 2);
 
     if (entry != NULL) {
         entry->state = 1;
@@ -268,7 +268,7 @@ void func_0011D070(s32 soundId, s32 channel, s32 context, s32 volume) {
 }
 
 void func_0011D0A0(s32 soundId, s32 channel, s32 context, s32 volume) {
-    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 3);
+    SoundEntry* entry = SoundEntry_Allocate(soundId, channel, context, volume, 3);
 
     if (entry != NULL) {
         entry->state = 2;
@@ -276,7 +276,7 @@ void func_0011D0A0(s32 soundId, s32 channel, s32 context, s32 volume) {
 }
 
 void func_0011D0D0(s32 soundId, s32 channel, s32 context, s32 volume) {
-    XTurtle* entry = func_0011CDD8(soundId, channel, context, volume, 4);
+    SoundEntry* entry = SoundEntry_Allocate(soundId, channel, context, volume, 4);
 
     if (entry != NULL) {
         entry->state = 2;

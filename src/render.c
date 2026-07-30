@@ -100,7 +100,7 @@ void func_0010BB10(XNoodle* noodle, s32 request) {
 INCLUDE_ASM("asm/nonmatchings/render", func_0010BB50);
 
 s32 func_0010BDA8(void) {
-    func_0011EF58(&D_002B3AE0, 0);
+    TaskList_UpdateMatching(&D_002B3AE0, 0);
     D_0048ECD4 = 0;
     return 0;
 }

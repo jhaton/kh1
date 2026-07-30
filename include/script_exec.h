@@ -2,7 +2,7 @@
 
 typedef s32 (*XHumungusFunc)(UNK_PTR);
 
-typedef struct XGiantMountain {
+typedef struct ScriptRuntime {
     /* 0x0000 */ u8 unk_00;
     /* 0x0001 */ char unk_01[0x100F];
     /* 0x1010 */ s32* unk_1010;
@@ -28,4 +28,4 @@ typedef struct XGiantMountain {
     /* 0x3174 */ s32 unk_3174;
     /* 0x3178 */ char unk_3178[0x208];
     /* 0x3380 */ s32 unk_3380;
-} XGiantMountain;
+} ScriptRuntime;

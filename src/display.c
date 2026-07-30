@@ -286,7 +286,7 @@ void func_00110E18(void) {
 s32 func_00110E38(s32 movieId) {
     D_002B9030 = 0;
     D_004D2994 = movieId;
-    return func_00120590("dkmovie.x", &func_F20000, func_00110DE0, NULL);
+    return cdvd_QueueFileLoad("dkmovie.x", &func_F20000, func_00110DE0, NULL);
 }
 
 INCLUDE_ASM("asm/nonmatchings/display", func_00110E78);

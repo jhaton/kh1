@@ -205,7 +205,7 @@ s32 func_00100328(void) {
 }
 
 int main(void) {
-    func_001090D8();
+    Graphics_Initialize();
     do {
         func_00109580();
     } while (TRUE);

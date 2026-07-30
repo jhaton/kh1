@@ -73,12 +73,12 @@ typedef struct AppleCore {
 
 s32 func_001009A8();
 void* func_00122AF8(s32, s32, s32);
-s32 func_00122B70(void*);
+s32 Interpolation_ClearValue(void*);
 extern f32 D_002B8340[];
 extern LargeApple* D_00532504;
 
 // funcs
-s32 func_0011EF58(s32*, s32);
+s32 TaskList_UpdateMatching(s32*, s32);
 f32 func_00120A38(sceVu0FVECTOR);
 f32 func_00120A58(f32*);
 f32 func_00120AC8(f32);
@@ -315,9 +315,9 @@ s32 func_0013B368(void) {
     func_00157B90();
     D_00532604 = 3;
     sprintf(path, "%s%s", D_00301010[D_00532600], D_00301050);
-    func_00120590(path, D_0053260C, NULL, 0);
+    cdvd_QueueFileLoad(path, D_0053260C, NULL, 0);
     sprintf(path, "%s%s", D_00301010[D_00532600], D_00301054);
-    func_00120590(path, &func_F20000, &func_0013B138, 0);
+    cdvd_QueueFileLoad(path, &func_F20000, &func_0013B138, 0);
     func_0011ED30(47000, &func_0013B1D0);
     return 1;
 }
@@ -335,7 +335,7 @@ INCLUDE_ASM("asm/nonmatchings/summon", func_0013B480);
 //     arg0->unk_10 -= D_002B8340[1];
 //     temp_f2 = arg0->unk_10 / 60.0f;
 //     if (arg0->unk_10 / 60.0f <= 0.0f) {
-//         func_00122B70(D_00532504);
+//         Interpolation_ClearValue(D_00532504);
 //         return 4;
 //     }
 //     D_00532504->unk_30[0] = D_00532504->unk_30[1] = D_00532504->unk_30[2] = 1.0f - temp_f2;
@@ -442,7 +442,7 @@ s32 func_0013B8F8(u16* stateFlags) {
     if (*stateFlags & 0x10) {
         func_0013BD88(&D_00532508, D_00301058, 4);
     }
-    func_0011EF58(&D_00532518, 0);
+    TaskList_UpdateMatching(&D_00532518, 0);
     return (func_0013BDA0(&D_00532508) != 0) ? 0 : 4;
 }
 
@@ -519,7 +519,7 @@ void* func_0013BB00(s32 actor, s32 characterIndex) {
     D_00532604 = 0;
     D_00532608 = func_00155ED8(0x34, 0xC);
     sprintf(path, "%s%s", D_00301010[characterIndex], D_00301078);
-    func_00120590(path, D_00532608, func_0013B9B8, 0);
+    cdvd_QueueFileLoad(path, D_00532608, func_0013B9B8, 0);
     func_0011EDD0(&D_00532518, &D_00532528, 0x18, 8);
     return func_0011ED30(52000, func_0013B8F8);
 }

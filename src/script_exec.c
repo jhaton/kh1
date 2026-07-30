@@ -4,12 +4,12 @@
 typedef s32 (*XHumungusFunc2)(UNK_PTR, s32);
 
 extern XHumungusFunc2 D_003759E0[];
-extern XGiantMountain D_003854E0;
+extern ScriptRuntime D_003854E0;
 
 s32 func_001C3670(s32, s32);
 s32 func_001C3680(s32, s32);
 
-void func_001C36A8(Script* script, s32 entryIndex) {
+void Script_ExecuteEntry(Script* script, s32 entryIndex) {
     s32 savedCursor = script->unk_174[2];
     s32 opcode;
     s32 result;

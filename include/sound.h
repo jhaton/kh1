@@ -1,5 +1,5 @@
-#ifndef XTURTLE_H
-#define XTURTLE_H
+#ifndef SOUND_H
+#define SOUND_H
 
 #include "common.h"
 
@@ -13,4 +13,4 @@ void func_0011E350();
 void func_0011E360();
 void func_0011E418();
 
-#endif // XTURTLE_H
+#endif // SOUND_H

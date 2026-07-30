@@ -22,16 +22,16 @@ typedef struct IOReadTask {
     /* 0x34 */ s32 unk_34;
 } IOReadTask; // size = 0x38
 
-typedef struct XOtherCrown {
-    /* 0x00 */ s16 unk_00;
+typedef struct FileLoadTask {
+    /* 0x00 */ s16 flags;
     /* 0x02 */ char unk_02[0xE];
-    /* 0x10 */ char unk_10[0x28];
-    /* 0x38 */ s32 unk_38;
-    /* 0x3C */ s32 unk_3C;
-    /* 0x40 */ s32 unk_40;
-    /* 0x44 */ s32 unk_44;
+    /* 0x10 */ char filename[0x28];
+    /* 0x38 */ s32 destination;
+    /* 0x3C */ s32 completionCallback;
+    /* 0x40 */ s32 requestFlags;
+    /* 0x44 */ s32 taskId;
     /* 0x48 */ char unk_48[0x4];
-} XOtherCrown; // size = 0x4C
+} FileLoadTask; // size = 0x4C
 
 KingdomFile* cdvd_FindFile(char* filename);
 

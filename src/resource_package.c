@@ -1,9 +1,9 @@
 #include "common.h"
 #include "game_data.h"
 
-XWhiskey* D_00663A28[8];
+GameData* D_00663A28[8];
 
-void func_00247778(s32 entryCount, XWhiskey* entry) {
+void func_00247778(s32 entryCount, GameData* entry) {
     if (entryCount > 0) {
         while (entryCount != 0) {
             entryCount += -1;

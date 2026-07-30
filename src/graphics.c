@@ -47,14 +47,14 @@ extern void func_001C20B8();
 extern void func_00233968();
 extern void func_00248530();
 
-void func_001090D8(void) {
+void Graphics_Initialize(void) {
     KingdomFile* file;
 
     func_0010FEC0();
     func_001102A0();
     func_0010C010();
-    func_001EF810();
-    func_0022F578(-1);
+    GameData_BindBuffer();
+    WorkBuffers_Clear(-1);
     func_0011EAF8(D_002B29B0, "host:./kingdom.log");
 
     file = cdvd_FindFile("kingdom.img");
@@ -71,7 +71,7 @@ void func_001090D8(void) {
 }
 
 s32 func_001091B0(void) {
-    func_0011EF58(&D_002B8C70, 0);
+    TaskList_UpdateMatching(&D_002B8C70, 0);
     return 0;
 }
 

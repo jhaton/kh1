@@ -54,7 +54,7 @@ INCLUDE_ASM("asm/nonmatchings/script_task", func_001C20B8);
 INCLUDE_ASM("asm/nonmatchings/script_task", func_001C2110);
 
 s32 func_001C2150(void) {
-    func_0011EF58(&D_00623B38, 0);
+    TaskList_UpdateMatching(&D_00623B38, 0);
     return 0;
 }
 

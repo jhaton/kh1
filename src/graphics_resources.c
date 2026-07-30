@@ -6,7 +6,7 @@ typedef struct {
     /* 0x11 */ s8 isEnabled;
     /* 0x12 */ char unk_12[0x12];
     /* 0x24 */ s32 unk_24;
-} XSauce;
+} GraphicsResourceState;
 
 u_long128* D_002B7B70;
 u_long128* D_002B7BB0;
@@ -134,13 +134,13 @@ void func_0010E700(void) {
     func_0010C1D0(16363, &D_002B7F30);
 }
 
-void func_0010E830(XSauce* state) {
+void func_0010E830(GraphicsResourceState* state) {
     func_00106948(&D_002B7FF0);
     state->isEnabled = 1;
     func_0010E330(state);
 }
 
-void func_0010E868(XSauce* state) {
+void func_0010E868(GraphicsResourceState* state) {
     func_00106948(&D_002B7FF0);
     state->unk_24 = 0;
     state->isEnabled = 0;

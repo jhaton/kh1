@@ -145,7 +145,7 @@ s32 func_001125F0(void) {
     char path[64];
 
     func_0011C938(path);
-    return func_00120590(path, func_00155ED8(0x34, 4), func_00112508, 0);
+    return cdvd_QueueFileLoad(path, func_00155ED8(0x34, 4), func_00112508, 0);
 }
 
 s32 func_00112630(void) {
@@ -182,7 +182,7 @@ s32 func_00112690(void) {
             func_001124E8();
         }
     } else {
-        func_00120590(worldDataFile, D_004D2A2C, func_00112630, 0);
+        cdvd_QueueFileLoad(worldDataFile, D_004D2A2C, func_00112630, 0);
     }
     return 4;
 }
@@ -245,7 +245,7 @@ INCLUDE_ASM("asm/nonmatchings/world", func_001128F0);
 //             strcat(str, ".img");
 //             D_002A050C = func_00155ED8(0x34, 8);
 //             D_002A050C = func_001133E0(D_002A050C, 0x80);
-//             func_00120590(str, D_002A050C, func_001128D8, 0);
+//             cdvd_QueueFileLoad(str, D_002A050C, func_001128D8, 0);
 //         }
 //     }
 // }
@@ -459,7 +459,7 @@ s32 func_00113380(void) {
     func_00112168();
     func_00101580();
     D_002B9340 = func_001133E0(D_002B9340, 0x80);
-    func_00120590(roomArchiveFile, D_002B9340, func_001132F0, 0);
+    cdvd_QueueFileLoad(roomArchiveFile, D_002B9340, func_001132F0, 0);
     return 4;
 }
 
@@ -855,7 +855,7 @@ INCLUDE_ASM("asm/nonmatchings/world", func_00113E98);
 //                 break;
 //             case 1:
 //                 func_00113E18();
-//                 ((XGoblin*)func_0011ED30(190020, &func_00113B78))->unk_02 = 1;
+//                 ((TaskNode*)func_0011ED30(190020, &func_00113B78))->mask = 1;
 //                 D_004D2A70 = 2;
 //                 break;
 //             case 2:
@@ -906,7 +906,7 @@ INCLUDE_ASM("asm/nonmatchings/world", func_00113E98);
 //                 break;
 //             case 5:
 //                 D_002B8354 = 1;
-//                 ((XGoblin*)func_0011ED30(190021, &func_00113C40))->unk_02 = -1;
+//                 ((TaskNode*)func_0011ED30(190021, &func_00113C40))->mask = -1;
 //                 func_00113E28();
 //                 D_004D2A70 = 6;
 //                 break;

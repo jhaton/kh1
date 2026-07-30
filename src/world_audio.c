@@ -31,7 +31,7 @@ s32 func_001014A8() {
     // strcat(stack, ".img");
     D_002A050C = func_00155ED8(0x34, 8);
     D_002A050C = func_001133E0(D_002A050C, 0x80);
-    return func_00120590(imagePath, D_002A050C, func_001011B8, 0);
+    return cdvd_QueueFileLoad(imagePath, D_002A050C, func_001011B8, 0);
 }
 
 void func_00101528() {

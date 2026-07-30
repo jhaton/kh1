@@ -11,7 +11,7 @@
 #include "gcc/stdlib.h"
 #include "gcc/string.h"
 
-XOtherCrown* func_0011EEB8(s32*, s32, s32(*)(XOtherCrown*));
+FileLoadTask* func_0011EEB8(s32*, s32, s32(*)(FileLoadTask*));
 void func_0011FB78(void);
 s32 cdvd_Decompress(u8* data, s32 compressedLength);
 s32 cdvd_Hash(char* str);
@@ -40,7 +40,7 @@ sceCdlFILE cdvd_Descriptor;
 extern IOReadTask D_004EC970[16];
 char cdvd_CbThreadStack[0x1000];
 extern s32 D_004DDC60;
-extern XOtherCrown D_004DDC68[16];
+extern FileLoadTask D_004DDC68[16];
 
 sceCdlFILE* cdvd_GetFileDescriptor(void) {
     return &cdvd_Descriptor;
@@ -166,7 +166,7 @@ KingdomFile* cdvd_FindFile(char* filename) {
     return bsearch(cdvd_Hash(filename), &D_004DE140, D_002C2180, 0x10, cdvd_Compare);
 }
 
-void func_00120018(IOReadTask* task) {
+void cdvd_ExecuteReadTask(IOReadTask* task) {
     u32 numSectors = (u32)(task->length + 0x7FF) >> 11;
     s32 bytesRead;
 
@@ -190,7 +190,7 @@ void func_00120018(IOReadTask* task) {
         bytesRead = task->length;
     }
 
-    func_0010BF50(func_00120018);
+    func_0010BF50(cdvd_ExecuteReadTask);
     task->bytesRead = bytesRead;
 }
 
@@ -235,7 +235,7 @@ void cdvd_ReadImgFile(IOReadTask* task) {
         } while (((D_002C1EB8.s8 & 0xFF) >> 2) & 1);
         func_00218CA0(0);
         task->nSector += D_004EC940;
-        func_0010BF08(&func_00120018, task);
+        func_0010BF08(&cdvd_ExecuteReadTask, task);
     }
     func_0010BF50(cdvd_ReadImgFile);
 }
@@ -263,7 +263,7 @@ IOReadTask* func_001202E8(char* filename, void* destination) {
         task->flags = (task->flags & ~2) | ((kingdomFile->isCompressed & 1) * 2);
         task->nSector = kingdomFile->isoBlock;
         if (func_00218C88() == 0) {
-            func_0010BF08(func_00120018, task);
+            func_0010BF08(cdvd_ExecuteReadTask, task);
         } else {
             task->nSector -= D_004EC940;
             func_0010BF08(cdvd_ReadImgFile, task);
@@ -299,30 +299,30 @@ INCLUDE_ASM("asm/nonmatchings/cdvd", func_00120438);
 // }
 
 INCLUDE_ASM("asm/nonmatchings/cdvd", func_001204C0);
-s32 func_001204C0(XOtherCrown*);
+s32 func_001204C0(FileLoadTask*);
 
-s32 func_00120590(char* filename, s32 destination, s32 (*completionCallback)(void), s32 arg3) {
-    XOtherCrown* entry = func_0011EEB8(&D_004DE128, 0, func_001204C0);
+s32 cdvd_QueueFileLoad(char* filename, s32 destination, s32 (*completionCallback)(void), s32 arg3) {
+    FileLoadTask* entry = func_0011EEB8(&D_004DE128, 0, func_001204C0);
     s32* counterPtr = &D_004DDC60; // TODO fake match
     s32* idPtr;
     
-    entry->unk_44 = D_004DDC60++;
-    entry->unk_40 = arg3;
-    strcpy(entry->unk_10, filename);
-    entry->unk_38 = destination;
-    entry->unk_3C = completionCallback;
+    entry->taskId = D_004DDC60++;
+    entry->requestFlags = arg3;
+    strcpy(entry->filename, filename);
+    entry->destination = destination;
+    entry->completionCallback = completionCallback;
     D_004DDC60 = (u16) *counterPtr;
     
-    idPtr = &entry->unk_44; // TODO fake match
+    idPtr = &entry->taskId; // TODO fake match
     return *idPtr;
 }
 
-s32 func_00120640(s32 taskId) {
-    XOtherCrown* it = &D_004DDC68[0];
+s32 cdvd_IsFileLoadPending(s32 taskId) {
+    FileLoadTask* it = &D_004DDC68[0];
     s32 i;
     
     for (i = 0; i < ARRAY_COUNT(D_004DDC68); i++, it++) {
-        if (func_0011F0F8(it) && (taskId == -1 || taskId == it->unk_44)) {
+        if (FileLoadTask_IsActive(it) && (taskId == -1 || taskId == it->taskId)) {
             return 1;
         }
     }
@@ -345,7 +345,7 @@ void func_00120728(void* callback) {
 }
 
 s32 func_00120750(void) {
-    func_0011EF58(&D_004DE128, 0);
+    TaskList_UpdateMatching(&D_004DE128, 0);
     return 0;
 }
 

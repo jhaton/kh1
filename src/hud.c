@@ -1,14 +1,14 @@
 #include "common.h"
 
-typedef struct XCapy {
+typedef struct NumericHudDisplay {
     /* 0x00 */ char unk_00[0x08];
     /* 0x08 */ s32 showSecondaryValue;
     /* 0x0C */ s32 digitCount;
     /* 0x10 */ s32 value;
     /* 0x14 */ s32 secondaryValue;
-} XCapy;
+} NumericHudDisplay;
 
-typedef struct XCapy2 {
+typedef struct TimerHudDisplay {
     /* 0x00 */ char unk_00[0x1C];
     /* 0x1C */ s32 distanceMeters;
     /* 0x20 */ char unk_20[0x04];
@@ -20,7 +20,7 @@ typedef struct XCapy2 {
     /* 0x48 */ s32 seconds;
     /* 0x4C */ s32 minutes;
     /* 0x50 */ s32 hours;
-} XCapy2;
+} TimerHudDisplay;
 
 void func_00244048(s32, UNK_TYPE*, s32, s32, f32);
 void func_00244130(s32, s32, char*, f32, char*, s32);
@@ -37,7 +37,7 @@ extern s32 D_006633A0[8];
 extern s32 D_006633C0[8];
 extern s32 D_006633E0[7];
 
-void func_00244490(XCapy2* timerDisplay) {
+void TimerHud_DrawText(TimerHudDisplay* timerDisplay) {
     char textColor[3];
     char textBuffer[0x10];
 
@@ -79,27 +79,27 @@ void func_00244490(XCapy2* timerDisplay) {
     func_00244130(drawX, drawY, textColor, 0.80000005f, textBuffer, D_004610F8);
 }
 
-void func_002446B0(XCapy2* display) {
+void func_002446B0(TimerHudDisplay* display) {
     s32 spriteIndex;
 
     for (spriteIndex = 0; spriteIndex < ARRAY_COUNT(D_006633C0); spriteIndex++) {
         func_00244048(D_006633C0[spriteIndex], &D_006632D0, display->screenX, display->screenY, 1.0f);
     }
     func_00244200(display);
-    func_00244490(display);
+    TimerHud_DrawText(display);
 }
 
-void func_00244730(XCapy2* display) {
+void func_00244730(TimerHudDisplay* display) {
     s32 spriteIndex;
 
     for (spriteIndex = 0; spriteIndex < ARRAY_COUNT(D_006633A0); spriteIndex++) {
         func_00244048(D_006633A0[spriteIndex], &D_006632D0, display->screenX, display->screenY, 1.0f);
     }
     func_00244200(display);
-    func_00244490(display);
+    TimerHud_DrawText(display);
 }
 
-void func_002447B0(XCapy2* display) {
+void func_002447B0(TimerHudDisplay* display) {
     s32 spriteIndex;
 
     for (spriteIndex = 0; spriteIndex < ARRAY_COUNT(D_006633E0); spriteIndex++) {
@@ -108,11 +108,11 @@ void func_002447B0(XCapy2* display) {
     func_00244200(display);
 }
 
-void func_00244828(s32 entryIndex) {
+void Hud_ActivateEntry(s32 entryIndex) {
     func_002465E8(&D_0042BC20[entryIndex * 1500], 1);
 }
 
-void func_00244858(XCapy* numericDisplay) {
+void NumericHud_Draw(NumericHudDisplay* numericDisplay) {
     char textBuffer[0x10];
     u8 textColor[3];
 
@@ -164,7 +164,7 @@ void func_00244858(XCapy* numericDisplay) {
     }
 }
 
-void func_00244B70(XCapy2* distanceDisplay) {
+void DistanceHud_Draw(TimerHudDisplay* distanceDisplay) {
     char textBuffer[0x10];
     u8 textColor[3];
     

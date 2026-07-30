@@ -73,11 +73,11 @@ INCLUDE_ASM("asm/nonmatchings/game_data", func_001EF668);
 
 INCLUDE_ASM("asm/nonmatchings/game_data", func_001EF708);
 
-void func_001EF810(void) {
-    D_003ED718 = func_0022F768(5);
+void GameData_BindBuffer(void) {
+    D_003ED718 = WorkBuffers_Get(5);
 }
 
-void func_001EF840(void) {
+void GameData_Reset(void) {
     func_0022F888();
     func_00218A10();
     D_003ED718->munny = 0;
@@ -85,7 +85,7 @@ void func_001EF840(void) {
     func_0021D2B0();
 }
 
-void func_001EF878(void) {
+void GameData_Initialize(void) {
     func_00230068();
     memcard_Initialize();
     func_001F0D88(); // in xbiscuit

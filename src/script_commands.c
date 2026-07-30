@@ -29,7 +29,7 @@ extern s32 D_002C2108;
 extern s32 D_002C2024;
 extern u16 D_002C1EAA;
 extern u32 D_00375BC0;
-extern XGiantMountain D_003854E0;
+extern ScriptRuntime D_003854E0;
 extern u32 D_00388860;
 extern u32 D_003889B0;
 
@@ -648,18 +648,18 @@ s32 func_001D20A0(Script* script) {
 }
 
 s32 func_001D2100(void) {
-    func_001064E8();
+    Fade_ResetIntensity();
     return 2;
 }
 
 s32 func_001D2120(Script* script) {
-    func_0022F768(1);
+    WorkBuffers_Get(1);
     script->unk_174[3]--;
     return 2;
 }
 
 s32 func_001D2158(Script* script) {
-    func_0022F768(1);
+    WorkBuffers_Get(1);
     script->unk_174[3]--;
     return 2;
 }
@@ -691,7 +691,7 @@ void func_001D2440(void) {
 }
 
 s32 func_001D2460(void) {
-    func_00120590(D_0048A3A0, func_F20000, func_001D2440, NULL);
+    cdvd_QueueFileLoad(D_0048A3A0, func_F20000, func_001D2440, NULL);
     return 2;
 }
 
@@ -1857,7 +1857,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DAD58);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DAE38);
 
 s32 func_001DAF70(void) {
-    func_001116F8();
+    GameState_RefreshAvailableFlags();
     func_0011C5B8();
     return 6;
 }
@@ -2321,7 +2321,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DE0B0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DE1B8);
 
 s32 func_001DE338(void) {
-    func_0011EF58(&D_00624960, 0);
+    TaskList_UpdateMatching(&D_00624960, 0);
     return 0;
 }
 
@@ -2359,5 +2359,5 @@ void func_001DEDF8(void) {
 }
 
 s32 func_001DEE48(void) {
-    return func_00120590(&D_00624658, D_00624550, func_001DEDF8, NULL);
+    return cdvd_QueueFileLoad(&D_00624658, D_00624550, func_001DEDF8, NULL);
 }

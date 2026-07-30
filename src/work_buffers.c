@@ -8,7 +8,7 @@ s32 D_003F4480;
 s32 D_00408480;
 s32 D_00408880;
 
-s32 func_0022F578(s32 bufferIndex) {
+s32 WorkBuffers_Clear(s32 bufferIndex) {
     s32* cursor;
     int remainingBlocks;
 
@@ -74,7 +74,7 @@ s32 func_0022F578(s32 bufferIndex) {
     }
 }
 
-void* func_0022F768(s32 bufferIndex) {
+void* WorkBuffers_Get(s32 bufferIndex) {
     switch (bufferIndex) {
         case 0:
             return &D_003F2080;

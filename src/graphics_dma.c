@@ -6,9 +6,9 @@ extern s32 D_0051C6C4;
 typedef struct {
     /* 0x00 */ char unk_00[0x10];
     /* 0x10 */ void* dmaPacket;
-} XCream;
+} GraphicsDmaTask;
 
-s32 func_001274C0(XCream* context) {
+s32 GraphicsDmaTask_Update(GraphicsDmaTask* context) {
     sceDmaSend(sceDmaGetChan(SCE_DMA_GIF), context->dmaPacket);
     return 2;
 }

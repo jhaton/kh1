@@ -1,6 +1,6 @@
 #include "common.h"
 
-void func_001090D8();
+void Graphics_Initialize();
 void* func_001093A8(s32);
 s32 func_00109468();
 void func_00109580();

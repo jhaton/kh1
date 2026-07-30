@@ -58,7 +58,7 @@ INCLUDE_ASM("asm/nonmatchings/menu", func_00215F48);
 
 INCLUDE_ASM("asm/nonmatchings/menu", func_00216198);
 
-s32 func_00216758(XWhiskey* menuState) {
+s32 func_00216758(GameData* menuState) {
     func_001F9B50(23);
     return func_001F9F78(menuState, 0, 174, 12, menuState->munny, 17, 0x80c87850);
 }
@@ -91,7 +91,7 @@ void func_00217840(void* predecessor) {
     void* kitten = func_001F3A20(&D_003EE8B0, 0);
 
     if (kitten != NULL) {
-        func_001F4690(kitten, predecessor);
+        UiObject_InsertAfter(kitten, predecessor);
     }
     D_0063CF00 = predecessor;
     D_0063CF04 = NULL;

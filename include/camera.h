@@ -1,5 +1,5 @@
-#ifndef XPEANUT_H
-#define XPEANUT_H
+#ifndef CAMERA_H
+#define CAMERA_H
 
 #include "common.h"
 
@@ -18,4 +18,4 @@ extern f32 D_002DED00;
 extern f32 D_002DED04;
 extern u32 D_002DED08;
 
-#endif // XPEANUT_H
+#endif // CAMERA_H

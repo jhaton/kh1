@@ -5,11 +5,11 @@
 
 INCLUDE_ASM("asm/nonmatchings/script", func_001C21B8);
 
-s32 func_001C2270(void) {
+s32 ScriptOp_Nop(void) {
     return 2;
 }
 
-s32 func_001C2278(Script* script, s32 offset) {
+s32 ScriptOp_JumpRelative(Script* script, s32 offset) {
     script->unk_174[2] += offset;
     if (offset < 0) {
         return 4;
@@ -42,7 +42,7 @@ s32 func_001C24B0(Script* script) {
 
 INCLUDE_ASM("asm/nonmatchings/script", func_001C24C8);
 
-s64 func_001C2578(s64 value, s32 type) {
+s64 Script_ClampValue(s64 value, s32 type) {
     switch (type) {
         case 0:
         case 1:
@@ -93,8 +93,8 @@ s64 func_001C2578(s64 value, s32 type) {
     return value;
 }
 
-s32 func_001C26A8(Script* script, s64 value) {
-    s32 clampedValue = func_001C2578(value, 4);
+s32 Script_PushS24(Script* script, s64 value) {
+    s32 clampedValue = Script_ClampValue(value, 4);
 
     script->unk_174[3]++;
     script->unk_174[script->unk_174[3] + 4] = clampedValue;
@@ -105,8 +105,8 @@ INCLUDE_ASM("asm/nonmatchings/script", func_001C26F8);
 
 INCLUDE_ASM("asm/nonmatchings/script", func_001C2728);
 
-s32 func_001C27D8(s32 offset) {
-    void* base = func_0022F768(2); // todo: find proper struct for this argument
+s32 Script_GetWorkAddress(s32 offset) {
+    void* base = WorkBuffers_Get(2); // todo: find proper struct for this argument
     return base + offset;
 }
 

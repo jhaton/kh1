@@ -1,22 +1,22 @@
 #include "common.h"
 #include "ui_object.h"
 
-extern XKitten D_003E3890;
+extern UiObject D_003E3890;
 extern void* D_003E3898;
 extern s32 D_003EBCC0;
 extern s32 D_003EBCC4;
 
 const u8 D_0048A670[16] = {};
 
-extern XKitten D_00639A90[24];
-extern XKitten* D_0063B050;
+extern UiObject D_00639A90[24];
+extern UiObject* D_0063B050;
 
 extern s32 func_00233138(s32, s32);
 
 // Nonmatch: Assignment instructions out of order
 INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F3990);
 // void func_001F3990(void) {
-//     XKitten* pXVar1;
+//     UiObject* object;
 //     int iVar2;
 
 //     iVar2 = 24;
@@ -36,46 +36,46 @@ INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F3990);
 //     func_001FDAC8();
 // }
 
-XKitten* func_001F3A08(void* template) {
+UiObject* UiObject_CreateDefault(void* template) {
     return func_001F3A20(template, 6);
 }
 
 INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F3A20);
 
-XKitten* func_001F3D50(XKitten* template) {
+UiObject* UiObject_CloneForCurrentList(UiObject* template) {
     return func_001F3A20(template, func_00233138(4, 54) + 1);
 }
 
-void func_001F3D88(void* kitten) {
+void UiObject_DestroyDefault(void* kitten) {
     func_001F3DA0(kitten, 6);
 }
 
 INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F3DA0);
 
-void func_001F3DF0(void* kitten) {
+void UiObject_DestroyForCurrentList(void* kitten) {
     func_001F3DA0(kitten, func_00233138(4, 54) + 1);
 }
 
-XKitten* func_001F3E28(s32 field08Value, s32 field00Value) {
+UiObject* UiObject_CreateWithValues(s32 field08Value, s32 field00Value) {
     D_003E3890.unk_00 = field00Value;
     D_003E3890.unk_08 = field08Value;
     return func_001F3A20(&D_003E3890, 6);
 }
 
-XKitten* func_001F3E58(s32 field08Value, s32 field00Value, s32 listIndex) {
+UiObject* UiObject_CreateWithValuesInList(s32 field08Value, s32 field00Value, s32 listIndex) {
     D_003E3890.unk_00 = field00Value;
     D_003E3890.unk_08 = field08Value;
     return func_001F3A20(&D_003E3890, listIndex);
 }
 
-XKitten* func_001F3E88(s32 field08Value, s32 field00Value) {
+UiObject* UiObject_CreateWithValuesForCurrentList(s32 field08Value, s32 field00Value) {
     D_003E3890.unk_00 = field00Value;
     D_003E3890.unk_08 = field08Value;
     return func_001F3A20(&D_003E3890, func_00233138(4, 54) + 1);
 }
 
-void func_001F3EC8(XKitten* kitten) {
-    kitten->unk_84 = 4;
+void UiObject_Unlink(UiObject* kitten) {
+    kitten->state = 4;
     if (kitten->prev) {
         kitten->prev->next = kitten->next;
     }
@@ -84,13 +84,13 @@ void func_001F3EC8(XKitten* kitten) {
     }
 }
 
-void func_001F3F00(XKitten* kitten) {
-    kitten->unk_38 |= 0x100000000;
+void UiObject_MarkDirty(UiObject* kitten) {
+    kitten->flags |= 0x100000000;
 }
 
-void func_001F3F18(XKitten* kitten, s32 value) {
-    kitten->unk_7C = value;
-    kitten->unk_38 |= 0x100000000;
+void UiObject_SetCurrentValueDirty(UiObject* kitten, s32 value) {
+    kitten->currentValue = value;
+    kitten->flags |= 0x100000000;
 }
 
 INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F3F38);
@@ -119,48 +119,48 @@ INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F4510);
 
 INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F4590);
 
-void func_001F45D8(XKitten* kitten, s32 value) {
-    kitten->unk_7C = value;
+void UiObject_SetCurrentValue(UiObject* kitten, s32 value) {
+    kitten->currentValue = value;
 }
 
-void func_001F45E0(XKitten* kitten) {
-    kitten->unk_7C = kitten->unk_78;
+void UiObject_ResetCurrentValue(UiObject* kitten) {
+    kitten->currentValue = kitten->defaultValue;
 }
 
-void func_001F45F0(XKitten* kitten) {
-    if (kitten->prev_kit) {
-        kitten->prev_kit->next_kit = kitten->next_kit;
-        if (kitten->next_kit == NULL) {
-            kitten->prev_kit = NULL;
+void UiObject_Release(UiObject* kitten) {
+    if (kitten->freePrev) {
+        kitten->freePrev->freeNext = kitten->freeNext;
+        if (kitten->freeNext == NULL) {
+            kitten->freePrev = NULL;
         } else {
-            kitten->next_kit->prev_kit = kitten->prev_kit;
-            kitten->prev_kit = NULL;
+            kitten->freeNext->freePrev = kitten->freePrev;
+            kitten->freePrev = NULL;
         }
-        kitten->next_kit = D_0063B050;
-        D_0063B050->prev_kit = kitten;
+        kitten->freeNext = D_0063B050;
+        D_0063B050->freePrev = kitten;
         D_0063B050 = kitten;
     }
 }
 
-void func_001F4640(XKitten* kitten) {
+void UiObject_MarkSecondaryDirty(UiObject* kitten) {
     if (kitten) {
-        kitten->unk_38 |= 0x200000000;
+        kitten->flags |= 0x200000000;
     }
 }
 
-void func_001F4668(XKitten* kitten, XKitten* predecessor) {
+void UiObject_SetPrevious(UiObject* kitten, UiObject* predecessor) {
     kitten->prev = predecessor;
 }
 
-void func_001F4670(XKitten* kitten) {
+void UiObject_DetachPrevious(UiObject* kitten) {
     if (kitten->prev) {
         kitten->prev->next = NULL;
         kitten->prev = NULL;
     }
 }
 
-void func_001F4690(XKitten* kitten, XKitten* predecessor) {
-    XKitten* successor;
+void UiObject_InsertAfter(UiObject* kitten, UiObject* predecessor) {
+    UiObject* successor;
 
     if (kitten->prev != NULL) {
         kitten->prev->next = kitten->next;
@@ -180,19 +180,19 @@ void func_001F4690(XKitten* kitten, XKitten* predecessor) {
     }
 }
 
-void func_001F46D8(XKitten* kitten, XKitten* successor) {
+void UiObject_SetNext(UiObject* kitten, UiObject* successor) {
     kitten->next = successor;
 }
 
-void func_001F46E0(XKitten* kitten) {
+void UiObject_DetachNext(UiObject* kitten) {
     if (kitten->next) {
         kitten->next->prev = NULL;
         kitten->next = NULL;
     }
 }
 
-void func_001F4700(XKitten* kitten, XKitten* successor) {
-    XKitten* predecessor;
+void UiObject_InsertBefore(UiObject* kitten, UiObject* successor) {
+    UiObject* predecessor;
 
     if (kitten->prev != NULL) {
         kitten->prev->next = kitten->next;
@@ -217,9 +217,9 @@ INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F4748);
 
 INCLUDE_ASM("asm/nonmatchings/ui_object", func_001F4790);
 
-void func_001F47F0(XKitten* kitten) {
-    XKitten* predecessor = kitten->prev;
-    XKitten* successor = kitten->next;
+void UiObject_UnlinkNeighbors(UiObject* kitten) {
+    UiObject* predecessor = kitten->prev;
+    UiObject* successor = kitten->next;
 
     if (predecessor != NULL) {
         predecessor->next = successor;
@@ -229,11 +229,11 @@ void func_001F47F0(XKitten* kitten) {
     }
 }
 
-void func_001F4810(XKitten* first, XKitten* second) {
-    XKitten* firstNext = first->next;
-    XKitten* firstPrev = first->prev;
-    XKitten* secondPrev = second->prev;
-    XKitten* secondNext = second->next;
+void UiObject_SwapLinks(UiObject* first, UiObject* second) {
+    UiObject* firstNext = first->next;
+    UiObject* firstPrev = first->prev;
+    UiObject* secondPrev = second->prev;
+    UiObject* secondNext = second->next;
 
     if (firstPrev != NULL) {
         firstPrev->next = second;
@@ -253,21 +253,21 @@ void func_001F4810(XKitten* first, XKitten* second) {
     second->next = firstNext;
 }
 
-u8* func_001F4858(XKitten* kitten) {
-    if (kitten->unk_5C == NULL) {
+u8* UiObject_GetData(UiObject* kitten) {
+    if (kitten->data == NULL) {
         return &D_0048A670;
     }
-    return kitten->unk_5C;
+    return kitten->data;
 }
 
-void func_001F4878(XKitten* kitten, u8* data) {
-    kitten->unk_5C = data;
+void UiObject_SetData(UiObject* kitten, u8* data) {
+    kitten->data = data;
 }
 
-s32 func_001F4880(XKitten* kitten) {
-    return kitten->unk_68;
+s32 UiObject_GetUserValue(UiObject* kitten) {
+    return kitten->userValue;
 }
 
-void func_001F4888(XKitten* kitten, s32 value) {
-    kitten->unk_68 = value;
+void UiObject_SetUserValue(UiObject* kitten, s32 value) {
+    kitten->userValue = value;
 }

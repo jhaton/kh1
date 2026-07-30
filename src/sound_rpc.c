@@ -3,7 +3,7 @@
 #include "eekernel.h"
 #include "sifrpc.h"
 
-typedef struct XDuck {
+typedef struct SoundRpcCacheEntry {
     /* 0x00 */ u8 unk_00;
     /* 0x00 */ s8 unk_01;
     /* 0x02 */ s8 unk_02;
@@ -14,13 +14,13 @@ typedef struct XDuck {
     /* 0x14 */ char unk_14[4];
     /* 0x18 */ s32 value;
     /* 0x1C */ char unk_1C[0x2C];
-} XDuck; // size = 0x48
+} SoundRpcCacheEntry; // size = 0x48
 
 s32 D_003DE5B8;
 sceSifClientData D_003DE5C0;
 
 void* D_0062D980;
-XDuck D_00639180[3];
+SoundRpcCacheEntry D_00639180[3];
 s32 D_00639588;
 s32 D_00639880;
 
@@ -64,8 +64,8 @@ void* func_001EDF28(s32 rpcArg0, s32 rpcArg1, s32 rpcArg2, s32 rpcArg3) {
     return D_0062D980;
 }
 
-s32 func_001EDF88(s32 key) {
-    XDuck* entry;
+s32 SoundRpc_FindCachedValue(s32 key) {
+    SoundRpcCacheEntry* entry;
     s32 index;
 
     FlushCache(WRITEBACK_DCACHE);

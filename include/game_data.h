@@ -10,6 +10,6 @@ typedef struct {
     /* 0x18 */ u32 unk_18;
     /* 0x1C */ u32 munny;
     /* 0x20 */ u8 unk_20[10];
-} XWhiskey;
+} GameData;
 
-XWhiskey* D_003ED718;
+GameData* D_003ED718;

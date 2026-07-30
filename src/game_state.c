@@ -3,7 +3,7 @@
 #include "work_buffers.h"
 #include "script_commands.h"
 
-typedef struct XTrumpet {
+typedef struct GameState {
     /* 0x000 */ u8 unk_00[16];
     /* 0x010 */ s32 unk_10;
     /* 0x014 */ s32 unk_14;
@@ -26,12 +26,12 @@ typedef struct XTrumpet {
     /* 0x156 */ // u16 unk_156; possibly unused space, unnecessary for match
     /* 0x158 */ s32 availableFlags;
     /* 0x15C */ void* unk_15C;
-} XTrumpet;
+} GameState;
 
 extern s32 D_002B8364;
 extern s32 D_002B8678;
 
-XTrumpet* D_002B90B0;
+GameState* D_002B90B0;
 
 extern s32 D_002B916C;
 extern s32 D_002B9170;
@@ -42,14 +42,14 @@ extern s32 D_004D2998;
 extern s32 D_004D29AC;
 extern s32 D_004D29C4;
 
-void func_001110A0(void) {
-    D_002B90B0 = func_0022F768(3);
+void GameState_BindBuffer(void) {
+    D_002B90B0 = WorkBuffers_Get(3);
 }
 
-void func_001110D0(void) {
+void GameState_Reset(void) {
     s32 i;
 
-    func_001110A0();
+    GameState_BindBuffer();
     for (i = 0; i < ARRAY_COUNT(D_002B90B0->unk_6C); i++) {
         D_002B90B0->unk_6C[i] = 0;
     }
@@ -109,15 +109,15 @@ void func_001115C0(void) {
     }
 }
 
-void func_001115E8(void) {
+void GameState_Initialize(void) {
     D_002B8364 = 0;
-    func_0022F578(-1);
-    func_001EF840();
+    WorkBuffers_Clear(-1);
+    GameData_Reset();
     func_001601A8();
     func_0013CB18();
     func_001EBEB0();
     func_001BC048();
-    func_001110D0();
+    GameState_Reset();
 }
 
 INCLUDE_ASM("asm/nonmatchings/game_state", func_00111638);
@@ -136,7 +136,7 @@ void func_001116C8(void) {
     }
 }
 
-void func_001116F8(void) {
+void GameState_RefreshAvailableFlags(void) {
     s32 index = func_0013C2A8(3);
     if (index != -1) {
         D_002B90B0->availableFlags |= 8;
@@ -163,7 +163,7 @@ void func_001116F8(void) {
     }
 }
 
-void func_001117D8(void) {
+void GameState_ApplyAvailableSelection(void) {
   switch (D_002B8678) {
   case 5:
     if (D_002B90B0->availableFlags & 8) {

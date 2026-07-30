@@ -16,7 +16,7 @@ void pppRyjLightDes(pppPObject* pobj, pppCtrlTable* ctbl) {
     VRyjLight* ryjLight = (VRyjLight*)&pobj->val[ctbl->useVal[2]];
 
     if (ryjLight->unk_00 != NULL) {
-        func_00122B70(ryjLight->unk_00);
+        Interpolation_ClearValue(ryjLight->unk_00);
         ryjLight->unk_00 = NULL;
     }
 }
