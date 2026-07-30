@@ -1,4 +1,8 @@
-spimdisasm>=1.28.1
-rabbitizer>=1.8.0
-splat64>=0.27.0
+ninja-syntax==1.7.2
+spimdisasm==1.28.1
+rabbitizer==1.12.0
+splat64==0.27.0
+n64img==0.3.3
+pygfxd==1.0.5
+crunch64==0.6.2
 tqdm
