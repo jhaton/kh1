@@ -382,16 +382,25 @@
       "id": 7,
       "handler_address": "0x001CDF78",
       "handler_symbol": "func_001CDF78",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_text_window_character_delay",
+      "name_confidence": "high",
       "stack": {
         "inputs": 2,
         "outputs": 0,
         "net": -2,
         "confidence": "high",
-        "evidence": "machine-code analysis found a direct Script stackTop decrement of 2"
+        "evidence": "func_001CDF78 consumes a window ID and integer delay, converts the delay to float, and stores it at window descriptor +0x94; func_001CD738 copies that descriptor into an active window, where +0x94 becomes embedded text state +0x14; func_0010D250 assigns that interval to emitted glyphs, and func_0010CCF0 and func_0010CE98 use the cumulative intervals to advance and gate character reveal"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "character_delay",
+          "type": "s32"
+        }
+      ],
       "call_count": 77,
       "examples": [
         {
@@ -418,7 +427,8 @@
           "entry": 0,
           "instruction": 52
         }
-      ]
+      ],
+      "notes": "A zero delay is normalized to a tiny positive interval, making the text reveal effectively immediate; observed configured delays are 0 and 2."
     },
     {
       "id": 8,
@@ -1602,16 +1612,29 @@
       "id": 37,
       "handler_address": "0x001C9A70",
       "handler_symbol": "func_001C9A70",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_camera_rotation_degrees",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 3,
+        "outputs": 0,
+        "net": -3,
+        "confidence": "high",
+        "evidence": "func_001C9A70 consumes three values, converts each from degrees to radians, stores them in the camera X/Y/Z rotation fields D_003C0E40 through D_003C0E48, and rebuilds the camera through func_001C8170"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "pitch_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "yaw_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "roll_degrees",
+          "type": "s32"
+        }
+      ],
       "call_count": 73,
       "examples": [
         {
@@ -1638,22 +1661,28 @@
           "entry": 1,
           "instruction": 126
         }
-      ]
+      ],
+      "notes": "func_001C8170 applies these fields through X, Y, and Z rotation matrices while rebuilding the camera position and target. All 73 JP calls follow command 36, which sets the camera target position, and are followed by command 38, which sets the camera distance. Every observed roll value is zero."
     },
     {
       "id": 38,
       "handler_address": "0x001C9B30",
       "handler_symbol": "func_001C9B30",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_camera_distance",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 0,
+        "net": -1,
+        "confidence": "high",
+        "evidence": "func_001C9B30 converts the top stack value to float, stores it in D_003C0E80, rebuilds the camera through func_001C8170, and decrements Script stackTop"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "distance",
+          "type": "s32"
+        }
+      ],
       "call_count": 97,
       "examples": [
         {
@@ -1680,22 +1709,28 @@
           "entry": 21,
           "instruction": 441
         }
-      ]
+      ],
+      "notes": "func_001C8170 uses D_003C0E80 as the Z component of an offset vector, rotates that vector by the camera angles, and adds it to the target position to produce D_002DECE0. func_001C7FE0 initializes the same field with the Euclidean distance between the current camera position and target. All 97 JP calls pass a direct literal: 80, 250, 340, 400, or 500. The preceding camera command is always command 37 set_camera_rotation_degrees (73 calls) or command 35 (24 calls)."
     },
     {
       "id": 39,
       "handler_address": "0x001C9B88",
       "handler_symbol": "func_001C9B88",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_camera_fov_degrees",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 0,
+        "net": -1,
+        "confidence": "high",
+        "evidence": "func_001C9B88 converts the top stack value to float, stores it in D_003C0E84, rebuilds the camera state through func_001C8170, and decrements Script stackTop"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "fov_degrees",
+          "type": "s32"
+        }
+      ],
       "call_count": 121,
       "examples": [
         {
@@ -1722,7 +1757,8 @@
           "entry": 34,
           "instruction": 1513
         }
-      ]
+      ],
+      "notes": "func_001C8170 passes D_003C0E84 to func_00125010; that routine stores the field of view in degrees and computes the projection scale as 256 / tan(fov / 2). All 121 JP calls pass a direct literal: 26, 41, or 53 degrees."
     },
     {
       "id": 40,
@@ -1906,16 +1942,33 @@
       "id": 49,
       "handler_address": "0x001C9FE0",
       "handler_symbol": "func_001C9FE0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "start_camera_target_position_transition",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 4,
+        "outputs": 0,
+        "net": -4,
+        "confidence": "high",
+        "evidence": "func_001C9FE0 reads four values from the Script value stack, stores the duration and target X/Y/Z coordinates in camera transition state, and decrements Script stackTop by four"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "duration_ticks",
+          "type": "s32"
+        },
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        },
+        {
+          "name": "z",
+          "type": "s32"
+        }
+      ],
       "call_count": 63,
       "examples": [
         {
@@ -1942,22 +1995,40 @@
           "entry": 9,
           "instruction": 179
         }
-      ]
+      ],
+      "notes": "func_001C9FE0 snapshots the current camera target at D_003C0E30 through D_003C0E38, stores the requested target at D_003C0DD0 through D_003C0DD8, resets elapsed time, and enables transition flag 0x1. func_001C9EC0 advances elapsed time and interpolates each coordinate through the camera easing function before rebuilding the camera. All 63 JP calls occur after command 513 enable_event_camera in the same entry; every call is followed by command 50 and then command 51 to start synchronized rotation and distance transitions."
     },
     {
       "id": 50,
       "handler_address": "0x001CA418",
       "handler_symbol": "func_001CA418",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "start_camera_rotation_transition",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 4,
+        "outputs": 0,
+        "net": -4,
+        "confidence": "high",
+        "evidence": "func_001CA418 reads four values from the Script value stack, stores the duration and target pitch/yaw/roll after converting the angles from degrees to radians, and decrements Script stackTop by four"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "duration_ticks",
+          "type": "s32"
+        },
+        {
+          "name": "pitch_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "yaw_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "roll_degrees",
+          "type": "s32"
+        }
+      ],
       "call_count": 63,
       "examples": [
         {
@@ -1984,7 +2055,8 @@
           "entry": 9,
           "instruction": 184
         }
-      ]
+      ],
+      "notes": "func_001CA418 normalizes each target angle to the range from -pi through pi, snapshots the current camera rotation, and enables transition flag 0x2. func_001CA090 derives per-tick angular increments from the starting and target rotations, advances and clamps all three axes, rebuilds the camera, and clears the flag once every axis reaches its target. All 63 JP calls immediately follow command 49 start_camera_target_position_transition and precede command 51; all use the same duration as command 51, and every observed roll is zero."
     },
     {
       "id": 51,
@@ -2091,14 +2163,14 @@
       "id": 54,
       "handler_address": "0x001EB840",
       "handler_symbol": "func_001EB840",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_selected_object_control",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001EB840 queues operation type 13 without accessing the Script value stack; the object-operation dispatcher clears the control-disable flag 0x100000000 in the selected object's flags at +0x440"
       },
       "arguments": [],
       "call_count": 98,
@@ -2127,20 +2199,21 @@
           "entry": 13,
           "instruction": 54
         }
-      ]
+      ],
+      "notes": "Operation type 13 maps to the embedded CONTROL_ON name. Across the JP corpus, 83 of its 98 calls immediately precede command 335 enable_script_object_damage."
     },
     {
       "id": 55,
       "handler_address": "0x001EB8A0",
       "handler_symbol": "func_001EB8A0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_selected_object_control",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001EB8A0 queues operation type 14 without accessing the Script value stack; the object-operation dispatcher sets the control-disable flag 0x100000000 in the selected object's flags at +0x440 and clears object-state flag 0x4"
       },
       "arguments": [],
       "call_count": 287,
@@ -2169,20 +2242,21 @@
           "entry": 14,
           "instruction": 65
         }
-      ]
+      ],
+      "notes": "Operation type 14 maps to the embedded CONTROL_OFF name. For either non-player party object, the dispatcher also resets transient state through func_001735B8 and func_001541E8. Across the JP corpus, 123 of its 287 calls immediately precede command 336 disable_script_object_damage."
     },
     {
       "id": 56,
       "handler_address": "0x001CF6C8",
       "handler_symbol": "func_001CF6C8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_selected_object_motion",
+      "name_confidence": "high",
       "stack": {
         "inputs": 0,
         "outputs": 0,
         "net": 0,
         "confidence": "high",
-        "evidence": "func_001CF6C8 does not access or change the Script value stack"
+        "evidence": "func_001CF6C8 queues operation type 15 without accessing the Script value stack; the object-operation dispatcher clears the motion-disable flag 0x200000000 in the selected object's flags at +0x440"
       },
       "arguments": [],
       "call_count": 455,
@@ -2211,20 +2285,21 @@
           "entry": 16,
           "instruction": 218
         }
-      ]
+      ],
+      "notes": "Operation type 15 maps to the embedded MOTION_ON name. It clears the same disable flag that type 16 sets."
     },
     {
       "id": 57,
       "handler_address": "0x001CF728",
       "handler_symbol": "func_001CF728",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_selected_object_motion",
+      "name_confidence": "high",
       "stack": {
         "inputs": 0,
         "outputs": 0,
         "net": 0,
         "confidence": "high",
-        "evidence": "func_001CF728 does not access or change the Script value stack"
+        "evidence": "func_001CF728 queues operation type 16 without accessing the Script value stack; the object-operation dispatcher sets the motion-disable flag 0x200000000 in the selected object's flags at +0x440"
       },
       "arguments": [],
       "call_count": 458,
@@ -2253,7 +2328,8 @@
           "entry": 14,
           "instruction": 69
         }
-      ]
+      ],
+      "notes": "Operation type 16 maps to the embedded MOTION_OFF name. It sets the same disable flag that type 15 clears; 93 JP calls immediately follow command 338 disable_script_object_push."
     },
     {
       "id": 58,
@@ -2841,16 +2917,25 @@
       "id": 80,
       "handler_address": "0x001CDCC8",
       "handler_symbol": "func_001CDCC8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_text_window_pointer_style",
+      "name_confidence": "high",
       "stack": {
         "inputs": 2,
         "outputs": 0,
         "net": -2,
         "confidence": "high",
-        "evidence": "func_001CDCC8 decrements Script stackTop by two"
+        "evidence": "func_001CDCC8 consumes a window ID and pointer style and stores the style at window descriptor +0x06; func_0010B428 suppresses pointer rendering when that field is zero and passes nonzero values to func_0010A2F0, where styles 1 and 2 select distinct texture-coordinate tables"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "pointer_style",
+          "type": "s32"
+        }
+      ],
       "call_count": 491,
       "examples": [
         {
@@ -2877,22 +2962,32 @@
           "entry": 1,
           "instruction": 189
         }
-      ]
+      ],
+      "notes": "Observed configured styles are 0, 1, and 2. When a window follows a world target, func_0010B0D0 can replace this field with 0 or 1 according to the target's projected screen position."
     },
     {
       "id": 81,
       "handler_address": "0x001CDD18",
       "handler_symbol": "func_001CDD18",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_text_window_pointer_position",
+      "name_confidence": "high",
       "stack": {
         "inputs": 2,
         "outputs": 0,
         "net": -2,
         "confidence": "high",
-        "evidence": "machine-code analysis found a direct Script stackTop decrement of 2"
+        "evidence": "func_001CDD18 consumes a window ID and position index and stores the index at window descriptor +0x08; when the window is not following a world target, func_0010B0D0 divides indices 0 through 19 into four groups of five and maps them to successive positions around the window perimeter"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "position_index",
+          "type": "s32"
+        }
+      ],
       "call_count": 22,
       "examples": [
         {
@@ -2919,22 +3014,32 @@
           "entry": 22,
           "instruction": 315
         }
-      ]
+      ],
+      "notes": "Observed configured position indices are 0, 1, 3, 4, 5, 13, 14, 15, and 17."
     },
     {
       "id": 82,
       "handler_address": "0x001CDD68",
       "handler_symbol": "func_001CDD68",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_text_window_pointer_angle",
+      "name_confidence": "high",
       "stack": {
         "inputs": 2,
         "outputs": 0,
         "net": -2,
         "confidence": "high",
-        "evidence": "machine-code analysis found a direct Script stackTop decrement of 2"
+        "evidence": "func_001CDD68 consumes a window ID and integer angle, converts the angle to float, and stores it at window descriptor +0x1C; func_0010B000 offsets that value by 180 degrees, converts it to radians, and applies it as the pointer's Z-axis rotation"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "angle_degrees",
+          "type": "s32"
+        }
+      ],
       "call_count": 22,
       "examples": [
         {
@@ -2961,7 +3066,8 @@
           "entry": 22,
           "instruction": 318
         }
-      ]
+      ],
+      "notes": "Observed configured angles are 45, 135, 200, 225, and 315 degrees. func_0010B0D0 resets this field to zero when the window follows a world target."
     },
     {
       "id": 83,
@@ -3313,14 +3419,14 @@
       "id": 91,
       "handler_address": "0x001D0D98",
       "handler_symbol": "func_001D0D98",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "restore_selected_object_default_color",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D0D98 does not access the Script value stack and queues object operation type 24 for the selected object"
       },
       "arguments": [],
       "call_count": 49,
@@ -3349,7 +3455,8 @@
           "entry": 11,
           "instruction": 34
         }
-      ]
+      ],
+      "notes": "The embedded operation-name table labels type 24 COLOR_DEFAULT. The object-operation dispatcher clears flag 0x0010000000000000 at selected-object offset 0x370; command 90's type 23 COLOR_CHANGE path sets the same flag after installing transition RGBA values. All 49 JP calls follow command 90 within three instructions: 41 immediately and eight after an intervening wait_ticks call."
     },
     {
       "id": 92,
@@ -3481,14 +3588,14 @@
       "id": 95,
       "handler_address": "0x001D12D0",
       "handler_symbol": "func_001D12D0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "restore_selected_object_motion_resource",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D12D0 does not access the Script value stack; when Script flag 0x80 is set, it calls func_00131410 for the selected object and then clears that flag"
       },
       "arguments": [],
       "call_count": 310,
@@ -3517,7 +3624,8 @@
           "entry": 23,
           "instruction": 689
         }
-      ]
+      ],
+      "notes": "func_00131410 restores the selected object's 16-byte motion-resource descriptor at +0x1D0 from the backup at +0x1E0, clears the backup, and clears object flag 0x20. Command 94 establishes that backup and Script flag. All 310 JP calls are immediately followed by a motion-related command: 259 by command 13 set_object_animation, 26 by command 108, 24 by command 58, and one by command 57 enable_selected_object_motion_blending."
     },
     {
       "id": 96,
@@ -3675,14 +3783,14 @@
       "id": 100,
       "handler_address": "0x001D14F0",
       "handler_symbol": "func_001D14F0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "capture_screen",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D14F0 takes no Script context and does not access the value stack"
       },
       "arguments": [],
       "call_count": 214,
@@ -3711,7 +3819,8 @@
           "entry": 1,
           "instruction": 105
         }
-      ]
+      ],
+      "notes": "func_001D14F0 schedules func_00109AA0, which configures a GS store-image transfer for the full 512x384 framebuffer at base 0x1A00 and copies it to the transition scratch buffer at func_F20000. The paired graphics path reloads that buffer as two 512x192 textures for screen-transition blending. The JP corpus contains 214 calls, commonly adjacent to command 513 enable_event_camera."
     },
     {
       "id": 101,
@@ -3843,14 +3952,14 @@
       "id": 104,
       "handler_address": "0x001D1598",
       "handler_symbol": "func_001D1598",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_selected_object_background_collision",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D1598 does not access the Script value stack and queues object operation type 27 for the selected object"
       },
       "arguments": [],
       "call_count": 219,
@@ -3879,20 +3988,21 @@
           "entry": 31,
           "instruction": 1335
         }
-      ]
+      ],
+      "notes": "The embedded operation-name table labels type 27 BGHIT_ON. The object-operation dispatcher clears object flag 0x10; func_00130E18 only removes bit 0 from the object's collision mask when that flag is set. This is the inverse of command 105. The JP corpus contains 219 calls, including 82 immediately preceded by command 25 enable_selected_object_collision."
     },
     {
       "id": 105,
       "handler_address": "0x001D15E0",
       "handler_symbol": "func_001D15E0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_selected_object_background_collision",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D15E0 does not access the Script value stack and queues object operation type 28 for the selected object"
       },
       "arguments": [],
       "call_count": 358,
@@ -3921,7 +4031,8 @@
           "entry": 28,
           "instruction": 1004
         }
-      ]
+      ],
+      "notes": "The embedded operation-name table labels type 28 BGHIT_OFF. The object-operation dispatcher sets object flag 0x10; func_00130E18 responds by removing bit 0 from the collision mask supplied to the object's model state. This is the inverse of command 104. The JP corpus contains 358 calls, including 166 immediately followed by command 26 disable_selected_object_collision."
     },
     {
       "id": 106,
@@ -4643,14 +4754,14 @@
       "id": 127,
       "handler_address": "0x001D1EE0",
       "handler_symbol": "func_001D1EE0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_current_world_index",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 1,
+        "net": 1,
+        "confidence": "high",
+        "evidence": "func_001D1EE0 increments Script stackTop and pushes the current world index from D_002B8678"
       },
       "arguments": [],
       "call_count": 88,
@@ -4679,7 +4790,8 @@
           "entry": 0,
           "instruction": 39
         }
-      ]
+      ],
+      "notes": "D_002B8678 indexes the 21-entry world abbreviation table used to build world-data and room-archive filenames. func_00112848 updates it as the first component of a world/room/entrance transition. The JP corpus contains 88 calls; every result is immediately stored, and 31 calls are followed by commands 128 and 129 to snapshot all three location components."
     },
     {
       "id": 128,
@@ -5081,16 +5193,21 @@
       "id": 141,
       "handler_address": "0x001D22B8",
       "handler_symbol": "func_001D22B8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_selected_object_color_override",
+      "name_confidence": "high",
       "stack": {
         "inputs": 1,
         "outputs": 0,
         "net": -1,
         "confidence": "high",
-        "evidence": "machine-code analysis found a direct Script stackTop decrement of 1"
+        "evidence": "func_001D22B8 consumes one value and passes it with the selected object to func_0013DEE8; that function sets object flag 0x4000 and initializes the render descriptor's RGBA override to (0xFF, 0xFF, 0xFF, 0x80) for nonzero values or (0xFF, 0xFF, 0xFF, 0xFF) for zero"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "use_alpha_128",
+          "type": "s32"
+        }
+      ],
       "call_count": 7,
       "examples": [
         {
@@ -5117,20 +5234,21 @@
           "entry": 14,
           "instruction": 110
         }
-      ]
+      ],
+      "notes": "The render path copies the four override bytes only while object flag 0x4000 is set. All seven observed corpus calls pass zero."
     },
     {
       "id": 142,
       "handler_address": "0x001D23A8",
       "handler_symbol": "func_001D23A8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_selected_object_color_override",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D23A8 does not access the Script value stack; when a selected object exists, it calls func_0013DF48, which clears object flag 0x4000 and thereby disables the RGBA override consumed by the render path"
       },
       "arguments": [],
       "call_count": 333,
@@ -5159,7 +5277,8 @@
           "entry": 25,
           "instruction": 779
         }
-      ]
+      ],
+      "notes": "This is the zero-argument inverse of opcode 141 and occurs 333 times across the corpus."
     },
     {
       "id": 143,
@@ -5309,14 +5428,14 @@
       "id": 150,
       "handler_address": "0x001D2600",
       "handler_symbol": "func_001D2600",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_all_object_control",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D2600 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 110,
@@ -5345,20 +5464,21 @@
           "entry": 1,
           "instruction": 68
         }
-      ]
+      ],
+      "notes": "func_001D2600 selects the active scene-object registry, resolves each registered object ID, and queues operation type 13 for every resolvable object. Type 13 maps to the embedded CONTROL_ON name; its dispatcher clears the control-disable flag 0x100000000. This is the inverse of command 151 disable_all_object_control. The JP corpus contains 110 calls in 96 entries; 41 have an earlier command 151 in the same entry, and 78 immediately precede command 592."
     },
     {
       "id": 151,
       "handler_address": "0x001D2840",
       "handler_symbol": "func_001D2840",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_all_object_control",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D2840 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 118,
@@ -5387,20 +5507,21 @@
           "entry": 1,
           "instruction": 1
         }
-      ]
+      ],
+      "notes": "func_001D2840 selects the active scene-object registry, resolves each registered object ID, and queues operation type 14 for every resolvable object. Type 14 maps to the embedded CONTROL_OFF name; its dispatcher sets the control-disable flag 0x100000000 and clears object-state flag 0x4. The JP corpus contains 118 calls in 112 entries; 76 calls begin an entry, consistent with disabling scene-wide object control at event setup."
     },
     {
       "id": 152,
       "handler_address": "0x001D2A80",
       "handler_symbol": "func_001D2A80",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "selected_object_exists",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 1,
+        "net": 1,
+        "confidence": "high",
+        "evidence": "func_001D2A80 increments Script stackTop, resolves the selected object ID at Script+0 through func_00123880, refreshes the selected object pointer at Script+4, and writes 1 when resolution succeeds or 0 when it fails"
       },
       "arguments": [],
       "call_count": 55,
@@ -5429,7 +5550,8 @@
           "entry": 1,
           "instruction": 9
         }
-      ]
+      ],
+      "notes": "func_00123880 resolves encoded object IDs through the active object registries and returns null when no matching object is registered. All 55 JP calls immediately store the result and test it with a nearby conditional branch; 32 calls begin a script entry and four immediately follow command 10 select_object."
     },
     {
       "id": 153,
@@ -8036,16 +8158,25 @@
       "id": 243,
       "handler_address": "0x001D4FF8",
       "handler_symbol": "func_001D4FF8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "send_object_message",
+      "name_confidence": "high",
       "stack": {
         "inputs": 2,
         "outputs": 0,
         "net": -2,
         "confidence": "high",
-        "evidence": "machine-code analysis found a direct Script stackTop decrement of 2"
+        "evidence": "func_001D4FF8 consumes an object ID and message code, resolves the object with func_00123880, and passes the resolved object and message code to func_00137230"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        },
+        {
+          "name": "message_code",
+          "type": "s32"
+        }
+      ],
       "call_count": 54,
       "examples": [
         {
@@ -8072,7 +8203,8 @@
           "entry": 3,
           "instruction": 150
         }
-      ]
+      ],
+      "notes": "func_00137230 invokes the object's callback at offset 0x4A0 when present; its default path, func_001C6620, starts script entry 9 and publishes the message code through D_00388924. The JP corpus contains 54 calls; directly encoded message codes include 8001 and 50."
     },
     {
       "id": 244,
@@ -8306,16 +8438,21 @@
       "id": 253,
       "handler_address": "0x001D5068",
       "handler_symbol": "func_001D5068",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_total_item_count",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D5068 replaces the top item ID with the sum of the stock byte at D_003010F8 + 0x499 + item_id and matching item IDs in the four character item-slot lists"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "item_id",
+          "type": "s32"
+        }
+      ],
       "call_count": 60,
       "examples": [
         {
@@ -8342,7 +8479,8 @@
           "entry": 9,
           "instruction": 172
         }
-      ]
+      ],
+      "notes": "The result includes both unequipped stock and copies held in character item slots. The JP corpus contains 60 calls, all in pc06.ard with literal item IDs 178 through 185; every result is immediately stored, and 24 are tested against zero within the next 20 instructions."
     },
     {
       "id": 254,
@@ -9250,16 +9388,21 @@
       "id": 287,
       "handler_address": "0x001D5B60",
       "handler_symbol": "func_001D5B60",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_object_facing_angle_degrees",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D5B60 resolves the top value with func_001EAB00 and replaces it with round(object->facingRadians * 180 / pi)"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
       "call_count": 246,
       "examples": [
         {
@@ -9286,7 +9429,8 @@
           "entry": 34,
           "instruction": 1448
         }
-      ]
+      ],
+      "notes": "The source float is object offset 0x3C. func_00133910 compares that field with atan2f of an X/Z direction vector when updating object turns, identifying it as the horizontal facing angle. The JP corpus contains 246 calls; 132 are immediately followed by command 308 cos_degrees_times_10000."
     },
     {
       "id": 288,
@@ -9309,16 +9453,21 @@
       "id": 289,
       "handler_address": "0x001D5C68",
       "handler_symbol": "func_001D5C68",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_object_animation_frame",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D5C68 resolves the top object ID with func_001EAB00 and replaces it with the integer-converted value of object offset 0x16C multiplied by 0.5"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
       "call_count": 136,
       "examples": [
         {
@@ -9345,22 +9494,28 @@
           "entry": 17,
           "instruction": 137
         }
-      ]
+      ],
+      "notes": "Object offset 0x168 stores the animation ID, while func_00130578 initializes the adjacent float at 0x16C from its starting-frame argument and the animation update path advances that field toward the duration at 0x280. A missing object leaves the input value unchanged. All 136 JP calls pass direct object IDs 2 through 9; 128 immediately store the result, and 63 occur directly after wait_ticks(1) in animation-frame polling loops."
     },
     {
       "id": 290,
       "handler_address": "0x001D5DC8",
       "handler_symbol": "func_001D5DC8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_party_member_position_x",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D5DC8 uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position X float at object offset 0x10"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "party_slot",
+          "type": "s32"
+        }
+      ],
       "call_count": 174,
       "examples": [
         {
@@ -9387,22 +9542,28 @@
           "entry": 1,
           "instruction": 114
         }
-      ]
+      ],
+      "notes": "D_002DEC00, D_002DEC04, and D_002DEC08 hold the player and two companion slots. A null slot leaves the input value unchanged. All 174 JP calls pass slot 0 for the player; 162 pair this result with command 292 for the player's Z position."
     },
     {
       "id": 291,
       "handler_address": "0x001D5E08",
       "handler_symbol": "func_001D5E08",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_party_member_position_y",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D5E08 uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position Y float at object offset 0x14"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "party_slot",
+          "type": "s32"
+        }
+      ],
       "call_count": 329,
       "examples": [
         {
@@ -9429,22 +9590,28 @@
           "entry": 1,
           "instruction": 83
         }
-      ]
+      ],
+      "notes": "This is the Y-coordinate counterpart of command 290 get_party_member_position_x and command 292 get_party_member_position_z. A null party slot leaves the input value unchanged. All 329 JP calls pass a direct slot: 297 use slot 0 for the player, 16 use slot 1, and 16 use slot 2. Nine calls join commands 290 and 292 as an X/Y/Z position triple."
     },
     {
       "id": 292,
       "handler_address": "0x001D5E48",
       "handler_symbol": "func_001D5E48",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_party_member_position_z",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D5E48 uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position Z float at object offset 0x18"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "party_slot",
+          "type": "s32"
+        }
+      ],
       "call_count": 171,
       "examples": [
         {
@@ -9471,7 +9638,8 @@
           "entry": 1,
           "instruction": 116
         }
-      ]
+      ],
+      "notes": "This is the Z-coordinate counterpart of command 290 get_party_member_position_x and command 291, which reads object offset 0x14. A null party slot leaves the input value unchanged. All 171 JP calls pass slot 0 for the player; 162 are paired with command 290, and the remaining nine join commands 290 and 291 as an X/Y/Z position triple."
     },
     {
       "id": 293,
@@ -9562,14 +9730,14 @@
       "id": 298,
       "handler_address": "0x001D6020",
       "handler_symbol": "func_001D6020",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "stop_script_object_movement",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D6020 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 109,
@@ -9598,7 +9766,8 @@
           "entry": 17,
           "instruction": 133
         }
-      ]
+      ],
+      "notes": "func_001D6020 clears Script action-state flags 0x1, 0x40, and 0x200, then queues object operation type 0x12 for the object ID stored at Script offset 0. Type 0x12 maps to the embedded STOP_MOVE name; its dispatcher calls func_00133880, which clears the object's linked movement-operation list at +0x440. The JP corpus contains 109 calls; 40 begin an entry, and common following commands wait, show or reposition the object, or set its facing angle."
     },
     {
       "id": 299,
@@ -10248,14 +10417,14 @@
       "id": 320,
       "handler_address": "0x001D6A78",
       "handler_symbol": "func_001D6A78",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_script_object_targeting",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D6A78 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 177,
@@ -10284,20 +10453,21 @@
           "entry": 16,
           "instruction": 120
         }
-      ]
+      ],
+      "notes": "func_001D6A78 queues object operation type 0x21 for the object ID stored at Script offset 0. Type 0x21 maps to the embedded TARGET_ON name, and its dispatcher clears the targeting-disable flag 0x200. The JP corpus contains 177 calls."
     },
     {
       "id": 321,
       "handler_address": "0x001D6AC0",
       "handler_symbol": "func_001D6AC0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_script_object_targeting",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D6AC0 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 326,
@@ -10326,7 +10496,8 @@
           "entry": 0,
           "instruction": 13
         }
-      ]
+      ],
+      "notes": "func_001D6AC0 queues object operation type 0x22 for the object ID stored at Script offset 0. Type 0x22 maps to the embedded TARGET_OFF name, and its dispatcher sets the targeting-disable flag 0x200. The JP corpus contains 326 calls; 171 immediately follow command 26 disable_selected_object_collision."
     },
     {
       "id": 322,
@@ -10596,14 +10767,14 @@
       "id": 335,
       "handler_address": "0x001EBA50",
       "handler_symbol": "func_001EBA50",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_script_object_damage",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001EBA50 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 88,
@@ -10632,20 +10803,21 @@
           "entry": 13,
           "instruction": 55
         }
-      ]
+      ],
+      "notes": "func_001EBA50 queues operation types 0x23 and 0x2A for the object ID stored at Script offset 0. Both types map to embedded DAMAGE_ON entries; their dispatchers clear damage-disable flags 0x01000080 and 0x40. The JP corpus contains 88 calls; 83 immediately follow command 54 enable_selected_object_control, while 59 are immediately followed by command 25 enable_selected_object_collision."
     },
     {
       "id": 336,
       "handler_address": "0x001EBAD0",
       "handler_symbol": "func_001EBAD0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_script_object_damage",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001EBAD0 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 141,
@@ -10674,20 +10846,21 @@
           "entry": 14,
           "instruction": 66
         }
-      ]
+      ],
+      "notes": "func_001EBAD0 queues operation types 0x24 and 0x2B for the object ID stored at Script offset 0. Both types map to embedded DAMAGE_OFF entries; their dispatchers set damage-disable flags 0x01000080 and 0x40, and type 0x24 also clears the state field at +0x0C. The JP corpus contains 141 calls; 123 immediately follow command 55 disable_selected_object_control, while 86 are immediately followed by command 26 disable_selected_object_collision."
     },
     {
       "id": 337,
       "handler_address": "0x001D6EF0",
       "handler_symbol": "func_001D6EF0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_script_object_push",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D6EF0 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 78,
@@ -10716,20 +10889,21 @@
           "entry": 13,
           "instruction": 58
         }
-      ]
+      ],
+      "notes": "func_001D6EF0 queues operation type 0x25 for the object ID stored at Script offset 0. Type 0x25 maps to the embedded PUSH_ON name, and its dispatcher clears the push-disable flag 0x200000. The JP corpus contains 78 calls; 36 immediately follow command 25 enable_selected_object_collision and 22 immediately follow command 104 enable_selected_object_background_collision."
     },
     {
       "id": 338,
       "handler_address": "0x001D6F38",
       "handler_symbol": "func_001D6F38",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_script_object_push",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D6F38 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 137,
@@ -10758,22 +10932,32 @@
           "entry": 14,
           "instruction": 68
         }
-      ]
+      ],
+      "notes": "func_001D6F38 queues operation type 0x26 for the object ID stored at Script offset 0. Type 0x26 maps to the embedded PUSH_OFF name, and its dispatcher sets the push-disable flag 0x200000. The JP corpus contains 137 calls; 58 immediately follow command 105 disable_selected_object_background_collision, while 93 are immediately followed by command 57 disable_selected_object_motion."
     },
     {
       "id": 339,
       "handler_address": "0x001D6F80",
       "handler_symbol": "func_001D6F80",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "set_treasure_opened_flag",
+      "name_confidence": "high",
       "stack": {
         "inputs": 2,
         "outputs": 0,
         "net": -2,
         "confidence": "high",
-        "evidence": "machine-code analysis found a direct Script stackTop decrement of 2"
+        "evidence": "func_001D6F80 consumes a treasure ID and opened value and passes them to func_0013C5C8, which sets or clears the corresponding persistent bit"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "treasure_id",
+          "type": "s32"
+        },
+        {
+          "name": "opened",
+          "type": "s32"
+        }
+      ],
       "call_count": 32,
       "examples": [
         {
@@ -10800,22 +10984,28 @@
           "entry": 11,
           "instruction": 102
         }
-      ]
+      ],
+      "notes": "func_00151D50 calls the same setter with opened=1 after granting the reward described by D_0034DA40[treasure_id]. All 32 JP calls use literal IDs and opened=1: IDs 258, 423, 424, 425, 426, and 472."
     },
     {
       "id": 340,
       "handler_address": "0x001D6FD0",
       "handler_symbol": "func_001D6FD0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_treasure_opened_flag",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D6FD0 replaces the top value with func_0013C638(treasure_id), which reads the same persistent bit written by func_0013C5C8"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "treasure_id",
+          "type": "s32"
+        }
+      ],
       "call_count": 167,
       "examples": [
         {
@@ -10842,7 +11032,8 @@
           "entry": 0,
           "instruction": 11
         }
-      ]
+      ],
+      "notes": "The result is the truthy bit mask 1 << (treasure_id & 3), or zero when unopened. Object initialization also queries this flag for type-8 treasure objects, while the reward routine indexes the 512-entry D_0034DA40 descriptor table with the same ID. All 167 JP calls use literal treasure IDs from 211 through 472."
     },
     {
       "id": 341,
@@ -11414,14 +11605,14 @@
       "id": 362,
       "handler_address": "0x001D7898",
       "handler_symbol": "func_001D7898",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_all_spawn_groups",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D7898 takes no Script context and does not access the value stack"
       },
       "arguments": [],
       "call_count": 99,
@@ -11450,7 +11641,8 @@
           "entry": 0,
           "instruction": 4
         }
-      ]
+      ],
+      "notes": "func_001D7898 calls func_0014EE50 for group IDs 1 through 31, clearing bits 0 through 30 of D_00553BEC. func_0014F0E0 intersects this enable mask with the spawn-group mask selected by spatial overlap, and func_0014F280 uses the result to activate matching grouped objects. The JP corpus contains 99 calls; 45 begin an entry, and the paired command 363 restores all groups at event cleanup."
     },
     {
       "id": 363,
@@ -12383,14 +12575,14 @@
       "id": 393,
       "handler_address": "0x001D54E8",
       "handler_symbol": "func_001D54E8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_selected_object_hp",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 1,
+        "net": 1,
+        "confidence": "high",
+        "evidence": "func_001D54E8 increments Script stackTop and, when the selected object exists, pushes the integer-converted float at selected-object pointer +0x130, field +0x18"
       },
       "arguments": [],
       "call_count": 48,
@@ -12419,7 +12611,8 @@
           "entry": 15,
           "instruction": 157
         }
-      ]
+      ],
+      "notes": "The field is current HP: command 267 writes it from the Script stack, the damage-resolution path func_0016B2E8 updates it, and func_00142810 treats zero as an inactive or defeated object. All 48 JP calls occur in pc06.ard and immediately store the result in local 12; every entry then uses command 267 to set HP to zero and later restore it from local 12."
     },
     {
       "id": 394,
@@ -14091,14 +14284,14 @@
       "id": 455,
       "handler_address": "0x001D8D38",
       "handler_symbol": "func_001D8D38",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_object_message_code",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 1,
+        "net": 1,
+        "confidence": "high",
+        "evidence": "func_001D8D38 increments Script stackTop and pushes D_00388924"
       },
       "arguments": [],
       "call_count": 128,
@@ -14127,7 +14320,8 @@
           "entry": 9,
           "instruction": 128
         }
-      ]
+      ],
+      "notes": "func_001C6620 writes the dispatched message code to D_00388924 immediately before starting the recipient object's script entry 9. All 128 JP calls occur in entry 9 and store the returned value."
     },
     {
       "id": 456,
@@ -15424,14 +15618,14 @@
       "id": 513,
       "handler_address": "0x001CF1E8",
       "handler_symbol": "func_001CF1E8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_event_camera",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001CF1E8 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 161,
@@ -15460,20 +15654,21 @@
           "entry": 1,
           "instruction": 106
         }
-      ]
+      ],
+      "notes": "func_001CF1E8 queues object operation type 0, calls func_001C7E70 to initialize the scripted camera state, and sets global event-state flag 0x400. Type 0 maps to the embedded EVENT_CAMERA_ON name; its dispatcher calls func_00133558, which activates the alternate camera path and sets camera-state flag 0x2. The JP corpus contains 161 calls."
     },
     {
       "id": 514,
       "handler_address": "0x001CF2A0",
       "handler_symbol": "func_001CF2A0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_event_camera",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001CF2A0 reads the selected object ID at Script offset 0 but does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 183,
@@ -15502,7 +15697,8 @@
           "entry": 1,
           "instruction": 165
         }
-      ]
+      ],
+      "notes": "func_001CF2A0 queues object operation type 1, whose dispatcher calls func_00133588, the inverse of func_00133558 used by command 513 enable_event_camera. func_00133588 clears camera-state flag 0x2, while the handler clears event-state flags 0x400 and 0x2000000000. The JP corpus contains 183 calls; 167 have an earlier command 513 in the same entry."
     },
     {
       "id": 515,
@@ -17360,14 +17556,14 @@
       "id": 592,
       "handler_address": "0x001EBCD0",
       "handler_symbol": "func_001EBCD0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_party_damage",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001EBCD0 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 144,
@@ -17396,20 +17592,21 @@
           "entry": 1,
           "instruction": 69
         }
-      ]
+      ],
+      "notes": "func_001EBCD0 iterates registered class-3 objects, selects the party-character archetype range 0 through 9 returned by func_001239D8, and queues operation types 0x23 and 0x2A for each. Both types map to embedded DAMAGE_ON entries and clear the corresponding damage-disable flags. This is the inverse of command 593 disable_party_damage. The JP corpus contains 144 calls; 78 immediately follow command 150 enable_all_object_control, and 53 have an earlier command 593 in the same entry."
     },
     {
       "id": 593,
       "handler_address": "0x001EBDC0",
       "handler_symbol": "func_001EBDC0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_party_damage",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001EBDC0 does not access or change the Script value stack"
       },
       "arguments": [],
       "call_count": 160,
@@ -17438,7 +17635,8 @@
           "entry": 1,
           "instruction": 65
         }
-      ]
+      ],
+      "notes": "func_001EBDC0 iterates registered class-3 objects, selects the party-character archetype range 0 through 9 returned by func_001239D8, and queues operation types 0x24 and 0x2B for each. Both types map to embedded DAMAGE_OFF entries and set the corresponding damage-disable flags. Its inverse func_001EBCD0 queues DAMAGE_ON. The JP corpus contains 160 calls; 53 immediately follow command 151 disable_all_object_control, while 78 inverse calls immediately follow command 150's scene-wide CONTROL_ON operation."
     },
     {
       "id": 594,
@@ -18546,16 +18744,21 @@
       "id": 644,
       "handler_address": "0x001DC2A0",
       "handler_symbol": "func_001DC2A0",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "get_item_category",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 1,
+        "outputs": 1,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001DC2A0 replaces the top item ID with a category code selected entirely from fixed item-ID ranges"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "item_id",
+          "type": "s32"
+        }
+      ],
       "call_count": 121,
       "examples": [
         {
@@ -18582,7 +18785,8 @@
           "entry": 3,
           "instruction": 205
         }
-      ]
+      ],
+      "notes": "The category mapping is 0 for IDs 1-16, 1 for 142-157, 2 for 158-255, 3 for 17-80, 4 for 81-102, 5 for 103-118, 6 for 119-134, and -1 otherwise. func_001CCC48 and func_001CCF78 use the same ranges to select distinct item lookup tables. All 121 JP calls pass a literal item ID and immediately store the result in local 25; 89 first consume it as a switch selector for item-specific text."
     },
     {
       "id": 645,
@@ -20348,31 +20552,37 @@
       "id": 738,
       "handler_address": "0x001D2308",
       "handler_symbol": "func_001D2308",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "enable_party_color_override",
+      "name_confidence": "high",
       "stack": {
         "inputs": 1,
         "outputs": 0,
         "net": -1,
         "confidence": "high",
-        "evidence": "machine-code analysis found a direct Script stackTop decrement of 1"
+        "evidence": "func_001D2308 consumes one value and calls func_0013DEE8 with that same value for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, the player and two party-member slots"
       },
-      "arguments": [],
+      "arguments": [
+        {
+          "name": "use_alpha_128",
+          "type": "s32"
+        }
+      ],
       "call_count": 0,
-      "examples": []
+      "examples": [],
+      "notes": "Party-wide counterpart of opcode 141. It has no observed JP corpus calls."
     },
     {
       "id": 739,
       "handler_address": "0x001D23D8",
       "handler_symbol": "func_001D23D8",
-      "name": null,
-      "name_confidence": "unknown",
+      "name": "disable_party_color_override",
+      "name_confidence": "high",
       "stack": {
-        "inputs": null,
-        "outputs": null,
-        "net": null,
-        "confidence": "unknown",
-        "evidence": null
+        "inputs": 0,
+        "outputs": 0,
+        "net": 0,
+        "confidence": "high",
+        "evidence": "func_001D23D8 does not access the Script value stack and calls func_0013DF48 for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, clearing the RGBA override for the whole party"
       },
       "arguments": [],
       "call_count": 6,
@@ -20401,7 +20611,8 @@
           "entry": 11,
           "instruction": 169
         }
-      ]
+      ],
+      "notes": "Party-wide counterpart of opcode 142. It occurs six times across the corpus."
     },
     {
       "id": 740,
