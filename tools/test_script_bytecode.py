@@ -133,6 +133,7 @@ class ScriptBytecodeTests(unittest.TestCase):
         result = analyze_stack(blocks, {})
 
         self.assertEqual(result["resolved_entries"], 1)
+        self.assertEqual(result["unresolved_entries"], 0)
         self.assertEqual(result["issues"], [])
 
     def test_command_annotation_shows_symbolic_argument(self) -> None:

@@ -598,7 +598,9 @@ def analyze_stack(blocks: Iterable[ScriptBlock], commands: dict[int, CommandMeta
                         )
                 base_index += len(entry)
     return {
-        **dict(summary),
+        "entries": summary["entries"],
+        "resolved_entries": summary["resolved_entries"],
+        "unresolved_entries": summary["unresolved_entries"],
         "issues": issues,
         "unknown_commands": [
             {"id": command_id, "calls": count}
