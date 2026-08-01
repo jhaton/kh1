@@ -409,6 +409,16 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001CF860 passes the top stack value to Fade_StartOverlayIn and decrements Script stackTop"
     },
+    "32": {
+      "name": "reset_display_and_sound_modes",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CF940 takes no Script context and does not access the value stack",
+      "notes": "func_001CF940 resets display-mode selector D_002B834C to zero, calls func_001ED878(0) to clear the sound-RPC suppression mask D_003DE5B8, and calls func_0023F748 to clear auxiliary mode flag D_0064C8A8. The renderer func_00105E10 uses display modes 1 and 4 for the transformed screen-texture path, while mode 0 follows the ordinary path. The JP corpus contains nine calls across five archives; two follow command 31 after a 10-tick wait through command 8, and the remaining seven occur in independent display-state reset sequences."
+    },
     "34": {
       "inputs": 1,
       "outputs": 0,
@@ -602,6 +612,36 @@
       "stack_evidence": "func_001CF728 queues operation type 16 without accessing the Script value stack; the object-operation dispatcher sets the motion-disable flag 0x200000000 in the selected object's flags at +0x440",
       "notes": "Operation type 16 maps to the embedded MOTION_OFF name. It sets the same disable flag that type 15 clears; 93 JP calls immediately follow command 338 disable_script_object_push."
     },
+    "60": {
+      "name": "transition_to_room_selection",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "room_selection_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CFBC0 decrements Script stackTop by one and passes the consumed value to func_00112880",
+      "notes": "func_00112880 uses the argument to select a 0x40-byte entry from D_002B92F0, records the selection in D_002B92F8, copies the entry's first word into the current room index D_002B8680, resolves the entrance index for that room in the current world, and schedules the world transition through func_001127E0. func_001CFBC0 also sets the Script transition-state flag at D_003854E0+0x3070 and returns state 10. The JP corpus contains 30 calls across 10 archives; every argument is a direct literal and every call's preceding Script command is 514 disable_event_camera."
+    },
+    "62": {
+      "name": "enable_map_group",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "group_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CFD58 consumes one group ID and passes it to func_00107FB8, which sets bit 1 << group_id in D_002B91E8",
+      "notes": "D_002B91E8 is initialized from the current room's default group mask. func_00107338 intersects it with each map record's group mask, and func_00107360 skips disabled records before performing map-bounds visibility tests. All 31 JP calls use literal group IDs from 1 through 18. Twelve ew31 calls interleave command 62 with command 63 disable_map_group to select alternating groups; command 62 is the exact inverse operation."
+    },
     "63": {
       "name": "disable_map_group",
       "name_confidence": "high",
@@ -725,6 +765,16 @@
       "stack_evidence": "func_001CDF28 consumes a window ID and preset index and stores it at window descriptor +0x0E; func_0010BB50 maps that preset through D_002B2D18 to the closing countdown consumed by func_0010B810",
       "notes": "Known preset indices 0 through 3 select closing countdowns of 0, 4, 8, and 20 ticks."
     },
+    "85": {
+      "name": "hide_cinematic_bars_slowly",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D0A08 takes no Script context and does not access the value stack",
+      "notes": "func_001D0A08 starts func_00104310 with a fixed duration argument of 16 and clears persistent event-state bit 0x1. func_00104310 schedules func_00104290, which increases the cinematic-bar transition value until it reaches 32, then disables the GS packet containing the black full-width sprites. This is the slower counterpart of command 140 hide_cinematic_bars, which passes duration argument 1 to the same transition routine. The JP corpus contains eight calls across seven archives; seven calls share their script entry with command 139 show_cinematic_bars, two share an entry with command 84's inverse transition, and every call occurs during event or cinematic cleanup."
+    },
     "87": {
       "name": "toggle_selected_object_motion_pause",
       "name_confidence": "high",
@@ -813,6 +863,15 @@
       "stack_evidence": "func_001D1EE0 increments Script stackTop and pushes the current world index from D_002B8678",
       "notes": "D_002B8678 indexes the 21-entry world abbreviation table used to build world-data and room-archive filenames. func_00112848 updates it as the first component of a world/room/entrance transition. The JP corpus contains 88 calls; every result is immediately stored, and 31 calls are followed by commands 128 and 129 to snapshot all three location components."
     },
+    "128": {
+      "name": "get_current_room_index",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D1F08 increments Script stackTop and pushes the current room index from D_002B8680",
+      "notes": "D_002B8680 is the second component of the world/room/entrance tuple written by func_00112848. worldfile_getNames adds one to it when constructing the two-digit room archive filename, while func_00142290 packs it between the world and entrance indices in a location identifier. The JP corpus contains 41 calls across 13 archives; every result is immediately stored, 31 calls follow command 127 get_current_world_index, and 32 are followed by command 129 get_current_entrance_index."
+    },
     "129": {
       "name": "get_current_entrance_index",
       "name_confidence": "high",
@@ -829,7 +888,17 @@
       "outputs": 0,
       "stack_confidence": "high",
       "stack_evidence": "func_001D2248 takes no Script context and does not access the value stack",
-      "notes": "func_001D2248 starts func_00104200 with a fixed two-tick transition and sets persistent event-state bit 0x1. The transition enables a GS packet containing black full-width sprites across the top and bottom of the screen, then func_00104188 fades them into view by changing their shared RGBAQ alpha. Command 140 runs the inverse transition and clears the state bit. The JP corpus contains 16 calls at cinematic setup points; 10 share an entry with a later command 140."
+      "notes": "func_001D2248 starts func_00104200 with a fixed two-tick transition and sets persistent event-state bit 0x1. The transition enables a GS packet containing black full-width sprites across the top and bottom of the screen, then func_00104188 fades them into view by changing their shared RGBAQ alpha. Command 140 runs the inverse transition and clears the state bit. The JP corpus contains 16 calls at cinematic setup points; nine are followed by command 140 in the same script entry."
+    },
+    "140": {
+      "name": "hide_cinematic_bars",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D2280 takes no Script context and does not access the value stack",
+      "notes": "func_001D2280 starts func_00104310 with a fixed two-tick transition and clears persistent event-state bit 0x1. func_00104310 schedules func_00104290, which increases the cinematic-bar transition value until it reaches the configured limit, then disables the GS packet that draws the black full-width sprites. This is the inverse of command 139 show_cinematic_bars. The JP corpus contains 11 calls across six archives; nine follow command 139 in the same script entry."
     },
     "141": {
       "name": "enable_selected_object_color_override",
@@ -891,6 +960,35 @@
       "stack_evidence": "func_001E0330 takes no Script context and does not access or change the Script value stack",
       "notes": "func_001E0330 queues state 1 on the event-effect task list. func_001DE7C0 dispatches state 1 to func_001776E8, which visits all 64 slots in the D_0035C010 event-effect manager and immediately frees every active PPP effect through func_00181200. The same subsystem loads resources from the eveffect/ directory. The JP corpus contains 17 calls across four archives; all occur in block 50 event sequences between completed event phases and newly started script threads."
     },
+    "173": {
+      "name": "get_pressed_input_mask",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D2F38 increments Script stackTop and pushes D_002C2108",
+      "notes": "D_002C2108 is offset 0x08 in the synthesized controller state at D_002C2100. func_0011F388 clears that field each update and writes (previous_mask XOR current_mask) AND current_mask, so it contains only abstract input actions newly pressed during the current update. func_0011F478 builds the abstract mask from the physical controller buttons through the 30-entry mapping table D_002C1EE0. The JP corpus contains 11 calls across three archives: the four pc06/pc12 calls poll action bit 0x1 after playing a sound, while seven copies of an lm03 entry test action bit 0x2."
+    },
+    "179": {
+      "name": "configure_conversation_camera_and_text_windows",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "first_window_id",
+          "type": "s32"
+        },
+        {
+          "name": "second_window_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CE1A0 reads two text-window IDs from the Script value stack and decrements stackTop by two on every path",
+      "notes": "When the selected object at Script offset 0x04 exists, func_001CE1A0 passes the player and selected-object positions to func_0017FB88. That routine frames their midpoint, evaluates four camera candidates with collision checks, activates a usable candidate, and returns its index or fallback index 4. func_001CE1A0 then applies the corresponding preset to the two D_00623C30 text-window templates: it sets their screen offsets, pointer styles, perimeter positions, pointer angles, and scales so the paired windows match the chosen view. A fallback result immediately calls func_0017FED8 to cancel the temporary camera; successful setups remain active until command 180 calls the same cleanup routine. The JP corpus contains five calls across al01.ard and pc06.ard. Every call uses a literal window pair, either 0/1 or 3/2, and every script entry later calls command 180."
+    },
     "183": {
       "inputs": 1,
       "outputs": 0,
@@ -922,6 +1020,16 @@
       ],
       "stack_confidence": "high",
       "stack_evidence": "func_001D4540 consumes X, Y, Z, and duration, converts the coordinates to a vector, and passes the script-bound object, target vector, and doubled duration to func_0014FC10; that routine stores the look target and initializes the object's facing interpolation"
+    },
+    "233": {
+      "name": "stop_timer_and_get_frames",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D4CC0 increments Script stackTop and pushes the frame count returned by func_00111C08",
+      "notes": "func_00111C08 sets timer task state D_004D29AC to 2 and returns the live frame count D_002B916C. Both timer update callbacks func_00111920 and func_00111A70 return task status 4 in state 2, terminating either count-up or count-down mode. The JP corpus contains twelve calls across tz04.ard and tz05.ard; every result is immediately stored, usually in local 8 during pause-menu cleanup, while two completion paths store it in scenario variable 2608. Eight cleanup calls immediately follow command 232, which resumes the timer before taking the final frame count."
     },
     "243": {
       "name": "send_object_message",
@@ -1107,6 +1215,16 @@
       "stack_evidence": "func_001D6020 does not access or change the Script value stack",
       "notes": "func_001D6020 clears Script action-state flags 0x1, 0x40, and 0x200, then queues object operation type 0x12 for the object ID stored at Script offset 0. Type 0x12 maps to the embedded STOP_MOVE name; its dispatcher calls func_00133880, which clears the object's linked movement-operation list at +0x440. The JP corpus contains 109 calls; 40 begin an entry, and common following commands wait, show or reposition the object, or set its facing angle."
     },
+    "305": {
+      "name": "get_pause_menu_selection",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D6450 increments Script stackTop and pushes ScriptRuntime field 0x3150",
+      "notes": "ScriptRuntime offset 0x3150 receives the selected index from func_001DDFA0. That routine is called when world-menu mode 3 finishes, stores the index produced by the menu selection reader func_001FD8D8, finds the owning Script, and schedules its entry 8. Mode 3 is enabled by command 238 through world-state flag 0x8 and disabled by command 239. The JP corpus contains four calls across tz04.ard and tz05.ard, all as the first instruction of entry 8; each result is immediately stored in local 1 and switched over values 0, 1, and 2. Value 0 ends the entry, while values 1 and 2 perform minigame cleanup and request distinct room-selection transitions."
+    },
     "306": {
       "inputs": 3,
       "outputs": 0,
@@ -1184,6 +1302,16 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D6AC0 does not access or change the Script value stack",
       "notes": "func_001D6AC0 queues object operation type 0x22 for the object ID stored at Script offset 0. Type 0x22 maps to the embedded TARGET_OFF name, and its dispatcher sets the targeting-disable flag 0x200. The JP corpus contains 326 calls; 171 immediately follow command 26 disable_selected_object_collision."
+    },
+    "322": {
+      "name": "get_selected_object_motion_id",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D6B50 increments Script stackTop and, when the selected object pointer at Script offset 0x04 is non-null, pushes the object's motion ID from offset 0x164",
+      "notes": "func_00130788 copies the low 16-bit motion request at object offset 0x17C into offset 0x164, and func_00130098 maps that motion ID through the object's motion table before animation setup; offsets 0x168 and 0x16C hold the resulting animation ID and frame. A null selected-object pointer leaves the newly exposed stack slot unchanged. All six JP calls are copies of the same pc06.ard entry structure and immediately store the result in scenario variable 2572."
     },
     "335": {
       "name": "enable_script_object_damage",
@@ -1382,6 +1510,26 @@
       "stack_evidence": "func_001D6B88 resolves the top object ID with func_001EAB00 and replaces it with object offset 0x164",
       "notes": "func_00130788 copies the low 16-bit motion request at object offset 0x17C into offset 0x164, then func_00130098 maps that motion ID through the object's motion table before animation setup; the adjacent offsets 0x168 and 0x16C hold the resulting animation ID and frame. A missing object leaves the input value unchanged. All 47 JP calls pass direct object IDs 1 or 2, immediately store the result, and compare it against motion IDs or ranges."
     },
+    "409": {
+      "name": "finish_event_audio",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001EA270 reads Script flags at offset 0x328 but does not access or change Script stackTop",
+      "notes": "func_001EA270 waits until func_0011E168(0) finishes clearing the active event-audio slots and func_0011E190(-1, -1) finishes releasing the tracked event sounds. It then clears global audio-load guard bit 0x40000, calls func_00155D60 to unload sound bank -6 and reload the registered active-object sound banks, sets Script completion flag 0x2000, and returns state 6. The related command 384 loads files named eventse/<world>_<event>.dat. The JP corpus contains 21 calls across eight archives; 11 have command 384 earlier in the same script entry, and the calls occur at transitions from cinematic sequences back to ordinary event or gameplay setup."
+    },
+    "415": {
+      "name": "stop_background_music",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9C00 takes no Script context and does not access the value stack",
+      "notes": "func_001E9C00 first calls func_0011E340, which sets D_002BD8E0 and prevents the regular music-state update func_0011E360 from starting a replacement track. It then calls func_0011C608 for music channels 0 and 1; that wrapper submits sound RPC operation 13, the same channel-stop operation used before loading replacement music. The JP corpus contains 13 calls across five archives, predominantly at cinematic entry points; seven calls are the first instruction of an entry, and two are immediately preceded by a 40-tick music fade through command 427."
+    },
     "438": {
       "name": "is_player_in_default_action_state",
       "name_confidence": "high",
@@ -1412,6 +1560,21 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D8D38 increments Script stackTop and pushes D_00388924",
       "notes": "func_001C6620 writes the dispatched message code to D_00388924 immediately before starting the recipient object's script entry 9. All 128 JP calls occur in entry 9 and store the returned value."
+    },
+    "457": {
+      "name": "get_remaining_spawn_group_object_count",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "group_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8D60 replaces the top spawn-group ID with the result of func_0014E710",
+      "notes": "func_0014E710 iterates scene spawn records through func_00131F58, selects records whose group field at offset 0x58 equals the argument, and counts records not marked complete. A registered object counts while its completion flag at object offset 0x370 is clear; an absent object counts unless func_00142478 reports persistent state 1 for its object ID. The same group field selects bits in the spawn-group enable mask D_00553BEC. The JP corpus contains 25 calls across al02.ard, ew22.ard, and ew23.ard; every result is immediately stored, and the retained values drive zero/nonzero battle-progress branches. Calls use group IDs 1 through 5, and the nine variable-ID calls in ew23.ard first enable the same group through command 361."
     },
     "472": {
       "name": "get_damage_source_object_id",
@@ -1468,6 +1631,43 @@
       "stack_evidence": "func_001D2580 replaces the top restriction mask with the boolean result of func_00125BB8",
       "notes": "func_00125BB8 returns false when controller mode D_002DF6C0 is 3, global flags 0x12000 are set, or the player-control-disable bit 0x2 in D_002DF6B0 is set. Mask bit 0 adds player-validity and contact-orientation checks, bit 1 rejects player states 3, 7, and 8, and bit 2 requires player field 0x70 to be zero. All 27 JP calls pass mask 0, immediately store the result, and consume it as a boolean gate."
     },
+    "539": {
+      "name": "enable_animated_screen_filter",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "red_level_percent",
+          "type": "s32"
+        },
+        {
+          "name": "green_level_percent",
+          "type": "s32"
+        },
+        {
+          "name": "blue_level_percent",
+          "type": "s32"
+        },
+        {
+          "name": "color_cycle_speed_percent",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DAFC8 consumes four values from Script stackTop, converts each integer percentage to a float by dividing by 100, and passes the four results to func_00103158",
+      "notes": "func_00103158 stores the three color levels and cycle-speed value for func_00103188, then func_00103718 enables its per-frame renderer. The renderer draws 16 horizontal GS strips with cyclically shifted sample coordinates and cosine-modulated RGB levels; command 540 disables the renderer. The JP corpus contains 14 calls across pc01.ard, ew22.ard, and ew23.ard. All eight pc01 calls are followed by command 540 in the same entry, and the six End of the World calls have matching command-540 cleanup entries in the same room archive."
+    },
+    "541": {
+      "name": "get_selected_object_state_id",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DB098 increments Script stackTop and pushes the selected object's state field at offset 0x70",
+      "notes": "Object offset 0x70 is the active behavior-state ID. func_0014F8B0 changes this field, invokes the previous state's exit callback and the new state's entry callback through the 32-byte records in D_0034D298, and preserves the previous ID at object offset 0x378. func_0014FA88 registers those state records and their callbacks. Command 541 directly exposes the current ID for the object pointer stored at Script offset 0x04. The JP corpus contains five calls, all in copies of the same lm13.ard entry; each result is immediately stored in local 6 and compared against zero before entering a coordinate-update path."
+    },
     "592": {
       "name": "enable_party_damage",
       "name_confidence": "high",
@@ -1501,6 +1701,25 @@
       "stack_evidence": "func_001DC2A0 replaces the top item ID with a category code selected entirely from fixed item-ID ranges",
       "notes": "The category mapping is 0 for IDs 1-16, 1 for 142-157, 2 for 158-255, 3 for 17-80, 4 for 81-102, 5 for 103-118, 6 for 119-134, and -1 otherwise. func_001CCC48 and func_001CCF78 use the same ranges to select distinct item lookup tables. All 121 JP calls pass a literal item ID and immediately store the result in local 25; 89 first consume it as a switch selector for item-specific text."
     },
+    "660": {
+      "name": "show_timer_display",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "display_preset",
+          "type": "s32"
+        },
+        {
+          "name": "reference_time_frames",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DC5E8 reads the two top Script values as a display-preset selector and reference time, then decrements stackTop by two",
+      "notes": "The handler maps display presets 0 through 11 to fixed timer-layout configurations and passes the selected configuration plus reference_time_frames to func_00111E20. That routine stores the reference time in D_004D29B0, formats it and the live timer D_002B916C into hours, minutes, seconds, and hundredths through func_00111C98, initializes the display, and registers func_00111D98 to refresh it. It does not start or change the live timer. Command 661 calls func_00111F00 to terminate the display. The JP corpus contains ten calls across tz04.ard and tz05.ard; every call uses preset 1 and a reference time loaded from local 6, whose fallback value is 18000 frames."
+    },
     "738": {
       "name": "enable_party_color_override",
       "name_confidence": "high",
@@ -1524,6 +1743,16 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D23D8 does not access the Script value stack and calls func_0013DF48 for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, clearing the RGBA override for the whole party",
       "notes": "Party-wide counterpart of opcode 142. It occurs six times across the corpus."
+    },
+    "742": {
+      "name": "get_game_over_continue_flag",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 1,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DDA78 increments Script stackTop and pushes D_002B29C4",
+      "notes": "D_002B29C4 is set when the game-over transition resumes the current game through main mode 10 rather than loading a save, and is reset during ordinary world transitions and initialization. The room-loading path tests it to restore the active party's saved state through func_0013C668. All nine JP calls are copies of the same lm03.ard entry: each immediately stores the result in local 8, compares it with one, and plays sound 57122 only when the continue flag is set."
     },
     "747": {
       "name": "get_stock_item_count",
