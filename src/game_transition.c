@@ -71,10 +71,10 @@ void func_0011C5A8(void) {
     D_002BD858 = 0;
 }
 
-void func_0011C5B8(void) {
+void PartyMenu_RequestOpen(void) {
     D_002BD85C = 1;
 }
 
-void func_0011C5C8(void) {
+void PartyMenu_ClearOpenRequest(void) {
     D_002BD85C = 0;
 }

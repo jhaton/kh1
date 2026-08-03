@@ -1039,7 +1039,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D54B0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D54E8);
 
 s32 func_001D5528(Script* script) {
-    func_0013C768(script->unk_174[script->unk_174[3] + 4]);
+    Party_AddCharacter(script->unk_174[script->unk_174[3] + 4]);
     script->unk_174[3]--;
     return 2;
 }
@@ -1856,9 +1856,9 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DAD58);
 
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DAE38);
 
-s32 func_001DAF70(void) {
+s32 ScriptCommand_OpenPartySelectionMenu(void) {
     GameState_RefreshAvailableFlags();
-    func_0011C5B8();
+    PartyMenu_RequestOpen();
     return 6;
 }
 

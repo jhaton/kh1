@@ -729,7 +729,7 @@ void func_00113CA8(void) {
     D_002B9668 = 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/world", func_00113CB8);
+INCLUDE_ASM("asm/nonmatchings/world", PauseMenu_SelectMode);
 
 void func_00113E18(void) {
     D_002C1EBC = 1;
@@ -749,8 +749,8 @@ INCLUDE_ASM("asm/nonmatchings/world", func_00113E68);
 
 static const char padding[] = "\0\0"; // TODO likely file split
 
-INCLUDE_ASM("asm/nonmatchings/world", func_00113E98);
-// s32 func_00113E98(void) {
+INCLUDE_ASM("asm/nonmatchings/world", PauseMenu_Update);
+// s32 PauseMenu_Update(void) {
 //     s32 init1;
 //     f32 temp_f20;
 //     s32 init2;
@@ -836,7 +836,7 @@ INCLUDE_ASM("asm/nonmatchings/world", func_00113E98);
 //                 case 5:
 //                     if (D_002BD85C != 0) {
 //                         func_00113E38();
-//                         func_0011C5C8();
+//                         PartyMenu_ClearOpenRequest();
 //                     }
 //                     break;
 //                 case 3:
@@ -886,7 +886,7 @@ INCLUDE_ASM("asm/nonmatchings/world", func_00113E98);
 //                     case 5:
 //                         func_00113E68();
 //                         func_00157B90();
-//                         func_002279D8(1);
+//                         PartyMenu_Open(1);
 //                         break;
 //                 }
 //                 D_004D2A70 = 4;

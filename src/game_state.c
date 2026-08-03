@@ -137,27 +137,27 @@ void func_001116C8(void) {
 }
 
 void GameState_RefreshAvailableFlags(void) {
-    s32 index = func_0013C2A8(3);
+    s32 index = Party_FindCharacterSlot(3);
     if (index != -1) {
         D_002B90B0->availableFlags |= 8;
     }
-    index = func_0013C2A8(5);
+    index = Party_FindCharacterSlot(5);
     if (index != -1) {
         D_002B90B0->availableFlags |= 0x20;
     }
-    index = func_0013C2A8(6);
+    index = Party_FindCharacterSlot(6);
     if (index != -1) {
         D_002B90B0->availableFlags |= 0x40;
     }
-    index = func_0013C2A8(7);
+    index = Party_FindCharacterSlot(7);
     if (index != -1) {
         D_002B90B0->availableFlags |= 0x80;
     }
-    index = func_0013C2A8(8);
+    index = Party_FindCharacterSlot(8);
     if (index != -1) {
         D_002B90B0->availableFlags |= 0x100;
     }
-    index = func_0013C2A8(9);
+    index = Party_FindCharacterSlot(9);
     if (index != -1) {
         D_002B90B0->availableFlags |= 0x200;
     }
@@ -167,32 +167,32 @@ void GameState_ApplyAvailableSelection(void) {
   switch (D_002B8678) {
   case 5:
     if (D_002B90B0->availableFlags & 8) {
-      func_0013C768(3);
+      Party_AddCharacter(3);
     }
     break;
   case 8:
     if (D_002B90B0->availableFlags & 0x20) {
-      func_0013C768(5);
+      Party_AddCharacter(5);
     }
     break;
   case 9:
     if (D_002B90B0->availableFlags & 0x40) {
-      func_0013C768(6);
+      Party_AddCharacter(6);
     }
     break;
   case 10:
     if (D_002B90B0->availableFlags & 0x80) {
-      func_0013C768(7);
+      Party_AddCharacter(7);
     }
     break;
   case 0xd:
     if (D_002B90B0->availableFlags & 0x100) {
-      func_0013C768(8);
+      Party_AddCharacter(8);
     }
     break;
   case 0xf:
     if (D_002B90B0->availableFlags & 0x200) {
-      func_0013C768(9);
+      Party_AddCharacter(9);
     }
   }
 }
