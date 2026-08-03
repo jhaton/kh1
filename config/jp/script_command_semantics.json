@@ -427,6 +427,16 @@
       "stack_evidence": "func_001CF940 takes no Script context and does not access the value stack",
       "notes": "func_001CF940 resets display-mode selector D_002B834C to zero, calls func_001ED878(0) to clear the sound-RPC suppression mask D_003DE5B8, and calls func_0023F748 to clear auxiliary mode flag D_0064C8A8. The renderer func_00105E10 uses display modes 1 and 4 for the transformed screen-texture path, while mode 0 follows the ordinary path. The JP corpus contains nine calls across five archives; two follow command 31 after a 10-tick wait through command 8, and the remaining seven occur in independent display-state reset sequences."
     },
+    "33": {
+      "name": "wait_for_text_window_input",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CDFC8 takes no values from Script stackTop and returns pending state 4 while a non-system text window remains active and Script flag bit 0x10 is clear",
+      "notes": "func_001CDFC8 scans the four active text-window slots, excluding window ID 7, and returns state 2 immediately when no applicable window is active or event-state bit 0x1 in D_00375BC0 is set. All 63 JP calls occur after opening and populating a text window."
+    },
     "34": {
       "name": "load_event_camera_preset",
       "name_confidence": "high",
@@ -540,6 +550,21 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001C9B88 converts the top stack value to float, stores it in D_003C0E84, rebuilds the camera state through func_001C8170, and decrements Script stackTop",
       "notes": "func_001C8170 passes D_003C0E84 to func_00125010; that routine stores the field of view in degrees and computes the projection scale as 256 / tan(fov / 2). All 121 JP calls pass a direct literal: 26, 41, or 53 degrees."
+    },
+    "48": {
+      "name": "spawn_event_effect",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF1B8 consumes one effect ID, stores it in a newly queued func_001DE7C0 effect task, and decrements Script stackTop by one",
+      "notes": "The task is initialized with operation state 0, whose func_001DE7C0 path spawns the effect through func_00177558. Command 186 delete_event_effect uses state 2 and the matching event-effect pool wrapper func_001775E8. The JP corpus contains 34 calls with effect IDs 0 and 1."
     },
     "49": {
       "name": "start_camera_target_position_transition",
@@ -689,10 +714,27 @@
       "notes": "The embedded object-operation name table labels type 17 MOTTION_BLEND. func_001CF970 targets the selected object at Script offset 0 and supplies the encoded animation ID and blend duration to that operation. Command 57 immediately before it queues type 16 MOTION_OFF, while command 95 commonly precedes it after restoring the object's default motion resource. The JP corpus contains 296 calls."
     },
     "59": {
+      "name": "transition_to_world_room_event_default_spawn",
+      "name_confidence": "high",
       "inputs": 3,
       "outputs": 0,
+      "arguments": [
+        {
+          "name": "world_index",
+          "type": "s32"
+        },
+        {
+          "name": "room_index",
+          "type": "s32"
+        },
+        {
+          "name": "event_index",
+          "type": "s32"
+        }
+      ],
       "stack_confidence": "high",
-      "stack_evidence": "func_001CFA08 reads the top three Script values, decrements stackTop by three, and passes the values to func_00112810"
+      "stack_evidence": "func_001CFA08 consumes world, room, and event indices in stack order, passes them to func_00112810 with spawn-point index -1, and decrements Script stackTop by three",
+      "notes": "func_00112810 stores the requested world, room, event, and fixed default spawn-point value, resets world-transition state, and schedules the transition through func_001127E0. This is the three-argument counterpart of command 612 transition_to_world_room_event. The sole JP call passes (3, 12, 11)."
     },
     "60": {
       "name": "transition_to_room_selection",
@@ -770,6 +812,71 @@
       ],
       "stack_confidence": "high",
       "stack_evidence": "func_001D0078 consumes an angle and duration, converts the angle to a horizontal unit vector, and queues operation type 4; the object-operation dispatcher turns the selected object toward that vector over the encoded duration using the shortest angular path"
+    },
+    "73": {
+      "name": "set_interpolation_value_type",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "value_id",
+          "type": "s32"
+        },
+        {
+          "name": "interpolation_type",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D0548 consumes a value ID and interpolation type, resolves D_0038858C[value_id], stores the type at offset 0 of that Interpolation value, and decrements Script stackTop by two",
+      "notes": "The only JP call sets value 0 to type 1 immediately after command 155 allocates that value."
+    },
+    "76": {
+      "name": "transition_interpolation_value_color",
+      "name_confidence": "high",
+      "inputs": 5,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "value_id",
+          "type": "s32"
+        },
+        {
+          "name": "red",
+          "type": "s32"
+        },
+        {
+          "name": "green",
+          "type": "s32"
+        },
+        {
+          "name": "blue",
+          "type": "s32"
+        },
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D06F0 consumes a value ID, RGB components, and duration; resolves D_0038858C[value_id], normalizes each component by 255, derives per-tick deltas from the value's current color, and decrements Script stackTop by five",
+      "notes": "A zero duration writes the normalized target color directly; otherwise the handler enables the asynchronous color transition. The two JP calls transition value 0 to (136, 136, 136) and then back to (255, 255, 255), both over duration 2."
+    },
+    "79": {
+      "name": "clear_interpolation_value",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "value_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D0918 consumes one value ID, resolves D_0038858C[value_id], passes that value to Interpolation_ClearValue, and decrements Script stackTop by one",
+      "notes": "The sole JP call clears value 0 after its color has been restored by command 76."
     },
     "80": {
       "name": "set_text_window_pointer_style",
@@ -899,6 +1006,16 @@
       "stack_evidence": "func_001D0B50 does not access or change the Script value stack",
       "notes": "func_001D0B50 queues object operation type 20 for the selected object. The embedded operation-name table labels type 20 MOTION_PAUSE, and its dispatcher toggles bit 0x10 at object offset 0x160; func_00130E18 skips the normal position and motion update path while that bit is set. The JP corpus contains 19 calls: 18 in pc06.ard and one in al02.ard."
     },
+    "89": {
+      "name": "wait_for_text_window_choice",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CC930 takes no Script context and does not access Script stackTop; it returns pending state 4 while text-window choice flag bit 0 is set and state 2 after the bit clears",
+      "notes": "All three JP calls immediately follow command 88, whose callback records a selected text-window choice and clears the pending flag."
+    },
     "90": {
       "name": "transition_selected_object_color",
       "name_confidence": "high",
@@ -939,6 +1056,25 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D0D98 does not access the Script value stack and queues object operation type 24 for the selected object",
       "notes": "The embedded operation-name table labels type 24 COLOR_DEFAULT. The object-operation dispatcher clears flag 0x0010000000000000 at selected-object offset 0x370; command 90's type 23 COLOR_CHANGE path sets the same flag after installing transition RGBA values. All 49 JP calls follow command 90 within three instructions: 41 immediately and eight after an intervening wait_ticks call."
+    },
+    "92": {
+      "name": "load_event_resource",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "load_slot",
+          "type": "s32"
+        },
+        {
+          "name": "resource_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D0F10 consumes a load slot and resource ID, selects the slot-specific resource table and completion callback, queues the file into the resource ID's 0x100-byte event buffer, and decrements Script stackTop by two",
+      "notes": "Load slots 1 and 2 allocate through distinct event-resource arenas and set asynchronous-load bits 33 and 34 respectively. Command 93 wait_for_event_resource_load polls those same slot values and bits. The JP corpus contains 68 calls."
     },
     "93": {
       "name": "wait_for_event_resource_load",
@@ -982,6 +1118,44 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D12D0 does not access the Script value stack; when Script flag 0x80 is set, it calls func_00131410 for the selected object and then clears that flag",
       "notes": "func_00131410 restores the selected object's 16-byte motion-resource descriptor at +0x1D0 from the backup at +0x1E0, clears the backup, and clears object flag 0x20. Command 94 establishes that backup and Script flag. All 310 JP calls are immediately followed by a motion-related command: 259 by command 13 set_object_animation, 26 by command 108, 24 by command 58, and one by command 57 enable_selected_object_motion_blending."
+    },
+    "96": {
+      "name": "set_selected_object_part_mask_bits",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "primary_part_index",
+          "type": "s32"
+        },
+        {
+          "name": "secondary_part_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D1328 consumes two 1-based part indices and passes the selected object and both indices to func_00135868, which sets the corresponding bits in the object's part masks at offsets 0x38C and 0x390",
+      "notes": "A nonpositive index leaves its corresponding mask unchanged. All eight JP calls use matching 1-based part indices: seven pass part index 2 for both masks and one additionally passes part index 3."
+    },
+    "97": {
+      "name": "clear_selected_object_part_mask_bits",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "primary_part_index",
+          "type": "s32"
+        },
+        {
+          "name": "secondary_part_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D1380 consumes two 1-based part indices and passes the selected object and both indices to func_001358B0, which clears the corresponding bits in the object's part masks at offsets 0x38C and 0x390",
+      "notes": "This is the exact inverse of command 96. The sole JP call passes 1-based part index 2 for both masks after changing the selected object's animation."
     },
     "98": {
       "name": "wait_for_selected_object_turn",
@@ -1102,6 +1276,16 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D15E0 does not access the Script value stack and queues object operation type 28 for the selected object",
       "notes": "The embedded operation-name table labels type 28 BGHIT_OFF. The object-operation dispatcher sets object flag 0x10; func_00130E18 responds by removing bit 0 from the collision mask supplied to the object's model state. This is the inverse of command 104. The JP corpus contains 358 calls, including 166 immediately followed by command 26 disable_selected_object_collision."
+    },
+    "106": {
+      "name": "wait_for_event_camera",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CADC0 is a leaf handler with no Script stack access; it returns retry state 4 while event-camera-active bit 37 of D_00388550 is set and completion state 2 once the bit clears",
+      "notes": "The event-camera loaders set D_00388550 bit 37 when they start update task func_001C72D0, and func_001CC338 tests the same bit before terminating that task during event-camera cleanup. The JP corpus contains 17 calls across four archives; six immediately follow command 34 load_event_camera_preset."
     },
     "107": {
       "name": "wait_for_text_window",
@@ -1311,6 +1495,21 @@
       "stack_evidence": "func_001E1538 consumes a sound index and two volume percentages, resolves the indexed entry from the active event-sound resource, and divides both volume values by 100 before starting playback",
       "notes": "When event sound is enabled, func_001E1538 resolves the indexed sound data through D_003D56A8 and invokes the sound playback wrapper with independently scaled left and right levels. It then advances the Script after a fixed four-tick wait. All 91 JP calls pass equal left and right levels; 90 pass 100 percent."
     },
+    "125": {
+      "name": "stop_event_sound",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "sound_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E1698 reads and consumes one stack value, resolves it through the same active event-sound resource table used by command 124, and passes the resolved sound-data pointer to func_001EE768",
+      "notes": "func_001EE768 issues sound RPC operation 19 and is also called by the sound-object teardown path at func_00157AD8. A sound index of -1 is forwarded directly as -1; other values select an entry from D_003D56A8. The sole JP corpus call passes sound index 4 during event cleanup, after restoring player control and party UI."
+    },
     "127": {
       "name": "get_current_world_index",
       "name_confidence": "high",
@@ -1337,6 +1536,36 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D1F30 increments Script stackTop and pushes the current entrance index from D_002B8684",
       "notes": "D_002B8684 is the third component of the world/room/entrance location tuple written by func_00112848; func_00142290 packs it into the low byte of a location identifier after the world and room indices. The JP corpus contains 51 calls, and every result is immediately stored. Thirty-one calls occur in complete command 127/128/129 sequences that snapshot all three location components."
+    },
+    "132": {
+      "name": "show_map_parts",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "map_part_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D1F58 consumes one map-part ID and calls func_001055B8(id, 0), which finds every map record whose byte at offset 0x0B matches the ID and clears its disable bit 0",
+      "notes": "func_001055B8 applies the change to both active map-record tables and func_00105660 uses the same disable bit to suppress records whose room-selection ID does not match the current room. Command 133 sets the bit and is the exact inverse. The JP corpus contains 25 calls across ew31.ard, he03.ard, and lm03.ard, using literal IDs 100 through 181."
+    },
+    "133": {
+      "name": "hide_map_parts",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "map_part_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D1FA0 consumes one map-part ID and calls func_001055B8(id, 1), which finds every map record whose byte at offset 0x0B matches the ID and sets its disable bit 0",
+      "notes": "func_001055B8 applies the change to both active map-record tables; command 132 clears the same bit and is the exact inverse. The JP corpus contains 63 calls across nine archives, using literal IDs 100 through 201. Six ew31 calls hide part 180 and immediately show part 181, while he03 and lm03 use paired show/hide sequences for IDs 101 through 104."
     },
     "134": {
       "name": "set_world_room_state",
@@ -1404,6 +1633,25 @@
       "stack_evidence": "func_001D23A8 does not access the Script value stack; when a selected object exists, it calls func_0013DF48, which clears object flag 0x4000 and thereby disables the RGBA override consumed by the render path",
       "notes": "This is the zero-argument inverse of opcode 141 and occurs 333 times across the corpus."
     },
+    "148": {
+      "name": "load_object_yaw_relative_event_camera_preset",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "camera_preset_index",
+          "type": "s32"
+        },
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001C8E68 consumes the lower camera-preset index and upper object ID, resolves the object through func_001EAB00, loads the indexed event-camera record, and selects reference mode 2",
+      "notes": "The handler shares the event-camera record loader with command 34, but stores the resolved object's transform pointer and selects mode 2. func_001C68A0 implements mode 2 by rotating the preset vectors by the object's yaw at offset 0x3C and adding the object's position, making both camera placement and orientation object-relative. All five JP calls occur in al01.ard and use preset indices 102, 104, 106, 107, or 108 with object IDs 2, 6, or 7."
+    },
     "150": {
       "name": "enable_all_object_control",
       "name_confidence": "high",
@@ -1454,14 +1702,33 @@
       "stack_evidence": "func_001CBC20 consumes an angle, target mode, and distance and decrements Script stackTop by three",
       "notes": "func_001CBC20 converts angle_degrees to radians, derives an orbit basis through func_00178B58, and configures the camera controller at D_003C0D60 with target_mode and twice distance. A zero distance restores the default basis without activating the full orbit setup. The JP corpus contains 136 calls; common triples include (180, 0, 15), (265, 2, 30), and (285, 2, 30)."
     },
+    "156": {
+      "name": "transition_camera_orbit_over_duration",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "target_mode",
+          "type": "s32"
+        },
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CBE90 reads target_mode below duration, configures the orbit-transition fields in D_003C0D60, and decrements Script stackTop by two",
+      "notes": "func_001CBE90 snapshots the current orbit basis through func_00178B58, records the requested target mode in the camera controller, initializes its transition endpoints and flags, and stores twice duration in the controller's timing fields. The sole JP call passes target mode 0 and duration 30, then waits 30 ticks."
+    },
     "157": {
-      "name": "move_selected_object_to_position_over_duration",
+      "name": "move_selected_object_to_position_by_step_distance",
       "name_confidence": "high",
       "inputs": 4,
       "outputs": 0,
       "arguments": [
         {
-          "name": "duration",
+          "name": "step_distance",
           "type": "s32"
         },
         {
@@ -1478,8 +1745,8 @@
         }
       ],
       "stack_confidence": "high",
-      "stack_evidence": "func_001D2CA0 consumes duration, X, Y, and Z, snapshots the selected object's current position, stores the target coordinates in Script interpolation state, and decrements Script stackTop by four",
-      "notes": "func_001D2CA0 sets Script update flag 0x40. While set, func_001D2AF0 advances the selected object from its captured position toward the requested coordinates, applies each intermediate position through func_001C5DE0, and clears the task when the target is reached. The JP corpus contains 85 calls."
+      "stack_evidence": "func_001D2CA0 consumes step distance, X, Y, and Z, snapshots the selected object's current position, stores the target coordinates and per-update step distance in Script movement state, and decrements Script stackTop by four",
+      "notes": "func_001D2CA0 sets Script update flag 0x40. While set, func_001D2AF0 advances the selected object toward the requested coordinates by the supplied distance per update, applies each intermediate position through func_001C5DE0, and clears the task when the target is reached. Unlike command 280 move_selected_object_to_position_at_speed, this command does not divide its first argument by the 50 Hz update rate. The JP corpus contains 85 calls."
     },
     "162": {
       "name": "clear_all_event_effects",
@@ -1504,6 +1771,35 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001E03D8 consumes one effect ID and queues event-effect dispatcher state 3",
       "notes": "Dispatcher state 3 passes the current world's effect-resource pointers D_002979E8 and D_002979EC plus effect_id to func_00177590, waits for the D_0035D420 effect-manager entry to become ready, and binds its transform to the Script-selected object when present. The resource pointers are populated from sections of the loaded world archive. The JP corpus contains 238 calls; command 187 delete_map_effect consumes matching IDs in the same manager."
+    },
+    "165": {
+      "name": "queue_event_effect_package_load",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "path_prefix_index",
+          "type": "s32"
+        },
+        {
+          "name": "package_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DEE78 consumes a path-prefix index and package ID, formats the paired event-effect package paths, queues the asynchronous load, and decrements Script stackTop by two",
+      "notes": "func_001DEE78 builds paired eveffect/<table-prefix>_%03d.dpp and .dpx paths, queues the DPP load into memory slot 0x32, records package_id, and sets asynchronous load bit 44. It is the memory-slot-0x32 counterpart of command 734, which performs the same load into slot 0x3C. The JP corpus contains two calls."
+    },
+    "166": {
+      "name": "wait_for_event_effect_package_load",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF198 takes no Script context and returns scheduler state 4 while asynchronous event-effect package load bit 44 is set, or state 2 after it clears",
+      "notes": "The completion callback func_001DEDF8 clears the bit set by commands 165 and 734 after the paired event-effect package load finishes; func_001DEE48 queues the second file and installs func_001DEDF8 as its completion callback. The JP corpus contains 19 polling calls."
     },
     "167": {
       "name": "set_map_effect_position",
@@ -1586,6 +1882,31 @@
       "stack_evidence": "func_001CE738 takes no Script context and calls func_0017FED8 without accessing the value stack",
       "notes": "func_0017FED8 clears the temporary conversation-camera active flag and, when the camera object exists and is not already terminating, starts its 30-tick return transition through func_001783D0. This is the cleanup counterpart to command 179 configure_conversation_camera_and_text_windows. The JP corpus contains five calls across al01.ard and pc06.ard."
     },
+    "181": {
+      "name": "preload_object_resources",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D30B0 consumes one object ID, resolves its object resource, initiates any missing asynchronous resource load, and decrements Script stackTop by one",
+      "notes": "func_001D30B0 resolves the encoded object ID through the object resource registry and starts func_001565E0 when that resource is not resident. The JP corpus contains 23 calls using object IDs 131068 through 131079; representative sequences subsequently poll command 182 before spawning the object."
+    },
+    "182": {
+      "name": "wait_for_object_resources",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D3118 takes no stack values and returns scheduler state 4 while the object-resource load flag is set or state 2 when loading is complete",
+      "notes": "func_001D3118 tests bit 45 (0x0000200000000000) in the shared asynchronous-load state at D_003854E0+0x3070. func_001D30B0 sets that bit when command 181 starts an object resource load, and the load-completion path clears it. The 23 JP calls occur as zero-argument polling waits."
+    },
     "183": {
       "name": "spawn_and_select_object",
       "name_confidence": "high",
@@ -1631,6 +1952,75 @@
       "stack_evidence": "func_001E04A8 consumes one effect ID and queues event-effect dispatcher state 5",
       "notes": "Dispatcher state 5 resolves effect_id in the D_0035D420 map-effect manager through func_00177608 and frees the matching PPP effect through func_00177828/func_00181200. This is the deletion counterpart to command 163 spawn_map_effect, which loads effects into the same manager from world-archive resource pointers. The JP corpus contains 208 calls; 17 are followed by command 163 within the next three command calls."
     },
+    "188": {
+      "name": "set_event_effect_position",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        },
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        },
+        {
+          "name": "z",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF490 consumes an effect ID and three coordinates, resolves the ID through func_001775E8, and decrements Script stackTop by four",
+      "notes": "func_001775E8 resolves effect_id in the D_0035C010 event-effect manager. When the entry exists, func_001DF490 converts x, y, and z to floats and stores them at offsets 0x00, 0x04, and 0x08 of the effect's runtime object. This is the event-effect counterpart of command 167 set_map_effect_position. The JP corpus contains 33 calls."
+    },
+    "191": {
+      "name": "stop_sound",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "sound_id",
+          "type": "s32"
+        },
+        {
+          "name": "channel",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9F18 passes the lower sound ID and upper channel to func_0011CF08 and decrements Script stackTop by two",
+      "notes": "func_0011CF08 selects the sound bank from sound_id and forwards the bank, sound ID, and channel to func_0011C680/func_001EE390, the sound RPC operation also used with wildcard values during sound shutdown. The JP corpus contains 13 calls."
+    },
+    "195": {
+      "name": "store_distance_between_objects",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "destination_value",
+          "type": "s32"
+        },
+        {
+          "name": "first_object_id",
+          "type": "s32"
+        },
+        {
+          "name": "second_object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D3750 consumes three values, resolves the latter two as objects, stores their integer Euclidean separation through the work-variable offset recorded by the first value's load, and decrements Script stackTop by three",
+      "notes": "The VM's LOAD_VAR32 operation records its work-variable offset at Script+0x204 while pushing the variable's current value. func_001D3750 uses that recorded offset as the destination, ignores destination_value itself, computes the 3D distance between the two resolved object positions, converts it to an integer, and stores it back to the work-variable bank. All 29 JP calls pass a loaded variable as the first argument."
+    },
     "196": {
       "name": "attach_map_effect_to_object",
       "name_confidence": "high",
@@ -1657,6 +2047,21 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001DFE10 consumes four values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID and half-scaled offset in a persistent update task",
       "notes": "The task callback func_001DE3F8 calls func_001314D0 every update to derive the requested attachment point from the live object and writes that position into the map effect's runtime vector. For two special attachment IDs it also copies the object's RGB override into the effect. The JP corpus contains 75 calls."
+    },
+    "198": {
+      "name": "set_selected_object_proximity_radius_mode_1",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "radius",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D39B8 converts the top value to float, passes it to func_00123350 for the selected object with mode 1, and decrements Script stackTop by one",
+      "notes": "func_00123350 stores radius at offset 0x44 of the selected object's runtime descriptor and stores mode 1 at offset 0x5F. func_0012CBD8 reads the same radius and mode when testing another object's horizontal distance, vertical separation, and facing relationship. This is the mode-1 counterpart of command 199 set_selected_object_proximity_radius_mode_2 and command 625 set_selected_object_proximity_radius, which selects mode 3. The JP corpus contains two calls."
     },
     "199": {
       "name": "set_selected_object_proximity_radius_mode_2",
@@ -1713,6 +2118,161 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D4690 consumes one duration and, when the script-bound object exists, passes twice that value to func_0014FCA8 before decrementing Script stackTop",
       "notes": "func_0014FCA8 is the inverse interpolation path of func_0014FC10 used by command 219 turn_script_object_toward_position. When a turn is active, it negates the current interpolation progress divided by the supplied duration and marks the facing interpolation for update; a nonpositive duration clears the interpolation immediately. The JP corpus contains 297 calls, commonly after command 219 and before disabling or replacing the object's motion."
+    },
+    "201": {
+      "name": "noop",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D3AF8 immediately returns completion state 2 without taking a Script context or accessing the value stack",
+      "notes": "The complete handler consists only of return 2 and has no side effects. Its JP calls occur in al09.ard event-start sequences after event mode and input suppression are enabled."
+    },
+    "209": {
+      "name": "set_object_animation_speed",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "speed_percent",
+          "type": "s32"
+        },
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D40F0 resolves the top object ID, divides the preceding speed value by 100, passes that float to func_00131B40, and decrements Script stackTop by two",
+      "notes": "func_00131B40 stores the scaled value at object offset 0x284. The motion update multiplies its frame advance by that field, establishing it as the animation-speed multiplier. Representative al01.ard calls set object 2 to 90 percent before an animation wait and restore it to 100 percent afterward."
+    },
+    "242": {
+      "name": "set_timer_seconds",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "seconds",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D4D00 passes the top value to func_00111C20 and decrements Script stackTop by one",
+      "notes": "func_00111C20 multiplies seconds by 60 and stores the result in the timer's remaining-frame field D_002B916C. Both JP calls occur in tz04.ard timer setup and pass zero before the timer display and count-up timer are started."
+    },
+    "250": {
+      "name": "wait_for_music_sequence_load",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9818 takes no Script context and does not access the value stack",
+      "notes": "func_001E9818 returns pending state 4 while background-music sequence load bit 51 is set in D_00388550 and completion state 2 after it clears. All five JP calls immediately follow command 566 load_background_music_sequence; the paired wave-bank load is awaited separately by command 406."
+    },
+    "251": {
+      "name": "play_background_music_slot",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "slot",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E90B0 stores the top value minus one as the zero-based music slot, stops the currently active music channel through func_0011C608, starts the selected slot through func_001E9080, and decrements Script stackTop by one",
+      "notes": "func_001E9080 passes the selected zero-based slot to the background-music sequence start wrapper func_0011C5D8. All four JP calls pass slot 1 and occur at event transitions, including after screen fades and immediately before ordinary player control or UI state is restored."
+    },
+    "256": {
+      "name": "load_event_voice_set",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "world_index",
+          "type": "s32"
+        },
+        {
+          "name": "event_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E1420 uses the earlier value to select a six-byte world path prefix, uses the top value as the event number, queues the resulting file load, and decrements Script stackTop by two",
+      "notes": "The handler formats voice/event/<world>_<event>.vset, allocates its destination, and queues an asynchronous load whose completion flag is polled by command 257. Every JP call is immediately followed by command 257; representative calls load world 0 event 106 in al02.ard and world 0 event 13 in al01.ard."
+    },
+    "257": {
+      "name": "wait_for_event_voice_set_load",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E1518 takes no Script context and does not access the value stack",
+      "notes": "func_001E1518 returns pending state 4 while event-voice-set load bit 52 is set in D_00388550 and completion state 2 after it clears. All 18 JP calls immediately follow command 256 load_event_voice_set."
+    },
+    "269": {
+      "name": "add_party_character",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "character_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D5528 passes the top character ID to Party_AddCharacter and decrements Script stackTop by one",
+      "notes": "Party_AddCharacter leaves an already-present ID unchanged; otherwise it writes IDs below 10 into the first empty byte among the four party-roster slots at game-state offsets 0x48E through 0x491. The three JP calls add character IDs 5 or 9 during event cleanup."
+    },
+    "270": {
+      "name": "remove_party_character",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "character_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D5570 passes the top character ID to func_0013C7D0 and decrements Script stackTop by one",
+      "notes": "func_0013C7D0 searches the four party-roster bytes at game-state offsets 0x48E through 0x491, shifts later members left when it finds the requested ID, and fills the final slot with -1. The two JP calls remove character IDs 1 and 2 consecutively in pc01.ard."
+    },
+    "280": {
+      "name": "move_selected_object_to_position_at_speed",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "speed",
+          "type": "s32"
+        },
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        },
+        {
+          "name": "z",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D58F8 consumes speed, X, Y, and Z, captures the selected object's current position, stores speed divided by 50 and the target coordinates in Script movement state, and decrements Script stackTop by four",
+      "notes": "func_001D58F8 sets Script update flag 0x200. While set, func_001D5730 advances the selected object toward the target by the stored distance per update through type-3 SET_POS operations, snaps to the target when the remaining distance is below one step, and clears the flag. Representative pc12.ard calls move to (0, -336, 766) at speeds 60 or 100."
     },
     "203": {
       "name": "get_object_relative_facing_angle",
@@ -1875,10 +2435,14 @@
       "notes": "func_001D5158 adds amount to the stock byte at D_003010F8 + 0x499 + item_id and clamps the result to the inclusive range 0 through 99. Unlike command 253 get_total_item_count, this updates only unequipped stock and does not inspect character item slots. The JP corpus contains 164 calls."
     },
     "279": {
+      "name": "snapshot_active_work_buffers",
+      "name_confidence": "high",
       "inputs": 0,
       "outputs": 0,
+      "arguments": [],
       "stack_confidence": "high",
-      "stack_evidence": "func_001D5708 takes no Script context and does not access or change the value stack"
+      "stack_evidence": "func_001D5708 takes no Script context, calls func_00111198 and func_0022F808, and does not access or change the value stack",
+      "notes": "func_00111198 first copies the current scenario state, camera state, and live party-object positions and facing angles into the active game-state work buffer. func_0022F808 then copies the full 0x16C00-byte active work-buffer region at D_003F2080 to its backup at D_00408C80. The only JP call occurs during pc12.ard event cleanup immediately before player control and the ordinary gameplay UI are restored."
     },
     "281": {
       "name": "get_party_member_character_index",
@@ -2021,6 +2585,21 @@
       "stack_evidence": "func_001D6020 does not access or change the Script value stack",
       "notes": "func_001D6020 clears Script action-state flags 0x1, 0x40, and 0x200, then queues object operation type 0x12 for the object ID stored at Script offset 0. Type 0x12 maps to the embedded STOP_MOVE name; its dispatcher calls func_00133880, which clears the object's linked movement-operation list at +0x440. The JP corpus contains 109 calls; 40 begin an entry, and common following commands wait, show or reposition the object, or set its facing angle."
     },
+    "304": {
+      "name": "set_secondary_render_y_rotation_degrees",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "angle_degrees",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D63E0 reads the top stack value, converts it from degrees to radians, passes it to func_001007D0, and decrements Script stackTop by one",
+      "notes": "func_001007D0 stores the angle in the Y component at offset 0x44 of secondary render transform D_0048DDA0[1]. The per-frame render path passes that transform through sceVu0RotMatrix and submits it as render view 1 when the secondary-view flag is active. The only JP call passes 90 during the al01.ard event sequence, after capture_screen and fade_captured_screen."
+    },
     "305": {
       "name": "get_pause_menu_selection",
       "name_confidence": "high",
@@ -2111,6 +2690,36 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D6778 does not access or change the Script value stack",
       "notes": "func_001D6778 enumerates eligible scene objects through func_00123620 and queues object operations 7 and 9 for each object ID. The embedded operation-name table identifies them as SHADOW_ON and COLISION_ON; their dispatcher clears object-state flags 0x2 and 0x4 respectively. The JP corpus contains 10 calls across al09.ard, al21.ard, and pc01.ard; every call follows command 362 disable_all_spawn_groups, and nine are immediately followed by command 511."
+    },
+    "317": {
+      "name": "fade_black_overlay_out",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D68D8 passes the top stack value to func_001038B0 and decrements Script stackTop by one",
+      "notes": "func_001038B0 schedules func_00103840 with a doubled duration; that worker decreases D_002A2750 from alpha 255 to 0. func_00103928 uses D_002A2750 as the alpha of a black full-screen render packet, so the command removes the black overlay. The JP corpus contains five calls; representative al01.ard, pp10.ard, and pc06.ard calls occur during event cleanup, after or around the primary screen fade."
+    },
+    "318": {
+      "name": "fade_black_overlay_in",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D6920 passes the top stack value to func_001037C8 and decrements Script stackTop by one",
+      "notes": "func_001037C8 schedules func_00103740 with a doubled duration; that worker increases D_002A2750 from alpha 0 to 255. func_00103928 uses D_002A2750 as the alpha of a black full-screen render packet, so the command applies the black overlay. The JP corpus contains five calls; representative al01.ard, pp10.ard, and pc06.ard calls are followed by waits matching the supplied duration before event cleanup continues."
     },
     "319": {
       "name": "despawn_object",
@@ -2239,6 +2848,44 @@
       "stack_evidence": "func_001D6FD0 replaces the top value with func_0013C638(treasure_id), which reads the same persistent bit written by func_0013C5C8",
       "notes": "The result is the truthy bit mask 1 << (treasure_id & 3), or zero when unopened. Object initialization also queries this flag for type-8 treasure objects, while the reward routine indexes the 512-entry D_0034DA40 descriptor table with the same ID. All 167 JP calls use literal treasure IDs from 211 through 472."
     },
+    "350": {
+      "name": "set_party_members",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "party_slot_1_character_id",
+          "type": "s32"
+        },
+        {
+          "name": "party_slot_2_character_id",
+          "type": "s32"
+        },
+        {
+          "name": "party_slot_3_character_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D7300 consumes three character IDs in order and passes them to func_0013C708, which writes the three optional party-roster slots at D_003010F8 + 0x48F through +0x491",
+      "notes": "func_0013C708 accepts character IDs 0 through 9 and writes 0xFF for any other value, including the corpus's -1 empty-slot sentinel. The 21 JP calls configure combinations of character IDs 1, 2, 5, and 9 or clear all three optional slots; the adjacent command 281 reads these roster slots and command 366 counts their valid members."
+    },
+    "352": {
+      "name": "set_game_speed_percent",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "speed_percent",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D76F0 consumes one integer, converts it to float, divides by 100.0, and stores the resulting multiplier in D_002B8348",
+      "notes": "func_001102C0 multiplies the engine's computed update step D_002B8344 by D_002B8348 before applying its upper bound. Three JP calls set 100 percent and one pc01.ard event sets 20 percent."
+    },
     "353": {
       "name": "play_sound",
       "name_confidence": "high",
@@ -2276,6 +2923,40 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D7798 increments Script stackTop and pushes D_003854E0.unk_3174",
       "notes": "func_001C6530 stores its second argument in D_003854E0.unk_3174 beside the source object ID before starting event Script entry 0. Command 357 can override the same event-context field from Script code. All 19 JP calls immediately store the result; 17 pair it with command 355 get_event_source_object_id, including 14 that compare it with message code 50 and the paired encoded source object ID. The remaining two persist the value directly in scenario variables."
+    },
+    "357": {
+      "name": "set_event_source_context",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "source_object_id",
+          "type": "s32"
+        },
+        {
+          "name": "message_code",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D77C0 consumes two values in order and stores them in D_003854E0.unk_3170 and D_003854E0.unk_3174, the fields pushed by commands 355 and 356",
+      "notes": "func_001C6530 initializes the same pair before starting an event entry, using an encoded source object ID followed by a message code. The 30 JP calls explicitly replace that context, most commonly with (0, 0), and the nonzero calls use message-like values 100 followed by 0 or 1."
+    },
+    "361": {
+      "name": "enable_spawn_group",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "group_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D7850 consumes one group ID and passes it to func_0014EE78, which sets bit group_id - 1 in the spawn-group enable mask D_00553BEC",
+      "notes": "This is the single-group counterpart of command 363 enable_all_spawn_groups; its neighboring inverse func_001D7808 calls func_0014EE50 to clear the same bit. All nine JP calls occur in ew23.ard and pass group IDs used by adjacent spawn-group object-count queries."
     },
     "362": {
       "name": "disable_all_spawn_groups",
@@ -2345,6 +3026,161 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D7940 increments Script stackTop and pushes the number of valid IDs in the four-byte party roster at D_003010F8 + 0x48E",
       "notes": "func_001D7940 scans all four contiguous party-character slots and counts IDs below 20, excluding the 0xFF empty-slot sentinel. Party initialization sets the primary slot to character 0 and the other slots to 0xFF; func_0013C708 configures the three optional slots with character IDs 0 through 9 or 0xFF, and func_001F0B10 derives the engine's party count from the same roster. The JP corpus contains seven calls across tz04.ard and tz05.ard. Every result is immediately stored and switched over values 2, 3, and 4 to start a matching set of party-member threads; the four-member case also queries roster index 3 through command 281."
+    },
+    "371": {
+      "name": "set_event_effect_rotation",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        },
+        {
+          "name": "x_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "y_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "z_degrees",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF528 consumes an event-effect ID and three angles, resolves the ID through func_001775E8, converts each angle from degrees to the PPP fixed-turn representation, and writes the three components through the entry's rotation pointer",
+      "notes": "func_001775E8 resolves IDs in the D_0035C010 event-effect manager. All three JP calls are copies of the same tw09.ard call (0, 0, var16[0xD54], 0), changing only the Y rotation of event effect 0."
+    },
+    "372": {
+      "name": "set_event_effect_scale",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        },
+        {
+          "name": "x_percent",
+          "type": "s32"
+        },
+        {
+          "name": "y_percent",
+          "type": "s32"
+        },
+        {
+          "name": "z_percent",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF620 consumes an event-effect ID and three scale percentages, resolves the ID through func_001775E8, divides each component by 100.0, and writes the three floats through the entry's scale pointer",
+      "notes": "All eight JP calls use (effect_id=1, x=150, y=100, z=150), scaling event effect 1 to 1.5, 1.0, and 1.5."
+    },
+    "374": {
+      "name": "set_map_effect_scale",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        },
+        {
+          "name": "x_percent",
+          "type": "s32"
+        },
+        {
+          "name": "y_percent",
+          "type": "s32"
+        },
+        {
+          "name": "z_percent",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E06A0 consumes a map-effect ID and three scale percentages, resolves the ID through func_00177608, divides each component by 100.0, and writes the three floats through the entry's scale pointer",
+      "notes": "func_00177608 resolves IDs in the D_0035D420 map-effect manager used by commands 163, 167, and 187. The 34 JP calls use uniform scales of 100, 120, or 150 percent."
+    },
+    "380": {
+      "name": "request_event_effect_stop",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF758 consumes an event-effect ID, resolves it through func_001775E8, and sets the resolved PPP object's per-effect stop byte at offset 0x85 to 1",
+      "notes": "The PPP manager tests offset 0x85 in func_00184E80 and func_00184F60 to switch an active effect to its stop/completion path. The eight JP calls request stops for event-effect IDs 1 or 2."
+    },
+    "381": {
+      "name": "request_map_effect_stop",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E07D8 consumes a map-effect ID, resolves it through func_00177608, and sets the resolved PPP object's per-effect stop byte at offset 0x85 to 1",
+      "notes": "The PPP manager tests offset 0x85 in func_00184E80 and func_00184F60 to switch an active effect to its stop/completion path. The three JP calls request stops for map-effect IDs 1, 2, and 3; the ID-3 call is immediately followed by command 187 delete_map_effect."
+    },
+    "384": {
+      "name": "load_event_sound_data",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "world_index",
+          "type": "s32"
+        },
+        {
+          "name": "resource_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001EA190 consumes a world index and resource ID, formats eventse/%s_%03d.dat with D_003D7C88[world_index], queues that file through cdvd_QueueFileLoad, and decrements Script stackTop by two",
+      "notes": "D_003D7C88 is a six-byte-stride table of world abbreviations including al, lm, pc, pp, and tz. The load completion callback passes the file to the event-sound resource parser func_0011CC20. All 18 JP calls are followed by command 385 wait_for_event_sound_data_load."
+    },
+    "385": {
+      "name": "wait_for_event_sound_data_load",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001EA250 takes no Script context and returns scheduler state 4 while asynchronous-load bit 55 in D_00388550 is set, otherwise state 2, without accessing the value stack",
+      "notes": "Every one of the 18 JP calls follows command 384 load_event_sound_data, whose eventse file completion callback parses the loaded sound resource through func_0011CC20."
+    },
+    "389": {
+      "name": "apply_current_world_progression_room_states",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "progression_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D7DD0 consumes one progression index and passes it to func_00111580, which applies the corresponding row of the current world's progression table through func_001114B8",
+      "notes": "func_001114B8 selects the table by current world D_002B8678 and translates the requested progression row into persistent room-state byte writes through func_00111408, the same setter used by command 134 set_world_room_state. The ten JP calls pass progression indices 1, 2, 3, 4, 7, 8, or 16."
     },
     "375": {
       "name": "enable_object_damage",
@@ -2458,6 +3294,31 @@
       "stack_evidence": "func_001D6B88 resolves the top object ID with func_001EAB00 and replaces it with object offset 0x164",
       "notes": "func_00130788 copies the low 16-bit motion request at object offset 0x17C into offset 0x164, then func_00130098 maps that motion ID through the object's motion table before animation setup; the adjacent offsets 0x168 and 0x16C hold the resulting animation ID and frame. A missing object leaves the input value unchanged. All 47 JP calls pass direct object IDs 1 or 2, immediately store the result, and compare it against motion IDs or ranges."
     },
+    "406": {
+      "name": "wait_for_music_wave_load",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E94F0 takes no Script context and returns scheduler state 4 while asynchronous-load bit 56 in D_00388550 is set, otherwise state 2, without accessing the value stack",
+      "notes": "Command 567 builds an amusic/wave%4d.wd path, queues the file load, and arranges for the associated asynchronous task bit to clear on completion. Every one of the five JP calls immediately follows command 567, so this handler waits for that music wave-data load to finish."
+    },
+    "408": {
+      "name": "hide_party_status_component",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "component_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8068 passes the top value and fixed state 3 to func_0023E0B0, then decrements Script stackTop by one",
+      "notes": "func_0023E0B0 state 3 zeros the indexed party-status component's display amount and transition delta. The interface callback func_0023E2B8 uses the same state for all three components when command 113 hide_party_status_ui is active. All 26 JP calls pass component indices 1 or 2, consistently hiding the companion components individually."
+    },
     "409": {
       "name": "finish_event_audio",
       "name_confidence": "high",
@@ -2468,11 +3329,25 @@
       "stack_evidence": "func_001EA270 reads Script flags at offset 0x328 but does not access or change Script stackTop",
       "notes": "func_001EA270 waits until func_0011E168(0) finishes clearing the active event-audio slots and func_0011E190(-1, -1) finishes releasing the tracked event sounds. It then clears global audio-load guard bit 0x40000, calls func_00155D60 to unload sound bank -6 and reload the registered active-object sound banks, sets Script completion flag 0x2000, and returns state 6. The related command 384 loads files named eventse/<world>_<event>.dat. The JP corpus contains 21 calls across eight archives; 11 have command 384 earlier in the same script entry, and the calls occur at transitions from cinematic sequences back to ordinary event or gameplay setup."
     },
-    "413": {
+    "410": {
+      "name": "wait_for_background_music_reload",
+      "name_confidence": "high",
       "inputs": 0,
       "outputs": 0,
+      "arguments": [],
       "stack_confidence": "high",
-      "stack_evidence": "func_001D8230 takes no Script context and does not access or change the value stack"
+      "stack_evidence": "func_001E9BE0 takes no Script context and returns scheduler state 4 while asynchronous-load bit 57 in D_00388550 is set, otherwise state 2, without accessing the value stack",
+      "notes": "Command 252 reload_background_music starts the amusic/music%03d.dat transfer and its completion callback clears the polled asynchronous-load bit. Every one of the nine JP calls immediately follows command 252."
+    },
+    "413": {
+      "name": "enable_work_buffer_snapshot",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8230 takes no Script context, calls func_001116A8, and does not access or change the value stack",
+      "notes": "func_001116A8 clears D_004D2998. World teardown func_001116C8 snapshots the active 0x16C00-byte work-buffer region into its backup only while this flag is zero, so command 413 enables that snapshot. It is the inverse of command 414 disable_work_buffer_snapshot. The three JP calls occur during cinematic cleanup in al02.ard, pp10.ard, and pc12.ard."
     },
     "414": {
       "name": "disable_work_buffer_snapshot",
@@ -2541,6 +3416,88 @@
       "stack_evidence": "func_001D3300 reads four stack values, computes sqrt((x2 - x1)^2 + (z2 - z1)^2), decrements stackTop by three, and replaces the remaining first value with the integer distance",
       "notes": "The direct stackTop decrement alone resembles a three-input command, but the handler reads four values and leaves one result, so the observable contract is four inputs and one output. The JP corpus contains 193 calls."
     },
+    "422": {
+      "name": "distance_between_objects",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "object_id_a",
+          "type": "s32"
+        },
+        {
+          "name": "object_id_b",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D3860 resolves two stack object IDs with func_001EAB00, computes sqrt((x_b-x_a)^2 + (y_b-y_a)^2 + (z_b-z_a)^2) from their position fields, decrements stackTop by one, and replaces the remaining value with the integer distance",
+      "notes": "The direct stackTop decrement alone resembles a one-input command, but the handler reads two values and leaves one result. Both JP calls immediately store the result and compare it against distance 200."
+    },
+    "423": {
+      "name": "enable_object_script_events",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8430 takes no Script context, sets D_003854E0.unk_3070 bit 59, and does not access the value stack",
+      "notes": "Bit 59 gates the object script-event dispatchers func_001C6068 and func_001C6620; the latter starts recipient object entry 9 for mapped object messages. Command 423 sets the gate during cinematic cleanup, while inverse command 424 clears it on cinematic entry."
+    },
+    "424": {
+      "name": "disable_object_script_events",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8458 takes no Script context, clears D_003854E0.unk_3070 bit 59, and does not access the value stack",
+      "notes": "Bit 59 gates the object script-event dispatchers func_001C6068 and func_001C6620; clearing it prevents those dispatch paths. The only JP call occurs on cinematic entry after object control is disabled. Inverse command 423 restores the gate during cinematic cleanup."
+    },
+    "427": {
+      "name": "fade_music_channel_volume",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "channel",
+          "type": "s32"
+        },
+        {
+          "name": "target_volume_percent",
+          "type": "s32"
+        },
+        {
+          "name": "duration_ticks",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9C70 reads three stack values in channel, target volume, duration order, converts the one-based channel to zero-based, scales the target percentage into the sound volume range, multiplies duration by eight, calls func_0011C5F0, and decrements Script stackTop by three",
+      "notes": "func_0011C5F0 forwards to the music-channel volume transition routine func_001EE618. The 24 JP calls use channels 1 or 2, target volume zero, and duration 40; calls occur at cinematic boundaries and commonly precede command 415 stop_background_music or command 252 reload_background_music."
+    },
+    "433": {
+      "name": "enable_object_messages",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8640 takes no Script context, clears D_002C1EA8 bit 10, and does not access the value stack",
+      "notes": "D_002C1EA8 bit 10 suppresses func_00146F38 and the type-1 object-message path in func_00130B08. Clearing the bit enables those paths. Both JP calls are cinematic-cleanup operations; inverse command 434 sets the bit on cinematic entry."
+    },
+    "434": {
+      "name": "disable_object_messages",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8660 takes no Script context, sets D_002C1EA8 bit 10, and does not access the value stack",
+      "notes": "D_002C1EA8 bit 10 suppresses func_00146F38 and the type-1 object-message path in func_00130B08. Both JP calls set the suppression during cinematic entry immediately after event mode, event camera, player-control, party-status, and input-suppression setup. Inverse command 433 clears the bit during cleanup."
+    },
     "438": {
       "name": "is_player_in_default_action_state",
       "name_confidence": "high",
@@ -2551,15 +3508,88 @@
       "stack_evidence": "func_001D8700 increments Script stackTop and pushes func_00125B90(1), which returns one exactly when the active player's action-state index at offset 0x70 is zero",
       "notes": "The field indexes the 0x20-byte player action-state descriptor table D_0034D298; func_0014F8B0 changes it, and state zero is registered by func_0015B9D0 with the normal locomotion/action update func_0015B810. All 35 JP calls immediately store the boolean result; 24 store it in local 18 and later compare it with one as part of a repeated player-state gate."
     },
-    "452": {
-      "name": "initialize_selected_object_battle_state",
+    "441": {
+      "name": "suppress_conditional_model_part_variants",
       "name_confidence": "high",
       "inputs": 0,
       "outputs": 0,
       "arguments": [],
       "stack_confidence": "high",
-      "stack_evidence": "func_001D8A68 does not access or change the Script value stack and queues object operation type 39 for the Script-bound object",
-      "notes": "The embedded operation-name table labels type 39 ALL_INIT_BATTLE. When the Script-bound object exists, func_001D8A68 queues the operation with the object's current X and Z coordinates, Y minus 20, and W equal to 1. The dispatcher passes that position and the selected object's state at +0x350 to func_001425C0, which resolves the ground below the position and initializes the corresponding battle-state data. The JP corpus contains 366 calls."
+      "stack_evidence": "func_001D8780 takes no Script context, sets D_002C1EA8 bit 12, and does not access the value stack",
+      "notes": "func_0012FF78 tests D_002C1EA8 bit 12 while resolving model-part references whose descriptor type is 3 or 4. Setting the bit bypasses the runtime-dependent alternate selection and keeps the default part variant. The 60 JP calls occur in cinematic sequences; 51 have a later command 442 in the same entry to restore conditional selection."
+    },
+    "442": {
+      "name": "allow_conditional_model_part_variants",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D87A0 takes no Script context, clears D_002C1EA8 bit 12, and does not access the value stack",
+      "notes": "Clearing D_002C1EA8 bit 12 restores the type-3 and type-4 conditional part-selection paths in func_0012FF78. This is the inverse of command 441 suppress_conditional_model_part_variants. The JP corpus contains 51 calls, all in cinematic cleanup sequences."
+    },
+    "443": {
+      "name": "load_embedded_sound_resource",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "resource_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E1728 reads one resource index from the top of the Script value stack and decrements stackTop only after func_0011E168 accepts the resolved resource",
+      "notes": "func_001E1728 indexes the active script package's resource-offset table, passes the resulting in-memory resource to the event-audio loader func_0011E168, and returns state 4 while that loader is busy. The JP corpus contains five calls in al01.ard and al02.ard, using embedded resource indices 1 and 4 during scripted sound setup."
+    },
+    "445": {
+      "name": "queue_world_image_load",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "world_table_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8808 passes the top value to func_001128F0 and decrements Script stackTop by one",
+      "notes": "func_001128F0 resolves the requested entry through the active world table, skips the request when it already names the current world image, otherwise formats that world's .img filename, allocates a load buffer, sets D_002B930C, and queues cdvd_QueueFileLoad. The JP corpus contains 20 calls across al09.ard and pc01.ard."
+    },
+    "447": {
+      "name": "attach_map_effect_rotation_to_object",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        },
+        {
+          "name": "object_id",
+          "type": "s32"
+        },
+        {
+          "name": "attachment_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DFF08 consumes three values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID in a persistent update task",
+      "notes": "The task callback func_001DE518 calls func_00131940 every update to derive the requested attachment's live rotation from the object, converts the three angles into the map effect's fixed-angle representation, and writes them to the effect runtime vector. Both JP calls occur in pc01.ard. Command 196 attach_map_effect_to_object is the corresponding position-following form."
+    },
+    "452": {
+      "name": "refresh_selected_object_background_color",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8A68 does not access or change the Script value stack and queues object operation type 39 GET_BG_COLOR for the Script-bound object",
+      "notes": "The handler queues the object's current X and Z coordinates, Y minus 20, and W equal to 1. The operation dispatcher samples the collision-backed background color through func_001425C0 and writes the resulting RGBA vector at object offset 0x350, which func_00135C50 consumes as color components. The JP corpus contains 366 calls."
     },
     "454": {
       "name": "register_object_message_mapping",
@@ -2604,6 +3634,60 @@
       "stack_evidence": "func_001D8D60 replaces the top spawn-group ID with the result of func_0014E710",
       "notes": "func_0014E710 iterates scene spawn records through func_00131F58, selects records whose group field at offset 0x58 equals the argument, and counts records not marked complete. A registered object counts while its completion flag at object offset 0x370 is clear; an absent object counts unless func_00142478 reports persistent state 1 for its object ID. The same group field selects bits in the spawn-group enable mask D_00553BEC. The JP corpus contains 25 calls across al02.ard, ew22.ard, and ew23.ard; every result is immediately stored, and the retained values drive zero/nonzero battle-progress branches. Calls use group IDs 1 through 5, and the nine variable-ID calls in ew23.ard first enable the same group through command 361."
     },
+    "458": {
+      "name": "load_character_model_variant_async",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "character_slot",
+          "type": "s32"
+        },
+        {
+          "name": "model_variant",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8DE8 passes the two stack values in order to func_001330C0 and decrements Script stackTop by two",
+      "notes": "func_001330C0 records model_variant in D_003010F8 slot state, indexes the character-model file table from character_slot and model_variant, and queues cdvd_QueueFileLoad with a completion callback. func_001D8DE8 marks asynchronous flag 0x2000000000000000 until that callback runs. All four JP calls are followed, after one tick, by command 459."
+    },
+    "459": {
+      "name": "wait_for_character_model_variant_load",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8EE0 takes no Script context and does not access or change the Script value stack",
+      "notes": "func_001D8EE0 returns state 4 while asynchronous flag 0x2000000000000000 remains set and state 2 after func_001D8DB8 clears it from the character-model load callback. Each of the four JP calls immediately follows command 458 load_character_model_variant_async after a one-tick delay."
+    },
+    "461": {
+      "name": "destroy_spawn_group_objects_async",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "group_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8FB0 retains the top group ID while event-audio work is pending, then passes it to func_00131E58 and decrements Script stackTop by one",
+      "notes": "After func_0011E168(0) finishes servicing the tracked event-audio slots, func_00131E58 iterates scene spawn records whose group field at offset 0x58 equals group_id and requests destruction of every live object through func_001565E0. It marks asynchronous flag 0x4000000000000000 until all callbacks finish. The only JP call destroys group 10 in pc12.ard and is immediately followed by command 462."
+    },
+    "462": {
+      "name": "wait_for_spawn_group_object_destruction",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D9038 takes no Script context and does not access or change the Script value stack",
+      "notes": "func_001D9038 returns state 4 while asynchronous flag 0x4000000000000000 remains set and state 2 after func_001D8F80 clears it when command 461's spawn-group destruction finishes. Its only JP call immediately follows command 461 destroy_spawn_group_objects_async in pc12.ard."
+    },
     "471": {
       "name": "initialize_all_battle_systems",
       "name_confidence": "high",
@@ -2623,6 +3707,21 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001D6750 increments Script stackTop and pushes the value at Script offset 0x320",
       "notes": "func_00134FE0 builds a queued damage event and stores the source object pointer from the attack descriptor at event offset 0x2C. When func_001C6068 dispatches that event to Script entry 4, it copies the source object's ID at offset 0x4 into Script offset 0x320. All 17 JP calls occur in entry 4, immediately store the result, and compare it with direct object ID 1 or 3."
+    },
+    "485": {
+      "name": "set_character_equipped_weapon_item_id",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "weapon_item_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DA2E8 passes the top value to func_0014A070 and decrements Script stackTop by one",
+      "notes": "func_0014A070 resolves the item record, uses its character-category byte at offset 2 to select a 0x74-byte character record in D_003010F8, and stores weapon_item_id at equipped-weapon offset 0x36. Command 718 get_character_equipped_weapon_item_id reads the same field. The only JP call equips item 85, the Wooden Sword, in pc01.ard."
     },
     "486": {
       "name": "enable_pause_menu_override",
@@ -2645,10 +3744,33 @@
       "notes": "func_00114410 clears D_002B966C, restoring the normal pause-menu mode selection based on player-control and controller-state inputs. This is the inverse of command 486 enable_pause_menu_override. Its only JP call occurs in al21.ard during cleanup of the override enabled earlier in the same script entry."
     },
     "502": {
+      "name": "get_elapsed_time_seconds",
+      "name_confidence": "high",
       "inputs": 0,
       "outputs": 1,
+      "arguments": [],
       "stack_confidence": "high",
-      "stack_evidence": "func_001DA6D8 increments Script stackTop and pushes the result of func_001EF300"
+      "stack_evidence": "func_001DA6D8 increments Script stackTop and pushes func_001EF300(), which divides the engine's accumulated display-time tick count by 60",
+      "notes": "func_001EF210 converts the accumulated display-time counter D_002B833C using the engine's tick scale, and func_001EF300 returns that value in whole seconds. The command's sole JP call stores the result; another script divides it by 3600 modulo 12 for hours and subtracts that component before dividing by 60 for minutes, directly confirming the seconds unit."
+    },
+    "503": {
+      "name": "set_world_flag",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "world_index",
+          "type": "s32"
+        },
+        {
+          "name": "flag_bit",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D8E90 reads world index and flag-bit index from the Script stack in that order, passes them to func_0013C098, and decrements Script stackTop by two",
+      "notes": "func_0013C098 selects the 116-byte world-state record at world_index, sets flag_bit in its byte at offset 0x74, and additionally records newly set world-zero bit indices in a three-byte tracking area. The six JP calls set bit 3 or 5 for world index 0 or 1."
     },
     "511": {
       "name": "begin_event_mode",
@@ -2715,6 +3837,33 @@
       "stack_evidence": "func_001DACC8 consumes four values, stores the target coordinates and twice the duration in Script interpolation state, snapshots the script-bound object's current position, and decrements Script stackTop by four",
       "notes": "func_001DACC8 sets Script update flag 0x800. While that flag remains set, func_001DAB88 advances a timer, linearly interpolates from the captured position to the requested coordinates, and queues type-3 MOVE operations for the script-bound object; reaching the duration queues the exact target and clears the flag. The JP corpus contains 267 calls."
     },
+    "516": {
+      "name": "rotate_script_object_by_angles_over_duration",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        },
+        {
+          "name": "pitch_delta_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "yaw_delta_degrees",
+          "type": "s32"
+        },
+        {
+          "name": "roll_delta_degrees",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DAE38 reads duration and pitch, yaw, and roll deltas from the Script value stack, converts the angle deltas from degrees to radians, stores twice the duration and three target Euler angles in Script interpolation state, and decrements Script stackTop by four",
+      "notes": "func_001DAE38 snapshots the script-bound object's scalar Euler-angle fields, adds the supplied angle deltas, and sets Script update flag 0x1000. While set, func_001DAD58 linearly interpolates those fields and writes object offsets 0x30, 0x34, and 0x38 until the requested duration completes. The JP corpus contains 46 calls; 42 use (100, 0, 0, 0), two use (30, 0, 0, 30), and the remaining calls derive one angle from script state."
+    },
     "517": {
       "name": "is_player_controllable",
       "name_confidence": "high",
@@ -2730,6 +3879,48 @@
       "stack_evidence": "func_001D2580 replaces the top restriction mask with the boolean result of func_00125BB8",
       "notes": "func_00125BB8 returns false when controller mode D_002DF6C0 is 3, global flags 0x12000 are set, or the player-control-disable bit 0x2 in D_002DF6B0 is set. Mask bit 0 adds player-validity and contact-orientation checks, bit 1 rejects player states 3, 7, and 8, and bit 2 requires player field 0x70 to be zero. All 27 JP calls pass mask 0, immediately store the result, and consume it as a boolean gate."
     },
+    "522": {
+      "name": "insert_ranked_value",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "table_index",
+          "type": "s32"
+        },
+        {
+          "name": "sort_order",
+          "type": "s32"
+        },
+        {
+          "name": "value",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001EC818 reads table index, sort order, and value from the Script stack in that order and decrements Script stackTop by three",
+      "notes": "func_001EC818 selects one of ten five-entry arrays at offset 0xB14 in work buffer 1, finds the insertion point using descending comparisons when sort_order is 0 or ascending comparisons when it is 1, shifts lower-ranked entries down, and stores the value. Its eight JP calls insert the same timer variable into ascending tables 6 through 9 in the two Hundred Acre Wood time-trial result scripts."
+    },
+    "523": {
+      "name": "get_ranked_value",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 1,
+      "arguments": [
+        {
+          "name": "table_index",
+          "type": "s32"
+        },
+        {
+          "name": "rank",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001ECA90 reads table index and one-based rank from the Script stack, replaces those two inputs with work_buffer_1[table_index * 5 + rank - 1], and therefore has net stack effect minus one",
+      "notes": "func_001ECA90 indexes the same ten five-entry ranked-value arrays updated by command 522 insert_ranked_value. The JP corpus contains 16 calls; representative Hundred Acre Wood result scripts read rank 1 from tables 6 through 9 immediately after displaying each table through command 743."
+    },
     "528": {
       "name": "open_party_selection_menu",
       "name_confidence": "high",
@@ -2739,6 +3930,36 @@
       "stack_confidence": "high",
       "stack_evidence": "ScriptCommand_OpenPartySelectionMenu takes no Script context and does not access or change the Script value stack",
       "notes": "ScriptCommand_OpenPartySelectionMenu first calls GameState_RefreshAvailableFlags, which scans the four active party slots for world-specific guest character IDs 3 and 5 through 9 and records their availability bits. It then calls PartyMenu_RequestOpen, setting D_002BD85C so PauseMenu_SelectMode chooses mode 5. PauseMenu_Update consumes that request and calls PartyMenu_Open, which selects camp-menu variant 2 and builds three party-slot UI objects through PartyMenu_BuildSlots. The recorded guest bits are later consumed by GameState_ApplyAvailableSelection when a world is loaded. Both JP calls occur late in event entry 11 after activating a world guest through command 269: al01.ard activates character 5, Aladdin, and pc01.ard activates character 9, Beast. The pc01 call is the first-arrival Hollow Bastion prompt after Riku takes Donald and Goofy, so only Beast is selectable; this distinguishes it from Monstro's temporary Riku ally behavior, which does not open the standard party-selection screen."
+    },
+    "535": {
+      "name": "spawn_selected_object_effect",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E09E0 consumes one effect ID, stores it in an event-effect task record, and decrements Script stackTop by one",
+      "notes": "func_001E09E0 queues dispatcher state 7 with the Script-bound object. State 7 resolves effect_id from the effect package referenced by that object, spawns the PPP effect at the object's current position through func_001779A0, and retains it in an eight-slot attachment table that updates the effect from the live object transform. The JP corpus contains 32 calls; representative reward scripts pass effect ID 1."
+    },
+    "538": {
+      "name": "delete_attached_object_effects_by_id",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E0C38 consumes one effect ID, stores it in an event-effect task record, and decrements Script stackTop by one",
+      "notes": "func_001E0C38 queues dispatcher state 9. State 9 scans the eight attachment records created by state 7 for matching effect IDs, frees each matching PPP effect through func_00177828 and func_00181200, and clears its record. The JP corpus contains 64 calls; representative reward scripts use ID 0 before opening animation and ID 1 after command 535 spawn_selected_object_effect."
     },
     "539": {
       "name": "enable_animated_screen_filter",
@@ -2787,6 +4008,122 @@
       "stack_evidence": "func_001DB098 increments Script stackTop and pushes the selected object's state field at offset 0x70",
       "notes": "Object offset 0x70 is the active behavior-state ID. func_0014F8B0 changes this field, invokes the previous state's exit callback and the new state's entry callback through the 32-byte records in D_0034D298, and preserves the previous ID at object offset 0x378. func_0014FA88 registers those state records and their callbacks. Command 541 directly exposes the current ID for the object pointer stored at Script offset 0x04. The JP corpus contains five calls, all in copies of the same lm13.ard entry; each result is immediately stored in local 6 and compared against zero before entering a coordinate-update path."
     },
+    "542": {
+      "name": "fade_render_channel_out",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "channel",
+          "type": "s32"
+        },
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DB0C8 passes the earlier stack value as the render-channel index and the top value as the duration to func_00108488, then decrements Script stackTop by two",
+      "notes": "func_00108488 indexes one of 32 twelve-byte transition records in D_0048E680, initializes its countdown to twice the supplied duration, its blend weight to 1.0, and its per-tick delta to -1/(2*duration), then clears that channel's bit in D_002B91E8. func_00108548 consumes the records while constructing per-channel render packets and decreases the blend weight to zero. All 16 JP calls are in copies of the same ew31.ard event and fade even-numbered channels 2, 4, 6, and 8 over duration 10 while command 543 fades the alternating channels in."
+    },
+    "543": {
+      "name": "fade_render_channel_in",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "channel",
+          "type": "s32"
+        },
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DB118 passes the earlier stack value as the render-channel index and the top value as the duration to func_001084F0, then decrements Script stackTop by two",
+      "notes": "func_001084F0 indexes the same 32 transition records as command 542, initializes the selected record's countdown to twice the supplied duration, its blend weight to 0.0, and its per-tick delta to +1/(2*duration). func_00108548 increases the blend weight to one and sets the corresponding D_002B91E8 channel bit when the transition completes. All 20 JP calls are in copies of the same ew31.ard event; channels 1, 3, 5, and 7 alternate with command 542's even channels during the effect."
+    },
+    "566": {
+      "name": "load_background_music_sequence",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "slot",
+          "type": "s32"
+        },
+        {
+          "name": "music_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9770 passes the top value to func_0011E860 as the music ID, stores the preceding value minus one as the destination slot, and decrements Script stackTop by two",
+      "notes": "func_0011E860 formats the music ID as amusic/music%3d.bgm, and func_001E9770 queues that file for asynchronous CD/DVD loading. Its completion chain passes the loaded buffer and zero-based slot to func_0011E9A8, which initializes the background-music sequence in that slot. All five JP calls use slot 1, are followed by command 250's load wait, and occur after the corresponding command 567 wave-bank load."
+    },
+    "567": {
+      "name": "load_background_music_wave_bank",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "slot",
+          "type": "s32"
+        },
+        {
+          "name": "wave_bank_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9448 passes the top value to func_0011E900 as the wave-bank ID, stores the preceding value minus one as the destination slot, and decrements Script stackTop by two",
+      "notes": "func_0011E900 formats the ID as amusic/wave%4d.wd, and func_001E9448 queues that file for asynchronous CD/DVD loading. Its completion chain passes the loaded buffer and zero-based slot into the sound loader before the paired background-music sequence is loaded by command 566. All five JP calls use slot 1 and are immediately followed by command 406's wave-bank load wait."
+    },
+    "571": {
+      "name": "finish_object_animation",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DB910 resolves the top object ID through func_001EAB00, calls func_00141348 on the resolved object, and decrements Script stackTop by one",
+      "notes": "func_00141348 advances both animation tracks to their recorded end frames through func_00141588 and func_00141668, then clears the model's completion and interpolation fields. The 13 JP calls use object IDs 1 through 5 in al01.ard, al21.ard, pp10.ard, and pc12.ard, either immediately before new animation threads start or while finishing an event and restoring room state."
+    },
+    "573": {
+      "name": "wait_for_summon_end",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DB990 takes no Script context and returns wait status 4 while summon-state bits 0x2000 or 0x4000 are set in D_002C1EA8, otherwise completion status 2",
+      "notes": "The summon subsystem sets bit 0x2000 when a summon begins and clears it when the summon transition task finishes; it uses bit 0x4000 for the active summoned-character phase and clears that bit during dismissal cleanup. Both JP calls occur in pp10.ard and pc12.ard event-transition sequences, immediately after command 572 and immediately before wait_for_all_interface_tasks."
+    },
+    "583": {
+      "name": "grant_item",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "item_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DBA58 resolves the top item ID through func_001479C0, dispatches its fixed descriptor to the stock-item or character-ability grant routine, and decrements Script stackTop by one",
+      "notes": "func_001479C0 indexes the two-byte item descriptor table at D_0054C360. Descriptor type 0 calls func_0013C970 to increase the item's owned count; type 1 calls func_0013C858 to insert the encoded ability into the descriptor-selected character's ability list. The two JP calls grant literal item IDs 24 and 36 immediately after their respective reward text sequences in pc06.ard and pc12.ard."
+    },
     "576": {
       "name": "wait_for_all_interface_tasks",
       "name_confidence": "high",
@@ -2821,6 +4158,25 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001EBDC0 does not access or change the Script value stack",
       "notes": "func_001EBDC0 iterates registered class-3 objects, selects the party-character archetype range 0 through 9 returned by func_001239D8, and queues operation types 0x24 and 0x2B for each. Both types map to embedded DAMAGE_OFF entries and set the corresponding damage-disable flags. Its inverse func_001EBCD0 queues DAMAGE_ON. The JP corpus contains 160 calls; 53 immediately follow command 151 disable_all_object_control, while 78 inverse calls immediately follow command 150's scene-wide CONTROL_ON operation."
+    },
+    "605": {
+      "name": "set_text_window_item_name",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "window_id",
+          "type": "s32"
+        },
+        {
+          "name": "item_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001CCC48 consumes a window ID and item ID, resolves the item descriptor through func_001479C0, selects the corresponding item-name lookup table, and installs the resulting text mapping in the requested active window",
+      "notes": "The handler classifies the item descriptor into the same fixed item-ID ranges used by command 644 get_item_category, configures D_00383CD0 for the selected item-name table, and binds that mapping to the requested text-window slot. The two JP calls reopen window 7 and pass item IDs 24 and 36 in reward sequences; those same IDs are subsequently granted by command 583."
     },
     "606": {
       "name": "transition_selected_object_to_palette_color",
@@ -2869,7 +4225,7 @@
       "notes": "func_00112848 stores the four values in the engine's requested world, room, event, and spawn-point fields and schedules the full world transition through func_001127E0. func_001CFB28 also sets the Script transition-state flag at D_003854E0+0x3070 and returns state 10. The only JP call follows event-camera teardown in pc06.ard and passes (3, 0, 5, 1), selecting Traverse Town world index 3, room index 0 (tw01.ard), event 5, and spawn point 1. This is the Hollow Bastion library sequence associated with young Kairi's conversation with her grandmother during Sora's second Traverse Town visit."
     },
     "618": {
-      "name": "set_selected_object_ground_plane_from_position",
+      "name": "sample_selected_object_background_color_at_position",
       "name_confidence": "high",
       "inputs": 3,
       "outputs": 0,
@@ -2888,8 +4244,8 @@
         }
       ],
       "stack_confidence": "high",
-      "stack_evidence": "func_001DBEB0 consumes three coordinates, converts them to floats, queries the ground through func_001425C0, copies the resulting vector to the selected object through func_001426A8, and decrements Script stackTop by three",
-      "notes": "func_001425C0 performs a ground collision query at the supplied position and returns the associated four-component surface vector. func_001426A8 stores that vector at selected-object offset 0x350, the object's ground-plane field. The JP corpus contains 107 calls."
+      "stack_evidence": "func_001DBEB0 consumes three coordinates, converts them to floats, samples the collision-backed background color through func_001425C0, copies the resulting vector to the selected object through func_001426A8, and decrements Script stackTop by three",
+      "notes": "func_001425C0 queries the background color associated with the collision surface at the supplied position. func_001426A8 stores the resulting RGBA vector at selected-object offset 0x350, the same color field refreshed by command 452 GET_BG_COLOR and consumed by func_00135C50. The JP corpus contains 107 calls."
     },
     "625": {
       "name": "set_selected_object_proximity_radius",
@@ -2906,6 +4262,119 @@
       "stack_evidence": "func_001D3A88 converts the top value to float, passes it to func_00123350 for the selected object, and decrements Script stackTop by one",
       "notes": "func_00123350 stores radius at offset 0x44 of the selected object's runtime descriptor and fixes its two proximity-test mode bytes at offsets 0x5E and 0x5F to 0 and 3. func_0012CBD8 reads the same radius and mode bytes when testing another object's horizontal distance, vertical separation, and facing relationship. The JP corpus contains 262 calls."
     },
+    "626": {
+      "name": "set_object_enabled",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "object_id",
+          "type": "s32"
+        },
+        {
+          "name": "enabled",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DC040 consumes an object ID and boolean and passes them in stack order to func_00131B90, which resolves the object's runtime descriptor through func_00131FC0 and clears its disable bit 0x2 when enabled is nonzero or sets that bit when enabled is zero",
+      "notes": "The descriptor bit is also set by object-table initialization when an object must not be active. All 20 JP calls are copies of one lm13.ard branch that toggles encoded objects 0x40013 and 0x40014 to opposite enabled states according to scenario byte 0xEE1."
+    },
+    "635": {
+      "name": "set_dynamic_text_glyph_lookup",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "glyph_slot",
+          "type": "s32"
+        },
+        {
+          "name": "glyph_group",
+          "type": "s32"
+        },
+        {
+          "name": "glyph_index",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DB7A8 consumes a glyph slot, group, and index, stores the latter two in D_002B8020[glyph_slot] and D_002B8030[glyph_slot], and decrements Script stackTop by three",
+      "notes": "The text renderer handles dynamic glyph codes 0x20 through 0x23 by subtracting 0x20 for glyph_slot and resolving the configured pair through func_00132E70, which selects lookup-table entry 3 * glyph_group + glyph_index + 6. The four JP calls update slots 0 and 1 in pp10.ard and pc06.ard with adjacent values derived from local 24."
+    },
+    "636": {
+      "name": "set_script_object_state_id",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "state_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DC1F0 consumes one state ID, packs it into the low 24-bit payload of object operation 0x29, targets the object ID stored at Script offset 0, and queues the operation through func_001C5DE0",
+      "notes": "Operation 0x29 maps to the embedded ACTION name, but its dispatcher passes state_id to func_0014F8B0, which changes the object's state field, runs the previous state's exit callback, and runs the new state's entry callback. All four JP calls pass state ID 8 in pp10.ard."
+    },
+    "637": {
+      "name": "spawn_event_effect_attached_to_object",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        },
+        {
+          "name": "object_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF330 consumes an effect ID and object ID, resolves the object through func_001EAB00, and queues event-effect dispatcher state 10 with the effect ID and resolved object",
+      "notes": "Dispatcher state 10 loads effect_id from the event-effect package into the D_0035C010 manager through func_00177558, resolves the resulting effect, and starts func_001DE750 when the target object exists. That worker derives the object's attachment transform through func_001317F8 and applies it to the effect through func_00148060. The 18 JP calls in tw09.ard use effect IDs 1 through 6 and object IDs 1 through 3."
+    },
+    "641": {
+      "name": "move_selected_object_to_position_at_twice_speed",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "speed",
+          "type": "s32"
+        },
+        {
+          "name": "x",
+          "type": "s32"
+        },
+        {
+          "name": "y",
+          "type": "s32"
+        },
+        {
+          "name": "z",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D2D28 consumes speed, X, Y, and Z, snapshots the selected object's current position, stores the target coordinates and twice the per-update step distance in Script movement state, and decrements Script stackTop by four",
+      "notes": "The handler sets the same Script update flag 0x40 consumed by func_001D2AF0 as command 157 move_selected_object_to_position_at_speed, but doubles the supplied speed before storing it. Representative al09.ard calls pass speed 7 and variable-derived coordinates."
+    },
+    "643": {
+      "name": "enable_immediate_room_load_completion",
+      "name_confidence": "high",
+      "inputs": 0,
+      "outputs": 0,
+      "arguments": [],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DC288 sets D_002B9338 to one without accessing the Script value stack",
+      "notes": "The room-load completion path func_001132F0 calls func_001132C0 directly while D_002B9338 is nonzero; when it is zero, the path defers the same continuation through func_0011E7C8. Command 642 clears the flag. The sole JP call occurs at the end of an al21.ard script entry."
+    },
     "644": {
       "name": "get_item_category",
       "name_confidence": "high",
@@ -2920,6 +4389,29 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001DC2A0 replaces the top item ID with a category code selected entirely from fixed item-ID ranges",
       "notes": "The category mapping is 0 for IDs 1-16, 1 for 142-157, 2 for 158-255, 3 for 17-80, 4 for 81-102, 5 for 103-118, 6 for 119-134, and -1 otherwise. func_001CCC48 and func_001CCF78 use the same ranges to select distinct item lookup tables. All 121 JP calls pass a literal item ID and immediately store the result in local 25; 89 first consume it as a switch selector for item-specific text."
+    },
+    "652": {
+      "name": "switch_background_music_channel",
+      "name_confidence": "high",
+      "inputs": 3,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "channel",
+          "type": "s32"
+        },
+        {
+          "name": "target_volume_percent",
+          "type": "s32"
+        },
+        {
+          "name": "duration_ticks",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001E9110 consumes a one-based channel, target volume percentage, and duration, stops the current D_002BD8B4 music channel through func_0011C608, converts the selected channel to zero-based, scales volume to the 0x3000 sound range and duration by eight, and starts the selected channel through func_0011C5D8",
+      "notes": "The sole JP call occurs in al02.ard after command 719 suppress_automatic_battle_music_switching and passes channel 2, volume 100, and duration 40 before an enemy-wave sequence."
     },
     "660": {
       "name": "show_timer_display",
@@ -2949,6 +4441,33 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001DC8F0 calls func_00111F00 without accessing or changing the Script value stack",
       "notes": "func_00111F00 sets timer-display termination flag D_004D29D0, causing the registered update callback func_00111D98 to return task status 4, and clears the active display state through func_00245130 and func_00245140. It is the inverse of command 660 show_timer_display and does not change the underlying live timer. The JP corpus contains twelve calls, six each in tz04.ard and tz05.ard; every call immediately follows command 239, which disables the minigame pause-menu mode during timer cleanup."
+    },
+    "706": {
+      "name": "set_map_effect_position_from_object_attachment",
+      "name_confidence": "high",
+      "inputs": 4,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "effect_id",
+          "type": "s32"
+        },
+        {
+          "name": "object_id",
+          "type": "s32"
+        },
+        {
+          "name": "attachment_id",
+          "type": "s32"
+        },
+        {
+          "name": "offset",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF978 consumes effect ID, object ID, attachment ID, and offset, resolves the map effect through func_00177608 and the object through func_001EAB00, passes attachment_id and half-scaled offset to func_001314D0, copies the resulting attachment vector to the map effect, and decrements Script stackTop by four",
+      "notes": "This is the one-shot counterpart of command 196 attach_map_effect_to_object, whose update task repeatedly performs the same attachment-point calculation. The sole JP call occurs in al02.ard during a Cave of Wonders effect sequence and passes effect ID 0, object ID 4304, attachment ID 2, and offset 4."
     },
     "718": {
       "name": "get_character_equipped_weapon_item_id",
@@ -2984,6 +4503,40 @@
       "stack_confidence": "high",
       "stack_evidence": "func_001E9C50 takes no Script context and calls func_0011E350 without accessing the value stack",
       "notes": "func_0011E350 clears suppression flag D_002BD8E0, allowing func_0011E360 to resume automatic field/battle music channel crossfades when battle mode changes. It is the inverse of command 719. The JP corpus has no calls."
+    },
+    "729": {
+      "name": "transition_selected_object_to_opaque_base_color",
+      "name_confidence": "high",
+      "inputs": 1,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "duration",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001D0C98 consumes one duration, queues a type-23 COLOR_CHANGE operation targeting the selected object's RGB bytes at offsets 0x370 through 0x372 with alpha 1.0, packs twice the duration into the operation, and decrements Script stackTop by one",
+      "notes": "This specialized COLOR_CHANGE variant transitions to the selected object's base RGB rather than taking explicit color values as command 90 does. All 36 JP calls occur in pc01.ard copies during show-object setup, pass duration 12 or 16, and are followed by waits totaling that duration before command 90 restores full white."
+    },
+    "734": {
+      "name": "queue_event_effect_package_load",
+      "name_confidence": "high",
+      "inputs": 2,
+      "outputs": 0,
+      "arguments": [
+        {
+          "name": "path_prefix_index",
+          "type": "s32"
+        },
+        {
+          "name": "package_id",
+          "type": "s32"
+        }
+      ],
+      "stack_confidence": "high",
+      "stack_evidence": "func_001DF008 consumes two values, indexes the six-byte event-effect path-prefix table D_003D55E0 with the first, formats the second as _%03d, constructs paired eveffect/*.dpp and *.dpx paths, queues the DPP load with cdvd_QueueFileLoad, and decrements Script stackTop by two",
+      "notes": "The handler allocates the package buffer, records package_id at ScriptRuntime offset 0x3094, and sets the asynchronous event-effect load flag serviced by func_001DF198. Representative al09.ard copies pass prefix index 16 (gb/gb) and package ID 2, then call func_001DF198 through command 166 after an eight-tick delay."
     },
     "738": {
       "name": "enable_party_color_override",
