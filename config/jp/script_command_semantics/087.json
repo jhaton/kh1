@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 87,
+  "status": "named",
+  "name": "toggle_selected_object_motion_pause",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0B50 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D0B50 queues object operation type 20 for the selected object. The embedded operation-name table labels type 20 MOTION_PAUSE, and its dispatcher toggles bit 0x10 at object offset 0x160; func_00130E18 skips the normal position and motion update path while that bit is set. The JP corpus contains 19 calls: 18 in pc06.ard and one in al02.ard."
+}

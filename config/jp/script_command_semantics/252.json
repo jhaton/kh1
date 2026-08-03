@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 252,
+  "status": "named",
+  "name": "reload_background_music",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9980 takes no Script context and does not access or change Script stackTop"
+  },
+  "arguments": [],
+  "notes": "func_001E9980 stops the current background-music channel D_0062B800 through func_0011C608, sets asynchronous-load flag 0x0200000000000000 in D_003854E0.unk_3070, and invokes func_001E98B0. That routine waits until func_0011E168(0) returns zero, then calls func_0011E7C8 with completion callback func_001E9838 and fixed destination func_F20000. The resulting func_0011E6F0 path formats the current music ID D_002BD8CC as amusic/music%03d.dat and queues that resource for loading; func_001E9838 clears the asynchronous-load flag when the transfer completes. Command 410 polls the same flag. All nine JP calls occur during cinematic cleanup across seven archives and share their entry with command 409 finish_event_audio; every call is followed by command 410, eight immediately, and six follow paired channel fades through command 427."
+}

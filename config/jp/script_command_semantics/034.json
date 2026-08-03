@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 34,
+  "status": "named",
+  "name": "load_event_camera_preset",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001C8470 consumes one index, selects the corresponding event-camera record, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "camera_preset_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001C8470 bounds-checks the index against the camera-record count at D_003854E0+0x3048, resolves the indexed record through the table at +0x304C, copies its camera matrices and parameters into D_00375BD0 and D_003C0E30, initializes the camera state, starts the event-camera update task func_001C72D0, and sets the event-camera-active flag. The JP corpus contains 175 calls and commonly follows this setup with commands 35 and 36 to override the loaded camera position or target."
+}

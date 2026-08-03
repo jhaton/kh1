@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 644,
+  "status": "named",
+  "name": "get_item_category",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001DC2A0 replaces the top item ID with a category code selected entirely from fixed item-ID ranges"
+  },
+  "arguments": [
+    {
+      "name": "item_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The category mapping is 0 for IDs 1-16, 1 for 142-157, 2 for 158-255, 3 for 17-80, 4 for 81-102, 5 for 103-118, 6 for 119-134, and -1 otherwise. func_001CCC48 and func_001CCF78 use the same ranges to select distinct item lookup tables. All 121 JP calls pass a literal item ID and immediately store the result in local 25; 89 first consume it as a switch selector for item-specific text."
+}

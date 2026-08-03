@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 380,
+  "status": "named",
+  "name": "request_event_effect_stop",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF758 consumes an event-effect ID, resolves it through func_001775E8, and sets the resolved PPP object's per-effect stop byte at offset 0x85 to 1"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The PPP manager tests offset 0x85 in func_00184E80 and func_00184F60 to switch an active effect to its stop/completion path. The eight JP calls request stops for event-effect IDs 1 or 2."
+}

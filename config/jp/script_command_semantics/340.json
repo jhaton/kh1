@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 340,
+  "status": "named",
+  "name": "get_treasure_opened_flag",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D6FD0 replaces the top value with func_0013C638(treasure_id), which reads the same persistent bit written by func_0013C5C8"
+  },
+  "arguments": [
+    {
+      "name": "treasure_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The result is the truthy bit mask 1 << (treasure_id & 3), or zero when unopened. Object initialization also queries this flag for type-8 treasure objects, while the reward routine indexes the 512-entry D_0034DA40 descriptor table with the same ID. All 167 JP calls use literal treasure IDs from 211 through 472."
+}

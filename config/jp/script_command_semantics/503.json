@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 503,
+  "status": "named",
+  "name": "set_world_flag",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8E90 reads world index and flag-bit index from the Script stack in that order, passes them to func_0013C098, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "world_index",
+      "type": "s32"
+    },
+    {
+      "name": "flag_bit",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0013C098 selects the 116-byte world-state record at world_index, sets flag_bit in its byte at offset 0x74, and additionally records newly set world-zero bit indices in a three-byte tracking area. The six JP calls set bit 3 or 5 for world index 0 or 1."
+}

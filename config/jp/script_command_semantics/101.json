@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 101,
+  "status": "named",
+  "name": "fade_captured_screen",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1510 passes the top stack value to func_00109C50 and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00109C50 doubles the supplied duration and schedules func_00109B28. That worker repeatedly reloads the framebuffer captured by command 100 as two 512x192 textures and adjusts their alpha blend until the duration expires. The JP corpus contains 214 calls; 169 pass duration 15, and command 100 capture_screen is the preceding command call for 100 of them."
+}

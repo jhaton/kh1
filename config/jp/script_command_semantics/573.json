@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 573,
+  "status": "named",
+  "name": "wait_for_summon_end",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DB990 takes no Script context and returns wait status 4 while summon-state bits 0x2000 or 0x4000 are set in D_002C1EA8, otherwise completion status 2"
+  },
+  "arguments": [],
+  "notes": "The summon subsystem sets bit 0x2000 when a summon begins and clears it when the summon transition task finishes; it uses bit 0x4000 for the active summoned-character phase and clears that bit during dismissal cleanup. Both JP calls occur in pp10.ard and pc12.ard event-transition sequences, immediately after command 572 and immediately before wait_for_all_interface_tasks."
+}

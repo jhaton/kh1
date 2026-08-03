@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 177,
+  "status": "named",
+  "name": "reopen_text_window",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CDB18 consumes one window ID and starts the alternate text-window activation chain func_001CDA00/func_001CD8E8"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The handler reuses the same D_00623C30 window template and four-slot text-window state used by command 0 open_text_window, but its alternate worker waits on the existing per-window worker at D_003854E0+0x1010 rather than starting the normal func_001CCB18 open path. Corpus placement distinguishes it as the reuse path: command 0 is followed by set_text_window_text in all 874 calls and overwhelmingly follows initial window setup, while this command commonly follows close or prior text-window commands. Of 191 JP calls, 182 are followed by command 1 set_text_window_text."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 107,
+  "status": "named",
+  "name": "wait_for_text_window",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CE060 retains the top window ID and returns state 4 while its text-window state is active, then decrements stackTop and returns state 2 once that state is 0 or 4"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001CE060 indexes the text-window state array at D_003854E4 with the supplied window ID. It leaves the command and argument pending while the state is neither 0 nor 4, making the interpreter retry it, and consumes the ID only after the window reaches a completed state. The JP corpus contains 401 calls; the common sequence sets window text with command 1, waits here, and then closes the same window with command 2."
+}

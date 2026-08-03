@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 528,
+  "status": "named",
+  "name": "open_party_selection_menu",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "ScriptCommand_OpenPartySelectionMenu takes no Script context and does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "ScriptCommand_OpenPartySelectionMenu first calls GameState_RefreshAvailableFlags, which scans the four active party slots for world-specific guest character IDs 3 and 5 through 9 and records their availability bits. It then calls PartyMenu_RequestOpen, setting D_002BD85C so PauseMenu_SelectMode chooses mode 5. PauseMenu_Update consumes that request and calls PartyMenu_Open, which selects camp-menu variant 2 and builds three party-slot UI objects through PartyMenu_BuildSlots. The recorded guest bits are later consumed by GameState_ApplyAvailableSelection when a world is loaded. Both JP calls occur late in event entry 11 after activating a world guest through command 269: al01.ard activates character 5, Aladdin, and pc01.ard activates character 9, Beast. The pc01 call is the first-arrival Hollow Bastion prompt after Riku takes Donald and Goofy, so only Beast is selectable; this distinguishes it from Monstro's temporary Riku ally behavior, which does not open the standard party-selection screen."
+}

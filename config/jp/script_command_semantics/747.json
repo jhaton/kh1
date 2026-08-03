@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 747,
+  "status": "named",
+  "name": "get_stock_item_count",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D5128 replaces the top item ID with the unequipped-stock byte at D_003010F8 + 0x499 + item_id"
+  },
+  "arguments": [
+    {
+      "name": "item_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Unlike command 253 get_total_item_count, this handler does not inspect character item slots. The adjacent command 258 handler updates the same byte by a signed amount and clamps it to 0 through 99. All 32 JP calls pass literal item IDs 4, 6, 154, or 254, immediately store the result in local 6, and compare it with 99; each also stores the same item ID in variable 4356 immediately beforehand."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 389,
+  "status": "named",
+  "name": "apply_current_world_progression_room_states",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D7DD0 consumes one progression index and passes it to func_00111580, which applies the corresponding row of the current world's progression table through func_001114B8"
+  },
+  "arguments": [
+    {
+      "name": "progression_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001114B8 selects the table by current world D_002B8678 and translates the requested progression row into persistent room-state byte writes through func_00111408, the same setter used by command 134 set_world_room_state. The ten JP calls pass progression indices 1, 2, 3, 4, 7, 8, or 16."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 410,
+  "status": "named",
+  "name": "wait_for_background_music_reload",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9BE0 takes no Script context and returns scheduler state 4 while asynchronous-load bit 57 in D_00388550 is set, otherwise state 2, without accessing the value stack"
+  },
+  "arguments": [],
+  "notes": "Command 252 reload_background_music starts the amusic/music%03d.dat transfer and its completion callback clears the polled asynchronous-load bit. Every one of the nine JP calls immediately follows command 252."
+}

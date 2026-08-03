@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 166,
+  "status": "named",
+  "name": "wait_for_event_effect_package_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF198 takes no Script context and returns scheduler state 4 while asynchronous event-effect package load bit 44 is set, or state 2 after it clears"
+  },
+  "arguments": [],
+  "notes": "The completion callback func_001DEDF8 clears the bit set by commands 165 and 734 after the paired event-effect package load finishes; func_001DEE48 queues the second file and installs func_001DEDF8 as its completion callback. The JP corpus contains 19 polling calls."
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 350,
+  "status": "named",
+  "name": "set_party_members",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D7300 consumes three character IDs in order and passes them to func_0013C708, which writes the three optional party-roster slots at D_003010F8 + 0x48F through +0x491"
+  },
+  "arguments": [
+    {
+      "name": "party_slot_1_character_id",
+      "type": "s32"
+    },
+    {
+      "name": "party_slot_2_character_id",
+      "type": "s32"
+    },
+    {
+      "name": "party_slot_3_character_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0013C708 accepts character IDs 0 through 9 and writes 0xFF for any other value, including the corpus's -1 empty-slot sentinel. The 21 JP calls configure combinations of character IDs 1, 2, 5, and 9 or clear all three optional slots; the adjacent command 281 reads these roster slots and command 366 counts their valid members."
+}

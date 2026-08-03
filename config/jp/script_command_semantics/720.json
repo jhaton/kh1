@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 720,
+  "status": "named",
+  "name": "enable_automatic_battle_music_switching",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9C50 takes no Script context and calls func_0011E350 without accessing the value stack"
+  },
+  "arguments": [],
+  "notes": "func_0011E350 clears suppression flag D_002BD8E0, allowing func_0011E360 to resume automatic field/battle music channel crossfades when battle mode changes. It is the inverse of command 719. The JP corpus has no calls."
+}

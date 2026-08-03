@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 267,
+  "status": "named",
+  "name": "set_selected_object_hp",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D54B0 consumes one value, converts it to float, and stores it at offset 0x18 of the selected object's state record"
+  },
+  "arguments": [
+    {
+      "name": "hp",
+      "type": "s32"
+    }
+  ],
+  "notes": "The field is current HP: the damage-resolution path func_0016B2E8 updates the same field, command 393 get_selected_object_hp reads it, and func_00142810 treats zero as inactive or defeated. All 96 JP calls occur in pc06.ard: 48 set HP to zero and 48 restore a value previously returned by command 393."
+}

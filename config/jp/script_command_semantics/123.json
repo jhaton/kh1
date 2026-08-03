@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 123,
+  "status": "named",
+  "name": "configure_selected_object_motion_part",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1D70 consumes three values, doubles the first two frame values, and queues object operation type 31 with the third value in its payload header"
+  },
+  "arguments": [
+    {
+      "name": "segment_start_frame",
+      "type": "s32"
+    },
+    {
+      "name": "segment_end_frame",
+      "type": "s32"
+    },
+    {
+      "name": "blend_frame",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded operation-name table labels type 31 MOTION_PART. After a two-update delay, its dispatcher stores the three values in the selected object's motion-part fields at offsets 0x288, 0x28C, and 0x290 and enables motion flag 0x40. The motion update path remaps playback beyond segment_end_frame to segment_start_frame plus the overrun. The JP corpus contains 73 calls."
+}

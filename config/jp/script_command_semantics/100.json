@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 100,
+  "status": "named",
+  "name": "capture_screen",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D14F0 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D14F0 schedules func_00109AA0, which configures a GS store-image transfer for the full 512x384 framebuffer at base 0x1A00 and copies it to the transition scratch buffer at func_F20000. The paired graphics path reloads that buffer as two 512x192 textures for screen-transition blending. The JP corpus contains 214 calls, commonly adjacent to command 513 enable_event_camera."
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 13,
+  "status": "named",
+  "name": "set_object_animation",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF128 consumes an animation ID and queues a type-5 operation; the operation dispatcher passes that ID to the selected object's animation setter"
+  },
+  "arguments": [
+    {
+      "name": "animation_id",
+      "type": "s32"
+    }
+  ]
+}

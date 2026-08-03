@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 641,
+  "status": "named",
+  "name": "move_selected_object_to_position_at_twice_speed",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D2D28 consumes speed, X, Y, and Z, snapshots the selected object's current position, stores the target coordinates and twice the per-update step distance in Script movement state, and decrements Script stackTop by four"
+  },
+  "arguments": [
+    {
+      "name": "speed",
+      "type": "s32"
+    },
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    }
+  ],
+  "notes": "The handler sets the same Script update flag 0x40 consumed by func_001D2AF0 as command 157 move_selected_object_to_position_at_speed, but doubles the supplied speed before storing it. Representative al09.ard calls pass speed 7 and variable-derived coordinates."
+}

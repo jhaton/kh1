@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 98,
+  "status": "named",
+  "name": "wait_for_selected_object_turn",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D13D8 does not access Script stackTop and returns pending state 4 while Script flag bit 1 is set"
+  },
+  "arguments": [],
+  "notes": "Selected-object turn commands set Script flag bit 1 while their type-4 object operation is active; the completion path clears that bit. func_001D13D8 returns state 4 while the bit remains set and state 2 after it clears. In the JP corpus, the preceding command call is command 99 turn_selected_object_toward_position for 90 calls and command 69 turn_selected_object_to_angle for 63 calls; another 90 calls are repeated after wait_ticks in polling loops."
+}

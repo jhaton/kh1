@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 706,
+  "status": "named",
+  "name": "set_map_effect_position_from_object_attachment",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF978 consumes effect ID, object ID, attachment ID, and offset, resolves the map effect through func_00177608 and the object through func_001EAB00, passes attachment_id and half-scaled offset to func_001314D0, copies the resulting attachment vector to the map effect, and decrements Script stackTop by four"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    },
+    {
+      "name": "object_id",
+      "type": "s32"
+    },
+    {
+      "name": "attachment_id",
+      "type": "s32"
+    },
+    {
+      "name": "offset",
+      "type": "s32"
+    }
+  ],
+  "notes": "This is the one-shot counterpart of command 196 attach_map_effect_to_object, whose update task repeatedly performs the same attachment-point calculation. The sole JP call occurs in al02.ard during a Cave of Wonders effect sequence and passes effect ID 0, object ID 4304, attachment ID 2, and offset 4."
+}

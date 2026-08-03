@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 377,
+  "status": "named",
+  "name": "enable_object_control",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001EB900 consumes one object ID, resolves it through func_001EAB00, queues object operation type 13 when found, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded operation-name table labels type 13 CONTROL_ON, and its dispatcher clears the object's control-disable flag 0x100000000. This is the singular-object counterpart of command 150 enable_all_object_control and the inverse of command 378 disable_object_control. The JP corpus contains 266 calls, including repeated sequences over object IDs stored in scenario variables."
+}

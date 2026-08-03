@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 242,
+  "status": "named",
+  "name": "set_timer_seconds",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D4D00 passes the top value to func_00111C20 and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "seconds",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00111C20 multiplies seconds by 60 and stores the result in the timer's remaining-frame field D_002B916C. Both JP calls occur in tz04.ard timer setup and pass zero before the timer display and count-up timer are started."
+}

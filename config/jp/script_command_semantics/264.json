@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 264,
+  "status": "named",
+  "name": "reapply_selected_object_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D53A8 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D53A8 copies the selected object's cached position vector at offsets 0x50 through 0x58 into a type-3 SET_POS operation addressed to that same object. The object-operation dispatcher reapplies the vector through func_00123E48, preserving the current facing angle while rebuilding position-dependent state. All 21 JP calls occur in lm03.ard, immediately follow command 13 set_object_animation, and immediately precede command 25 enable_selected_object_collision."
+}

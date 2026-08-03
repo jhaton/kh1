@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 82,
+  "status": "named",
+  "name": "set_text_window_pointer_angle",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CDD68 consumes a window ID and integer angle, converts the angle to float, and stores it at window descriptor +0x1C; func_0010B000 offsets that value by 180 degrees, converts it to radians, and applies it as the pointer's Z-axis rotation"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "angle_degrees",
+      "type": "s32"
+    }
+  ],
+  "notes": "Observed configured angles are 45, 135, 200, 225, and 315 degrees. func_0010B0D0 resets this field to zero when the window follows a world target."
+}

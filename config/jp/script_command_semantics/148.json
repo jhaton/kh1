@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 148,
+  "status": "named",
+  "name": "load_object_yaw_relative_event_camera_preset",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001C8E68 consumes the lower camera-preset index and upper object ID, resolves the object through func_001EAB00, loads the indexed event-camera record, and selects reference mode 2"
+  },
+  "arguments": [
+    {
+      "name": "camera_preset_index",
+      "type": "s32"
+    },
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The handler shares the event-camera record loader with command 34, but stores the resolved object's transform pointer and selects mode 2. func_001C68A0 implements mode 2 by rotating the preset vectors by the object's yaw at offset 0x3C and adding the object's position, making both camera placement and orientation object-relative. All five JP calls occur in al01.ard and use preset indices 102, 104, 106, 107, or 108 with object IDs 2, 6, or 7."
+}

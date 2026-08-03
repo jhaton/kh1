@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 81,
+  "status": "named",
+  "name": "set_text_window_pointer_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CDD18 consumes a window ID and position index and stores the index at window descriptor +0x08; when the window is not following a world target, func_0010B0D0 divides indices 0 through 19 into four groups of five and maps them to successive positions around the window perimeter"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "position_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "Observed configured position indices are 0, 1, 3, 4, 5, 13, 14, 15, and 17."
+}

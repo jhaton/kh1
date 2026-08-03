@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 385,
+  "status": "named",
+  "name": "wait_for_event_sound_data_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001EA250 takes no Script context and returns scheduler state 4 while asynchronous-load bit 55 in D_00388550 is set, otherwise state 2, without accessing the value stack"
+  },
+  "arguments": [],
+  "notes": "Every one of the 18 JP calls follows command 384 load_event_sound_data, whose eventse file completion callback parses the loaded sound resource through func_0011CC20."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 96,
+  "status": "named",
+  "name": "set_selected_object_part_mask_bits",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1328 consumes two 1-based part indices and passes the selected object and both indices to func_00135868, which sets the corresponding bits in the object's part masks at offsets 0x38C and 0x390"
+  },
+  "arguments": [
+    {
+      "name": "primary_part_index",
+      "type": "s32"
+    },
+    {
+      "name": "secondary_part_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "A nonpositive index leaves its corresponding mask unchanged. All eight JP calls use matching 1-based part indices: seven pass part index 2 for both masks and one additionally passes part index 3."
+}

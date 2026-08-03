@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 422,
+  "status": "named",
+  "name": "distance_between_objects",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D3860 resolves two stack object IDs with func_001EAB00, computes sqrt((x_b-x_a)^2 + (y_b-y_a)^2 + (z_b-z_a)^2) from their position fields, decrements stackTop by one, and replaces the remaining value with the integer distance"
+  },
+  "arguments": [
+    {
+      "name": "object_id_a",
+      "type": "s32"
+    },
+    {
+      "name": "object_id_b",
+      "type": "s32"
+    }
+  ],
+  "notes": "The direct stackTop decrement alone resembles a one-input command, but the handler reads two values and leaves one result. Both JP calls immediately store the result and compare it against distance 200."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 20,
+  "status": "named",
+  "name": "wait_for_object_action",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF458 has no value-stack access and returns the scheduler wait status while the Script object-action flags remain set"
+  },
+  "arguments": [],
+  "notes": "Scripts issue this immediately after queued movement and animation commands to block until the action completes."
+}

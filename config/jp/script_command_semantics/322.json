@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 322,
+  "status": "named",
+  "name": "get_selected_object_motion_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D6B50 increments Script stackTop and, when the selected object pointer at Script offset 0x04 is non-null, pushes the object's motion ID from offset 0x164"
+  },
+  "arguments": [],
+  "notes": "func_00130788 copies the low 16-bit motion request at object offset 0x17C into offset 0x164, and func_00130098 maps that motion ID through the object's motion table before animation setup; offsets 0x168 and 0x16C hold the resulting animation ID and frame. A null selected-object pointer leaves the newly exposed stack slot unchanged. All six JP calls are copies of the same pc06.ard entry structure and immediately store the result in scenario variable 2572."
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 49,
+  "status": "named",
+  "name": "start_camera_target_position_transition",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001C9FE0 reads four values from the Script value stack, stores the duration and target X/Y/Z coordinates in camera transition state, and decrements Script stackTop by four"
+  },
+  "arguments": [
+    {
+      "name": "duration_ticks",
+      "type": "s32"
+    },
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001C9FE0 snapshots the current camera target at D_003C0E30 through D_003C0E38, stores the requested target at D_003C0DD0 through D_003C0DD8, resets elapsed time, and enables transition flag 0x1. func_001C9EC0 advances elapsed time and interpolates each coordinate through the camera easing function before rebuilding the camera. All 63 JP calls occur after command 513 enable_event_camera in the same entry; every call is followed by command 50 and then command 51 to start synchronized rotation and distance transitions."
+}

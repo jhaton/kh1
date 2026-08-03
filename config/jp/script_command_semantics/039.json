@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 39,
+  "status": "named",
+  "name": "set_camera_fov_degrees",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001C9B88 converts the top stack value to float, stores it in D_003C0E84, rebuilds the camera state through func_001C8170, and decrements Script stackTop"
+  },
+  "arguments": [
+    {
+      "name": "fov_degrees",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001C8170 passes D_003C0E84 to func_00125010; that routine stores the field of view in degrees and computes the projection scale as 256 / tan(fov / 2). All 121 JP calls pass a direct literal: 26, 41, or 53 degrees."
+}

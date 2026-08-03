@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": 3,
+  "status": "named",
+  "name": "set_text_window_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CDDB8 consumes a window ID and two coordinates and stores the coordinates in the window descriptor position fields"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 618,
+  "status": "named",
+  "name": "sample_selected_object_background_color_at_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DBEB0 consumes three coordinates, converts them to floats, samples the collision-backed background color through func_001425C0, copies the resulting vector to the selected object through func_001426A8, and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001425C0 queries the background color associated with the collision surface at the supplied position. func_001426A8 stores the resulting RGBA vector at selected-object offset 0x350, the same color field refreshed by command 452 GET_BG_COLOR and consumed by func_00135C50. The JP corpus contains 107 calls."
+}

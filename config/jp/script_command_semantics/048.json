@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 48,
+  "status": "named",
+  "name": "spawn_event_effect",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF1B8 consumes one effect ID, stores it in a newly queued func_001DE7C0 effect task, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The task is initialized with operation state 0, whose func_001DE7C0 path spawns the effect through func_00177558. Command 186 delete_event_effect uses state 2 and the matching event-effect pool wrapper func_001775E8. The JP corpus contains 34 calls with effect IDs 0 and 1."
+}

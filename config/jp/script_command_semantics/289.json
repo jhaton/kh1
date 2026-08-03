@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 289,
+  "status": "named",
+  "name": "get_object_animation_frame",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D5C68 resolves the top object ID with func_001EAB00 and replaces it with the integer-converted value of object offset 0x16C multiplied by 0.5"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Object offset 0x168 stores the animation ID, while func_00130578 initializes the adjacent float at 0x16C from its starting-frame argument and the animation update path advances that field toward the duration at 0x280. A missing object leaves the input value unchanged. All 136 JP calls pass direct object IDs 2 through 9; 128 immediately store the result, and 63 occur directly after wait_ticks(1) in animation-frame polling loops."
+}

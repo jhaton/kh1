@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 7,
+  "status": "named",
+  "name": "set_text_window_character_delay",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CDF78 consumes a window ID and integer delay, converts the delay to float, and stores it at window descriptor +0x94; func_001CD738 copies that descriptor into an active window, where +0x94 becomes embedded text state +0x14; func_0010D250 assigns that interval to emitted glyphs, and func_0010CCF0 and func_0010CE98 use the cumulative intervals to advance and gate character reveal"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "character_delay",
+      "type": "s32"
+    }
+  ],
+  "notes": "A zero delay is normalized to a tiny positive interval, making the text reveal effectively immediate; observed configured delays are 0 and 2."
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "id": 702,
+  "status": "reviewed_unresolved",
+  "review": {
+    "reason": "The native handler and representative JP corpus callsites were reviewed, but the available evidence does not establish a defensible semantic name."
+  }
+}

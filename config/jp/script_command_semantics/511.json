@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 511,
+  "status": "named",
+  "name": "begin_event_mode",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF1B8 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001CF1B8 sets event-state bit 0x2 in D_00375BC0 and calls func_00133538 to clear the paired object-manager mode bit. The JP corpus contains 413 calls, predominantly in event setup sequences alongside disable_party_damage, disable_all_object_control, and other scene-wide setup commands. Command 512 is the cleanup counterpart that waits for pending event audio and clears both low event-state bits."
+}

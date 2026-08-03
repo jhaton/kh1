@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 180,
+  "status": "named",
+  "name": "clear_conversation_camera",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CE738 takes no Script context and calls func_0017FED8 without accessing the value stack"
+  },
+  "arguments": [],
+  "notes": "func_0017FED8 clears the temporary conversation-camera active flag and, when the camera object exists and is not already terminating, starts its 30-tick return transition through func_001783D0. This is the cleanup counterpart to command 179 configure_conversation_camera_and_text_windows. The JP corpus contains five calls across al01.ard and pc06.ard."
+}

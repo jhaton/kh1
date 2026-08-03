@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 419,
+  "status": "named",
+  "name": "distance_between_points_xz",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D3300 reads four stack values, computes sqrt((x2 - x1)^2 + (z2 - z1)^2), decrements stackTop by three, and replaces the remaining first value with the integer distance"
+  },
+  "arguments": [
+    {
+      "name": "x1",
+      "type": "s32"
+    },
+    {
+      "name": "z1",
+      "type": "s32"
+    },
+    {
+      "name": "x2",
+      "type": "s32"
+    },
+    {
+      "name": "z2",
+      "type": "s32"
+    }
+  ],
+  "notes": "The direct stackTop decrement alone resembles a three-input command, but the handler reads four values and leaves one result, so the observable contract is four inputs and one output. The JP corpus contains 193 calls."
+}

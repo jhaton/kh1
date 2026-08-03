@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 461,
+  "status": "named",
+  "name": "destroy_spawn_group_objects_async",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8FB0 retains the top group ID while event-audio work is pending, then passes it to func_00131E58 and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "group_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "After func_0011E168(0) finishes servicing the tracked event-audio slots, func_00131E58 iterates scene spawn records whose group field at offset 0x58 equals group_id and requests destruction of every live object through func_001565E0. It marks asynchronous flag 0x4000000000000000 until all callbacks finish. The only JP call destroys group 10 in pc12.ard and is immediately followed by command 462."
+}

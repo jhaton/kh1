@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 462,
+  "status": "named",
+  "name": "wait_for_spawn_group_object_destruction",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D9038 takes no Script context and does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D9038 returns state 4 while asynchronous flag 0x4000000000000000 remains set and state 2 after func_001D8F80 clears it when command 461's spawn-group destruction finishes. Its only JP call immediately follows command 461 destroy_spawn_group_objects_async in pc12.ard."
+}

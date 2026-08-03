@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": 219,
+  "status": "named",
+  "name": "turn_script_object_toward_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D4540 consumes X, Y, Z, and duration, converts the coordinates to a vector, and passes the script-bound object, target vector, and doubled duration to func_0014FC10; that routine stores the look target and initializes the object's facing interpolation"
+  },
+  "arguments": [
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ]
+}

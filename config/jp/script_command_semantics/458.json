@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 458,
+  "status": "named",
+  "name": "load_character_model_variant_async",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8DE8 passes the two stack values in order to func_001330C0 and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "character_slot",
+      "type": "s32"
+    },
+    {
+      "name": "model_variant",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001330C0 records model_variant in D_003010F8 slot state, indexes the character-model file table from character_slot and model_variant, and queues cdvd_QueueFileLoad with a completion callback. func_001D8DE8 marks asynchronous flag 0x2000000000000000 until that callback runs. All four JP calls are followed, after one tick, by command 459."
+}

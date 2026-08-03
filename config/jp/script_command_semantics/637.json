@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 637,
+  "status": "named",
+  "name": "spawn_event_effect_attached_to_object",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF330 consumes an effect ID and object ID, resolves the object through func_001EAB00, and queues event-effect dispatcher state 10 with the effect ID and resolved object"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    },
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Dispatcher state 10 loads effect_id from the event-effect package into the D_0035C010 manager through func_00177558, resolves the resulting effect, and starts func_001DE750 when the target object exists. That worker derives the object's attachment transform through func_001317F8 and applies it to the effect through func_00148060. The 18 JP calls in tw09.ard use effect IDs 1 through 6 and object IDs 1 through 3."
+}

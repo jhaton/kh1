@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 541,
+  "status": "named",
+  "name": "get_selected_object_state_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001DB098 increments Script stackTop and pushes the selected object's state field at offset 0x70"
+  },
+  "arguments": [],
+  "notes": "Object offset 0x70 is the active behavior-state ID. func_0014F8B0 changes this field, invokes the previous state's exit callback and the new state's entry callback through the 32-byte records in D_0034D298, and preserves the previous ID at object offset 0x378. func_0014FA88 registers those state records and their callbacks. Command 541 directly exposes the current ID for the object pointer stored at Script offset 0x04. The JP corpus contains five calls, all in copies of the same lm13.ard entry; each result is immediately stored in local 6 and compared against zero before entering a coordinate-update path."
+}

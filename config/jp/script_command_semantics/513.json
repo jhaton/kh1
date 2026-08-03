@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 513,
+  "status": "named",
+  "name": "enable_event_camera",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF1E8 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001CF1E8 queues object operation type 0, calls func_001C7E70 to initialize the scripted camera state, and sets global event-state flag 0x400. Type 0 maps to the embedded EVENT_CAMERA_ON name; its dispatcher calls func_00133558, which activates the alternate camera path and sets camera-state flag 0x2. The JP corpus contains 161 calls."
+}

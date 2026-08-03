@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 132,
+  "status": "named",
+  "name": "show_map_parts",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1F58 consumes one map-part ID and calls func_001055B8(id, 0), which finds every map record whose byte at offset 0x0B matches the ID and clears its disable bit 0"
+  },
+  "arguments": [
+    {
+      "name": "map_part_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001055B8 applies the change to both active map-record tables and func_00105660 uses the same disable bit to suppress records whose room-selection ID does not match the current room. Command 133 sets the bit and is the exact inverse. The JP corpus contains 25 calls across ew31.ard, he03.ard, and lm03.ard, using literal IDs 100 through 181."
+}

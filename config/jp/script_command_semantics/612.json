@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 612,
+  "status": "named",
+  "name": "transition_to_world_room_event",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CFB28 consumes four values and passes them in stack order to func_00112848"
+  },
+  "arguments": [
+    {
+      "name": "world_index",
+      "type": "s32"
+    },
+    {
+      "name": "room_index",
+      "type": "s32"
+    },
+    {
+      "name": "event_index",
+      "type": "s32"
+    },
+    {
+      "name": "spawn_point_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00112848 stores the four values in the engine's requested world, room, event, and spawn-point fields and schedules the full world transition through func_001127E0. func_001CFB28 also sets the Script transition-state flag at D_003854E0+0x3070 and returns state 10. The only JP call follows event-camera teardown in pc06.ard and passes (3, 0, 5, 1), selecting Traverse Town world index 3, room index 0 (tw01.ard), event 5, and spawn point 1. This is the Hollow Bastion library sequence associated with young Kairi's conversation with her grandmother during Sora's second Traverse Town visit."
+}

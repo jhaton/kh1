@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 571,
+  "status": "named",
+  "name": "finish_object_animation",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DB910 resolves the top object ID through func_001EAB00, calls func_00141348 on the resolved object, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00141348 advances both animation tracks to their recorded end frames through func_00141588 and func_00141668, then clears the model's completion and interpolation fields. The 13 JP calls use object IDs 1 through 5 in al01.ard, al21.ard, pp10.ard, and pc12.ard, either immediately before new animation threads start or while finishing an event and restoring room state."
+}

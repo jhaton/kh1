@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "entities": {
+    "selected_object": "The object selected by the script interpreter's current selection state.",
+    "script_object": "The object bound to the current Script record by its stored object ID.",
+    "map_effect": "An effect managed by the map-effect registry.",
+    "event_effect": "An effect managed by the event-effect task and package system."
+  },
+  "verbs": {
+    "get": "Return an existing value without changing its source.",
+    "set": "Assign a supplied value directly.",
+    "refresh": "Recompute stored state from the object's current state.",
+    "sample": "Query a value associated with a supplied position or source.",
+    "queue": "Start asynchronous work without waiting for completion.",
+    "wait_for": "Yield until previously started work or state completes.",
+    "enable_disable": "Use for inverse persistent state toggles.",
+    "show_hide": "Use for inverse visibility operations."
+  },
+  "measurements": {
+    "duration": "A total interpolation or wait interval.",
+    "speed": "A rate normalized to the runtime update frequency.",
+    "step_distance": "A distance applied directly on each update.",
+    "angle_degrees": "An absolute angle supplied in degrees.",
+    "angle_delta_degrees": "A relative angle change supplied in degrees.",
+    "position_axes": "Use x, y, and z in native stack order."
+  },
+  "review_policy": {
+    "named": "Use only when native behavior and representative corpus usage support a defensible semantic name.",
+    "reviewed_unresolved": "Use instead of a speculative name after the handler and representative callsites have been reviewed.",
+    "confidence": "Record name and stack confidence independently; high confidence requires concrete evidence."
+  }
+}

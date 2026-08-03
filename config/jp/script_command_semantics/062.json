@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 62,
+  "status": "named",
+  "name": "enable_map_group",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CFD58 consumes one group ID and passes it to func_00107FB8, which sets bit 1 << group_id in D_002B91E8"
+  },
+  "arguments": [
+    {
+      "name": "group_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "D_002B91E8 is initialized from the current room's default group mask. func_00107338 intersects it with each map record's group mask, and func_00107360 skips disabled records before performing map-bounds visibility tests. All 31 JP calls use literal group IDs from 1 through 18. Twelve ew31 calls interleave command 62 with command 63 disable_map_group to select alternating groups; command 62 is the exact inverse operation."
+}

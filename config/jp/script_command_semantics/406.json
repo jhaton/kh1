@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 406,
+  "status": "named",
+  "name": "wait_for_music_wave_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E94F0 takes no Script context and returns scheduler state 4 while asynchronous-load bit 56 in D_00388550 is set, otherwise state 2, without accessing the value stack"
+  },
+  "arguments": [],
+  "notes": "Command 567 builds an amusic/wave%4d.wd path, queues the file load, and arranges for the associated asynchronous task bit to clear on completion. Every one of the five JP calls immediately follows command 567, so this handler waits for that music wave-data load to finish."
+}

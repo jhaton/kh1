@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 661,
+  "status": "named",
+  "name": "hide_timer_display",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DC8F0 calls func_00111F00 without accessing or changing the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_00111F00 sets timer-display termination flag D_004D29D0, causing the registered update callback func_00111D98 to return task status 4, and clears the active display state through func_00245130 and func_00245140. It is the inverse of command 660 show_timer_display and does not change the underlying live timer. The JP corpus contains twelve calls, six each in tz04.ard and tz05.ard; every call immediately follows command 239, which disables the minigame pause-menu mode during timer cleanup."
+}

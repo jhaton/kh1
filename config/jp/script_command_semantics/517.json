@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 517,
+  "status": "named",
+  "name": "is_player_controllable",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D2580 replaces the top restriction mask with the boolean result of func_00125BB8"
+  },
+  "arguments": [
+    {
+      "name": "restriction_mask",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00125BB8 returns false when controller mode D_002DF6C0 is 3, global flags 0x12000 are set, or the player-control-disable bit 0x2 in D_002DF6B0 is set. Mask bit 0 adds player-validity and contact-orientation checks, bit 1 rejects player states 3, 7, and 8, and bit 2 requires player field 0x70 to be zero. All 27 JP calls pass mask 0, immediately store the result, and consume it as a boolean gate."
+}

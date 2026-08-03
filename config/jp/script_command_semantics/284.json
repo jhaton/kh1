@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 284,
+  "status": "named",
+  "name": "get_object_position_x",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D59F8 resolves the top value with func_001EAB00 and replaces it with the integer-converted float at object offset 0x10"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ]
+}

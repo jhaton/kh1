@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 729,
+  "status": "named",
+  "name": "transition_selected_object_to_opaque_base_color",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0C98 consumes one duration, queues a type-23 COLOR_CHANGE operation targeting the selected object's RGB bytes at offsets 0x370 through 0x372 with alpha 1.0, packs twice the duration into the operation, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "This specialized COLOR_CHANGE variant transitions to the selected object's base RGB rather than taking explicit color values as command 90 does. All 36 JP calls occur in pc01.ard copies during show-object setup, pass duration 12 or 16, and are followed by waits totaling that duration before command 90 restores full white."
+}

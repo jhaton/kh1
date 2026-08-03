@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 539,
+  "status": "named",
+  "name": "enable_animated_screen_filter",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DAFC8 consumes four values from Script stackTop, converts each integer percentage to a float by dividing by 100, and passes the four results to func_00103158"
+  },
+  "arguments": [
+    {
+      "name": "red_level_percent",
+      "type": "s32"
+    },
+    {
+      "name": "green_level_percent",
+      "type": "s32"
+    },
+    {
+      "name": "blue_level_percent",
+      "type": "s32"
+    },
+    {
+      "name": "color_cycle_speed_percent",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00103158 stores the three color levels and cycle-speed value for func_00103188, then func_00103718 enables its per-frame renderer. The renderer draws 16 horizontal GS strips with cyclically shifted sample coordinates and cosine-modulated RGB levels; command 540 disables the renderer. The JP corpus contains 14 calls across pc01.ard, ew22.ard, and ew23.ard. All eight pc01 calls are followed by command 540 in the same entry, and the six End of the World calls have matching command-540 cleanup entries in the same room archive."
+}

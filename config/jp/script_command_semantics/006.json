@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 6,
+  "status": "named",
+  "name": "set_text_window_open_transition",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CDED8 consumes a window ID and preset index and stores it at window descriptor +0x0C; func_0010BB50 maps that preset through D_002B2D10 to the opening countdown, and func_0010B810 branches on it while opening the window"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "transition_preset",
+      "type": "s32"
+    }
+  ],
+  "notes": "Known preset indices 0 through 3 select opening countdowns of 0, 6, 9, and 20 ticks."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 356,
+  "status": "named",
+  "name": "get_event_source_message_code",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D7798 increments Script stackTop and pushes D_003854E0.unk_3174"
+  },
+  "arguments": [],
+  "notes": "func_001C6530 stores its second argument in D_003854E0.unk_3174 beside the source object ID before starting event Script entry 0. Command 357 can override the same event-context field from Script code. All 19 JP calls immediately store the result; 17 pair it with command 355 get_event_source_object_id, including 14 that compare it with message code 50 and the paired encoded source object ID. The remaining two persist the value directly in scenario variables."
+}

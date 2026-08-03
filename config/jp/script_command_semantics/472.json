@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 472,
+  "status": "named",
+  "name": "get_damage_source_object_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D6750 increments Script stackTop and pushes the value at Script offset 0x320"
+  },
+  "arguments": [],
+  "notes": "func_00134FE0 builds a queued damage event and stores the source object pointer from the attack descriptor at event offset 0x2C. When func_001C6068 dispatches that event to Script entry 4, it copies the source object's ID at offset 0x4 into Script offset 0x320. All 17 JP calls occur in entry 4, immediately store the result, and compare it with direct object ID 1 or 3."
+}

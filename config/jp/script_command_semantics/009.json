@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 9,
+  "status": "named",
+  "name": "discard_value",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CED20 only decrements Script stackTop by one and has no other side effects"
+  },
+  "arguments": [
+    {
+      "name": "value",
+      "type": "s32"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 182,
+  "status": "named",
+  "name": "wait_for_object_resources",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D3118 takes no stack values and returns scheduler state 4 while the object-resource load flag is set or state 2 when loading is complete"
+  },
+  "arguments": [],
+  "notes": "func_001D3118 tests bit 45 (0x0000200000000000) in the shared asynchronous-load state at D_003854E0+0x3070. func_001D30B0 sets that bit when command 181 starts an object resource load, and the load-completion path clears it. The 23 JP calls occur as zero-argument polling waits."
+}

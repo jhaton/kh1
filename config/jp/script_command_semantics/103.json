@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": 103,
+  "status": "named",
+  "name": "noop",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1568 immediately returns 2 without reading Script state or producing any other side effect"
+  },
+  "arguments": [],
+  "notes": "The complete handler is a leaf consisting only of `return 2`; it does not inspect its Script argument, touch global state, call another routine, or alter stackTop. The JP corpus nevertheless contains 385 calls, so this is an intentional compatibility no-op rather than an unused table slot.",
+  "relations": [
+    {
+      "command_id": 201,
+      "kind": "alias",
+      "difference": "Both native handlers are stack-free no-ops."
+    }
+  ]
+}

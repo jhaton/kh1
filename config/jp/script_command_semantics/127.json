@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 127,
+  "status": "named",
+  "name": "get_current_world_index",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D1EE0 increments Script stackTop and pushes the current world index from D_002B8678"
+  },
+  "arguments": [],
+  "notes": "D_002B8678 indexes the 21-entry world abbreviation table used to build world-data and room-archive filenames. func_00112848 updates it as the first component of a world/room/entrance transition. The JP corpus contains 88 calls; every result is immediately stored, and 31 calls are followed by commands 128 and 129 to snapshot all three location components."
+}

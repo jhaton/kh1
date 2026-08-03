@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": 165,
+  "status": "named",
+  "name": "queue_event_effect_package_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DEE78 consumes a path-prefix index and package ID, formats the paired event-effect package paths, queues the asynchronous load, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "path_prefix_index",
+      "type": "s32"
+    },
+    {
+      "name": "package_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001DEE78 builds paired eveffect/<table-prefix>_%03d.dpp and .dpx paths, queues the DPP load into memory slot 0x32, records package_id, and sets asynchronous load bit 44. It is the memory-slot-0x32 counterpart of command 734, which performs the same load into slot 0x3C. The JP corpus contains two calls.",
+  "relations": [
+    {
+      "command_id": 734,
+      "kind": "variant",
+      "difference": "Command 165 loads the paired package into memory slot 0x32; command 734 uses slot 0x3C."
+    }
+  ]
+}

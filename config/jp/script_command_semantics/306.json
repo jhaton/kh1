@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 306,
+  "status": "named",
+  "name": "set_selected_object_initial_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6478 consumes three coordinates, converts them to floats, and queues object operation type 0x20 for the selected object"
+  },
+  "arguments": [
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    }
+  ],
+  "notes": "Operation type 0x20 maps to the embedded INIT_POS name. func_001D6478 stores the X, Y, and Z coordinates in the operation vector with W set to 1.0. The JP corpus contains 462 calls."
+}

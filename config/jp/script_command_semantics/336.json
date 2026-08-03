@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 336,
+  "status": "named",
+  "name": "disable_script_object_damage",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001EBAD0 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001EBAD0 queues operation types 0x24 and 0x2B for the object ID stored at Script offset 0. Both types map to embedded DAMAGE_OFF entries; their dispatchers set damage-disable flags 0x01000080 and 0x40, and type 0x24 also clears the state field at +0x0C. The JP corpus contains 141 calls; 123 immediately follow command 55 disable_selected_object_control, while 86 are immediately followed by command 26 disable_selected_object_collision."
+}

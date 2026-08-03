@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 258,
+  "status": "named",
+  "name": "adjust_stock_item_count",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D5158 consumes an item ID and signed amount and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "item_id",
+      "type": "s32"
+    },
+    {
+      "name": "amount",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001D5158 adds amount to the stock byte at D_003010F8 + 0x499 + item_id and clamps the result to the inclusive range 0 through 99. Unlike command 253 get_total_item_count, this updates only unequipped stock and does not inspect character item slots. The JP corpus contains 164 calls."
+}

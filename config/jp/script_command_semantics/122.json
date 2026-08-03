@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 122,
+  "status": "named",
+  "name": "transition_selected_object_scale",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1C88 consumes four values, divides the three scale components by 100, packs the duration into a type-0x1E object operation, and decrements Script stackTop by four"
+  },
+  "arguments": [
+    {
+      "name": "scale_x_percent",
+      "type": "s32"
+    },
+    {
+      "name": "scale_y_percent",
+      "type": "s32"
+    },
+    {
+      "name": "scale_z_percent",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded object-operation table labels type 0x1E SCALE. The operation targets the Script-selected object and carries independent normalized X, Y, and Z scale factors plus a duration. The JP corpus contains 83 calls; zero-duration calls apply an immediate scale, while nonzero durations include 1, 16, and 90 ticks."
+}

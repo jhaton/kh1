@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 427,
+  "status": "named",
+  "name": "fade_music_channel_volume",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9C70 reads three stack values in channel, target volume, duration order, converts the one-based channel to zero-based, scales the target percentage into the sound volume range, multiplies duration by eight, calls func_0011C5F0, and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "channel",
+      "type": "s32"
+    },
+    {
+      "name": "target_volume_percent",
+      "type": "s32"
+    },
+    {
+      "name": "duration_ticks",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0011C5F0 forwards to the music-channel volume transition routine func_001EE618. The 24 JP calls use channels 1 or 2, target volume zero, and duration 40; calls occur at cinematic boundaries and commonly precede command 415 stop_background_music or command 252 reload_background_music."
+}

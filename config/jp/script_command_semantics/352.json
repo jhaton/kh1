@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 352,
+  "status": "named",
+  "name": "set_game_speed_percent",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D76F0 consumes one integer, converts it to float, divides by 100.0, and stores the resulting multiplier in D_002B8348"
+  },
+  "arguments": [
+    {
+      "name": "speed_percent",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001102C0 multiplies the engine's computed update step D_002B8344 by D_002B8348 before applying its upper bound. Three JP calls set 100 percent and one pc01.ard event sets 20 percent."
+}

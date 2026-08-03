@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 413,
+  "status": "named",
+  "name": "enable_work_buffer_snapshot",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8230 takes no Script context, calls func_001116A8, and does not access or change the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001116A8 clears D_004D2998. World teardown func_001116C8 snapshots the active 0x16C00-byte work-buffer region into its backup only while this flag is zero, so command 413 enables that snapshot. It is the inverse of command 414 disable_work_buffer_snapshot. The three JP calls occur during cinematic cleanup in al02.ard, pp10.ard, and pc12.ard."
+}

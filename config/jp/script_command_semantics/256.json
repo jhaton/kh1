@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 256,
+  "status": "named",
+  "name": "load_event_voice_set",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E1420 uses the earlier value to select a six-byte world path prefix, uses the top value as the event number, queues the resulting file load, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "world_index",
+      "type": "s32"
+    },
+    {
+      "name": "event_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The handler formats voice/event/<world>_<event>.vset, allocates its destination, and queues an asynchronous load whose completion flag is polled by command 257. Every JP call is immediately followed by command 257; representative calls load world 0 event 106 in al02.ard and world 0 event 13 in al01.ard."
+}

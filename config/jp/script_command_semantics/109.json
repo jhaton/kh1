@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 109,
+  "status": "named",
+  "name": "set_object_part_scale",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D16C0 consumes three values, resolves the first as an object ID, and queues operation type 29 with the second value and twice the floating-point third value"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    },
+    {
+      "name": "part_id",
+      "type": "s32"
+    },
+    {
+      "name": "scale",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded object-operation table labels type 29 SCALE. func_001D16C0 resolves object_id through func_001EAB00, targets the resolved object's model data, encodes part_id in the operation header, and stores 2 * scale in the operation vector before dispatch. The JP corpus contains 220 calls; part IDs 33 and 34 dominate the literal call sites."
+}

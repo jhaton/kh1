@@ -25,6 +25,29 @@ DEFAULT_TABLE_SYMBOL = "D_003D4A20"
 DEFAULT_FILENAMES = Path(__file__).with_name("iso") / "kingdom_filenames.txt"
 ISO_BLOCK_SIZE = 0x800
 
+SEMANTIC_SCHEMA_VERSION = 1
+SEMANTIC_STATUSES = frozenset(("named", "reviewed_unresolved"))
+SEMANTIC_CONFIDENCES = frozenset(("low", "medium", "high"))
+SEMANTIC_RECORD_FIELDS = frozenset(
+    (
+        "schema_version",
+        "id",
+        "status",
+        "name",
+        "name_confidence",
+        "stack",
+        "arguments",
+        "notes",
+        "review",
+        "relations",
+    )
+)
+SEMANTIC_STACK_FIELDS = frozenset(("inputs", "outputs", "net", "confidence", "evidence"))
+SEMANTIC_REVIEW_FIELDS = frozenset(("reason", "evidence"))
+SEMANTIC_RELATION_FIELDS = frozenset(("command_id", "kind", "difference"))
+SEMANTIC_RELATION_KINDS = frozenset(("alias", "variant", "related"))
+SEMANTIC_NAME_PATTERN = re.compile(r"[a-z][a-z0-9]*(?:_[a-z0-9]+)*")
+
 
 @dataclass(frozen=True)
 class StackSignature:
@@ -346,19 +369,225 @@ def _profile_corpus(
     return dict(totals), frequency, examples
 
 
+def _require_nonnegative_int(value: object, description: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise FormatError(f"{description} must be a nonnegative integer")
+    return value
+
+
+def _load_semantic_records(path: Path) -> dict[int, dict[str, object]]:
+    if not path.is_dir():
+        raise FormatError(f"semantics source must be a directory: {path}")
+
+    nested_records = sorted(
+        record_path
+        for record_path in path.rglob("*.json")
+        if record_path.parent != path
+    )
+    if nested_records:
+        raise FormatError(
+            f"semantic records must be stored directly in {path}: {nested_records}"
+        )
+
+    records: dict[int, dict[str, object]] = {}
+    for record_path in sorted(path.glob("*.json")):
+        document = json.loads(record_path.read_text())
+        if not isinstance(document, dict):
+            raise FormatError(f"semantic record {record_path} is not an object")
+        unknown_fields = sorted(set(document) - SEMANTIC_RECORD_FIELDS)
+        if unknown_fields:
+            raise FormatError(f"semantic record {record_path} has unknown fields: {unknown_fields}")
+        if document.get("schema_version") != SEMANTIC_SCHEMA_VERSION:
+            raise FormatError(f"unsupported semantics schema in {record_path}")
+
+        command_id = _require_nonnegative_int(document.get("id"), f"{record_path}: id")
+        if record_path.stem != f"{command_id:03d}":
+            raise FormatError(f"{record_path}: filename does not match command id {command_id}")
+        if command_id in records:
+            raise FormatError(f"duplicate semantic record for command {command_id}")
+
+        status = document.get("status")
+        if status not in SEMANTIC_STATUSES:
+            raise FormatError(f"{record_path}: status must be named or reviewed_unresolved")
+        name = document.get("name")
+        name_confidence = document.get("name_confidence")
+        if status == "named":
+            if not isinstance(name, str) or SEMANTIC_NAME_PATTERN.fullmatch(name) is None:
+                raise FormatError(f"{record_path}: named record requires a snake_case name")
+            if name_confidence not in SEMANTIC_CONFIDENCES:
+                raise FormatError(f"{record_path}: named record requires a valid name confidence")
+        elif name is not None or name_confidence is not None:
+            raise FormatError(f"{record_path}: unresolved record cannot define a name")
+
+        stack = document.get("stack")
+        if stack is not None:
+            if not isinstance(stack, dict):
+                raise FormatError(f"{record_path}: stack must be an object")
+            unknown_stack_fields = sorted(set(stack) - SEMANTIC_STACK_FIELDS)
+            if unknown_stack_fields:
+                raise FormatError(
+                    f"{record_path}: stack has unknown fields: {unknown_stack_fields}"
+                )
+            inputs = stack.get("inputs")
+            outputs = stack.get("outputs")
+            net = stack.get("net")
+            if inputs is not None:
+                inputs = _require_nonnegative_int(inputs, f"{record_path}: stack inputs")
+            if outputs is not None:
+                outputs = _require_nonnegative_int(outputs, f"{record_path}: stack outputs")
+            if net is not None and (isinstance(net, bool) or not isinstance(net, int)):
+                raise FormatError(f"{record_path}: stack net must be an integer")
+            if inputs is not None and outputs is not None:
+                calculated_net = outputs - inputs
+                if net is not None and net != calculated_net:
+                    raise FormatError(f"{record_path}: stack net conflicts with inputs and outputs")
+            confidence = stack.get("confidence")
+            evidence = stack.get("evidence")
+            if confidence is not None and confidence not in SEMANTIC_CONFIDENCES:
+                raise FormatError(f"{record_path}: stack confidence is invalid")
+            if confidence is not None and (not isinstance(evidence, str) or not evidence):
+                raise FormatError(f"{record_path}: confident stack signature requires evidence")
+            if evidence is not None and not isinstance(evidence, str):
+                raise FormatError(f"{record_path}: stack evidence must be a string")
+
+        arguments = document.get("arguments", [])
+        if not isinstance(arguments, list):
+            raise FormatError(f"{record_path}: arguments must be an array")
+        argument_names: set[str] = set()
+        for argument in arguments:
+            if not isinstance(argument, dict) or set(argument) != {"name", "type"}:
+                raise FormatError(f"{record_path}: each argument requires only name and type")
+            argument_name = argument["name"]
+            argument_type = argument["type"]
+            if (
+                not isinstance(argument_name, str)
+                or SEMANTIC_NAME_PATTERN.fullmatch(argument_name) is None
+                or argument_name in argument_names
+            ):
+                raise FormatError(f"{record_path}: argument names must be unique snake_case names")
+            if not isinstance(argument_type, str) or not argument_type:
+                raise FormatError(f"{record_path}: argument type must be a nonempty string")
+            argument_names.add(argument_name)
+        stack_inputs = stack.get("inputs") if isinstance(stack, dict) else None
+        if stack_inputs is not None and len(arguments) != stack_inputs:
+            raise FormatError(f"{record_path}: argument count does not match stack inputs")
+        if stack_inputs is None and arguments:
+            raise FormatError(f"{record_path}: arguments require a known stack input count")
+
+        notes = document.get("notes")
+        if notes is not None and (not isinstance(notes, str) or not notes):
+            raise FormatError(f"{record_path}: notes must be a nonempty string")
+        review = document.get("review")
+        if status == "reviewed_unresolved":
+            if not isinstance(review, dict):
+                raise FormatError(f"{record_path}: unresolved record requires a review object")
+            unknown_review_fields = sorted(set(review) - SEMANTIC_REVIEW_FIELDS)
+            if unknown_review_fields:
+                raise FormatError(
+                    f"{record_path}: review has unknown fields: {unknown_review_fields}"
+                )
+            if not isinstance(review.get("reason"), str) or not review["reason"]:
+                raise FormatError(f"{record_path}: unresolved review requires a reason")
+            review_evidence = review.get("evidence")
+            if review_evidence is not None and (
+                not isinstance(review_evidence, list)
+                or not all(isinstance(item, str) and item for item in review_evidence)
+            ):
+                raise FormatError(f"{record_path}: review evidence must be an array of strings")
+        elif review is not None:
+            raise FormatError(f"{record_path}: named record cannot define unresolved review data")
+
+        relations = document.get("relations", [])
+        if not isinstance(relations, list):
+            raise FormatError(f"{record_path}: relations must be an array")
+        relation_targets: set[int] = set()
+        for relation in relations:
+            if not isinstance(relation, dict) or set(relation) != SEMANTIC_RELATION_FIELDS:
+                raise FormatError(
+                    f"{record_path}: each relation requires command_id, kind, and difference"
+                )
+            target = _require_nonnegative_int(
+                relation["command_id"], f"{record_path}: relation command_id"
+            )
+            if target == command_id or target in relation_targets:
+                raise FormatError(f"{record_path}: relation targets must be unique other commands")
+            if relation["kind"] not in SEMANTIC_RELATION_KINDS:
+                raise FormatError(f"{record_path}: relation kind is invalid")
+            if not isinstance(relation["difference"], str) or not relation["difference"]:
+                raise FormatError(f"{record_path}: relation difference must be a nonempty string")
+            relation_targets.add(target)
+
+        records[command_id] = document
+
+    names: dict[str, list[int]] = defaultdict(list)
+    for command_id, record in records.items():
+        name = record.get("name")
+        if isinstance(name, str):
+            names[name].append(command_id)
+        for relation in record.get("relations", []):
+            target = relation["command_id"]
+            if target not in records:
+                raise FormatError(f"command {command_id}: relation target {target} is absent")
+            reciprocal = any(
+                candidate["command_id"] == command_id and candidate["kind"] == relation["kind"]
+                for candidate in records[target].get("relations", [])
+            )
+            if not reciprocal:
+                raise FormatError(
+                    f"command {command_id}: relation to command {target} is not reciprocal"
+                )
+    for name, command_ids in names.items():
+        if len(command_ids) < 2:
+            continue
+        for command_id in command_ids:
+            accepted_targets = {
+                relation["command_id"]
+                for relation in records[command_id].get("relations", [])
+                if relation["kind"] in ("alias", "variant")
+            }
+            missing = sorted(set(command_ids) - {command_id} - accepted_targets)
+            if missing:
+                raise FormatError(
+                    f"duplicate semantic name {name!r} for command {command_id} "
+                    f"lacks alias or variant relations to {missing}"
+                )
+    return records
+
+
+def _semantic_override(record: dict[str, object]) -> dict[str, object]:
+    override: dict[str, object] = {}
+    for field in ("name", "name_confidence", "arguments", "notes"):
+        if field in record:
+            override[field] = record[field]
+    stack = record.get("stack")
+    if isinstance(stack, dict):
+        for source, destination in (
+            ("inputs", "inputs"),
+            ("outputs", "outputs"),
+            ("net", "net"),
+            ("confidence", "stack_confidence"),
+            ("evidence", "stack_evidence"),
+        ):
+            if source in stack:
+                override[destination] = stack[source]
+    return override
+
+
 def _load_semantics(path: Path | None) -> dict[int, dict[str, object]]:
     if path is None:
         return {}
-    document = json.loads(path.read_text())
-    if document.get("schema_version") != 1:
-        raise FormatError(f"unsupported semantics schema in {path}")
-    result: dict[int, dict[str, object]] = {}
-    for key, value in document.get("commands", {}).items():
-        command_id = int(key, 0)
-        if not isinstance(value, dict):
-            raise FormatError(f"command {key} in {path} is not an object")
-        result[command_id] = value
-    return result
+    return {
+        command_id: _semantic_override(record)
+        for command_id, record in _load_semantic_records(path).items()
+    }
+
+
+def _require_reviewed_used_commands(
+    used_commands: Iterable[int], reviewed_commands: Iterable[int]
+) -> None:
+    unreviewed_used = sorted(set(used_commands) - set(reviewed_commands))
+    if unreviewed_used:
+        raise FormatError(f"used commands lack semantic review records: {unreviewed_used}")
 
 
 def build_database(
@@ -368,6 +597,7 @@ def build_database(
     semantics_path: Path | None,
     filenames_path: Path,
     table_symbol: str = DEFAULT_TABLE_SYMBOL,
+    evidence_records: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     executable = executable_path.read_bytes()
     symbols_by_name, symbols_by_address = _parse_linker_map(map_path)
@@ -398,6 +628,8 @@ def build_database(
     unknown_overrides = sorted(set(semantics) - set(range(command_count)))
     if unknown_overrides:
         raise FormatError(f"semantics contains out-of-range commands: {unknown_overrides}")
+    if semantics_path is not None:
+        _require_reviewed_used_commands(frequency, semantics)
 
     commands = []
     for command_id, handler_address in enumerate(handlers):
@@ -412,6 +644,13 @@ def build_database(
                 executable, handler_address, handler_end - handler_address
             )
             inferred_inputs = _infer_direct_stack_inputs(handler_code)
+        machine_stack_evidence = None
+        if inferred_inputs is not None:
+            machine_stack_evidence = (
+                f"machine-code analysis found a direct Script stackTop decrement of {inferred_inputs}"
+                if inferred_inputs
+                else "machine-code analysis found a leaf handler with no Script stackTop access"
+            )
         if (
             inputs is None
             and outputs is None
@@ -422,11 +661,7 @@ def build_database(
             outputs = 0
             net = -inferred_inputs
             stack_confidence = "high"
-            stack_evidence = (
-                f"machine-code analysis found a direct Script stackTop decrement of {inferred_inputs}"
-                if inferred_inputs
-                else "machine-code analysis found a leaf handler with no Script stackTop access"
-            )
+            stack_evidence = machine_stack_evidence
         else:
             stack_confidence = override.get("stack_confidence", "unknown")
             stack_evidence = override.get("stack_evidence")
@@ -437,10 +672,11 @@ def build_database(
                     f"command {command_id}: stack net conflicts with inputs and outputs"
                 )
             net = calculated_net
+        handler_symbol = _preferred_symbol(symbols_by_address.get(handler_address, ()))
         item: dict[str, object] = {
             "id": command_id,
             "handler_address": f"0x{handler_address:08X}",
-            "handler_symbol": _preferred_symbol(symbols_by_address.get(handler_address, ())),
+            "handler_symbol": handler_symbol,
             "name": override.get("name"),
             "name_confidence": override.get("name_confidence", "unknown"),
             "stack": {
@@ -457,6 +693,23 @@ def build_database(
         if override.get("notes"):
             item["notes"] = override["notes"]
         commands.append(item)
+        if evidence_records is not None:
+            evidence_records.append(
+                {
+                    "id": command_id,
+                    "handler_address": f"0x{handler_address:08X}",
+                    "handler_symbol": handler_symbol,
+                    "machine_stack": {
+                        "inputs": inferred_inputs,
+                        "outputs": 0 if inferred_inputs is not None else None,
+                        "net": -inferred_inputs if inferred_inputs is not None else None,
+                        "confidence": "high" if inferred_inputs is not None else "unknown",
+                        "evidence": machine_stack_evidence,
+                    },
+                    "call_count": frequency[command_id],
+                    "examples": examples.get(command_id, []),
+                }
+            )
 
     return {
         "schema_version": 1,
@@ -475,6 +728,25 @@ def build_database(
 
 def write_database(document: dict[str, object], path: Path) -> None:
     path.write_text(json.dumps(document, indent=2) + "\n")
+
+
+def write_command_evidence(records: list[dict[str, object]], path: Path) -> None:
+    if not records:
+        return
+    path.mkdir(parents=True, exist_ok=True)
+    for record in records:
+        command_id = int(record["id"])
+        record_path = path / f"{command_id:03d}.json"
+        record_path.write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "command": record,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
 
 
 def _stack_effect(instruction: Instruction, commands: dict[int, CommandMetadata]) -> tuple[int, int] | None:
@@ -610,6 +882,7 @@ def analyze_stack(blocks: Iterable[ScriptBlock], commands: dict[int, CommandMeta
 
 
 def _generate(args: argparse.Namespace) -> int:
+    evidence_records = [] if args.evidence_output is not None else None
     document = build_database(
         args.executable,
         args.map,
@@ -617,13 +890,32 @@ def _generate(args: argparse.Namespace) -> int:
         args.semantics,
         args.filenames,
         args.table_symbol,
+        evidence_records,
     )
     write_database(document, args.output)
+    if evidence_records is not None:
+        write_command_evidence(evidence_records, args.evidence_output)
     corpus = document["corpus"]
     print(
         f"wrote {document['command_table']['count']} commands to {args.output}; "
         f"{corpus.get('commands_used', 0)} used commands, {corpus.get('command_calls', 0)} calls",
         file=sys.stderr,
+    )
+    return 0
+
+
+def _validate_semantics(args: argparse.Namespace) -> int:
+    records = _load_semantic_records(args.semantics)
+    summary = Counter(record["status"] for record in records.values())
+    print(
+        json.dumps(
+            {
+                "records": len(records),
+                "named": summary["named"],
+                "reviewed_unresolved": summary["reviewed_unresolved"],
+            },
+            indent=2,
+        )
     )
     return 0
 
@@ -672,7 +964,19 @@ def main() -> int:
     generate.add_argument("--filenames", type=Path, default=DEFAULT_FILENAMES)
     generate.add_argument("--table-symbol", default=DEFAULT_TABLE_SYMBOL)
     generate.add_argument("--output", type=Path, required=True)
+    generate.add_argument(
+        "--evidence-output",
+        type=Path,
+        help="write generated per-command machine and corpus evidence records",
+    )
     generate.set_defaults(action=_generate)
+
+    validate_semantics = subparsers.add_parser(
+        "validate-semantics",
+        help="validate independently editable semantic source records",
+    )
+    validate_semantics.add_argument("semantics", type=Path)
+    validate_semantics.set_defaults(action=_validate_semantics)
 
     check = subparsers.add_parser("check", help="check stack depth where command signatures are known")
     check.add_argument("database", type=Path)

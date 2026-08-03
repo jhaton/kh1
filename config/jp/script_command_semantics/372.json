@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 372,
+  "status": "named",
+  "name": "set_event_effect_scale",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF620 consumes an event-effect ID and three scale percentages, resolves the ID through func_001775E8, divides each component by 100.0, and writes the three floats through the entry's scale pointer"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    },
+    {
+      "name": "x_percent",
+      "type": "s32"
+    },
+    {
+      "name": "y_percent",
+      "type": "s32"
+    },
+    {
+      "name": "z_percent",
+      "type": "s32"
+    }
+  ],
+  "notes": "All eight JP calls use (effect_id=1, x=150, y=100, z=150), scaling event effect 1 to 1.5, 1.0, and 1.5."
+}

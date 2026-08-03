@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": 744,
+  "status": "reviewed_unresolved",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001DDAA0 increments Script stackTop and pushes bit 4 from offset 0xDC4 of work buffer 1"
+  },
+  "review": {
+    "reason": "The native handler and representative JP corpus callsites were reviewed, but the available evidence does not establish a defensible semantic name."
+  }
+}

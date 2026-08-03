@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 321,
+  "status": "named",
+  "name": "disable_script_object_targeting",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6AC0 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D6AC0 queues object operation type 0x22 for the object ID stored at Script offset 0. Type 0x22 maps to the embedded TARGET_OFF name, and its dispatcher sets the targeting-disable flag 0x200. The JP corpus contains 326 calls; 171 immediately follow command 26 disable_selected_object_collision."
+}

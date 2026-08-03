@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 606,
+  "status": "named",
+  "name": "transition_selected_object_to_palette_color",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DBB50 consumes a palette color index and duration, queues a COLOR_CHANGE object operation, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "color_index",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00105A70 copies the indexed 16-byte color vector from the table rooted at D_002A0518. func_001DBB50 scales its RGB components, preserves the selected object's current alpha, and queues them with duration through the embedded COLOR_CHANGE operation. The JP corpus contains 138 calls."
+}

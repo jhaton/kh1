@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 151,
+  "status": "named",
+  "name": "disable_all_object_control",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D2840 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D2840 selects the active scene-object registry, resolves each registered object ID, and queues operation type 14 for every resolvable object. Type 14 maps to the embedded CONTROL_OFF name; its dispatcher sets the control-disable flag 0x100000000 and clears object-state flag 0x4. The JP corpus contains 118 calls in 112 entries; 76 calls begin an entry, consistent with disabling scene-wide object control at event setup."
+}

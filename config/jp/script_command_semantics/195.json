@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 195,
+  "status": "named",
+  "name": "store_distance_between_objects",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D3750 consumes three values, resolves the latter two as objects, stores their integer Euclidean separation through the work-variable offset recorded by the first value's load, and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "destination_value",
+      "type": "s32"
+    },
+    {
+      "name": "first_object_id",
+      "type": "s32"
+    },
+    {
+      "name": "second_object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The VM's LOAD_VAR32 operation records its work-variable offset at Script+0x204 while pushing the variable's current value. func_001D3750 uses that recorded offset as the destination, ignores destination_value itself, computes the 3D distance between the two resolved object positions, converts it to an integer, and stores it back to the work-variable bank. All 29 JP calls pass a loaded variable as the first argument."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 364,
+  "status": "named",
+  "name": "set_text_object_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D7918 stores the top value in D_002B8000 and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The text formatter consumes D_002B8000 through an inline control-code path that resolves object metadata with func_00147A88 and obtains its display string through func_00147A50. The JP corpus contains 121 calls; pp10.ard item-award sequences pass the same item ID immediately after command 258 adjust_stock_item_count so the following text window can name the awarded object."
+}

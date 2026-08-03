@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 363,
+  "status": "named",
+  "name": "enable_all_spawn_groups",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D78D8 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D78D8 calls func_0014EE78 for group IDs 1 through 31, setting bits 0 through 30 of D_00553BEC. func_0014F0E0 intersects this enable mask with the spawn-group mask selected by spatial overlap, and func_0014F280 uses the result to activate matching grouped objects. This is the inverse of command 362 disable_all_spawn_groups. The JP corpus contains 94 calls; 71 have command 512 as the preceding Script command, and 56 have no later Script command in their entry, consistent with restoring spawn groups during event cleanup."
+}

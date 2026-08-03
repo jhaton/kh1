@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": 76,
+  "status": "named",
+  "name": "transition_interpolation_value_color",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 5,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D06F0 consumes a value ID, RGB components, and duration; resolves D_0038858C[value_id], normalizes each component by 255, derives per-tick deltas from the value's current color, and decrements Script stackTop by five"
+  },
+  "arguments": [
+    {
+      "name": "value_id",
+      "type": "s32"
+    },
+    {
+      "name": "red",
+      "type": "s32"
+    },
+    {
+      "name": "green",
+      "type": "s32"
+    },
+    {
+      "name": "blue",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "A zero duration writes the normalized target color directly; otherwise the handler enables the asynchronous color transition. The two JP calls transition value 0 to (136, 136, 136) and then back to (255, 255, 255), both over duration 2."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 357,
+  "status": "named",
+  "name": "set_event_source_context",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D77C0 consumes two values in order and stores them in D_003854E0.unk_3170 and D_003854E0.unk_3174, the fields pushed by commands 355 and 356"
+  },
+  "arguments": [
+    {
+      "name": "source_object_id",
+      "type": "s32"
+    },
+    {
+      "name": "message_code",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001C6530 initializes the same pair before starting an event entry, using an encoded source object ID followed by a message code. The 30 JP calls explicitly replace that context, most commonly with (0, 0), and the nonzero calls use message-like values 100 followed by 0 or 1."
+}

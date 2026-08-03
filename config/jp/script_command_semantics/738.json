@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 738,
+  "status": "named",
+  "name": "enable_party_color_override",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D2308 consumes one value and calls func_0013DEE8 with that same value for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, the player and two party-member slots"
+  },
+  "arguments": [
+    {
+      "name": "use_alpha_128",
+      "type": "s32"
+    }
+  ],
+  "notes": "Party-wide counterpart of opcode 141. It has no observed JP corpus calls."
+}

@@ -1,0 +1,136 @@
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+from tools.script_bytecode import FormatError
+from tools.script_command_db import (
+    _load_semantic_records,
+    _load_semantics,
+    _require_reviewed_used_commands,
+    write_command_evidence,
+)
+
+
+class SemanticRecordTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.temporary_directory = tempfile.TemporaryDirectory()
+        self.root = Path(self.temporary_directory.name)
+
+    def tearDown(self) -> None:
+        self.temporary_directory.cleanup()
+
+    def write_record(self, command_id: int, record: dict, filename: str | None = None) -> Path:
+        path = self.root / (filename or f"{command_id:03d}.json")
+        path.write_text(json.dumps(record))
+        return path
+
+    def named_record(self, command_id: int, name: str) -> dict:
+        return {
+            "schema_version": 1,
+            "id": command_id,
+            "status": "named",
+            "name": name,
+            "name_confidence": "high",
+            "stack": {
+                "inputs": 1,
+                "outputs": 0,
+                "confidence": "high",
+                "evidence": "The native handler consumes one stack value.",
+            },
+            "arguments": [{"name": "value", "type": "s32"}],
+        }
+
+    def test_loads_independent_named_and_unresolved_records(self) -> None:
+        self.write_record(7, self.named_record(7, "set_example_value"))
+        self.write_record(
+            31,
+            {
+                "schema_version": 1,
+                "id": 31,
+                "status": "reviewed_unresolved",
+                "review": {"reason": "The observed state bit has no identified consumer."},
+            },
+        )
+
+        records = _load_semantic_records(self.root)
+        semantics = _load_semantics(self.root)
+
+        self.assertEqual(set(records), {7, 31})
+        self.assertEqual(
+            semantics[7],
+            {
+                "name": "set_example_value",
+                "name_confidence": "high",
+                "arguments": [{"name": "value", "type": "s32"}],
+                "inputs": 1,
+                "outputs": 0,
+                "stack_confidence": "high",
+                "stack_evidence": "The native handler consumes one stack value.",
+            },
+        )
+        self.assertEqual(semantics[31], {})
+
+    def test_rejects_filename_and_command_id_mismatch(self) -> None:
+        self.write_record(7, self.named_record(7, "set_example_value"), "008.json")
+
+        with self.assertRaisesRegex(FormatError, "filename does not match"):
+            _load_semantic_records(self.root)
+
+    def test_rejects_nested_record(self) -> None:
+        nested = self.root / "nested"
+        nested.mkdir()
+        (nested / "007.json").write_text(json.dumps(self.named_record(7, "set_example_value")))
+
+        with self.assertRaisesRegex(FormatError, "stored directly"):
+            _load_semantic_records(self.root)
+
+    def test_rejects_duplicate_name_without_explicit_relation(self) -> None:
+        self.write_record(7, self.named_record(7, "set_example_value"))
+        self.write_record(8, self.named_record(8, "set_example_value"))
+
+        with self.assertRaisesRegex(FormatError, "duplicate semantic name"):
+            _load_semantic_records(self.root)
+
+    def test_accepts_reciprocal_variant_relation(self) -> None:
+        first = self.named_record(7, "set_example_value")
+        second = self.named_record(8, "set_example_value")
+        first["relations"] = [
+            {"command_id": 8, "kind": "variant", "difference": "Uses storage A."}
+        ]
+        second["relations"] = [
+            {"command_id": 7, "kind": "variant", "difference": "Uses storage B."}
+        ]
+        self.write_record(7, first)
+        self.write_record(8, second)
+
+        self.assertEqual(set(_load_semantic_records(self.root)), {7, 8})
+
+    def test_rejects_argument_count_that_disagrees_with_stack(self) -> None:
+        record = self.named_record(7, "set_example_value")
+        record["arguments"] = []
+        self.write_record(7, record)
+
+        with self.assertRaisesRegex(FormatError, "argument count"):
+            _load_semantic_records(self.root)
+
+    def test_rejects_used_command_without_review_record(self) -> None:
+        with self.assertRaisesRegex(FormatError, "used commands.*\\[8\\]"):
+            _require_reviewed_used_commands({7, 8}, {7})
+
+    def test_writes_independent_machine_evidence_records(self) -> None:
+        records = [
+            {"id": 0, "handler_address": "0x00100000"},
+            {"id": 101, "handler_address": "0x00100100"},
+        ]
+
+        write_command_evidence(records, self.root)
+
+        first = json.loads((self.root / "000.json").read_text())
+        second = json.loads((self.root / "101.json").read_text())
+        self.assertEqual(first["command"], records[0])
+        self.assertEqual(second["command"], records[1])
+
+
+if __name__ == "__main__":
+    unittest.main()

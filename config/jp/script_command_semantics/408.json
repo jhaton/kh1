@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 408,
+  "status": "named",
+  "name": "hide_party_status_component",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8068 passes the top value and fixed state 3 to func_0023E0B0, then decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "component_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0023E0B0 state 3 zeros the indexed party-status component's display amount and transition delta. The interface callback func_0023E2B8 uses the same state for all three components when command 113 hide_party_status_ui is active. All 26 JP calls pass component indices 1 or 2, consistently hiding the companion components individually."
+}

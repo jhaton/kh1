@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 576,
+  "status": "named",
+  "name": "wait_for_all_interface_tasks",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DBA00 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001DBA00 returns wait status 4 while func_00235F50 reports any active interface task and completion status 2 once all are idle. func_00235F50 aggregates the activity queries for all fifteen modules initialized by func_00235EE0 in the command2/uitex.bin interface subsystem. The JP corpus contains three calls, in al02.ard, pp10.ard, and pc12.ard; each occurs in an event-transition sequence after interface-specific waits or cleanup commands."
+}

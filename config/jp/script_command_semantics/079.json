@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 79,
+  "status": "named",
+  "name": "clear_interpolation_value",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0918 consumes one value ID, resolves D_0038858C[value_id], passes that value to Interpolation_ClearValue, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "value_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The sole JP call clears value 0 after its color has been restored by command 76."
+}

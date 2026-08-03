@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 50,
+  "status": "named",
+  "name": "start_camera_rotation_transition",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CA418 reads four values from the Script value stack, stores the duration and target pitch/yaw/roll after converting the angles from degrees to radians, and decrements Script stackTop by four"
+  },
+  "arguments": [
+    {
+      "name": "duration_ticks",
+      "type": "s32"
+    },
+    {
+      "name": "pitch_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "yaw_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "roll_degrees",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001CA418 normalizes each target angle to the range from -pi through pi, snapshots the current camera rotation, and enables transition flag 0x2. func_001CA090 derives per-tick angular increments from the starting and target rotations, advances and clamps all three axes, rebuilds the camera, and clears the flag once every axis reaches its target. All 63 JP calls immediately follow command 49 start_camera_target_position_transition and precede command 51; all use the same duration as command 51, and every observed roll is zero."
+}

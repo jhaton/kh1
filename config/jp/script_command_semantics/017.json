@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": 17,
+  "status": "named",
+  "name": "get_selected_object_position_y",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001CF350 converts the selected object's Y position to s32 and pushes it on the Script value stack"
+  },
+  "arguments": []
+}

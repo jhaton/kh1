@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 338,
+  "status": "named",
+  "name": "disable_script_object_push",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6F38 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D6F38 queues operation type 0x26 for the object ID stored at Script offset 0. Type 0x26 maps to the embedded PUSH_OFF name, and its dispatcher sets the push-disable flag 0x200000. The JP corpus contains 137 calls; 58 immediately follow command 105 disable_selected_object_background_collision, while 93 are immediately followed by command 57 disable_selected_object_motion."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 660,
+  "status": "named",
+  "name": "show_timer_display",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DC5E8 reads the two top Script values as a display-preset selector and reference time, then decrements stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "display_preset",
+      "type": "s32"
+    },
+    {
+      "name": "reference_time_frames",
+      "type": "s32"
+    }
+  ],
+  "notes": "The handler maps display presets 0 through 11 to fixed timer-layout configurations and passes the selected configuration plus reference_time_frames to func_00111E20. That routine stores the reference time in D_004D29B0, formats it and the live timer D_002B916C into hours, minutes, seconds, and hundredths through func_00111C98, initializes the display, and registers func_00111D98 to refresh it. It does not start or change the live timer. Command 661 calls func_00111F00 to terminate the display. The JP corpus contains ten calls across tz04.ard and tz05.ard; every call uses preset 1 and a reference time loaded from local 6, whose fallback value is 18000 frames."
+}

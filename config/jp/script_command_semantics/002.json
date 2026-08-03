@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 2,
+  "status": "named",
+  "name": "close_text_window",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CC9A8 consumes a window ID, schedules func_001CC950 for its active slot, and advances that slot to the closing state"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    }
+  ]
+}

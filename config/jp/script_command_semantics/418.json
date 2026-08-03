@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 418,
+  "status": "named",
+  "name": "enable_input_suppression",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8418 takes no Script context, sets D_002B9660 to one, and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "When D_002B9660 is nonzero in the relevant world state, func_00114480 calls func_00113660 to clear the synthesized controller button, press, and action masks. The JP corpus contains 81 calls concentrated in event and transition paths after player control or party UI has been disabled. This is the inverse of command 417 disable_input_suppression."
+}

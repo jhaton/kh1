@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 163,
+  "status": "named",
+  "name": "spawn_map_effect",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E03D8 consumes one effect ID and queues event-effect dispatcher state 3"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Dispatcher state 3 passes the current world's effect-resource pointers D_002979E8 and D_002979EC plus effect_id to func_00177590, waits for the D_0035D420 effect-manager entry to become ready, and binds its transform to the Script-selected object when present. The resource pointers are populated from sections of the loaded world archive. The JP corpus contains 238 calls; command 187 delete_map_effect consumes matching IDs in the same manager."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 543,
+  "status": "named",
+  "name": "fade_render_channel_in",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DB118 passes the earlier stack value as the render-channel index and the top value as the duration to func_001084F0, then decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "channel",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001084F0 indexes the same 32 transition records as command 542, initializes the selected record's countdown to twice the supplied duration, its blend weight to 0.0, and its per-tick delta to +1/(2*duration). func_00108548 increases the blend weight to one and sets the corresponding D_002B91E8 channel bit when the transition completes. All 20 JP calls are in copies of the same ew31.ard event; channels 1, 3, 5, and 7 alternate with command 542's even channels during the effect."
+}

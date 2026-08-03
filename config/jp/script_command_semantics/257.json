@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 257,
+  "status": "named",
+  "name": "wait_for_event_voice_set_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E1518 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001E1518 returns pending state 4 while event-voice-set load bit 52 is set in D_00388550 and completion state 2 after it clears. All 18 JP calls immediately follow command 256 load_event_voice_set."
+}

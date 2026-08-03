@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 434,
+  "status": "named",
+  "name": "disable_object_messages",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8660 takes no Script context, sets D_002C1EA8 bit 10, and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "D_002C1EA8 bit 10 suppresses func_00146F38 and the type-1 object-message path in func_00130B08. Both JP calls set the suppression during cinematic entry immediately after event mode, event camera, player-control, party-status, and input-suppression setup. Inverse command 433 clears the bit during cleanup."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 291,
+  "status": "named",
+  "name": "get_party_member_position_y",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D5E08 uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position Y float at object offset 0x14"
+  },
+  "arguments": [
+    {
+      "name": "party_slot",
+      "type": "s32"
+    }
+  ],
+  "notes": "This is the Y-coordinate counterpart of command 290 get_party_member_position_x and command 292 get_party_member_position_z. A null party slot leaves the input value unchanged. All 329 JP calls pass a direct slot: 297 use slot 0 for the player, 16 use slot 1, and 16 use slot 2. Nine calls join commands 290 and 292 as an X/Y/Z position triple."
+}

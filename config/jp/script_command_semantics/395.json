@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 395,
+  "status": "named",
+  "name": "disable_player_relative_camera_yaw",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CC300 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "Unless global state bit 1 is set, func_001CC300 calls func_00180080. When command 394 previously saved a player-relative camera-yaw offset, func_00180080 adds that offset to the active player's current facing angle, normalizes it, searches nearby yaw candidates when needed, stores the reconstructed absolute camera yaw, and selects camera mode 1 through func_001783D0. The JP corpus contains 75 calls across 17 archives; 66 are immediately followed by command 8."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 91,
+  "status": "named",
+  "name": "restore_selected_object_default_color",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0D98 does not access the Script value stack and queues object operation type 24 for the selected object"
+  },
+  "arguments": [],
+  "notes": "The embedded operation-name table labels type 24 COLOR_DEFAULT. The object-operation dispatcher clears flag 0x0010000000000000 at selected-object offset 0x370; command 90's type 23 COLOR_CHANGE path sets the same flag after installing transition RGBA values. All 49 JP calls follow command 90 within three instructions: 41 immediately and eight after an intervening wait_ticks call."
+}

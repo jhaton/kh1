@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": 201,
+  "status": "named",
+  "name": "noop",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D3AF8 immediately returns completion state 2 without taking a Script context or accessing the value stack"
+  },
+  "arguments": [],
+  "notes": "The complete handler consists only of return 2 and has no side effects. Its JP calls occur in al09.ard event-start sequences after event mode and input suppression are enabled.",
+  "relations": [
+    {
+      "command_id": 103,
+      "kind": "alias",
+      "difference": "Both native handlers are stack-free no-ops."
+    }
+  ]
+}

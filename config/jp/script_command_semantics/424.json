@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 424,
+  "status": "named",
+  "name": "disable_object_script_events",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8458 takes no Script context, clears D_003854E0.unk_3070 bit 59, and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "Bit 59 gates the object script-event dispatchers func_001C6068 and func_001C6620; clearing it prevents those dispatch paths. The only JP call occurs on cinematic entry after object control is disabled. Inverse command 423 restores the gate during cinematic cleanup."
+}

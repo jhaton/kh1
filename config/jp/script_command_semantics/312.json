@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 312,
+  "status": "named",
+  "name": "get_camera_position_y",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001CC1B8 increments Script stackTop and pushes the integer-converted Y component of the reconstructed camera position"
+  },
+  "arguments": [],
+  "notes": "func_001C7FE0 snapshots the live camera position D_002DECE0 and target D_002DECF0, derives their distance and orientation in the shared camera-parameter state, and func_001EB148 reconstructs the position from that target, orientation, and distance. func_001CC1B8 converts the reconstructed Y component to an integer and pushes it. Commands 311 and 313 are identical coordinate getters for X and Z. The JP corpus contains eight calls in pc01.ard: four resource variants repeat the same two call sites, immediately store the result in local 1, and compare it with 1400 or 400 to select height-dependent behavior."
+}

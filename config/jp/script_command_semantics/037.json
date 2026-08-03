@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 37,
+  "status": "named",
+  "name": "set_camera_rotation_degrees",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001C9A70 consumes three values, converts each from degrees to radians, stores them in the camera X/Y/Z rotation fields D_003C0E40 through D_003C0E48, and rebuilds the camera through func_001C8170"
+  },
+  "arguments": [
+    {
+      "name": "pitch_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "yaw_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "roll_degrees",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001C8170 applies these fields through X, Y, and Z rotation matrices while rebuilding the camera position and target. All 73 JP calls follow command 36, which sets the camera target position, and are followed by command 38, which sets the camera distance. Every observed roll value is zero."
+}

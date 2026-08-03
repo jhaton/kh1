@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 191,
+  "status": "named",
+  "name": "stop_sound",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9F18 passes the lower sound ID and upper channel to func_0011CF08 and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "sound_id",
+      "type": "s32"
+    },
+    {
+      "name": "channel",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0011CF08 selects the sound bank from sound_id and forwards the bank, sound ID, and channel to func_0011C680/func_001EE390, the sound RPC operation also used with wildcard values during sound shutdown. The JP corpus contains 13 calls."
+}

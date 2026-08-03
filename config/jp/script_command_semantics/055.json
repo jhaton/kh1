@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 55,
+  "status": "named",
+  "name": "disable_selected_object_control",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001EB8A0 queues operation type 14 without accessing the Script value stack; the object-operation dispatcher sets the control-disable flag 0x100000000 in the selected object's flags at +0x440 and clears object-state flag 0x4"
+  },
+  "arguments": [],
+  "notes": "Operation type 14 maps to the embedded CONTROL_OFF name. For either non-player party object, the dispatcher also resets transient state through func_001735B8 and func_001541E8. Across the JP corpus, 123 of its 287 calls immediately precede command 336 disable_script_object_damage."
+}

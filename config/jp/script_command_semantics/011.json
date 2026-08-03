@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": 11,
+  "status": "named",
+  "name": "turn_object_toward_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CED38 consumes a duration and three coordinates, computes the selected object's yaw toward that position, and queues a type-2 object operation"
+  },
+  "arguments": [
+    {
+      "name": "duration",
+      "type": "s32"
+    },
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    }
+  ]
+}

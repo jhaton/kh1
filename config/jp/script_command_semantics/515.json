@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 515,
+  "status": "named",
+  "name": "move_script_object_to_position_over_duration",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DACC8 consumes four values, stores the target coordinates and twice the duration in Script interpolation state, snapshots the script-bound object's current position, and decrements Script stackTop by four"
+  },
+  "arguments": [
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001DACC8 sets Script update flag 0x800. While that flag remains set, func_001DAB88 advances a timer, linearly interpolates from the captured position to the requested coordinates, and queues type-3 MOVE operations for the script-bound object; reaching the duration queues the exact target and clears the flag. The JP corpus contains 267 calls."
+}

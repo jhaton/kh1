@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 94,
+  "status": "named",
+  "name": "replace_selected_object_motion_resource",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1238 consumes two indices, resolves a motion-resource descriptor through D_003D55D4, passes it to func_001313A8 for the selected object, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "motion_set_id",
+      "type": "s32"
+    },
+    {
+      "name": "motion_resource_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001313A8 preserves the selected object's original 16-byte motion-resource descriptor at +0x1D0 in the backup at +0x1E0 before installing the replacement through func_001320B8. The handler records Script flag 0x80 so command 95 restore_selected_object_motion_resource can restore that backup exactly once. The JP corpus contains 291 calls; each supplies a motion-set selector and a resource index before a replacement animation sequence."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 186,
+  "status": "named",
+  "name": "delete_event_effect",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E0370 consumes one effect ID and queues event-effect dispatcher state 2"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Dispatcher state 2 resolves effect_id in the D_0035C010 event-effect manager through func_00177558 and frees the matching PPP effect through func_00177828/func_00181200. D_0035C010 is the same eveffect/ resource manager whose 64 active slots command 162 clear_all_event_effects frees in bulk. The JP corpus contains 207 calls and uses literal effect IDs 0 through 6."
+}

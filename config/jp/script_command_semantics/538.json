@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 538,
+  "status": "named",
+  "name": "delete_attached_object_effects_by_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E0C38 consumes one effect ID, stores it in an event-effect task record, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001E0C38 queues dispatcher state 9. State 9 scans the eight attachment records created by state 7 for matching effect IDs, frees each matching PPP effect through func_00177828 and func_00181200, and clears its record. The JP corpus contains 64 calls; representative reward scripts use ID 0 before opening animation and ID 1 after command 535 spawn_selected_object_effect."
+}

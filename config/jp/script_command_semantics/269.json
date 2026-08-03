@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 269,
+  "status": "named",
+  "name": "add_party_character",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D5528 passes the top character ID to Party_AddCharacter and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "character_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Party_AddCharacter leaves an already-present ID unchanged; otherwise it writes IDs below 10 into the first empty byte among the four party-roster slots at game-state offsets 0x48E through 0x491. The three JP calls add character IDs 5 or 9 during event cleanup."
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 59,
+  "status": "named",
+  "name": "transition_to_world_room_event_default_spawn",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CFA08 consumes world, room, and event indices in stack order, passes them to func_00112810 with spawn-point index -1, and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "world_index",
+      "type": "s32"
+    },
+    {
+      "name": "room_index",
+      "type": "s32"
+    },
+    {
+      "name": "event_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00112810 stores the requested world, room, event, and fixed default spawn-point value, resets world-transition state, and schedules the transition through func_001127E0. This is the three-argument counterpart of command 612 transition_to_world_room_event. The sole JP call passes (3, 12, 11)."
+}

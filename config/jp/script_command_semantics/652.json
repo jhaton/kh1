@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 652,
+  "status": "named",
+  "name": "switch_background_music_channel",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9110 consumes a one-based channel, target volume percentage, and duration, stops the current D_002BD8B4 music channel through func_0011C608, converts the selected channel to zero-based, scales volume to the 0x3000 sound range and duration by eight, and starts the selected channel through func_0011C5D8"
+  },
+  "arguments": [
+    {
+      "name": "channel",
+      "type": "s32"
+    },
+    {
+      "name": "target_volume_percent",
+      "type": "s32"
+    },
+    {
+      "name": "duration_ticks",
+      "type": "s32"
+    }
+  ],
+  "notes": "The sole JP call occurs in al02.ard after command 719 suppress_automatic_battle_music_switching and passes channel 2, volume 100, and duration 40 before an enemy-wave sequence."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 625,
+  "status": "named",
+  "name": "set_selected_object_proximity_radius",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D3A88 converts the top value to float, passes it to func_00123350 for the selected object, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "radius",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00123350 stores radius at offset 0x44 of the selected object's runtime descriptor and fixes its two proximity-test mode bytes at offsets 0x5E and 0x5F to 0 and 3. func_0012CBD8 reads the same radius and mode bytes when testing another object's horizontal distance, vertical separation, and facing relationship. The JP corpus contains 262 calls."
+}

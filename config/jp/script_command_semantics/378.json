@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 378,
+  "status": "named",
+  "name": "disable_object_control",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001EB9A8 consumes one object ID, resolves it through func_001EAB00, queues object operation type 14 when found, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded operation-name table labels type 14 CONTROL_OFF, and its dispatcher sets the object's control-disable flag 0x100000000 and clears object-state flag 0x4. This is the singular-object counterpart of command 151 disable_all_object_control and the inverse of command 377 enable_object_control. The JP corpus contains 261 calls; 193 entries contain both singular enable and disable operations."
+}

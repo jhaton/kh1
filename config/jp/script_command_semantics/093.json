@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 93,
+  "status": "named",
+  "name": "wait_for_event_resource_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D11C0 retains the top load-slot value while the corresponding asynchronous-load bit is set, then decrements Script stackTop by one when the bit clears"
+  },
+  "arguments": [
+    {
+      "name": "load_slot",
+      "type": "s32"
+    }
+  ],
+  "notes": "Load slot 1 polls D_003854E0.unk_3070 bit 33 and slot 2 polls bit 34. Command 92 sets the matching bit before queueing a resource load and its two completion callbacks clear those bits after registering every loaded resource entry. The JP corpus contains 69 calls: 67 poll slot 1 and two poll slot 2."
+}

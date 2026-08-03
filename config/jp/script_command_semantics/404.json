@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 404,
+  "status": "named",
+  "name": "get_object_motion_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D6B88 resolves the top object ID with func_001EAB00 and replaces it with object offset 0x164"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00130788 copies the low 16-bit motion request at object offset 0x17C into offset 0x164, then func_00130098 maps that motion ID through the object's motion table before animation setup; the adjacent offsets 0x168 and 0x16C hold the resulting animation ID and frame. A missing object leaves the input value unchanged. All 47 JP calls pass direct object IDs 1 or 2, immediately store the result, and compare it against motion IDs or ranges."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 80,
+  "status": "named",
+  "name": "set_text_window_pointer_style",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CDCC8 consumes a window ID and pointer style and stores the style at window descriptor +0x06; func_0010B428 suppresses pointer rendering when that field is zero and passes nonzero values to func_0010A2F0, where styles 1 and 2 select distinct texture-coordinate tables"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "pointer_style",
+      "type": "s32"
+    }
+  ],
+  "notes": "Observed configured styles are 0, 1, and 2. When a window follows a world target, func_0010B0D0 can replace this field with 0 or 1 according to the target's projected screen position."
+}

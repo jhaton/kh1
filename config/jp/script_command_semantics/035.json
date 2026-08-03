@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 35,
+  "status": "named",
+  "name": "set_camera_position",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001C98D0 consumes three coordinates, converts them to a vector, derives the scripted camera's orientation and distance from that position relative to its target, and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001C98D0 passes the requested position and the current target state at D_003C0E30 to func_001EB088 and func_001EAF30, stores the resulting camera parameters, and calls func_001C8170 to rebuild the camera. This complements command 36 set_camera_target_position: command 35 establishes the camera position while the derived rotation and distance preserve the same target-based camera representation used by commands 37 and 38. The JP corpus contains 307 calls."
+}

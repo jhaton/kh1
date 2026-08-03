@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 307,
+  "status": "named",
+  "name": "sin_degrees_times_10000",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D6520 converts degrees to radians, calls sin, multiplies by 10000.0, and replaces the top value"
+  },
+  "arguments": [
+    {
+      "name": "angle_degrees",
+      "type": "s32"
+    }
+  ]
+}

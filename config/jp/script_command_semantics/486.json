@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 486,
+  "status": "named",
+  "name": "enable_pause_menu_override",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DA330 calls func_00114400 without accessing or changing the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_00114400 sets D_002B966C to 1. When the pause-menu state selector PauseMenu_SelectMode runs, this flag selects mode 1 independently of the normal player-control and controller-state inputs, before the selector applies its later higher-priority special-mode checks. Mode 1 enters the standard pause-menu workflow through func_00113A40. Command 487 clears the override, and world-state teardown func_00114440 also clears it. The JP corpus contains two calls, in al21.ard and pc06.ard; both occur after event or party-state setup, and the al21 override is cleared by command 487 in its cleanup block."
+}

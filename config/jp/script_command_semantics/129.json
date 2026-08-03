@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 129,
+  "status": "named",
+  "name": "get_current_entrance_index",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D1F30 increments Script stackTop and pushes the current entrance index from D_002B8684"
+  },
+  "arguments": [],
+  "notes": "D_002B8684 is the third component of the world/room/entrance location tuple written by func_00112848; func_00142290 packs it into the low byte of a location identifier after the world and room indices. The JP corpus contains 51 calls, and every result is immediately stored. Thirty-one calls occur in complete command 127/128/129 sequences that snapshot all three location components."
+}

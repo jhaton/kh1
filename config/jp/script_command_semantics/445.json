@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 445,
+  "status": "named",
+  "name": "queue_world_image_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8808 passes the top value to func_001128F0 and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "world_table_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001128F0 resolves the requested entry through the active world table, skips the request when it already names the current world image, otherwise formats that world's .img filename, allocates a load buffer, sets D_002B930C, and queues cdvd_QueueFileLoad. The JP corpus contains 20 calls across al09.ard and pc01.ard."
+}

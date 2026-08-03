@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 718,
+  "status": "named",
+  "name": "get_character_equipped_weapon_item_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001DD708 replaces the top character index with the byte at offset 0x36 of the corresponding 0x74-byte character record in D_003010F8"
+  },
+  "arguments": [
+    {
+      "name": "character_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "Character-record offset 0x36 stores the equipped weapon item ID. func_001F0600 compares that field in character record 0 against item IDs 82 through 85; the inventory table identifies those IDs as Dream Sword, Dream Shield, Dream Rod, and Wooden Sword. The only JP call passes character index 0 in pc01.ard and stores the result in scenario byte 1300."
+}

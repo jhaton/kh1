@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 243,
+  "status": "named",
+  "name": "send_object_message",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D4FF8 consumes an object ID and message code, resolves the object with func_00123880, and passes the resolved object and message code to func_00137230"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    },
+    {
+      "name": "message_code",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00137230 invokes the object's callback at offset 0x4A0 when present; its default path, func_001C6620, starts script entry 9 and publishes the message code through D_00388924. The JP corpus contains 54 calls; directly encoded message codes include 8001 and 50."
+}

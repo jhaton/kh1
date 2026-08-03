@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 139,
+  "status": "named",
+  "name": "show_cinematic_bars",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D2248 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D2248 starts func_00104200 with a fixed two-tick transition and sets persistent event-state bit 0x1. The transition enables a GS packet containing black full-width sprites across the top and bottom of the screen, then func_00104188 fades them into view by changing their shared RGBAQ alpha. Command 140 runs the inverse transition and clears the state bit. The JP corpus contains 16 calls at cinematic setup points; nine are followed by command 140 in the same script entry."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 438,
+  "status": "named",
+  "name": "is_player_in_default_action_state",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D8700 increments Script stackTop and pushes func_00125B90(1), which returns one exactly when the active player's action-state index at offset 0x70 is zero"
+  },
+  "arguments": [],
+  "notes": "The field indexes the 0x20-byte player action-state descriptor table D_0034D298; func_0014F8B0 changes it, and state zero is registered by func_0015B9D0 with the normal locomotion/action update func_0015B810. All 35 JP calls immediately store the boolean result; 24 store it in local 18 and later compare it with one as part of a repeated player-state gate."
+}

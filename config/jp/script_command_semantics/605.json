@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 605,
+  "status": "named",
+  "name": "set_text_window_item_name",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CCC48 consumes a window ID and item ID, resolves the item descriptor through func_001479C0, selects the corresponding item-name lookup table, and installs the resulting text mapping in the requested active window"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "item_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The handler classifies the item descriptor into the same fixed item-ID ranges used by command 644 get_item_category, configures D_00383CD0 for the selected item-name table, and binds that mapping to the requested text-window slot. The two JP calls reopen window 7 and pass item IDs 24 and 36 in reward sequences; those same IDs are subsequently granted by command 583."
+}

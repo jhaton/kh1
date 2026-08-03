@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 113,
+  "status": "named",
+  "name": "hide_party_status_ui",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1958 takes no Script context, sets bit 3 of D_002C1EA8, and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "The registered interface callback func_0023E2B8 observes D_002C1EA8 bit 3 and transitions each of the three indexed party-status components through func_0023E0B0 to hidden state 3. Clearing the bit through command 112 sends the same components to display state 2. The JP corpus contains 298 calls; 287 immediately follow command 115 disable_player_control in event setup sequences."
+}

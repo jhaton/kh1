@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 68,
+  "status": "named",
+  "name": "random_integer_up_to",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001CFEB0 replaces the top stack value with round(func_00177D68() * upper_bound), where func_00177D68 returns a random float in [0, 1)"
+  },
+  "arguments": [
+    {
+      "name": "upper_bound_inclusive",
+      "type": "s32"
+    }
+  ]
+}

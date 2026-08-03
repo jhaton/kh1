@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 97,
+  "status": "named",
+  "name": "clear_selected_object_part_mask_bits",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1380 consumes two 1-based part indices and passes the selected object and both indices to func_001358B0, which clears the corresponding bits in the object's part masks at offsets 0x38C and 0x390"
+  },
+  "arguments": [
+    {
+      "name": "primary_part_index",
+      "type": "s32"
+    },
+    {
+      "name": "secondary_part_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "This is the exact inverse of command 96. The sole JP call passes 1-based part index 2 for both masks after changing the selected object's animation."
+}

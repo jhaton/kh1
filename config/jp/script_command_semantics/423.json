@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 423,
+  "status": "named",
+  "name": "enable_object_script_events",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8430 takes no Script context, sets D_003854E0.unk_3070 bit 59, and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "Bit 59 gates the object script-event dispatchers func_001C6068 and func_001C6620; the latter starts recipient object entry 9 for mapped object messages. Command 423 sets the gate during cinematic cleanup, while inverse command 424 clears it on cinematic entry."
+}

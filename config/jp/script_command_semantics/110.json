@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 110,
+  "status": "named",
+  "name": "stop_selected_object_movement_and_set_animation",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D17D0 consumes an animation ID and blend duration, ORs the animation ID with 0x10000, and queues object operation type 17"
+  },
+  "arguments": [
+    {
+      "name": "animation_id",
+      "type": "s32"
+    },
+    {
+      "name": "blend_duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded operation-name table labels type 17 STOP_MOVE. Its dispatcher clears the selected object's active movement state, then passes the flagged animation ID and blend duration to the normal motion-request initializer. The JP corpus contains 73 calls; 66 use animation 201 or 202."
+}

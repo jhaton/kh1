@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 355,
+  "status": "named",
+  "name": "get_event_source_object_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D7770 increments Script stackTop and pushes D_003854E0.unk_3170"
+  },
+  "arguments": [],
+  "notes": "func_001C6530 stores its first argument in D_003854E0.unk_3170 before starting event Script entry 0; its JP callers pass encoded object IDs in this argument. Command 357 can override the same event-context field from Script code. All 17 JP calls immediately store the result and pair it with command 356; 14 compare it with encoded object IDs 0x40001 or 0x40014, while the other three test it for a nonzero value."
+}

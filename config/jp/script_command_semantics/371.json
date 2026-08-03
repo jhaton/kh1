@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 371,
+  "status": "named",
+  "name": "set_event_effect_rotation",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF528 consumes an event-effect ID and three angles, resolves the ID through func_001775E8, converts each angle from degrees to the PPP fixed-turn representation, and writes the three components through the entry's rotation pointer"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    },
+    {
+      "name": "x_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "y_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "z_degrees",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001775E8 resolves IDs in the D_0035C010 event-effect manager. All three JP calls are copies of the same tw09.ard call (0, 0, var16[0xD54], 0), changing only the Y rotation of event effect 0."
+}

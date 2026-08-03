@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": 102,
+  "status": "named",
+  "name": "start_camera_shake",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 5,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CACC0 consumes five values, stores the first three as camera-shake amplitudes, the fourth as a mode field, and twice the fifth as a duration before decrementing Script stackTop by five"
+  },
+  "arguments": [
+    {
+      "name": "amplitude_x",
+      "type": "s32"
+    },
+    {
+      "name": "amplitude_y",
+      "type": "s32"
+    },
+    {
+      "name": "amplitude_z",
+      "type": "s32"
+    },
+    {
+      "name": "mode",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "A positive duration initializes the camera controller at D_003C0D60, sets its camera-shake flag 0x100, and records the three floating-point amplitudes plus mode and duration. A nonpositive duration clears the same flag. The JP corpus contains 78 calls; the dominant parameter sets are (15, 15, 0, 1, 6), (15, 15, 0, 1, 3), and (80, 80, 10, 1, 10)."
+}

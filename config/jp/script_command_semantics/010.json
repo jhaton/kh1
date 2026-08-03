@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 10,
+  "status": "named",
+  "name": "select_object",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001EB7C8 consumes an object ID, resolves it with func_00123880, and stores the resulting object pointer in the Script context"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ]
+}

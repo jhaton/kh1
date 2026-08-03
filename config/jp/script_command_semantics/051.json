@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 51,
+  "status": "named",
+  "name": "start_camera_distance_transition",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CA720 reads two values from the Script value stack, stores the duration and target camera distance, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "duration_ticks",
+      "type": "s32"
+    },
+    {
+      "name": "distance",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001CA720 snapshots the current camera distance from D_003C0E80, stores the requested distance, and enables transition flag 0x4. func_001CA638 derives a per-tick increment from the starting distance, target distance, and duration; it advances and clamps the active distance, rebuilds the camera, and clears the flag at the target. All 69 JP calls use direct literal arguments with target distances 250, 350, 400, or 800. Sixty-three calls immediately follow command 50 start_camera_rotation_transition; the remaining six independently transition to distance 250 over 15 ticks."
+}

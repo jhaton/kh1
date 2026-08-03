@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 38,
+  "status": "named",
+  "name": "set_camera_distance",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001C9B30 converts the top stack value to float, stores it in D_003C0E80, rebuilds the camera through func_001C8170, and decrements Script stackTop"
+  },
+  "arguments": [
+    {
+      "name": "distance",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001C8170 uses D_003C0E80 as the Z component of an offset vector, rotates that vector by the camera angles, and adds it to the target position to produce D_002DECE0. func_001C7FE0 initializes the same field with the Euclidean distance between the current camera position and target. All 97 JP calls pass a direct literal: 80, 250, 340, 400, or 500. The preceding camera command is always command 37 set_camera_rotation_degrees (73 calls) or command 35 (24 calls)."
+}

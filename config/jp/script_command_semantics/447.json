@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 447,
+  "status": "named",
+  "name": "attach_map_effect_rotation_to_object",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DFF08 consumes three values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID in a persistent update task"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    },
+    {
+      "name": "object_id",
+      "type": "s32"
+    },
+    {
+      "name": "attachment_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The task callback func_001DE518 calls func_00131940 every update to derive the requested attachment's live rotation from the object, converts the three angles into the map effect's fixed-angle representation, and writes them to the effect runtime vector. Both JP calls occur in pc01.ard. Command 196 attach_map_effect_to_object is the corresponding position-following form."
+}

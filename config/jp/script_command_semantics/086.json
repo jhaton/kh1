@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 86,
+  "status": "named",
+  "name": "set_selected_object_motion_frame",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0AA0 consumes three values, packs the first into a type-0x13 object operation, converts the second to a frame value, doubles the third as its duration, and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "motion_id",
+      "type": "s32"
+    },
+    {
+      "name": "frame",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded object-operation table labels type 0x13 MOTION_FRAME. The operation targets the Script-selected object and carries motion_id, frame, and twice duration. The JP corpus contains 124 calls; the recurring al09.ard sequence passes motion 200, frame 0, and duration 20 before waiting one tick and issuing another animation command."
+}

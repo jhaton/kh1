@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 471,
+  "status": "named",
+  "name": "initialize_all_battle_systems",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D9F08 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D9F08 constructs a zero-argument operation record with type 0x28 and queues it through func_001C5DE0. The embedded operation-name table labels type 0x28 ALL_INIT_BATTLE. The JP corpus contains three calls, one in al02.ard and two in pc12.ard."
+}

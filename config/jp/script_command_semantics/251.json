@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 251,
+  "status": "named",
+  "name": "play_background_music_slot",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E90B0 stores the top value minus one as the zero-based music slot, stops the currently active music channel through func_0011C608, starts the selected slot through func_001E9080, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "slot",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001E9080 passes the selected zero-based slot to the background-music sequence start wrapper func_0011C5D8. All four JP calls pass slot 1 and occur at event transitions, including after screen fades and immediately before ordinary player control or UI state is restored."
+}

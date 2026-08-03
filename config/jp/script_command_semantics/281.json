@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 281,
+  "status": "named",
+  "name": "get_party_member_character_index",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D59B8 replaces party_slot with D_003010F8->unk_48E[party_slot] when the slot is less than four"
+  },
+  "arguments": [
+    {
+      "name": "party_slot",
+      "type": "s32"
+    }
+  ],
+  "notes": "D_003010F8+0x48E is the active party-slot character-index array. func_001F0BD8 passes the indexed value to func_0013DA88 to resolve that party member's live object, while func_001EF960 uses it to select the character's game-data record. The JP corpus contains 193 calls."
+}

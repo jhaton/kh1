@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 415,
+  "status": "named",
+  "name": "stop_background_music",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9C00 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001E9C00 first calls func_0011E340, which sets D_002BD8E0 and prevents the regular music-state update func_0011E360 from starting a replacement track. It then calls func_0011C608 for music channels 0 and 1; that wrapper submits sound RPC operation 13, the same channel-stop operation used before loading replacement music. The JP corpus contains 13 calls across five archives, predominantly at cinematic entry points; seven calls are the first instruction of an entry, and two are immediately preceded by a 40-tick music fade through command 427."
+}

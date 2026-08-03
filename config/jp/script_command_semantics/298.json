@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 298,
+  "status": "named",
+  "name": "stop_script_object_movement",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6020 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D6020 clears Script action-state flags 0x1, 0x40, and 0x200, then queues object operation type 0x12 for the object ID stored at Script offset 0. Type 0x12 maps to the embedded STOP_MOVE name; its dispatcher calls func_00133880, which clears the object's linked movement-operation list at +0x440. The JP corpus contains 109 calls; 40 begin an entry, and common following commands wait, show or reposition the object, or set its facing angle."
+}

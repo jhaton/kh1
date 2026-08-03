@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 196,
+  "status": "named",
+  "name": "attach_map_effect_to_object",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DFE10 consumes four values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID and half-scaled offset in a persistent update task"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    },
+    {
+      "name": "object_id",
+      "type": "s32"
+    },
+    {
+      "name": "attachment_id",
+      "type": "s32"
+    },
+    {
+      "name": "offset",
+      "type": "s32"
+    }
+  ],
+  "notes": "The task callback func_001DE3F8 calls func_001314D0 every update to derive the requested attachment point from the live object and writes that position into the map effect's runtime vector. For two special attachment IDs it also copies the object's RGB override into the effect. The JP corpus contains 75 calls."
+}

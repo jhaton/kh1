@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 643,
+  "status": "named",
+  "name": "enable_immediate_room_load_completion",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DC288 sets D_002B9338 to one without accessing the Script value stack"
+  },
+  "arguments": [],
+  "notes": "The room-load completion path func_001132F0 calls func_001132C0 directly while D_002B9338 is nonzero; when it is zero, the path defers the same continuation through func_0011E7C8. Command 642 clears the flag. The sole JP call occurs at the end of an al21.ard script entry."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 209,
+  "status": "named",
+  "name": "set_object_animation_speed",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D40F0 resolves the top object ID, divides the preceding speed value by 100, passes that float to func_00131B40, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "speed_percent",
+      "type": "s32"
+    },
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00131B40 stores the scaled value at object offset 0x284. The motion update multiplies its frame advance by that field, establishing it as the animation-speed multiplier. Representative al01.ard calls set object 2 to 90 percent before an animation wait and restore it to 100 percent afterward."
+}

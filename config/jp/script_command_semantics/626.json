@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 626,
+  "status": "named",
+  "name": "set_object_enabled",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DC040 consumes an object ID and boolean and passes them in stack order to func_00131B90, which resolves the object's runtime descriptor through func_00131FC0 and clears its disable bit 0x2 when enabled is nonzero or sets that bit when enabled is zero"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    },
+    {
+      "name": "enabled",
+      "type": "s32"
+    }
+  ],
+  "notes": "The descriptor bit is also set by object-table initialization when an object must not be active. All 20 JP calls are copies of one lm13.ard branch that toggles encoded objects 0x40013 and 0x40014 to opposite enabled states according to scenario byte 0xEE1."
+}

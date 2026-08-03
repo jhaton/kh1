@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 384,
+  "status": "named",
+  "name": "load_event_sound_data",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001EA190 consumes a world index and resource ID, formats eventse/%s_%03d.dat with D_003D7C88[world_index], queues that file through cdvd_QueueFileLoad, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "world_index",
+      "type": "s32"
+    },
+    {
+      "name": "resource_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "D_003D7C88 is a six-byte-stride table of world abbreviations including al, lm, pc, pp, and tz. The load completion callback passes the file to the event-sound resource parser func_0011CC20. All 18 JP calls are followed by command 385 wait_for_event_sound_data_load."
+}

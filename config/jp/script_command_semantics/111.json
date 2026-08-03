@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 111,
+  "status": "named",
+  "name": "set_selected_object_animation_at_frame",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1878 consumes three values, queues operation type 19 with animation_id OR 0x10000 and blend_duration, and stores twice frame in the operation payload"
+  },
+  "arguments": [
+    {
+      "name": "animation_id",
+      "type": "s32"
+    },
+    {
+      "name": "blend_duration",
+      "type": "s32"
+    },
+    {
+      "name": "frame",
+      "type": "s32"
+    }
+  ],
+  "notes": "The embedded operation-name table labels type 19 MOTION_PAUSE. Its dispatcher creates the same motion-request record as the normal animation path and overwrites that request's starting-frame field with the encoded frame. The JP corpus contains 71 calls; animations 200 through 205 dominate."
+}

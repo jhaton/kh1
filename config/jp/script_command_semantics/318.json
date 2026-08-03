@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 318,
+  "status": "named",
+  "name": "fade_black_overlay_in",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6920 passes the top stack value to func_001037C8 and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001037C8 schedules func_00103740 with a doubled duration; that worker increases D_002A2750 from alpha 0 to 255. func_00103928 uses D_002A2750 as the alpha of a black full-screen render packet, so the command applies the black overlay. The JP corpus contains five calls; representative al01.ard, pp10.ard, and pc06.ard calls are followed by waits matching the supplied duration before event cleanup continues."
+}

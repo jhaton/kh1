@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 290,
+  "status": "named",
+  "name": "get_party_member_position_x",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D5DC8 uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position X float at object offset 0x10"
+  },
+  "arguments": [
+    {
+      "name": "party_slot",
+      "type": "s32"
+    }
+  ],
+  "notes": "D_002DEC00, D_002DEC04, and D_002DEC08 hold the player and two companion slots. A null slot leaves the input value unchanged. All 174 JP calls pass slot 0 for the player; 162 pair this result with command 292 for the player's Z position."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 587,
+  "status": "reviewed_unresolved",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001ED0C8 increments Script stackTop and pushes bit 0 from offset 0xDC4 of work buffer 1"
+  },
+  "notes": "Both JP calls occur in pp10.ard, the Big Ben clock-tower room. One result is discarded during room-script initialization. The other controls a branch that selects encoded object 0x40009 when the flag is clear; when set, the same object is selected only under an additional scenario-variable condition. Big Ben hosts both the story keyhole puzzle and the later Phantom encounter, but the flag cannot yet be assigned confidently to either mechanic.",
+  "review": {
+    "reason": "The native handler and representative JP corpus callsites were reviewed, but the available evidence does not establish a defensible semantic name."
+  }
+}

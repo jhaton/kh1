@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 89,
+  "status": "named",
+  "name": "wait_for_text_window_choice",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CC930 takes no Script context and does not access Script stackTop; it returns pending state 4 while text-window choice flag bit 0 is set and state 2 after the bit clears"
+  },
+  "arguments": [],
+  "notes": "All three JP calls immediately follow command 88, whose callback records a selected text-window choice and clears the pending flag."
+}

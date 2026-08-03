@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 292,
+  "status": "named",
+  "name": "get_party_member_position_z",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D5E48 uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position Z float at object offset 0x18"
+  },
+  "arguments": [
+    {
+      "name": "party_slot",
+      "type": "s32"
+    }
+  ],
+  "notes": "This is the Z-coordinate counterpart of command 290 get_party_member_position_x and command 291, which reads object offset 0x14. A null party slot leaves the input value unchanged. All 171 JP calls pass slot 0 for the player; 162 are paired with command 290, and the remaining nine join commands 290 and 291 as an X/Y/Z position triple."
+}

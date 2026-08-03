@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 635,
+  "status": "named",
+  "name": "set_dynamic_text_glyph_lookup",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DB7A8 consumes a glyph slot, group, and index, stores the latter two in D_002B8020[glyph_slot] and D_002B8030[glyph_slot], and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "glyph_slot",
+      "type": "s32"
+    },
+    {
+      "name": "glyph_group",
+      "type": "s32"
+    },
+    {
+      "name": "glyph_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "The text renderer handles dynamic glyph codes 0x20 through 0x23 by subtracting 0x20 for glyph_slot and resolving the configured pair through func_00132E70, which selects lookup-table entry 3 * glyph_group + glyph_index + 6. The four JP calls update slots 0 and 1 in pp10.ard and pc06.ard with adjacent values derived from local 24."
+}

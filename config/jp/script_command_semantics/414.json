@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 414,
+  "status": "named",
+  "name": "disable_work_buffer_snapshot",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8250 calls func_001116B8 without accessing or changing the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001116B8 sets D_004D2998 to 1. During world teardown, func_001116C8 copies the full 0x16C00-byte active work-buffer region at D_003F2080 to the backup region at D_00408C80 only while this flag is zero, so command 414 suppresses that snapshot and preserves the existing backup. func_0022F848 later restores the backup into the active work buffers during the game-transition load path. Command 413 clears the suppression flag, as do main-state initialization paths. Both JP calls are the first instruction of room initialization entry 0, in al02.ard and pp10.ard; each archive later calls command 413 before its next event or transition sequence."
+}

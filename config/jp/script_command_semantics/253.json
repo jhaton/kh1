@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 253,
+  "status": "named",
+  "name": "get_total_item_count",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D5068 replaces the top item ID with the sum of the stock byte at D_003010F8 + 0x499 + item_id and matching item IDs in the four character item-slot lists"
+  },
+  "arguments": [
+    {
+      "name": "item_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The result includes both unequipped stock and copies held in character item slots. The JP corpus contains 60 calls, all in pc06.ard with literal item IDs 178 through 185; every result is immediately stored, and 24 are tested against zero within the next 20 instructions."
+}

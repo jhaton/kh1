@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 198,
+  "status": "named",
+  "name": "set_selected_object_proximity_radius_mode_1",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D39B8 converts the top value to float, passes it to func_00123350 for the selected object with mode 1, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "radius",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00123350 stores radius at offset 0x44 of the selected object's runtime descriptor and stores mode 1 at offset 0x5F. func_0012CBD8 reads the same radius and mode when testing another object's horizontal distance, vertical separation, and facing relationship. This is the mode-1 counterpart of command 199 set_selected_object_proximity_radius_mode_2 and command 625 set_selected_object_proximity_radius, which selects mode 3. The JP corpus contains two calls."
+}

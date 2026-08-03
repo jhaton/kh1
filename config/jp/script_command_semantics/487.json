@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 487,
+  "status": "named",
+  "name": "disable_pause_menu_override",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DA350 calls func_00114410 without accessing or changing the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_00114410 clears D_002B966C, restoring the normal pause-menu mode selection based on player-control and controller-state inputs. This is the inverse of command 486 enable_pause_menu_override. Its only JP call occurs in al21.ard during cleanup of the override enabled earlier in the same script entry."
+}

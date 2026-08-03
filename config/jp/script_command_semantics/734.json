@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": 734,
+  "status": "named",
+  "name": "queue_event_effect_package_load",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DF008 consumes two values, indexes the six-byte event-effect path-prefix table D_003D55E0 with the first, formats the second as _%03d, constructs paired eveffect/*.dpp and *.dpx paths, queues the DPP load with cdvd_QueueFileLoad, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "path_prefix_index",
+      "type": "s32"
+    },
+    {
+      "name": "package_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The handler allocates the package buffer, records package_id at ScriptRuntime offset 0x3094, and sets the asynchronous event-effect load flag serviced by func_001DF198. Representative al09.ard copies pass prefix index 16 (gb/gb) and package ID 2, then call func_001DF198 through command 166 after an eight-tick delay.",
+  "relations": [
+    {
+      "command_id": 165,
+      "kind": "variant",
+      "difference": "Command 734 loads the paired package into memory slot 0x3C; command 165 uses slot 0x32."
+    }
+  ]
+}

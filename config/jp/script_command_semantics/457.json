@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 457,
+  "status": "named",
+  "name": "get_remaining_spawn_group_object_count",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D8D60 replaces the top spawn-group ID with the result of func_0014E710"
+  },
+  "arguments": [
+    {
+      "name": "group_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0014E710 iterates scene spawn records through func_00131F58, selects records whose group field at offset 0x58 equals the argument, and counts records not marked complete. A registered object counts while its completion flag at object offset 0x370 is clear; an absent object counts unless func_00142478 reports persistent state 1 for its object ID. The same group field selects bits in the spawn-group enable mask D_00553BEC. The JP corpus contains 25 calls across al02.ard, ew22.ard, and ew23.ard; every result is immediately stored, and the retained values drive zero/nonzero battle-progress branches. Calls use group IDs 1 through 5, and the nine variable-ID calls in ew23.ard first enable the same group through command 361."
+}

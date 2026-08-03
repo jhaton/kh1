@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": 365,
+  "status": "named",
+  "name": "fit_text_window_to_text",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CE758 consumes a window ID, text resource ID, and origin; it measures the text with func_0010EEC8, sets the window width, and converts the top-left origin to the descriptor's center coordinates"
+  },
+  "arguments": [
+    {
+      "name": "window_id",
+      "type": "s32"
+    },
+    {
+      "name": "text_id",
+      "type": "s32"
+    },
+    {
+      "name": "left",
+      "type": "s32"
+    },
+    {
+      "name": "top",
+      "type": "s32"
+    }
+  ]
+}

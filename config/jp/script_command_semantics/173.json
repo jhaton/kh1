@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 173,
+  "status": "named",
+  "name": "get_pressed_input_mask",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D2F38 increments Script stackTop and pushes D_002C2108"
+  },
+  "arguments": [],
+  "notes": "D_002C2108 is offset 0x08 in the synthesized controller state at D_002C2100. func_0011F388 clears that field each update and writes (previous_mask XOR current_mask) AND current_mask, so it contains only abstract input actions newly pressed during the current update. func_0011F478 builds the abstract mask from the physical controller buttons through the 30-entry mapping table D_002C1EE0. The JP corpus contains 11 calls across three archives: the four pc06/pc12 calls poll action bit 0x1 after playing a sound, while seven copies of an lm03 entry test action bit 0x2."
+}

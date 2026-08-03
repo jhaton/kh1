@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 485,
+  "status": "named",
+  "name": "set_character_equipped_weapon_item_id",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DA2E8 passes the top value to func_0014A070 and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "weapon_item_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0014A070 resolves the item record, uses its character-category byte at offset 2 to select a 0x74-byte character record in D_003010F8, and stores weapon_item_id at equipped-weapon offset 0x36. Command 718 get_character_equipped_weapon_item_id reads the same field. The only JP call equips item 85, the Wooden Sword, in pc01.ard."
+}

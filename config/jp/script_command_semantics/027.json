@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 27,
+  "status": "named",
+  "name": "fade_screen_in",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF788 passes the top stack value to Fade_StartScreenIn and decrements Script stackTop"
+  },
+  "arguments": [
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ]
+}

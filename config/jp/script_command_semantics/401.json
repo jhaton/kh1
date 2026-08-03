@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 401,
+  "status": "reviewed_unresolved",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D7F70 takes no Script context and calls func_00180848 without accessing the value stack"
+  },
+  "notes": "func_00180848 copies three staged floating-point components from D_0035EBC8 into camera-state fields at D_0035EB30 and D_0035EB44, then mirrors two components through func_001808B0. Both JP calls occur in the same pp10.ard Big Ben keyhole-sealing entry, once during event-camera setup and once immediately before event-camera teardown. The exact camera-state meaning remains unresolved.",
+  "review": {
+    "reason": "The native handler and representative JP corpus callsites were reviewed, but the available evidence does not establish a defensible semantic name."
+  }
+}

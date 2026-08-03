@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 133,
+  "status": "named",
+  "name": "hide_map_parts",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1FA0 consumes one map-part ID and calls func_001055B8(id, 1), which finds every map record whose byte at offset 0x0B matches the ID and sets its disable bit 0"
+  },
+  "arguments": [
+    {
+      "name": "map_part_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001055B8 applies the change to both active map-record tables; command 132 clears the same bit and is the exact inverse. The JP corpus contains 63 calls across nine archives, using literal IDs 100 through 201. Six ew31 calls hide part 180 and immediately show part 181, while he03 and lm03 use paired show/hide sequences for IDs 101 through 104."
+}

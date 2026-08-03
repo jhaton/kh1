@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 452,
+  "status": "named",
+  "name": "refresh_selected_object_background_color",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D8A68 does not access or change the Script value stack and queues object operation type 39 GET_BG_COLOR for the Script-bound object"
+  },
+  "arguments": [],
+  "notes": "The handler queues the object's current X and Z coordinates, Y minus 20, and W equal to 1. The operation dispatcher samples the collision-backed background color through func_001425C0 and writes the resulting RGBA vector at object offset 0x350, which func_00135C50 consumes as color components. The JP corpus contains 366 calls."
+}

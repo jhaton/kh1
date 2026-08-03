@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": 69,
+  "status": "named",
+  "name": "turn_selected_object_to_angle",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0078 consumes an angle and duration, converts the angle to a horizontal unit vector, and queues operation type 4; the object-operation dispatcher turns the selected object toward that vector over the encoded duration using the shortest angular path"
+  },
+  "arguments": [
+    {
+      "name": "angle_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ]
+}

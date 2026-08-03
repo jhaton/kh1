@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 304,
+  "status": "named",
+  "name": "set_secondary_render_y_rotation_degrees",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D63E0 reads the top stack value, converts it from degrees to radians, passes it to func_001007D0, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "angle_degrees",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001007D0 stores the angle in the Y component at offset 0x44 of secondary render transform D_0048DDA0[1]. The per-frame render path passes that transform through sceVu0RotMatrix and submits it as render view 1 when the secondary-view flag is active. The only JP call passes 90 during the al01.ard event sequence, after capture_screen and fade_captured_screen."
+}

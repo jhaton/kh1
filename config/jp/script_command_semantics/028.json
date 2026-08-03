@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": 28,
+  "status": "named",
+  "name": "fade_screen_out",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF7D0 passes the top stack value to Fade_StartScreenOut and decrements Script stackTop"
+  },
+  "arguments": [
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ]
+}

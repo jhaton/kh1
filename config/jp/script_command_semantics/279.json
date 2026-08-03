@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 279,
+  "status": "named",
+  "name": "snapshot_active_work_buffers",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D5708 takes no Script context, calls func_00111198 and func_0022F808, and does not access or change the value stack"
+  },
+  "arguments": [],
+  "notes": "func_00111198 first copies the current scenario state, camera state, and live party-object positions and facing angles into the active game-state work buffer. func_0022F808 then copies the full 0x16C00-byte active work-buffer region at D_003F2080 to its backup at D_00408C80. The only JP call occurs during pc12.ard event cleanup immediately before player control and the ordinary gameplay UI are restored."
+}

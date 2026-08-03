@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": 12,
+  "status": "named",
+  "name": "set_object_rotation",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF070 consumes three angles, converts each from degrees to radians, and stores them in the selected object's rotation fields"
+  },
+  "arguments": [
+    {
+      "name": "x_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "y_degrees",
+      "type": "s32"
+    },
+    {
+      "name": "z_degrees",
+      "type": "s32"
+    }
+  ]
+}

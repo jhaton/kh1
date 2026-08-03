@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 583,
+  "status": "named",
+  "name": "grant_item",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DBA58 resolves the top item ID through func_001479C0, dispatches its fixed descriptor to the stock-item or character-ability grant routine, and decrements Script stackTop by one"
+  },
+  "arguments": [
+    {
+      "name": "item_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001479C0 indexes the two-byte item descriptor table at D_0054C360. Descriptor type 0 calls func_0013C970 to increase the item's owned count; type 1 calls func_0013C858 to insert the encoded ability into the descriptor-selected character's ability list. The two JP calls grant literal item IDs 24 and 36 immediately after their respective reward text sequences in pc06.ard and pc12.ard."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 442,
+  "status": "named",
+  "name": "allow_conditional_model_part_variants",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D87A0 takes no Script context, clears D_002C1EA8 bit 12, and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "Clearing D_002C1EA8 bit 12 restores the type-3 and type-4 conditional part-selection paths in func_0012FF78. This is the inverse of command 441 suppress_conditional_model_part_variants. The JP corpus contains 51 calls, all in cinematic cleanup sequences."
+}

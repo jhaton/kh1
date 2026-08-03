@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 73,
+  "status": "named",
+  "name": "set_interpolation_value_type",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0548 consumes a value ID and interpolation type, resolves D_0038858C[value_id], stores the type at offset 0 of that Interpolation value, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "value_id",
+      "type": "s32"
+    },
+    {
+      "name": "interpolation_type",
+      "type": "s32"
+    }
+  ],
+  "notes": "The only JP call sets value 0 to type 1 immediately after command 155 allocates that value."
+}

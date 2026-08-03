@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": 134,
+  "status": "named",
+  "name": "set_world_room_state",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 3,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1FE8 passes three stack values to func_00111408 and decrements Script stackTop by three"
+  },
+  "arguments": [
+    {
+      "name": "world_index",
+      "type": "s32"
+    },
+    {
+      "name": "room_index",
+      "type": "s32"
+    },
+    {
+      "name": "state",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00111408 uses world_index to sum preceding lengths in D_002B90B8, adds room_index, and stores the state byte in GameState+0x6C. The 17 nonzero lengths in D_002B90B8 total 234 bytes, exactly matching the persistent GameState room-state array; func_00111468 reads the same world/room indexed byte. The JP corpus contains 217 calls."
+}

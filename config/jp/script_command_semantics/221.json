@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 221,
+  "status": "named",
+  "name": "stop_script_object_turning",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D4690 consumes one duration and, when the script-bound object exists, passes twice that value to func_0014FCA8 before decrementing Script stackTop"
+  },
+  "arguments": [
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_0014FCA8 is the inverse interpolation path of func_0014FC10 used by command 219 turn_script_object_toward_position. When a turn is active, it negates the current interpolation progress divided by the supplied duration and marks the facing interpolation for update; a nonpositive duration clears the interpolation immediately. The JP corpus contains 297 calls, commonly after command 219 and before disabling or replacing the object's motion."
+}

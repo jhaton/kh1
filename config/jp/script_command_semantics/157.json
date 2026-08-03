@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "id": 157,
+  "status": "named",
+  "name": "move_selected_object_to_position_by_step_distance",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 4,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D2CA0 consumes step distance, X, Y, and Z, snapshots the selected object's current position, stores the target coordinates and per-update step distance in Script movement state, and decrements Script stackTop by four"
+  },
+  "arguments": [
+    {
+      "name": "step_distance",
+      "type": "s32"
+    },
+    {
+      "name": "x",
+      "type": "s32"
+    },
+    {
+      "name": "y",
+      "type": "s32"
+    },
+    {
+      "name": "z",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001D2CA0 sets Script update flag 0x40. While set, func_001D2AF0 advances the selected object toward the requested coordinates by the supplied distance per update, applies each intermediate position through func_001C5DE0, and clears the task when the target is reached. Unlike command 280 move_selected_object_to_position_at_speed, this command does not divide its first argument by the 50 Hz update rate. The JP corpus contains 85 calls."
+}

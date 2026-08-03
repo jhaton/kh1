@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 114,
+  "status": "named",
+  "name": "enable_player_control",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D1978 takes no Script context, clears bits 2 and 27 of D_002C1EA8, and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "The controller update func_0012E398 treats global bit 2 as one of the state flags that suppresses its normal player-input path; command 115 sets that bit, while this command clears it and the associated transient bit 27. The JP corpus contains 305 calls. It is the event-cleanup inverse of command 115: 201 calls immediately follow command 112 show_party_status_ui, and 200 share an entry with a singular object-control enable through command 377."
+}

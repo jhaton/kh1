@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 339,
+  "status": "named",
+  "name": "set_treasure_opened_flag",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6F80 consumes a treasure ID and opened value and passes them to func_0013C5C8, which sets or clears the corresponding persistent bit"
+  },
+  "arguments": [
+    {
+      "name": "treasure_id",
+      "type": "s32"
+    },
+    {
+      "name": "opened",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00151D50 calls the same setter with opened=1 after granting the reward described by D_0034DA40[treasure_id]. All 32 JP calls use literal IDs and opened=1: IDs 258, 423, 424, 425, 426, and 472."
+}

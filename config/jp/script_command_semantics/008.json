@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 8,
+  "status": "named",
+  "name": "wait_ticks",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CECE0 consumes one value, stores twice that value in Script+0x2F4, and sets the scheduler timer flag"
+  },
+  "arguments": [
+    {
+      "name": "ticks",
+      "type": "s32"
+    }
+  ],
+  "notes": "The scheduler decrements Script+0x2F4 and resumes execution when it reaches zero."
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 542,
+  "status": "named",
+  "name": "fade_render_channel_out",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001DB0C8 passes the earlier stack value as the render-channel index and the top value as the duration to func_00108488, then decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "channel",
+      "type": "s32"
+    },
+    {
+      "name": "duration",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00108488 indexes one of 32 twelve-byte transition records in D_0048E680, initializes its countdown to twice the supplied duration, its blend weight to 1.0, and its per-tick delta to -1/(2*duration), then clears that channel's bit in D_002B91E8. func_00108548 consumes the records while constructing per-channel render packets and decreases the blend weight to zero. All 16 JP calls are in copies of the same ew31.ard event and fade even-numbered channels 2, 4, 6, and 8 over duration 10 while command 543 fades the alternating channels in."
+}

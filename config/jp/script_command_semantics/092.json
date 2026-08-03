@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 92,
+  "status": "named",
+  "name": "load_event_resource",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D0F10 consumes a load slot and resource ID, selects the slot-specific resource table and completion callback, queues the file into the resource ID's 0x100-byte event buffer, and decrements Script stackTop by two"
+  },
+  "arguments": [
+    {
+      "name": "load_slot",
+      "type": "s32"
+    },
+    {
+      "name": "resource_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Load slots 1 and 2 allocate through distinct event-resource arenas and set asynchronous-load bits 33 and 34 respectively. Command 93 wait_for_event_resource_load polls those same slot values and bits. The JP corpus contains 68 calls."
+}

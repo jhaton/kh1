@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 443,
+  "status": "named",
+  "name": "load_embedded_sound_resource",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E1728 reads one resource index from the top of the Script value stack and decrements stackTop only after func_0011E168 accepts the resolved resource"
+  },
+  "arguments": [
+    {
+      "name": "resource_index",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001E1728 indexes the active script package's resource-offset table, passes the resulting in-memory resource to the event-audio loader func_0011E168, and returns state 4 while that loader is busy. The JP corpus contains five calls in al01.ard and al02.ard, using embedded resource indices 1 and 4 during scripted sound setup."
+}

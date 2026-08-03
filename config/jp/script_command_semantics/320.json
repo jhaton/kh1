@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 320,
+  "status": "named",
+  "name": "enable_script_object_targeting",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6A78 does not access or change the Script value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D6A78 queues object operation type 0x21 for the object ID stored at Script offset 0. Type 0x21 maps to the embedded TARGET_ON name, and its dispatcher clears the targeting-disable flag 0x200. The JP corpus contains 177 calls."
+}

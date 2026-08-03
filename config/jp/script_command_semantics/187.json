@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 187,
+  "status": "named",
+  "name": "delete_map_effect",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E04A8 consumes one effect ID and queues event-effect dispatcher state 5"
+  },
+  "arguments": [
+    {
+      "name": "effect_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "Dispatcher state 5 resolves effect_id in the D_0035D420 map-effect manager through func_00177608 and frees the matching PPP effect through func_00177828/func_00181200. This is the deletion counterpart to command 163 spawn_map_effect, which loads effects into the same manager from world-archive resource pointers. The JP corpus contains 208 calls; 17 are followed by command 163 within the next three command calls."
+}

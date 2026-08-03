@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 330,
+  "status": "reviewed_unresolved",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D6D78 takes no Script context and calls func_0012C990(2, 0), clearing bit 2 at game-state offset 0x85C"
+  },
+  "notes": "The only JP call occurs during cleanup of the pp10.ard Big Ben keyhole-sealing cutscene, pairing command 331's earlier set of the same bit. The bit's player-visible purpose remains unresolved.",
+  "review": {
+    "reason": "The native handler and representative JP corpus callsites were reviewed, but the available evidence does not establish a defensible semantic name."
+  }
+}

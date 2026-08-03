@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 229,
+  "status": "named",
+  "name": "start_count_up_timer",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D4B70 consumes one value and passes it to func_00111A00"
+  },
+  "arguments": [
+    {
+      "name": "use_extended_range",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_00111A00 resets live timer D_002B916C to zero, snapshots the current system tick, and registers count-up callback func_00111920. A zero argument caps the timer at 215940 frames (59:59); a nonzero argument selects the extended 21599940-frame range (99:59:59). Both JP calls occur in copies of the same tz04.ard entry, immediately after command 660 show_timer_display and command 238. The Vine Jump and Jungle Slider time trials are player-observed to count upward from zero."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 739,
+  "status": "named",
+  "name": "disable_party_color_override",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D23D8 does not access the Script value stack and calls func_0013DF48 for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, clearing the RGBA override for the whole party"
+  },
+  "arguments": [],
+  "notes": "Party-wide counterpart of opcode 142. It occurs six times across the corpus."
+}

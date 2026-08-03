@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "id": 21,
+  "status": "named",
+  "name": "show_object",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001CF488 queues operation type 6; its dispatcher sets the selected object's visible flag and opacity to 1.0"
+  },
+  "arguments": []
+}

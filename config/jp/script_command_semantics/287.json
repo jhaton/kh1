@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": 287,
+  "status": "named",
+  "name": "get_object_facing_angle_degrees",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 1,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D5B60 resolves the top value with func_001EAB00 and replaces it with round(object->facingRadians * 180 / pi)"
+  },
+  "arguments": [
+    {
+      "name": "object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "The source float is object offset 0x3C. func_00133910 compares that field with atan2f of an X/Z direction vector when updating object turns, identifying it as the horizontal facing angle. The JP corpus contains 246 calls; 132 are immediately followed by command 308 cos_degrees_times_10000."
+}

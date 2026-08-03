@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 263,
+  "status": "named",
+  "name": "disable_selected_object_view_culling",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D5378 reads only the selected object pointer at Script offset 0x04 and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D5378 sets object flag 0x2000000000000 through func_00135760. The model visibility path bypasses its transformed-bounds frustum test while this flag is set, forcing the object through the render path; the engine's embedded operation name for this state is VIEW_OFF. The adjacent func_00135738 clears the flag. The JP corpus contains 11 calls during scripted-object setup; six entries also disable background collision and five also disable object collision."
+}

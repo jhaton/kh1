@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 719,
+  "status": "named",
+  "name": "suppress_automatic_battle_music_switching",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001E9C30 takes no Script context and calls func_0011E340 without accessing the value stack"
+  },
+  "arguments": [],
+  "notes": "func_0011E340 sets suppression flag D_002BD8E0. While set, func_0011E360 observes battle-mode transitions but skips the automatic crossfade between field-music channel 0 and battle-music channel 1 performed by func_0011E2A8 and func_0011E2F8. The only JP call occurs in al02.ard at the Cave of Wonders tiger-head entrance, after fading in and immediately before an enemy-wave sequence that uses the normal Agrabah battle music. Command 720 clears the suppression."
+}

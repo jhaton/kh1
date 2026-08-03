@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": 203,
+  "status": "named",
+  "name": "get_object_relative_facing_angle",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 2,
+    "outputs": 1,
+    "confidence": "high",
+    "evidence": "func_001D3CF0 resolves two object IDs, replaces them with one angle result, and decrements Script stackTop by one overall"
+  },
+  "arguments": [
+    {
+      "name": "source_object_id",
+      "type": "s32"
+    },
+    {
+      "name": "target_object_id",
+      "type": "s32"
+    }
+  ],
+  "notes": "func_001D3CF0 computes the horizontal bearing from the source object to the target through func_001EAF30, subtracts the source object's current facing angle, normalizes the difference into 0 through 359 degrees, and replaces the two inputs with that integer. A missing object produces zero. The JP corpus contains 150 calls."
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "id": 140,
+  "status": "named",
+  "name": "hide_cinematic_bars",
+  "name_confidence": "high",
+  "stack": {
+    "inputs": 0,
+    "outputs": 0,
+    "confidence": "high",
+    "evidence": "func_001D2280 takes no Script context and does not access the value stack"
+  },
+  "arguments": [],
+  "notes": "func_001D2280 starts func_00104310 with a fixed two-tick transition and clears persistent event-state bit 0x1. func_00104310 schedules func_00104290, which increases the cinematic-bar transition value until it reaches the configured limit, then disables the GS packet that draws the black full-width sprites. This is the inverse of command 139 show_cinematic_bars. The JP corpus contains 11 calls across six archives; nine follow command 139 in the same script entry."
+}
