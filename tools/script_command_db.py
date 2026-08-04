@@ -749,6 +749,120 @@ def write_command_evidence(records: list[dict[str, object]], path: Path) -> None
         )
 
 
+def _script_command_symbol_name(semantic_name: str) -> str:
+    return "ScriptCommand_" + "".join(
+        component[:1].upper() + component[1:]
+        for component in semantic_name.split("_")
+    )
+
+
+def build_command_symbol_manifest(
+    database: dict[str, object],
+    symbols_by_address: dict[int, Iterable[str]] | None = None,
+) -> dict[str, object]:
+    commands = database.get("commands")
+    if not isinstance(commands, list):
+        raise FormatError("command database has no commands array")
+    symbols_by_address = symbols_by_address or {}
+    addresses_by_symbol: dict[str, set[int]] = defaultdict(set)
+    for address, names in symbols_by_address.items():
+        for name in names:
+            addresses_by_symbol[name].add(address)
+
+    high_confidence_commands = [
+        command
+        for command in commands
+        if isinstance(command, dict)
+        and command.get("name_confidence") == "high"
+        and isinstance(command.get("name"), str)
+        and command["name"]
+    ]
+    semantic_name_counts = Counter(
+        command["name"] for command in high_confidence_commands
+    )
+    manifest_symbols: list[dict[str, object]] = []
+    assigned_names: dict[str, int] = {}
+    for command in high_confidence_commands:
+        command_id = _require_nonnegative_int(
+            command.get("id"), "command database id"
+        )
+        address_text = command.get("handler_address")
+        if not isinstance(address_text, str):
+            raise FormatError(f"command {command_id}: handler address is missing")
+        address = int(address_text, 0)
+        semantic_name = str(command["name"])
+        generated_name = _script_command_symbol_name(semantic_name)
+        if semantic_name_counts[semantic_name] > 1:
+            generated_name += f"_Cmd{command_id:03d}"
+        current_symbol = command.get("handler_symbol")
+        if (
+            isinstance(current_symbol, str)
+            and current_symbol
+            and not current_symbol.startswith(("func_", "D_", ".L"))
+        ):
+            symbol_name = current_symbol
+            source = "existing"
+        else:
+            symbol_name = generated_name
+            source = "generated"
+
+        conflicting_addresses = addresses_by_symbol.get(symbol_name, set()) - {
+            address
+        }
+        if conflicting_addresses:
+            formatted_addresses = ", ".join(
+                f"0x{conflicting_address:08X}"
+                for conflicting_address in sorted(conflicting_addresses)
+            )
+            raise FormatError(
+                f"command {command_id}: symbol {symbol_name} already names "
+                f"{formatted_addresses}"
+            )
+        previous_address = assigned_names.get(symbol_name)
+        if previous_address is not None and previous_address != address:
+            raise FormatError(
+                f"command {command_id}: generated symbol {symbol_name} "
+                f"also names 0x{previous_address:08X}"
+            )
+        assigned_names[symbol_name] = address
+        manifest_symbols.append(
+            {
+                "command_id": command_id,
+                "address": f"0x{address:08X}",
+                "symbol": symbol_name,
+                "semantic_name": semantic_name,
+                "current_symbol": current_symbol,
+                "source": source,
+            }
+        )
+
+    manifest_symbols.sort(key=lambda item: (int(item["address"], 0), item["command_id"]))
+    return {
+        "schema_version": 1,
+        "game_version": database.get("game_version"),
+        "executable_sha1": database.get("executable_sha1"),
+        "symbols": manifest_symbols,
+    }
+
+
+def write_command_symbol_manifest(
+    manifest: dict[str, object], path: Path, output_format: str
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if output_format == "json":
+        path.write_text(json.dumps(manifest, indent=2) + "\n")
+        return
+    if output_format == "pcsx2":
+        path.write_text(
+            "".join(
+                f"{symbol['address'][2:]} {symbol['symbol']}\n"
+                for symbol in manifest["symbols"]
+            )
+        )
+        return
+    raise FormatError(f"unsupported symbol output format: {output_format}")
+
+
 def _stack_effect(instruction: Instruction, commands: dict[int, CommandMetadata]) -> tuple[int, int] | None:
     opcode = instruction.opcode
     if opcode in (0, 2, 5, 8):
@@ -920,6 +1034,19 @@ def _validate_semantics(args: argparse.Namespace) -> int:
     return 0
 
 
+def _export_symbols(args: argparse.Namespace) -> int:
+    database = json.loads(args.database.read_text())
+    _, symbols_by_address = _parse_linker_map(args.map)
+    manifest = build_command_symbol_manifest(database, symbols_by_address)
+    write_command_symbol_manifest(manifest, args.output, args.format)
+    print(
+        f"wrote {len(manifest['symbols'])} high-confidence command symbols "
+        f"to {args.output}",
+        file=sys.stderr,
+    )
+    return 0
+
+
 def _check(args: argparse.Namespace) -> int:
     commands = load_command_database(args.database)
     aggregate = Counter()
@@ -977,6 +1104,18 @@ def main() -> int:
     )
     validate_semantics.add_argument("semantics", type=Path)
     validate_semantics.set_defaults(action=_validate_semantics)
+
+    export_symbols = subparsers.add_parser(
+        "export-symbols",
+        help="export collision-checked high-confidence command handler symbols",
+    )
+    export_symbols.add_argument("database", type=Path)
+    export_symbols.add_argument("--map", type=Path, required=True)
+    export_symbols.add_argument("--output", type=Path, required=True)
+    export_symbols.add_argument(
+        "--format", choices=("json", "pcsx2"), default="json"
+    )
+    export_symbols.set_defaults(action=_export_symbols)
 
     check = subparsers.add_parser("check", help="check stack depth where command signatures are known")
     check.add_argument("database", type=Path)

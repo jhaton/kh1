@@ -8,6 +8,8 @@ from tools.script_command_db import (
     _load_semantic_records,
     _load_semantics,
     _require_reviewed_used_commands,
+    build_command_symbol_manifest,
+    write_command_symbol_manifest,
     write_command_evidence,
 )
 
@@ -130,6 +132,101 @@ class SemanticRecordTests(unittest.TestCase):
         second = json.loads((self.root / "101.json").read_text())
         self.assertEqual(first["command"], records[0])
         self.assertEqual(second["command"], records[1])
+
+    def test_builds_collision_free_high_confidence_symbol_manifest(self) -> None:
+        database = {
+            "game_version": "jp",
+            "executable_sha1": "abc",
+            "commands": [
+                {
+                    "id": 7,
+                    "handler_address": "0x00100000",
+                    "handler_symbol": "func_00100000",
+                    "name": "set_example_value",
+                    "name_confidence": "high",
+                },
+                {
+                    "id": 8,
+                    "handler_address": "0x00100010",
+                    "handler_symbol": "func_00100010",
+                    "name": "noop",
+                    "name_confidence": "high",
+                },
+                {
+                    "id": 9,
+                    "handler_address": "0x00100020",
+                    "handler_symbol": "func_00100020",
+                    "name": "noop",
+                    "name_confidence": "high",
+                },
+                {
+                    "id": 10,
+                    "handler_address": "0x00100030",
+                    "handler_symbol": "ScriptCommand_ExistingName",
+                    "name": "different_semantic_name",
+                    "name_confidence": "high",
+                },
+                {
+                    "id": 11,
+                    "handler_address": "0x00100040",
+                    "handler_symbol": "func_00100040",
+                    "name": "uncertain_name",
+                    "name_confidence": "medium",
+                },
+            ],
+        }
+
+        manifest = build_command_symbol_manifest(
+            database,
+            {0x00100030: ("ScriptCommand_ExistingName",)},
+        )
+
+        self.assertEqual(
+            [symbol["symbol"] for symbol in manifest["symbols"]],
+            [
+                "ScriptCommand_SetExampleValue",
+                "ScriptCommand_Noop_Cmd008",
+                "ScriptCommand_Noop_Cmd009",
+                "ScriptCommand_ExistingName",
+            ],
+        )
+
+    def test_rejects_symbol_name_owned_by_another_address(self) -> None:
+        database = {
+            "commands": [
+                {
+                    "id": 7,
+                    "handler_address": "0x00100000",
+                    "handler_symbol": "func_00100000",
+                    "name": "set_example_value",
+                    "name_confidence": "high",
+                }
+            ]
+        }
+
+        with self.assertRaisesRegex(FormatError, "already names"):
+            build_command_symbol_manifest(
+                database,
+                {0x00200000: ("ScriptCommand_SetExampleValue",)},
+            )
+
+    def test_writes_pcsx2_symbol_manifest(self) -> None:
+        manifest = {
+            "symbols": [
+                {
+                    "address": "0x00100000",
+                    "symbol": "ScriptCommand_SetExampleValue",
+                }
+            ]
+        }
+        output = self.root / "commands.sym"
+
+        write_command_symbol_manifest(manifest, output, "pcsx2")
+
+        self.assertEqual(
+            output.read_text(),
+            "00100000 ScriptCommand_SetExampleValue\n",
+        )
 
 
 if __name__ == "__main__":
