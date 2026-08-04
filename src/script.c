@@ -10,7 +10,7 @@ s32 ScriptOp_Nop(void) {
 }
 
 s32 ScriptOp_JumpRelative(Script* script, s32 offset) {
-    script->unk_174[2] += offset;
+    script->instructionIndex += offset;
     if (offset < 0) {
         return 4;
     }
@@ -96,8 +96,8 @@ s64 Script_ClampValue(s64 value, s32 type) {
 s32 Script_PushS24(Script* script, s64 value) {
     s32 clampedValue = Script_ClampValue(value, 4);
 
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = clampedValue;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = clampedValue;
     return 2;
 }
 

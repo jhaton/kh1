@@ -237,7 +237,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CE060);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CE0A0);
 
 s32 func_001CE188(Script* script) {
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
@@ -252,30 +252,30 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CE758);
 
 // Handle score against Riku on Destiny Island
 s32 func_001CE858(Script* script) {
-    s32 stackTop = script->unk_174[3];
+    s32 stackTop = script->stackTop;
 
-    D_003C10B8[script->unk_174[stackTop + 3]] = script->unk_174[stackTop + 4];
-    script->unk_174[3] -= 2;
+    D_003C10B8[script->valueStack[stackTop - 1]] = script->valueStack[stackTop];
+    script->stackTop -= 2;
     return 2;
 }
 
 void func_001CE898(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] += script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] += script->valueStack[script->stackTop + 1];
 }
 
 void func_001CE8D0(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] -= script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] -= script->valueStack[script->stackTop + 1];
 }
 
 void func_001CE908(Script* script) {
-    script->unk_174[script->unk_174[3] + 4] = -script->unk_174[script->unk_174[3] + 4];
+    script->valueStack[script->stackTop] = -script->valueStack[script->stackTop];
 }
 
 void func_001CE928(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] *= script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] *= script->valueStack[script->stackTop + 1];
 }
 
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CE960);
@@ -283,52 +283,52 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CE960);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CE9A0);
 
 void func_001CE9E0(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] = script->unk_174[script->unk_174[3] + 4] == script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] = script->valueStack[script->stackTop] == script->valueStack[script->stackTop + 1];
 }
 
 void func_001CEA18(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] = script->unk_174[script->unk_174[3] + 5] < script->unk_174[script->unk_174[3] + 4];
+    script->stackTop--;
+    script->valueStack[script->stackTop] = script->valueStack[script->stackTop + 1] < script->valueStack[script->stackTop];
 }
 
 void func_001CEA50(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] = script->unk_174[script->unk_174[3] + 4] < script->unk_174[script->unk_174[3] + 5] ^ 1;
+    script->stackTop--;
+    script->valueStack[script->stackTop] = script->valueStack[script->stackTop] < script->valueStack[script->stackTop + 1] ^ 1;
 }
 
 void func_001CEA88(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] = script->unk_174[script->unk_174[3] + 4] < script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] = script->valueStack[script->stackTop] < script->valueStack[script->stackTop + 1];
 }
 
 void func_001CEAC0(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] = script->unk_174[script->unk_174[3] + 5] < script->unk_174[script->unk_174[3] + 4] ^ 1;
+    script->stackTop--;
+    script->valueStack[script->stackTop] = script->valueStack[script->stackTop + 1] < script->valueStack[script->stackTop] ^ 1;
 }
 
 void func_001CEAF8(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] = script->unk_174[script->unk_174[3] + 4] != script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] = script->valueStack[script->stackTop] != script->valueStack[script->stackTop + 1];
 }
 
 void func_001CEB30(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] &= script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] &= script->valueStack[script->stackTop + 1];
 }
 
 void func_001CEB68(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] |= script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] |= script->valueStack[script->stackTop + 1];
 }
 
 void func_001CEBA0(Script* script) {
-    script->unk_174[3]--;
-    script->unk_174[script->unk_174[3] + 4] ^= script->unk_174[script->unk_174[3] + 5];
+    script->stackTop--;
+    script->valueStack[script->stackTop] ^= script->valueStack[script->stackTop + 1];
 }
 
 void func_001CEBD8(Script* script) {
-    script->unk_174[script->unk_174[3] + 4] = ~script->unk_174[script->unk_174[3] + 4];
+    script->valueStack[script->stackTop] = ~script->valueStack[script->stackTop];
 }
 
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CEBF8);
@@ -345,7 +345,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CEC98);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001CECE0);
 
 s32 func_001CED20(Script* script) {
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
@@ -590,60 +590,60 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D1E20);
 
 s32 func_001D1EE0(Script* script) {
     s32 value = D_002B8678;
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
 s32 func_001D1F08(Script* script) {
     s32 value = D_002B8680;
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
 s32 func_001D1F30(Script* script) {
     s32 value = D_002B8684;
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
 s32 func_001D1F58(Script* script) {
-    func_001055B8((long)script->unk_174[script->unk_174[3] + 4], 0);
-    script->unk_174[3]--;
+    func_001055B8((long)script->valueStack[script->stackTop], 0);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D1FA0(Script* script) {
-    func_001055B8((long)script->unk_174[script->unk_174[3] + 4], 1);
-    script->unk_174[3]--;
+    func_001055B8((long)script->valueStack[script->stackTop], 1);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D1FE8(Script* script) {
     func_00111408(
-        script->unk_174[script->unk_174[3] + 2], script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]
+        script->valueStack[script->stackTop - 2], script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]
     );
-    script->unk_174[3] -= 3;
+    script->stackTop -= 3;
     return 2;
 }
 
 s32 func_001D2040(Script* script) {
     func_00106380(
-        script->unk_174[script->unk_174[3] + 1], script->unk_174[script->unk_174[3] + 2], script->unk_174[script->unk_174[3] + 3],
-        script->unk_174[script->unk_174[3] + 4]
+        script->valueStack[script->stackTop - 3], script->valueStack[script->stackTop - 2], script->valueStack[script->stackTop - 1],
+        script->valueStack[script->stackTop]
     );
-    script->unk_174[3] -= 4;
+    script->stackTop -= 4;
     return 2;
 }
 
 s32 func_001D20A0(Script* script) {
     func_00106428(
-        script->unk_174[script->unk_174[3] + 1], script->unk_174[script->unk_174[3] + 2], script->unk_174[script->unk_174[3] + 3],
-        script->unk_174[script->unk_174[3] + 4]
+        script->valueStack[script->stackTop - 3], script->valueStack[script->stackTop - 2], script->valueStack[script->stackTop - 1],
+        script->valueStack[script->stackTop]
     );
-    script->unk_174[3] -= 4;
+    script->stackTop -= 4;
     return 2;
 }
 
@@ -654,13 +654,13 @@ s32 func_001D2100(void) {
 
 s32 func_001D2120(Script* script) {
     WorkBuffers_Get(1);
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D2158(Script* script) {
     WorkBuffers_Get(1);
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
@@ -701,20 +701,20 @@ s32 func_001D2498(void) {
 }
 
 s32 func_001D24A8(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = func_00125BB8(1);
+    script->stackTop++;
+    script->valueStack[script->stackTop] = func_00125BB8(1);
     return 2;
 }
 
 s32 func_001D24F0(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = func_00125BB8(2);
+    script->stackTop++;
+    script->valueStack[script->stackTop] = func_00125BB8(2);
     return 2;
 }
 
 s32 func_001D2538(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = func_00125BB8(4);
+    script->stackTop++;
+    script->valueStack[script->stackTop] = func_00125BB8(4);
     return 2;
 }
 
@@ -738,14 +738,14 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D2CA0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D2D28);
 
 s32 func_001D2DB8(Script* script) {
-    D_003854E0.unk_3148 |= script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_003854E0.unk_3148 |= script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D2DF0(Script* script) {
-    D_003854E0.unk_3148 &= ~script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_003854E0.unk_3148 &= ~script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
@@ -770,33 +770,33 @@ s32 func_001D2E88(void) {
 }
 
 s32 func_001D2E98(Script* script) {
-    D_002A2744 = script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_002A2744 = script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D2EC0(Script* script) {
-    D_002A2748 = script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_002A2748 = script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
 // INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D2EE8);
 s32 func_001D2EE8(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_002C2104;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_002C2104;
     return 2;
 }
 
 s32 func_001D2F10(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_002C2024;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_002C2024;
     return 2;
 }
 
 s32 func_001D2F38(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_002C2108;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_002C2108;
     return 2;
 }
 
@@ -853,26 +853,26 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D3B00);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D3CF0);
 
 s32 func_001D3EF0(Script* script) {
-    func_001E1F78(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001E1F78(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D3F38(Script* script) {
-    func_001E22B0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001E22B0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D3F80(Script* script) {
-    func_001E22F0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001E22F0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D3FC8(Script* script) {
-    func_001E2628(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001E2628(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -885,7 +885,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D40B0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D40F0);
 
 s32 func_001D4190(Script* script) {
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
@@ -920,8 +920,8 @@ s32 func_001D4B38(void) {
 }
 
 s32 func_001D4B70(Script* script) {
-    func_00111A00((long)script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00111A00((long)script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -929,8 +929,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D4BB8);
 void func_001D4BB8(); // temp for next function
 
 s32 func_001D4C30(Script* script) {
-    func_00111B70(script->unk_174[script->unk_174[3] + 4], func_001D4BB8);
-    script->unk_174[3]--;
+    func_00111B70(script->valueStack[script->stackTop], func_001D4BB8);
+    script->stackTop--;
     return 2;
 }
 
@@ -946,32 +946,32 @@ s32 func_001D4CA0(void) {
 
 s32 func_001D4CC0(Script* script) {
     s32 value = func_00111C08();
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
 s32 func_001D4D00(Script* script) {
-    func_00111C20(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00111C20(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D4D48(Script* script) {
-    func_00111C38(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00111C38(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D4D90(Script* script) {
-    func_00111C60(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00111C60(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D4DD8(Script* script) {
-    func_00111C50(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00111C50(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -992,22 +992,22 @@ s32 func_001D4EE8(void) {
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D4F08);
 
 s32 func_001D4FB0(Script* script) {
-    func_001E86A0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001E86A0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D4FF8(Script* script) {
-    s32 value = func_00123880(script->unk_174[script->unk_174[3] + 3]);
-    func_00137230(value, 0, script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    s32 value = func_00123880(script->valueStack[script->stackTop - 1]);
+    func_00137230(value, 0, script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D5068);
 
 s32 func_001D5128(Script* script) {
-    script->unk_174[script->unk_174[3] + 4] = D_003010F8->unk_492[script->unk_174[script->unk_174[3] + 4] + 7];
+    script->valueStack[script->stackTop] = D_003010F8->unk_492[script->valueStack[script->stackTop] + 7];
     return 2;
 }
 
@@ -1039,14 +1039,14 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D54B0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D54E8);
 
 s32 func_001D5528(Script* script) {
-    Party_AddCharacter(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    Party_AddCharacter(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D5570(Script* script) {
-    func_0013C7D0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0013C7D0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1078,9 +1078,9 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D5730);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D58F8);
 
 s32 func_001D59B8(Script* script) {
-    s32 index = script->unk_174[script->unk_174[3] + 4];
+    s32 index = script->valueStack[script->stackTop];
     if (index < 4) {
-        script->unk_174[script->unk_174[3] + 4] = D_003010F8->unk_48E[index];
+        script->valueStack[script->stackTop] = D_003010F8->unk_48E[index];
     }
     return 2;
 }
@@ -1120,8 +1120,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D60A8);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D63E0);
 
 s32 func_001D6450(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_3150;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.pauseMenuSelection;
     return 2;
 }
 
@@ -1136,8 +1136,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D6680);
 s32 func_001D66F8(Script* script) {
     s32 value = D_002C1EA8 & 1;
 
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
@@ -1150,14 +1150,14 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D6778);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D6828);
 
 s32 func_001D68D8(Script* script) {
-    func_001038B0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001038B0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D6920(Script* script) {
-    func_001037C8(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001037C8(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1226,11 +1226,11 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D6E18);
 s32 func_001D6EA8(Script* script) {
     s32 value = D_002DED08;
 
-    script->unk_174[3] = script->unk_174[3] + 1;
+    script->stackTop = script->stackTop + 1;
     if (value == 2) {
-        script->unk_174[script->unk_174[3] + 4] = 1;
+        script->valueStack[script->stackTop] = 1;
     } else {
-        script->unk_174[script->unk_174[3] + 4] = 0;
+        script->valueStack[script->stackTop] = 0;
     }
     return 2;
 }
@@ -1244,26 +1244,26 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D6F80);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D6FD0);
 
 s32 func_001D7028(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_315C;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.unk_315C;
     return 2;
 }
 
 s32 func_001D7050(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_3160;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.unk_3160;
     return 2;
 }
 
 s32 func_001D7078(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_3164;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.unk_3164;
     return 2;
 }
 
 s32 func_001D70A0(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_3168;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.unk_3168;
     return 2;
 }
 
@@ -1284,33 +1284,33 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D76F0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D7730);
 
 s32 func_001D7770(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_3170;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.eventSourceObjectId;
     return 2;
 }
 
 s32 func_001D7798(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_3174;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.eventSourceMessageCode;
     return 2;
 }
 
 s32 func_001D77C0(Script* script) {
-    D_003854E0.unk_3170 = script->unk_174[script->unk_174[3] + 3];
-    D_003854E0.unk_3174 = script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3] -= 2;
+    D_003854E0.eventSourceObjectId = script->valueStack[script->stackTop - 1];
+    D_003854E0.eventSourceMessageCode = script->valueStack[script->stackTop];
+    script->stackTop -= 2;
     return 2;
 }
 
 s32 func_001D7808(Script* script) {
-    func_0014EE50(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0014EE50(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D7850(Script* script) {
-    func_0014EE78(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0014EE78(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1339,22 +1339,22 @@ s32 func_001D78D8(void) {
 }
 
 s32 func_001D7918(Script* script) {
-    D_002B8000 = script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_002B8000 = script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D7940);
 
 s32 func_001D7998(Script* script) {
-    func_001452E0(0, script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001452E0(0, script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D79E0(Script* script) {
-    func_001452E0(1, script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001452E0(1, script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1379,8 +1379,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D7D10);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D7D70);
 
 s32 func_001D7DD0(Script* script) {
-    func_00111580(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00111580(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1414,8 +1414,8 @@ s32 func_001D7F08(void) {
 }
 
 s32 func_001D7F28(Script* script) {
-    func_001807B0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001807B0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1429,26 +1429,26 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D7F90);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D7FD8);
 
 s32 func_001D8020(Script* script) {
-    func_0023E0B0(script->unk_174[script->unk_174[3] + 4], 1);
-    script->unk_174[3]--;
+    func_0023E0B0(script->valueStack[script->stackTop], 1);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D8068(Script* script) {
-    func_0023E0B0(script->unk_174[script->unk_174[3] + 4], 3);
-    script->unk_174[3]--;
+    func_0023E0B0(script->valueStack[script->stackTop], 3);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D80B0(Script* script) {
-    func_0023E0B0(script->unk_174[script->unk_174[3] + 4], 1);
-    script->unk_174[3]--;
+    func_0023E0B0(script->valueStack[script->stackTop], 1);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D80F8(Script* script) {
-    func_0023E0B0(script->unk_174[script->unk_174[3] + 4], 0);
-    script->unk_174[3]--;
+    func_0023E0B0(script->valueStack[script->stackTop], 0);
+    script->stackTop--;
     return 2;
 }
 
@@ -1463,13 +1463,13 @@ s32 func_001D8168(void) {
 }
 
 s32 func_001D8188(Script* script) {
-    script->unk_174[script->unk_174[3] + 4] = func_00105AE0((long)script->unk_174[script->unk_174[3] + 4]);
+    script->valueStack[script->stackTop] = func_00105AE0((long)script->valueStack[script->stackTop]);
     return 2;
 }
 
 s32 func_001D81E0(Script* script) {
-    func_00105B38(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_00105B38(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
@@ -1546,14 +1546,14 @@ s32 func_001D8660(void) {
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D8680);
 
 s32 func_001D8700(Script* script) {
-    script->unk_174[3] = script->unk_174[3] + 1;
-    script->unk_174[script->unk_174[3] + 4] = func_00125B90(1);
+    script->stackTop = script->stackTop + 1;
+    script->valueStack[script->stackTop] = func_00125B90(1);
     return 2;
 }
 
 s32 func_001D8748(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003854E0.unk_3380;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003854E0.unk_3380;
     return 2;
 }
 
@@ -1573,14 +1573,14 @@ s32 func_001D87A0(void) {
 }
 
 s32 func_001D87C0(Script* script) {
-    func_001F0A90(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001F0A90(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D8808(Script* script) {
-    func_001128F0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001128F0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1591,7 +1591,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D8928);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D8A00);
 
 s32 func_001D8A30(Script* script) {
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
@@ -1642,14 +1642,14 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D9720);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D9C28);
 
 s32 func_001D9DD0(Script* script) {
-    func_00156BA0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00156BA0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001D9E18(Script* script) {
-    func_00156B70(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00156B70(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1670,7 +1670,7 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D9F08);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001D9F60);
 
 s32 func_001D9F88(Script* script) {
-    script->unk_174[script->unk_174[3] + 4] = func_00158C30(script->unk_174[script->unk_174[3] + 4]);
+    script->valueStack[script->stackTop] = func_00158C30(script->valueStack[script->stackTop]);
     return 2;
 }
 
@@ -1690,56 +1690,56 @@ s32 func_001DA000(void) {
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DA060);
 
 s32 func_001DA0F0(Script* script) {
-    func_0013C1E0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0013C1E0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DA138(Script* script) {
-    func_0013C1F0(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0013C1F0(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DA180(Script* script) {
-    func_0013C148(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0013C148(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DA1C8(Script* script) {
-    if (script->unk_174[script->unk_174[3] + 4] != 0) {
+    if (script->valueStack[script->stackTop] != 0) {
         func_0012C990(3, 1);
     } else {
         func_0012C990(3, 0);
     }
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DA228(Script* script) {
-    if (script->unk_174[script->unk_174[3] + 4] != 0) {
+    if (script->valueStack[script->stackTop] != 0) {
         func_0012C990(4, 1);
     } else {
         func_0012C990(4, 0);
     }
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DA288(Script* script) {
-    if (script->unk_174[script->unk_174[3] + 4] != 0) {
+    if (script->valueStack[script->stackTop] != 0) {
         func_0012C990(5, 1);
     } else {
         func_0012C990(5, 0);
     }
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DA2E8(Script* script) {
-    func_0014A070(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0014A070(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1766,8 +1766,8 @@ s32 func_001DA390(void) {
 }
 
 s32 func_001DA3C0(Script* script) {
-    func_00110E38(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00110E38(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1784,51 +1784,51 @@ s32 func_001DA428(void) {
 }
 
 s32 func_001DA458(Script* script) {
-    func_001114B8(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_001114B8(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
 s32 func_001DA4A8(Script* script) {
-    func_001424E8(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001424E8(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DA4F0(Script* script) {
-    func_0013C230(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_0013C230(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
 s32 func_001DA540(Script* script) {
-    script->unk_174[script->unk_174[3] + 4] = func_0013C280(script->unk_174[script->unk_174[3] + 4]);
+    script->valueStack[script->stackTop] = func_0013C280(script->valueStack[script->stackTop]);
     return 2;
 }
 
 s32 func_001DA598(Script* script) {
-    func_00157158(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_00157158(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DA5E0);
 
 s32 func_001DA638(Script* script) {
-    func_00105510(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_00105510(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
 s32 func_001DA688(Script* script) {
-    func_00105560(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_00105560(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
 s32 func_001DA6D8(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = func_001EF300();
+    script->stackTop++;
+    script->valueStack[script->stackTop] = func_001EF300();
     return 2;
 }
 
@@ -1874,14 +1874,14 @@ s32 func_001DB078(void) {
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DB098);
 
 s32 func_001DB0C8(Script* script) {
-    func_00108488(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_00108488(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
 s32 func_001DB118(Script* script) {
-    func_001084F0(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_001084F0(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
@@ -1933,20 +1933,20 @@ s32 func_001DB658(void) {
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DB678);
 
 s32 func_001DB6C8(Script* script) {
-    func_0013C858(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_0013C858(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
 s32 func_001DB718(Script* script) {
-    D_002B8004 = script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_002B8004 = script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DB740(Script* script) {
-    D_002B8008 = script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_002B8008 = script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
@@ -1955,14 +1955,14 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DB768);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DB7A8);
 
 s32 func_001DB810(Script* script) {
-    D_002B8014 = script->unk_174[script->unk_174[3] + 4];
-    script->unk_174[3]--;
+    D_002B8014 = script->valueStack[script->stackTop];
+    script->stackTop--;
     return 2;
 }
 
 s32 func_001DB838(Script* script) {
-    func_0013C338(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0013C338(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -1973,8 +1973,8 @@ s32 func_001DB880(void) {
 }
 
 s32 func_001DB8C8(Script* script) {
-    func_001BC480(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_001BC480(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -2005,8 +2005,8 @@ s32 func_001DBA00(void) {
 
 s32 func_001DBA30(Script* script) {
     s32 value = D_003F0DD4;
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
@@ -2033,8 +2033,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DBF58);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DBFC8);
 
 s32 func_001DC040(Script* script) {
-    func_00131B90(script->unk_174[script->unk_174[3] + 3], script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3] -= 2;
+    func_00131B90(script->valueStack[script->stackTop - 1], script->valueStack[script->stackTop]);
+    script->stackTop -= 2;
     return 2;
 }
 
@@ -2061,8 +2061,8 @@ s32 func_001DC288(void) {
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DC2A0);
 
 s32 func_001DC368(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = func_001F0A80();
+    script->stackTop++;
+    script->valueStack[script->stackTop] = func_001F0A80();
     return 2;
 }
 
@@ -2072,15 +2072,15 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DC3D8);
 
 s32 func_001DC428(Script* script) {
     s32 value = D_002B9170;
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
 s32 func_001DC450(Script* script) {
     s32 value = D_002B916C;
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 
@@ -2093,10 +2093,10 @@ void func_001DC538(void) {
 }
 
 s32 func_001DC558(Script* script) {
-    if (func_00149E38(script->unk_174[script->unk_174[3] + 4], func_001DC538)) {
+    if (func_00149E38(script->valueStack[script->stackTop], func_001DC538)) {
         D_003854E0.unk_3078 |= 0x20;
     }
-    script->unk_174[3]--;
+    script->stackTop--;
     return 2;
 }
 
@@ -2105,8 +2105,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DC5C0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DC5E8);
 
 s32 func_001DC8A8(Script* script) {
-    func_001ED6F0(script->unk_174[script->unk_174[3] + 4], 1);
-    script->unk_174[3]--;
+    func_001ED6F0(script->valueStack[script->stackTop], 1);
+    script->stackTop--;
     return 2;
 }
 
@@ -2215,8 +2215,8 @@ s32 func_001DD4A0(void) {
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DD4C8);
 
 s32 func_001DD520(Script* script) {
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = D_003889B0;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = D_003889B0;
     return 2;
 }
 
@@ -2258,8 +2258,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DD7B0);
 INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DD7F8);
 
 s32 func_001DD848(Script* script) {
-    func_0013BF20(script->unk_174[script->unk_174[3] + 4]);
-    script->unk_174[3]--;
+    func_0013BF20(script->valueStack[script->stackTop]);
+    script->stackTop--;
     return 2;
 }
 
@@ -2291,8 +2291,8 @@ INCLUDE_ASM("asm/nonmatchings/script_commands", func_001DDA18);
 s32 func_001DDA78(Script* script) {
     s32 value = D_002B29C4;
 
-    script->unk_174[3]++;
-    script->unk_174[script->unk_174[3] + 4] = value;
+    script->stackTop++;
+    script->valueStack[script->stackTop] = value;
     return 2;
 }
 

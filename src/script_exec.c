@@ -10,22 +10,22 @@ s32 func_001C3670(s32, s32);
 s32 func_001C3680(s32, s32);
 
 void Script_ExecuteEntry(Script* script, s32 entryIndex) {
-    s32 savedCursor = script->unk_174[2];
+    s32 savedCursor = script->instructionIndex;
     s32 opcode;
     s32 result;
     s32 operand;
 
-    script->unk_174[2] = script->unk_7C[entryIndex];
+    script->instructionIndex = script->entryInstructionIndices[entryIndex];
 
     while (TRUE) {
-        opcode = func_001C3670(script->unk_70, script->unk_174[2]);
-        operand = func_001C3680(script->unk_70, script->unk_174[2]);
+        opcode = func_001C3670(script->bytecodeAddress, script->instructionIndex);
+        operand = func_001C3680(script->bytecodeAddress, script->instructionIndex);
         if (opcode == 5) {
             break;
         }
         result = D_003759E0[opcode](script, operand);
         if (result & 2) {
-            script->unk_174[2]++;
+            script->instructionIndex++;
         }
         if (result & 4) {
             break;
@@ -34,7 +34,7 @@ void Script_ExecuteEntry(Script* script, s32 entryIndex) {
             break;
         }
     }
-    script->unk_174[2] = savedCursor;
+    script->instructionIndex = savedCursor;
 }
 
 INCLUDE_ASM("asm/nonmatchings/script_exec", func_001C3780);
