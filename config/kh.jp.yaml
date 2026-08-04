@@ -11,7 +11,7 @@ options:
   undefined_funcs_auto_path: config/jp/undefined_funcs_auto.txt
   create_undefined_syms_auto: True
   undefined_syms_auto_path: config/jp/undefined_syms_auto.txt
-  symbol_addrs_path: [config/jp/symbol_addrs.txt, config/jp/lib_symbol_addrs.txt]
+  symbol_addrs_path: [config/jp/symbol_addrs.txt, config/jp/script_command_symbols.txt, config/jp/lib_symbol_addrs.txt]
   asm_path: asm
   src_path: src
   build_path: build/jp

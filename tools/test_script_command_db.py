@@ -9,6 +9,7 @@ from tools.script_command_db import (
     _load_semantics,
     _require_reviewed_used_commands,
     build_command_symbol_manifest,
+    propagate_command_symbols,
     write_command_symbol_manifest,
     write_command_evidence,
 )
@@ -227,6 +228,70 @@ class SemanticRecordTests(unittest.TestCase):
             output.read_text(),
             "00100000 ScriptCommand_SetExampleValue\n",
         )
+
+    def test_writes_splat_symbol_manifest(self) -> None:
+        manifest = {
+            "symbols": [
+                {
+                    "address": "0x00100000",
+                    "symbol": "ScriptCommand_SetExampleValue",
+                }
+            ]
+        }
+        output = self.root / "commands.txt"
+
+        write_command_symbol_manifest(manifest, output, "splat")
+
+        self.assertEqual(
+            output.read_text(),
+            f"{'ScriptCommand_SetExampleValue':<72} = 0x00100000; // type:func\n",
+        )
+
+    def test_propagates_manifest_symbols_as_exact_tokens(self) -> None:
+        manifest = {
+            "symbols": [
+                {
+                    "current_symbol": "func_00100000",
+                    "symbol": "ScriptCommand_SetExampleValue",
+                }
+            ]
+        }
+        source = self.root / "example.c"
+        source.write_text(
+            "void func_00100000(void);\\n"
+            "void call(void) { func_00100000(); }\\n"
+            "void func_00100000_extra(void);\\n"
+        )
+
+        preview = propagate_command_symbols(manifest, [source])
+        self.assertFalse(preview["applied"])
+        self.assertEqual(preview["replacements"], 2)
+        self.assertIn("func_00100000();", source.read_text())
+
+        result = propagate_command_symbols(manifest, [source], apply=True)
+        self.assertTrue(result["applied"])
+        self.assertEqual(result["files_changed"], 1)
+        self.assertEqual(
+            source.read_text(),
+            "void ScriptCommand_SetExampleValue(void);\\n"
+            "void call(void) { ScriptCommand_SetExampleValue(); }\\n"
+            "void func_00100000_extra(void);\\n",
+        )
+
+    def test_rejects_manifest_symbol_without_repository_reference(self) -> None:
+        manifest = {
+            "symbols": [
+                {
+                    "current_symbol": "func_00100000",
+                    "symbol": "ScriptCommand_SetExampleValue",
+                }
+            ]
+        }
+        source = self.root / "example.c"
+        source.write_text("void unrelated(void);\\n")
+
+        with self.assertRaisesRegex(FormatError, "no repository references"):
+            propagate_command_symbols(manifest, [source])
 
 
 if __name__ == "__main__":
