@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EA190 consumes a world index and resource ID, formats eventse/%s_%03d.dat with D_003D7C88[world_index], queues that file through cdvd_QueueFileLoad, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_LoadEventSoundData consumes a world index and resource ID, formats eventse/%s_%03d.dat with D_003D7C88[world_index], queues that file through cdvd_QueueFileLoad, and decrements Script stackTop by two"
   },
   "arguments": [
     {

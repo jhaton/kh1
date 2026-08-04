@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDF28 consumes a window ID and preset index and stores it at window descriptor +0x0E; func_0010BB50 maps that preset through D_002B2D18 to the closing countdown consumed by func_0010B810"
+    "evidence": "ScriptCommand_SetTextWindowCloseTransition consumes a window ID and preset index and stores it at window descriptor +0x0E; func_0010BB50 maps that preset through D_002B2D18 to the closing countdown consumed by func_0010B810"
   },
   "arguments": [
     {

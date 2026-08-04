@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CBE90 reads target_mode below duration, configures the orbit-transition fields in D_003C0D60, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_TransitionCameraOrbitOverDuration reads target_mode below duration, configures the orbit-transition fields in D_003C0D60, and decrements Script stackTop by two"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001CBE90 snapshots the current orbit basis through func_00178B58, records the requested target mode in the camera controller, initializes its transition endpoints and flags, and stores twice duration in the controller's timing fields. The sole JP call passes target mode 0 and duration 30, then waits 30 ticks."
+  "notes": "ScriptCommand_TransitionCameraOrbitOverDuration snapshots the current orbit basis through func_00178B58, records the requested target mode in the camera controller, initializes its transition endpoints and flags, and stores twice duration in the controller's timing fields. The sole JP call passes target mode 0 and duration 30, then waits 30 ticks."
 }

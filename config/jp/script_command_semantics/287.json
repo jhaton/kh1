@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D5B60 resolves the top value with func_001EAB00 and replaces it with round(object->facingRadians * 180 / pi)"
+    "evidence": "ScriptCommand_GetObjectFacingAngleDegrees resolves the top value with func_001EAB00 and replaces it with round(object->facingRadians * 180 / pi)"
   },
   "arguments": [
     {

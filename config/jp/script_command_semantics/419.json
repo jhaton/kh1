@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D3300 reads four stack values, computes sqrt((x2 - x1)^2 + (z2 - z1)^2), decrements stackTop by three, and replaces the remaining first value with the integer distance"
+    "evidence": "ScriptCommand_DistanceBetweenPointsXz reads four stack values, computes sqrt((x2 - x1)^2 + (z2 - z1)^2), decrements stackTop by three, and replaces the remaining first value with the integer distance"
   },
   "arguments": [
     {

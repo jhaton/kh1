@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1238 consumes two indices, resolves a motion-resource descriptor through D_003D55D4, passes it to func_001313A8 for the selected object, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_ReplaceSelectedObjectMotionResource consumes two indices, resolves a motion-resource descriptor through D_003D55D4, passes it to func_001313A8 for the selected object, and decrements Script stackTop by two"
   },
   "arguments": [
     {

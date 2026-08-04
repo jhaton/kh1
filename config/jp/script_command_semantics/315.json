@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D6778 does not access or change the Script value stack"
+    "evidence": "ScriptCommand_EnableAllObjectShadowsAndCollision does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001D6778 enumerates eligible scene objects through func_00123620 and queues object operations 7 and 9 for each object ID. The embedded operation-name table identifies them as SHADOW_ON and COLISION_ON; their dispatcher clears object-state flags 0x2 and 0x4 respectively. The JP corpus contains 10 calls across al09.ard, al21.ard, and pc01.ard; every call follows command 362 disable_all_spawn_groups, and nine are immediately followed by command 511."
+  "notes": "ScriptCommand_EnableAllObjectShadowsAndCollision enumerates eligible scene objects through func_00123620 and queues object operations 7 and 9 for each object ID. The embedded operation-name table identifies them as SHADOW_ON and COLISION_ON; their dispatcher clears object-state flags 0x2 and 0x4 respectively. The JP corpus contains 10 calls across al09.ard, al21.ard, and pc01.ard; every call follows command 362 disable_all_spawn_groups, and nine are immediately followed by command 511."
 }

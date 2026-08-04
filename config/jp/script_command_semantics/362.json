@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D7898 takes no Script context and does not access the value stack"
+    "evidence": "ScriptCommand_DisableAllSpawnGroups takes no Script context and does not access the value stack"
   },
   "arguments": [],
-  "notes": "func_001D7898 calls func_0014EE50 for group IDs 1 through 31, clearing bits 0 through 30 of D_00553BEC. func_0014F0E0 intersects this enable mask with the spawn-group mask selected by spatial overlap, and func_0014F280 uses the result to activate matching grouped objects. The JP corpus contains 99 calls; 45 begin an entry, and the paired command 363 restores all groups at event cleanup."
+  "notes": "ScriptCommand_DisableAllSpawnGroups calls func_0014EE50 for group IDs 1 through 31, clearing bits 0 through 30 of D_00553BEC. func_0014F0E0 intersects this enable mask with the spawn-group mask selected by spatial overlap, and func_0014F280 uses the result to activate matching grouped objects. The JP corpus contains 99 calls; 45 begin an entry, and the paired command 363 restores all groups at event cleanup."
 }

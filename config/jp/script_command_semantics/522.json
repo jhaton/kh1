@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EC818 reads table index, sort order, and value from the Script stack in that order and decrements Script stackTop by three"
+    "evidence": "ScriptCommand_InsertRankedValue reads table index, sort order, and value from the Script stack in that order and decrements Script stackTop by three"
   },
   "arguments": [
     {
@@ -24,5 +24,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001EC818 selects one of ten five-entry arrays at offset 0xB14 in work buffer 1, finds the insertion point using descending comparisons when sort_order is 0 or ascending comparisons when it is 1, shifts lower-ranked entries down, and stores the value. Its eight JP calls insert the same timer variable into ascending tables 6 through 9 in the two Hundred Acre Wood time-trial result scripts."
+  "notes": "ScriptCommand_InsertRankedValue selects one of ten five-entry arrays at offset 0xB14 in work buffer 1, finds the insertion point using descending comparisons when sort_order is 0 or ascending comparisons when it is 1, shifts lower-ranked entries down, and stores the value. Its eight JP calls insert the same timer variable into ascending tables 6 through 9 in the two Hundred Acre Wood time-trial result scripts."
 }

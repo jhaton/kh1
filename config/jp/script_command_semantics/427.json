@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E9C70 reads three stack values in channel, target volume, duration order, converts the one-based channel to zero-based, scales the target percentage into the sound volume range, multiplies duration by eight, calls func_0011C5F0, and decrements Script stackTop by three"
+    "evidence": "ScriptCommand_FadeMusicChannelVolume reads three stack values in channel, target volume, duration order, converts the one-based channel to zero-based, scales the target percentage into the sound volume range, multiplies duration by eight, calls func_0011C5F0, and decrements Script stackTop by three"
   },
   "arguments": [
     {

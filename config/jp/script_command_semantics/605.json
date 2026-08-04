@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CCC48 consumes a window ID and item ID, resolves the item descriptor through func_001479C0, selects the corresponding item-name lookup table, and installs the resulting text mapping in the requested active window"
+    "evidence": "ScriptCommand_SetTextWindowItemName consumes a window ID and item ID, resolves the item descriptor through func_001479C0, selects the corresponding item-name lookup table, and installs the resulting text mapping in the requested active window"
   },
   "arguments": [
     {

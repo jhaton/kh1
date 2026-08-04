@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D17D0 consumes an animation ID and blend duration, ORs the animation ID with 0x10000, and queues object operation type 17"
+    "evidence": "ScriptCommand_StopSelectedObjectMovementAndSetAnimation consumes an animation ID and blend duration, ORs the animation ID with 0x10000, and queues object operation type 17"
   },
   "arguments": [
     {

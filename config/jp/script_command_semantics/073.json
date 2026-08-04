@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D0548 consumes a value ID and interpolation type, resolves D_0038858C[value_id], stores the type at offset 0 of that Interpolation value, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_SetInterpolationValueType consumes a value ID and interpolation type, resolves D_0038858C[value_id], stores the type at offset 0 of that Interpolation value, and decrements Script stackTop by two"
   },
   "arguments": [
     {

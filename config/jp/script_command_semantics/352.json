@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D76F0 consumes one integer, converts it to float, divides by 100.0, and stores the resulting multiplier in D_002B8348"
+    "evidence": "ScriptCommand_SetGameSpeedPercent consumes one integer, converts it to float, divides by 100.0, and stores the resulting multiplier in D_002B8348"
   },
   "arguments": [
     {

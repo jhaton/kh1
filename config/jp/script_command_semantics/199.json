@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D3A20 converts the top value to float, passes it to func_00123350 for the selected object with mode 2, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_SetSelectedObjectProximityRadiusMode2 converts the top value to float, passes it to func_00123350 for the selected object with mode 2, and decrements Script stackTop by one"
   },
   "arguments": [
     {

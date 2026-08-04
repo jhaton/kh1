@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF970 consumes two values, packs the first value's low 24 bits and the second value as a float into a type-17 object-operation record, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_SetSelectedObjectMotionBlend consumes two values, packs the first value's low 24 bits and the second value as a float into a type-17 object-operation record, and decrements Script stackTop by two"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "The embedded object-operation name table labels type 17 MOTTION_BLEND. func_001CF970 targets the selected object at Script offset 0 and supplies the encoded animation ID and blend duration to that operation. Command 57 immediately before it queues type 16 MOTION_OFF, while command 95 commonly precedes it after restoring the object's default motion resource. The JP corpus contains 296 calls."
+  "notes": "The embedded object-operation name table labels type 17 MOTTION_BLEND. ScriptCommand_SetSelectedObjectMotionBlend targets the selected object at Script offset 0 and supplies the encoded animation ID and blend duration to that operation. Command 57 immediately before it queues type 16 MOTION_OFF, while command 95 commonly precedes it after restoring the object's default motion resource. The JP corpus contains 296 calls."
 }

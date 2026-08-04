@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DF528 consumes an event-effect ID and three angles, resolves the ID through func_001775E8, converts each angle from degrees to the PPP fixed-turn representation, and writes the three components through the entry's rotation pointer"
+    "evidence": "ScriptCommand_SetEventEffectRotation consumes an event-effect ID and three angles, resolves the ID through func_001775E8, converts each angle from degrees to the PPP fixed-turn representation, and writes the three components through the entry's rotation pointer"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D5DC8 uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position X float at object offset 0x10"
+    "evidence": "ScriptCommand_GetPartyMemberPositionX uses the top value to index the three-object party registry at D_002DEC00 and replaces it with the integer-converted position X float at object offset 0x10"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001C9B30 converts the top stack value to float, stores it in D_003C0E80, rebuilds the camera through func_001C8170, and decrements Script stackTop"
+    "evidence": "ScriptCommand_SetCameraDistance converts the top stack value to float, stores it in D_003C0E80, rebuilds the camera through func_001C8170, and decrements Script stackTop"
   },
   "arguments": [
     {

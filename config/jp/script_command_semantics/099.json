@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D13F8 consumes three target coordinates and one duration, queues a ROT operation for the selected object, and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_TurnSelectedObjectTowardPosition consumes three target coordinates and one duration, queues a ROT operation for the selected object, and decrements Script stackTop by four"
   },
   "arguments": [
     {
@@ -28,5 +28,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001D13F8 subtracts the selected object's current position from the requested coordinates, queues the resulting direction vector and encoded duration through the object-operation dispatcher, and sets Script flag bit 1 until the turn completes. Command 98 wait_for_selected_object_turn polls that flag. The JP corpus contains 156 calls, and command 98 is the next command call for 90 of them."
+  "notes": "ScriptCommand_TurnSelectedObjectTowardPosition subtracts the selected object's current position from the requested coordinates, queues the resulting direction vector and encoded duration through the object-operation dispatcher, and sets Script flag bit 1 until the turn completes. Command 98 wait_for_selected_object_turn polls that flag. The JP corpus contains 156 calls, and command 98 is the next command call for 90 of them."
 }

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EB7C8 consumes an object ID, resolves it with func_00123880, and stores the resulting object pointer in the Script context"
+    "evidence": "ScriptCommand_SelectObject consumes an object ID, resolves it with func_00123880, and stores the resulting object pointer in the Script context"
   },
   "arguments": [
     {

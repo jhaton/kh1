@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF788 passes the top stack value to Fade_StartScreenIn and decrements Script stackTop"
+    "evidence": "ScriptCommand_FadeScreenIn passes the top stack value to Fade_StartScreenIn and decrements Script stackTop"
   },
   "arguments": [
     {

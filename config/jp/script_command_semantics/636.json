@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DC1F0 consumes one state ID, packs it into the low 24-bit payload of object operation 0x29, targets the object ID stored at Script offset 0, and queues the operation through func_001C5DE0"
+    "evidence": "ScriptCommand_SetScriptObjectStateId consumes one state ID, packs it into the low 24-bit payload of object operation 0x29, targets the object ID stored at Script offset 0, and queues the operation through func_001C5DE0"
   },
   "arguments": [
     {

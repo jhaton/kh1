@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E07D8 consumes a map-effect ID, resolves it through func_00177608, and sets the resolved PPP object's per-effect stop byte at offset 0x85 to 1"
+    "evidence": "ScriptCommand_RequestMapEffectStop consumes a map-effect ID, resolves it through func_00177608, and sets the resolved PPP object's per-effect stop byte at offset 0x85 to 1"
   },
   "arguments": [
     {

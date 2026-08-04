@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CFBC0 decrements Script stackTop by one and passes the consumed value to func_00112880"
+    "evidence": "ScriptCommand_TransitionToRoomSelection decrements Script stackTop by one and passes the consumed value to func_00112880"
   },
   "arguments": [
     {
@@ -16,5 +16,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_00112880 uses the argument to select a 0x40-byte entry from D_002B92F0, records the selection in D_002B92F8, copies the entry's first word into the current room index D_002B8680, resolves the entrance index for that room in the current world, and schedules the world transition through func_001127E0. func_001CFBC0 also sets the Script transition-state flag at D_003854E0+0x3070 and returns state 10. The JP corpus contains 30 calls across 10 archives; every argument is a direct literal and every call's preceding Script command is 514 disable_event_camera."
+  "notes": "func_00112880 uses the argument to select a 0x40-byte entry from D_002B92F0, records the selection in D_002B92F8, copies the entry's first word into the current room index D_002B8680, resolves the entrance index for that room in the current world, and schedules the world transition through func_001127E0. ScriptCommand_TransitionToRoomSelection also sets the Script transition-state flag at D_003854E0+0x3070 and returns state 10. The JP corpus contains 30 calls across 10 archives; every argument is a direct literal and every call's preceding Script command is 514 disable_event_camera."
 }

@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EA270 reads Script flags at offset 0x328 but does not access or change Script stackTop"
+    "evidence": "ScriptCommand_FinishEventAudio reads Script flags at offset 0x328 but does not access or change Script stackTop"
   },
   "arguments": [],
-  "notes": "func_001EA270 waits until func_0011E168(0) finishes clearing the active event-audio slots and func_0011E190(-1, -1) finishes releasing the tracked event sounds. It then clears global audio-load guard bit 0x40000, calls func_00155D60 to unload sound bank -6 and reload the registered active-object sound banks, sets Script completion flag 0x2000, and returns state 6. The related command 384 loads files named eventse/<world>_<event>.dat. The JP corpus contains 21 calls across eight archives; 11 have command 384 earlier in the same script entry, and the calls occur at transitions from cinematic sequences back to ordinary event or gameplay setup."
+  "notes": "ScriptCommand_FinishEventAudio waits until func_0011E168(0) finishes clearing the active event-audio slots and func_0011E190(-1, -1) finishes releasing the tracked event sounds. It then clears global audio-load guard bit 0x40000, calls func_00155D60 to unload sound bank -6 and reload the registered active-object sound banks, sets Script completion flag 0x2000, and returns state 6. The related command 384 loads files named eventse/<world>_<event>.dat. The JP corpus contains 21 calls across eight archives; 11 have command 384 earlier in the same script entry, and the calls occur at transitions from cinematic sequences back to ordinary event or gameplay setup."
 }

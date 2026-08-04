@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D58F8 consumes speed, X, Y, and Z, captures the selected object's current position, stores speed divided by 50 and the target coordinates in Script movement state, and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_MoveSelectedObjectToPositionAtSpeed consumes speed, X, Y, and Z, captures the selected object's current position, stores speed divided by 50 and the target coordinates in Script movement state, and decrements Script stackTop by four"
   },
   "arguments": [
     {
@@ -28,5 +28,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001D58F8 sets Script update flag 0x200. While set, func_001D5730 advances the selected object toward the target by the stored distance per update through type-3 SET_POS operations, snaps to the target when the remaining distance is below one step, and clears the flag. Representative pc12.ard calls move to (0, -336, 766) at speeds 60 or 100."
+  "notes": "ScriptCommand_MoveSelectedObjectToPositionAtSpeed sets Script update flag 0x200. While set, func_001D5730 advances the selected object toward the target by the stored distance per update through type-3 SET_POS operations, snaps to the target when the remaining distance is below one step, and clears the flag. Representative pc12.ard calls move to (0, -336, 766) at speeds 60 or 100."
 }

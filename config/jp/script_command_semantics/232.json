@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D4CA0 takes no Script context and calls func_00111BF0 without accessing the value stack"
+    "evidence": "ScriptCommand_ResumeTimer takes no Script context and calls func_00111BF0 without accessing the value stack"
   },
   "arguments": [],
   "notes": "func_00111BF0 returns timer task state D_004D29AC and timer-display pause flag D_002B9174 to zero, resuming the active count-up or count-down callback and display. The JP corpus contains ten calls across tz04.ard and tz05.ard. Eight are cleanup paths that immediately call command 233 stop_timer_and_get_frames; the other two resume their time-trial timer after an interruption."

@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DBEB0 consumes three coordinates, converts them to floats, samples the collision-backed background color through func_001425C0, copies the resulting vector to the selected object through func_001426A8, and decrements Script stackTop by three"
+    "evidence": "ScriptCommand_SampleSelectedObjectBackgroundColorAtPosition consumes three coordinates, converts them to floats, samples the collision-backed background color through func_001425C0, copies the resulting vector to the selected object through func_001426A8, and decrements Script stackTop by three"
   },
   "arguments": [
     {

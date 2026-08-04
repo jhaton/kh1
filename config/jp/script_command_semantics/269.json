@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D5528 passes the top character ID to Party_AddCharacter and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_AddPartyCharacter passes the top character ID to Party_AddCharacter and decrements Script stackTop by one"
   },
   "arguments": [
     {

@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF2A0 reads the selected object ID at Script offset 0 but does not access or change the Script value stack"
+    "evidence": "ScriptCommand_DisableEventCamera reads the selected object ID at Script offset 0 but does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001CF2A0 queues object operation type 1, whose dispatcher calls func_00133588, the inverse of func_00133558 used by command 513 enable_event_camera. func_00133588 clears camera-state flag 0x2, while the handler clears event-state flags 0x400 and 0x2000000000. The JP corpus contains 183 calls; 167 have an earlier command 513 in the same entry."
+  "notes": "ScriptCommand_DisableEventCamera queues object operation type 1, whose dispatcher calls func_00133588, the inverse of func_00133558 used by command 513 enable_event_camera. func_00133588 clears camera-state flag 0x2, while the handler clears event-state flags 0x400 and 0x2000000000. The JP corpus contains 183 calls; 167 have an earlier command 513 in the same entry."
 }

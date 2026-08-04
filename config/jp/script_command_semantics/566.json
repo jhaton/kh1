@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E9770 passes the top value to func_0011E860 as the music ID, stores the preceding value minus one as the destination slot, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_LoadBackgroundMusicSequence passes the top value to func_0011E860 as the music ID, stores the preceding value minus one as the destination slot, and decrements Script stackTop by two"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_0011E860 formats the music ID as amusic/music%3d.bgm, and func_001E9770 queues that file for asynchronous CD/DVD loading. Its completion chain passes the loaded buffer and zero-based slot to func_0011E9A8, which initializes the background-music sequence in that slot. All five JP calls use slot 1, are followed by command 250's load wait, and occur after the corresponding command 567 wave-bank load."
+  "notes": "func_0011E860 formats the music ID as amusic/music%3d.bgm, and ScriptCommand_LoadBackgroundMusicSequence queues that file for asynchronous CD/DVD loading. Its completion chain passes the loaded buffer and zero-based slot to func_0011E9A8, which initializes the background-music sequence in that slot. All five JP calls use slot 1, are followed by command 250's load wait, and occur after the corresponding command 567 wave-bank load."
 }

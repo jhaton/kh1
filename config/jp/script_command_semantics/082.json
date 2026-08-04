@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDD68 consumes a window ID and integer angle, converts the angle to float, and stores it at window descriptor +0x1C; func_0010B000 offsets that value by 180 degrees, converts it to radians, and applies it as the pointer's Z-axis rotation"
+    "evidence": "ScriptCommand_SetTextWindowPointerAngle consumes a window ID and integer angle, converts the angle to float, and stores it at window descriptor +0x1C; func_0010B000 offsets that value by 180 degrees, converts it to radians, and applies it as the pointer's Z-axis rotation"
   },
   "arguments": [
     {

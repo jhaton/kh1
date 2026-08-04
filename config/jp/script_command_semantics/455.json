@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D8D38 increments Script stackTop and pushes D_00388924"
+    "evidence": "ScriptCommand_GetObjectMessageCode increments Script stackTop and pushes D_00388924"
   },
   "arguments": [],
   "notes": "func_001C6620 writes the dispatched message code to D_00388924 immediately before starting the recipient object's script entry 9. All 128 JP calls occur in entry 9 and store the returned value."

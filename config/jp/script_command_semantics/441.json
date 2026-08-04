@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8780 takes no Script context, sets D_002C1EA8 bit 12, and does not access the value stack"
+    "evidence": "ScriptCommand_SuppressConditionalModelPartVariants takes no Script context, sets D_002C1EA8 bit 12, and does not access the value stack"
   },
   "arguments": [],
   "notes": "func_0012FF78 tests D_002C1EA8 bit 12 while resolving model-part references whose descriptor type is 3 or 4. Setting the bit bypasses the runtime-dependent alternate selection and keeps the default part variant. The 60 JP calls occur in cinematic sequences; 51 have a later command 442 in the same entry to restore conditional selection."

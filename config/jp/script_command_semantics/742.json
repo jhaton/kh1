@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001DDA78 increments Script stackTop and pushes D_002B29C4"
+    "evidence": "ScriptCommand_GetGameOverContinueFlag increments Script stackTop and pushes D_002B29C4"
   },
   "arguments": [],
   "notes": "D_002B29C4 is set when the game-over transition resumes the current game through main mode 10 rather than loading a save, and is reset during ordinary world transitions and initialization. The room-loading path tests it to restore the active party's saved state through func_0013C668. All nine JP calls are copies of the same lm03.ard entry: each immediately stores the result in local 8, compares it with one, and plays sound 57122 only when the continue flag is set."

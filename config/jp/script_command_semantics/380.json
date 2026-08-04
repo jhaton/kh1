@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DF758 consumes an event-effect ID, resolves it through func_001775E8, and sets the resolved PPP object's per-effect stop byte at offset 0x85 to 1"
+    "evidence": "ScriptCommand_RequestEventEffectStop consumes an event-effect ID, resolves it through func_001775E8, and sets the resolved PPP object's per-effect stop byte at offset 0x85 to 1"
   },
   "arguments": [
     {

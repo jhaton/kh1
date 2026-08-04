@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D6F80 consumes a treasure ID and opened value and passes them to func_0013C5C8, which sets or clears the corresponding persistent bit"
+    "evidence": "ScriptCommand_SetTreasureOpenedFlag consumes a treasure ID and opened value and passes them to func_0013C5C8, which sets or clears the corresponding persistent bit"
   },
   "arguments": [
     {

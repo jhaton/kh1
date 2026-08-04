@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E90B0 stores the top value minus one as the zero-based music slot, stops the currently active music channel through func_0011C608, starts the selected slot through func_001E9080, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_PlayBackgroundMusicSlot stores the top value minus one as the zero-based music slot, stops the currently active music channel through func_0011C608, starts the selected slot through func_001E9080, and decrements Script stackTop by one"
   },
   "arguments": [
     {

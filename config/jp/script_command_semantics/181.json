@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D30B0 consumes one object ID, resolves its object resource, initiates any missing asynchronous resource load, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_PreloadObjectResources consumes one object ID, resolves its object resource, initiates any missing asynchronous resource load, and decrements Script stackTop by one"
   },
   "arguments": [
     {
@@ -16,5 +16,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001D30B0 resolves the encoded object ID through the object resource registry and starts func_001565E0 when that resource is not resident. The JP corpus contains 23 calls using object IDs 131068 through 131079; representative sequences subsequently poll command 182 before spawning the object."
+  "notes": "ScriptCommand_PreloadObjectResources resolves the encoded object ID through the object resource registry and starts func_001565E0 when that resource is not resident. The JP corpus contains 23 calls using object IDs 131068 through 131079; representative sequences subsequently poll command 182 before spawning the object."
 }

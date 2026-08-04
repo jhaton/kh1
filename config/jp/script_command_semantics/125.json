@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E1698 reads and consumes one stack value, resolves it through the same active event-sound resource table used by command 124, and passes the resolved sound-data pointer to func_001EE768"
+    "evidence": "ScriptCommand_StopEventSound reads and consumes one stack value, resolves it through the same active event-sound resource table used by command 124, and passes the resolved sound-data pointer to func_001EE768"
   },
   "arguments": [
     {

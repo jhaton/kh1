@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E1538 consumes a sound index and two volume percentages, resolves the indexed entry from the active event-sound resource, and divides both volume values by 100 before starting playback"
+    "evidence": "ScriptCommand_PlayEventSound consumes a sound index and two volume percentages, resolves the indexed entry from the active event-sound resource, and divides both volume values by 100 before starting playback"
   },
   "arguments": [
     {
@@ -24,5 +24,5 @@
       "type": "s32"
     }
   ],
-  "notes": "When event sound is enabled, func_001E1538 resolves the indexed sound data through D_003D56A8 and invokes the sound playback wrapper with independently scaled left and right levels. It then advances the Script after a fixed four-tick wait. All 91 JP calls pass equal left and right levels; 90 pass 100 percent."
+  "notes": "When event sound is enabled, ScriptCommand_PlayEventSound resolves the indexed sound data through D_003D56A8 and invokes the sound playback wrapper with independently scaled left and right levels. It then advances the Script after a fixed four-tick wait. All 91 JP calls pass equal left and right levels; 90 pass 100 percent."
 }

@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF258 does not access or change the Script value stack; it returns state 4 while func_0011E168(0) reports pending audio work and returns state 2 after clearing the low event-state bits"
+    "evidence": "ScriptCommand_FinishEventMode does not access or change the Script value stack; it returns state 4 while func_0011E168(0) reports pending audio work and returns state 2 after clearing the low event-state bits"
   },
   "arguments": [],
-  "notes": "func_0011E168(0) services and tests the tracked event-audio RPC slots. func_001CF258 leaves the command pending until that work is complete, then clears bits 0x1 and 0x2 in D_00375BC0. The JP corpus contains 363 calls in event cleanup sequences, commonly alongside enable_party_damage, enable_all_object_control, and other inverses of setup commands. This is the cleanup counterpart to command 511 begin_event_mode."
+  "notes": "func_0011E168(0) services and tests the tracked event-audio RPC slots. ScriptCommand_FinishEventMode leaves the command pending until that work is complete, then clears bits 0x1 and 0x2 in D_00375BC0. The JP corpus contains 363 calls in event cleanup sequences, commonly alongside enable_party_damage, enable_all_object_control, and other inverses of setup commands. This is the cleanup counterpart to command 511 begin_event_mode."
 }

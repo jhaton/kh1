@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D2580 replaces the top restriction mask with the boolean result of func_00125BB8"
+    "evidence": "ScriptCommand_IsPlayerControllable replaces the top restriction mask with the boolean result of func_00125BB8"
   },
   "arguments": [
     {

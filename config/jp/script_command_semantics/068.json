@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001CFEB0 replaces the top stack value with round(func_00177D68() * upper_bound), where func_00177D68 returns a random float in [0, 1)"
+    "evidence": "ScriptCommand_RandomIntegerUpTo replaces the top stack value with round(func_00177D68() * upper_bound), where func_00177D68 returns a random float in [0, 1)"
   },
   "arguments": [
     {

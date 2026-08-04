@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8068 passes the top value and fixed state 3 to func_0023E0B0, then decrements Script stackTop by one"
+    "evidence": "ScriptCommand_HidePartyStatusComponent passes the top value and fixed state 3 to func_0023E0B0, then decrements Script stackTop by one"
   },
   "arguments": [
     {

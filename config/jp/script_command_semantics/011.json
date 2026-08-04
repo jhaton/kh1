@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CED38 consumes a duration and three coordinates, computes the selected object's yaw toward that position, and queues a type-2 object operation"
+    "evidence": "ScriptCommand_TurnObjectTowardPosition consumes a duration and three coordinates, computes the selected object's yaw toward that position, and queues a type-2 object operation"
   },
   "arguments": [
     {

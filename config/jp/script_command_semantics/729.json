@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D0C98 consumes one duration, queues a type-23 COLOR_CHANGE operation targeting the selected object's RGB bytes at offsets 0x370 through 0x372 with alpha 1.0, packs twice the duration into the operation, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_TransitionSelectedObjectToOpaqueBaseColor consumes one duration, queues a type-23 COLOR_CHANGE operation targeting the selected object's RGB bytes at offsets 0x370 through 0x372 with alpha 1.0, packs twice the duration into the operation, and decrements Script stackTop by one"
   },
   "arguments": [
     {

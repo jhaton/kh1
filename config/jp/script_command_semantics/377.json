@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EB900 consumes one object ID, resolves it through func_001EAB00, queues object operation type 13 when found, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_EnableObjectControl consumes one object ID, resolves it through func_001EAB00, queues object operation type 13 when found, and decrements Script stackTop by one"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D12D0 does not access the Script value stack; when Script flag 0x80 is set, it calls func_00131410 for the selected object and then clears that flag"
+    "evidence": "ScriptCommand_RestoreSelectedObjectMotionResource does not access the Script value stack; when Script flag 0x80 is set, it calls func_00131410 for the selected object and then clears that flag"
   },
   "arguments": [],
   "notes": "func_00131410 restores the selected object's 16-byte motion-resource descriptor at +0x1D0 from the backup at +0x1E0, clears the backup, and clears object flag 0x20. Command 94 establishes that backup and Script flag. All 310 JP calls are immediately followed by a motion-related command: 259 by command 13 set_object_animation, 26 by command 108, 24 by command 58, and one by command 57 enable_selected_object_motion_blending."

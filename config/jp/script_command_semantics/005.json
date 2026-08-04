@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDE88 consumes a window ID and preset index and stores it at window descriptor +0x04; func_0010BB50 maps that preset to the descriptor's geometry orientation and X-axis tilt, which func_0010A4A0 and func_0010AFA0 use to build and transform the window mesh"
+    "evidence": "ScriptCommand_SetTextWindowOrientation consumes a window ID and preset index and stores it at window descriptor +0x04; func_0010BB50 maps that preset to the descriptor's geometry orientation and X-axis tilt, which func_0010A4A0 and func_0010AFA0 use to build and transform the window mesh"
   },
   "arguments": [
     {

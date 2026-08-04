@@ -8,7 +8,7 @@
     "inputs": 5,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CACC0 consumes five values, stores the first three as camera-shake amplitudes, the fourth as a mode field, and twice the fifth as a duration before decrementing Script stackTop by five"
+    "evidence": "ScriptCommand_StartCameraShake consumes five values, stores the first three as camera-shake amplitudes, the fourth as a mode field, and twice the fifth as a duration before decrementing Script stackTop by five"
   },
   "arguments": [
     {

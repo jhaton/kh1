@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D4CC0 increments Script stackTop and pushes the frame count returned by func_00111C08"
+    "evidence": "ScriptCommand_StopTimerAndGetFrames increments Script stackTop and pushes the frame count returned by func_00111C08"
   },
   "arguments": [],
   "notes": "func_00111C08 sets timer task state D_004D29AC to 2 and returns the live frame count D_002B916C. Both timer update callbacks func_00111920 and func_00111A70 return task status 4 in state 2, terminating either count-up or count-down mode. The JP corpus contains twelve calls across tz04.ard and tz05.ard; every result is immediately stored, usually in local 8 during pause-menu cleanup, while two completion paths store it in scenario variable 2608. Eight cleanup calls immediately follow command 232, which resumes the timer before taking the final frame count."

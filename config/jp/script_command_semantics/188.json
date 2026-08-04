@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DF490 consumes an effect ID and three coordinates, resolves the ID through func_001775E8, and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_SetEventEffectPosition consumes an effect ID and three coordinates, resolves the ID through func_001775E8, and decrements Script stackTop by four"
   },
   "arguments": [
     {
@@ -28,5 +28,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001775E8 resolves effect_id in the D_0035C010 event-effect manager. When the entry exists, func_001DF490 converts x, y, and z to floats and stores them at offsets 0x00, 0x04, and 0x08 of the effect's runtime object. This is the event-effect counterpart of command 167 set_map_effect_position. The JP corpus contains 33 calls."
+  "notes": "func_001775E8 resolves effect_id in the D_0035C010 event-effect manager. When the entry exists, ScriptCommand_SetEventEffectPosition converts x, y, and z to floats and stores them at offsets 0x00, 0x04, and 0x08 of the effect's runtime object. This is the event-effect counterpart of command 167 set_map_effect_position. The JP corpus contains 33 calls."
 }

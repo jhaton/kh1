@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E0510 consumes an effect ID and three coordinates and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_SetMapEffectPosition consumes an effect ID and three coordinates and decrements Script stackTop by four"
   },
   "arguments": [
     {
@@ -28,5 +28,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001E0510 resolves effect_id through func_00177608 and, when the map-effect entry exists, converts x, y, and z to floats and stores them at offsets 0x00, 0x04, and 0x08 of the effect's runtime object. The JP corpus contains 164 calls, including position updates paired with command 163 spawn_map_effect."
+  "notes": "ScriptCommand_SetMapEffectPosition resolves effect_id through func_00177608 and, when the map-effect entry exists, converts x, y, and z to floats and stores them at offsets 0x00, 0x04, and 0x08 of the effect's runtime object. The JP corpus contains 164 calls, including position updates paired with command 163 spawn_map_effect."
 }

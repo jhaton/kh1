@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EBDC0 does not access or change the Script value stack"
+    "evidence": "ScriptCommand_DisablePartyDamage does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001EBDC0 iterates registered class-3 objects, selects the party-character archetype range 0 through 9 returned by func_001239D8, and queues operation types 0x24 and 0x2B for each. Both types map to embedded DAMAGE_OFF entries and set the corresponding damage-disable flags. Its inverse func_001EBCD0 queues DAMAGE_ON. The JP corpus contains 160 calls; 53 immediately follow command 151 disable_all_object_control, while 78 inverse calls immediately follow command 150's scene-wide CONTROL_ON operation."
+  "notes": "ScriptCommand_DisablePartyDamage iterates registered class-3 objects, selects the party-character archetype range 0 through 9 returned by func_001239D8, and queues operation types 0x24 and 0x2B for each. Both types map to embedded DAMAGE_OFF entries and set the corresponding damage-disable flags. Its inverse ScriptCommand_EnablePartyDamage queues DAMAGE_ON. The JP corpus contains 160 calls; 53 immediately follow command 151 disable_all_object_control, while 78 inverse calls immediately follow command 150's scene-wide CONTROL_ON operation."
 }

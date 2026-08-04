@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8640 takes no Script context, clears D_002C1EA8 bit 10, and does not access the value stack"
+    "evidence": "ScriptCommand_EnableObjectMessages takes no Script context, clears D_002C1EA8 bit 10, and does not access the value stack"
   },
   "arguments": [],
   "notes": "D_002C1EA8 bit 10 suppresses func_00146F38 and the type-1 object-message path in func_00130B08. Clearing the bit enables those paths. Both JP calls are cinematic-cleanup operations; inverse command 434 sets the bit on cinematic entry."

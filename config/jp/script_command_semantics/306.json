@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D6478 consumes three coordinates, converts them to floats, and queues object operation type 0x20 for the selected object"
+    "evidence": "ScriptCommand_SetSelectedObjectInitialPosition consumes three coordinates, converts them to floats, and queues object operation type 0x20 for the selected object"
   },
   "arguments": [
     {
@@ -24,5 +24,5 @@
       "type": "s32"
     }
   ],
-  "notes": "Operation type 0x20 maps to the embedded INIT_POS name. func_001D6478 stores the X, Y, and Z coordinates in the operation vector with W set to 1.0. The JP corpus contains 462 calls."
+  "notes": "Operation type 0x20 maps to the embedded INIT_POS name. ScriptCommand_SetSelectedObjectInitialPosition stores the X, Y, and Z coordinates in the operation vector with W set to 1.0. The JP corpus contains 462 calls."
 }

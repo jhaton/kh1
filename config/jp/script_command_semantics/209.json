@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D40F0 resolves the top object ID, divides the preceding speed value by 100, passes that float to func_00131B40, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_SetObjectAnimationSpeed resolves the top object ID, divides the preceding speed value by 100, passes that float to func_00131B40, and decrements Script stackTop by two"
   },
   "arguments": [
     {

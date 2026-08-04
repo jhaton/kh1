@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DB7A8 consumes a glyph slot, group, and index, stores the latter two in D_002B8020[glyph_slot] and D_002B8030[glyph_slot], and decrements Script stackTop by three"
+    "evidence": "ScriptCommand_SetDynamicTextGlyphLookup consumes a glyph slot, group, and index, stores the latter two in D_002B8020[glyph_slot] and D_002B8030[glyph_slot], and decrements Script stackTop by three"
   },
   "arguments": [
     {

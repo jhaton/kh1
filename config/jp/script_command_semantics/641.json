@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D2D28 consumes speed, X, Y, and Z, snapshots the selected object's current position, stores the target coordinates and twice the per-update step distance in Script movement state, and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_MoveSelectedObjectToPositionAtTwiceSpeed consumes speed, X, Y, and Z, snapshots the selected object's current position, stores the target coordinates and twice the per-update step distance in Script movement state, and decrements Script stackTop by four"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D66F8 increments Script stackTop and pushes D_002C1EA8 & 1"
+    "evidence": "ScriptCommand_IsBattleModeActive increments Script stackTop and pushes D_002C1EA8 & 1"
   },
   "arguments": [],
   "notes": "func_0013DCD0 updates bit 0 of D_002C1EA8 from the active object lists and distance checks, while sound routines func_0011E360 and func_0011E430 use the bit to switch audio state. The JP corpus contains 47 calls: every result is immediately stored; 32 are then compared with zero and five with one in the same entry."

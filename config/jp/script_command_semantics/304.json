@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D63E0 reads the top stack value, converts it from degrees to radians, passes it to func_001007D0, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_SetSecondaryRenderYRotationDegrees reads the top stack value, converts it from degrees to radians, passes it to func_001007D0, and decrements Script stackTop by one"
   },
   "arguments": [
     {

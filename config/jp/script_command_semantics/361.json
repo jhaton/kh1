@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D7850 consumes one group ID and passes it to func_0014EE78, which sets bit group_id - 1 in the spawn-group enable mask D_00553BEC"
+    "evidence": "ScriptCommand_EnableSpawnGroup consumes one group ID and passes it to func_0014EE78, which sets bit group_id - 1 in the spawn-group enable mask D_00553BEC"
   },
   "arguments": [
     {

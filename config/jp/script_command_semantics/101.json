@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1510 passes the top stack value to func_00109C50 and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_FadeCapturedScreen passes the top stack value to func_00109C50 and decrements Script stackTop by one"
   },
   "arguments": [
     {

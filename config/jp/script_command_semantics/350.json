@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D7300 consumes three character IDs in order and passes them to func_0013C708, which writes the three optional party-roster slots at D_003010F8 + 0x48F through +0x491"
+    "evidence": "ScriptCommand_SetPartyMembers consumes three character IDs in order and passes them to func_0013C708, which writes the three optional party-roster slots at D_003010F8 + 0x48F through +0x491"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1380 consumes two 1-based part indices and passes the selected object and both indices to func_001358B0, which clears the corresponding bits in the object's part masks at offsets 0x38C and 0x390"
+    "evidence": "ScriptCommand_ClearSelectedObjectPartMaskBits consumes two 1-based part indices and passes the selected object and both indices to func_001358B0, which clears the corresponding bits in the object's part masks at offsets 0x38C and 0x390"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CBC20 consumes an angle, target mode, and distance and decrements Script stackTop by three"
+    "evidence": "ScriptCommand_ConfigureCameraOrbit consumes an angle, target mode, and distance and decrements Script stackTop by three"
   },
   "arguments": [
     {
@@ -24,5 +24,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001CBC20 converts angle_degrees to radians, derives an orbit basis through func_00178B58, and configures the camera controller at D_003C0D60 with target_mode and twice distance. A zero distance restores the default basis without activating the full orbit setup. The JP corpus contains 136 calls; common triples include (180, 0, 15), (265, 2, 30), and (285, 2, 30)."
+  "notes": "ScriptCommand_ConfigureCameraOrbit converts angle_degrees to radians, derives an orbit basis through func_00178B58, and configures the camera controller at D_003C0D60 with target_mode and twice distance. A zero distance restores the default basis without activating the full orbit setup. The JP corpus contains 136 calls; common triples include (180, 0, 15), (265, 2, 30), and (285, 2, 30)."
 }

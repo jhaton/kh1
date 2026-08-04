@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DB078 calls func_00103730 without accessing or changing the Script value stack"
+    "evidence": "ScriptCommand_DisableAnimatedScreenFilter calls func_00103730 without accessing or changing the Script value stack"
   },
   "arguments": [],
   "notes": "func_00103730 clears renderer-enable flag D_002B8C84. The main per-frame callback func_00100328 schedules func_00103188 through func_001036F0 only while this flag is nonzero, so clearing it stops the animated 16-strip screen filter enabled by command 539 enable_animated_screen_filter. It does not reset the filter's stored color levels or cycle phase. The JP corpus contains 14 calls across pc01.ard, ew22.ard, and ew23.ard: the eight pc01 calls conditionally disable filters started earlier in the same entry, while the six End of the World calls are cleanup counterparts to command 539 in the same room archives."

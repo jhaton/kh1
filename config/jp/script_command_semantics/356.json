@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D7798 increments Script stackTop and pushes ScriptRuntime.eventSourceMessageCode"
+    "evidence": "ScriptCommand_GetEventSourceMessageCode increments Script stackTop and pushes ScriptRuntime.eventSourceMessageCode"
   },
   "arguments": [],
   "notes": "func_001C6530 stores its second argument in ScriptRuntime.eventSourceMessageCode at offset 0x3174 beside the source object ID before starting event Script entry 0. Command 357 can override the same event-context field from Script code. All 19 JP calls immediately store the result; 17 pair it with command 355 get_event_source_object_id, including 14 that compare it with message code 50 and the paired encoded source object ID. The remaining two persist the value directly in scenario variables."

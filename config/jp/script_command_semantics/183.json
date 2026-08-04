@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D3138 consumes one object ID, passes it to func_001245F0, and refreshes the selected-object pointer from the Script-bound object ID"
+    "evidence": "ScriptCommand_SpawnAndSelectObject consumes one object ID, passes it to func_001245F0, and refreshes the selected-object pointer from the Script-bound object ID"
   },
   "arguments": [
     {
@@ -16,5 +16,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001245F0 resolves the encoded object ID to its resource record, allocates and initializes a live object, and returns the new object. func_001D3138 then refreshes Script offset 0x04 through func_00123880, making that object the selected object for subsequent commands. The JP corpus contains 416 calls."
+  "notes": "func_001245F0 resolves the encoded object ID to its resource record, allocates and initializes a live object, and returns the new object. ScriptCommand_SpawnAndSelectObject then refreshes Script offset 0x04 through func_00123880, making that object the selected object for subsequent commands. The JP corpus contains 416 calls."
 }

@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001ECA90 reads table index and one-based rank from the Script stack, replaces those two inputs with work_buffer_1[table_index * 5 + rank - 1], and therefore has net stack effect minus one"
+    "evidence": "ScriptCommand_GetRankedValue reads table index and one-based rank from the Script stack, replaces those two inputs with work_buffer_1[table_index * 5 + rank - 1], and therefore has net stack effect minus one"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001ECA90 indexes the same ten five-entry ranked-value arrays updated by command 522 insert_ranked_value. The JP corpus contains 16 calls; representative Hundred Acre Wood result scripts read rank 1 from tables 6 through 9 immediately after displaying each table through command 743."
+  "notes": "ScriptCommand_GetRankedValue indexes the same ten five-entry ranked-value arrays updated by command 522 insert_ranked_value. The JP corpus contains 16 calls; representative Hundred Acre Wood result scripts read rank 1 from tables 6 through 9 immediately after displaying each table through command 743."
 }

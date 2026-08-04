@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D4C80 takes no Script context and calls func_00111BD8 without accessing the value stack"
+    "evidence": "ScriptCommand_PauseTimer takes no Script context and calls func_00111BD8 without accessing the value stack"
   },
   "arguments": [],
   "notes": "func_00111BD8 sets timer task state D_004D29AC and timer-display pause flag D_002B9174 to 1. Both timer update callbacks preserve their current value in state 1, and the display callback skips its normal update while D_002B9174 is nonzero. The JP corpus has no calls."

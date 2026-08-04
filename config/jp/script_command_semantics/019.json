@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF3B0 consumes three coordinates and queues a type-3 operation; the dispatcher copies that vector into the selected object's position"
+    "evidence": "ScriptCommand_SetObjectPosition consumes three coordinates and queues a type-3 operation; the dispatcher copies that vector into the selected object's position"
   },
   "arguments": [
     {

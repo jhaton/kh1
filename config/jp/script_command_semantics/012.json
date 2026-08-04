@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF070 consumes three angles, converts each from degrees to radians, and stores them in the selected object's rotation fields"
+    "evidence": "ScriptCommand_SetObjectRotation consumes three angles, converts each from degrees to radians, and stores them in the selected object's rotation fields"
   },
   "arguments": [
     {

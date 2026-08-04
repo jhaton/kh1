@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D22B8 consumes one value and passes it with the selected object to func_0013DEE8; that function sets object flag 0x4000 and initializes the render descriptor's RGBA override to (0xFF, 0xFF, 0xFF, 0x80) for nonzero values or (0xFF, 0xFF, 0xFF, 0xFF) for zero"
+    "evidence": "ScriptCommand_EnableSelectedObjectColorOverride consumes one value and passes it with the selected object to func_0013DEE8; that function sets object flag 0x4000 and initializes the render descriptor's RGBA override to (0xFF, 0xFF, 0xFF, 0x80) for nonzero values or (0xFF, 0xFF, 0xFF, 0xFF) for zero"
   },
   "arguments": [
     {

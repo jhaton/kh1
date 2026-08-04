@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CD738 consumes a configured window ID, copies its descriptor into an active window slot, and starts func_001CD620"
+    "evidence": "ScriptCommand_OpenTextWindow consumes a configured window ID, copies its descriptor into an active window slot, and starts func_001CD620"
   },
   "arguments": [
     {

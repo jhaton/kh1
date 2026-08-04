@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF5A8 queues operation type 10; the object-operation dispatcher clears object flag 0x20, allowing the object's registered model entry to participate in the collision-query passes"
+    "evidence": "ScriptCommand_EnableSelectedObjectCollision queues operation type 10; the object-operation dispatcher clears object flag 0x20, allowing the object's registered model entry to participate in the collision-query passes"
   },
   "arguments": []
 }

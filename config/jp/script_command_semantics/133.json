@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1FA0 consumes one map-part ID and calls func_001055B8(id, 1), which finds every map record whose byte at offset 0x0B matches the ID and sets its disable bit 0"
+    "evidence": "ScriptCommand_HideMapParts consumes one map-part ID and calls func_001055B8(id, 1), which finds every map record whose byte at offset 0x0B matches the ID and sets its disable bit 0"
   },
   "arguments": [
     {

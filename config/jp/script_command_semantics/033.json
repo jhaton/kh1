@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDFC8 takes no values from Script stackTop and returns pending state 4 while a non-system text window remains active and Script flag bit 0x10 is clear"
+    "evidence": "ScriptCommand_WaitForTextWindowInput takes no values from Script stackTop and returns pending state 4 while a non-system text window remains active and Script flag bit 0x10 is clear"
   },
   "arguments": [],
-  "notes": "func_001CDFC8 scans the four active text-window slots, excluding window ID 7, and returns state 2 immediately when no applicable window is active or event-state bit 0x1 in D_00375BC0 is set. All 63 JP calls occur after opening and populating a text window."
+  "notes": "ScriptCommand_WaitForTextWindowInput scans the four active text-window slots, excluding window ID 7, and returns state 2 immediately when no applicable window is active or event-state bit 0x1 in D_00375BC0 is set. All 63 JP calls occur after opening and populating a text window."
 }

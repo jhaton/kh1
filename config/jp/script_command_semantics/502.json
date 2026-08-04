@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001DA6D8 increments Script stackTop and pushes func_001EF300(), which divides the engine's accumulated display-time tick count by 60"
+    "evidence": "ScriptCommand_GetElapsedTimeSeconds increments Script stackTop and pushes func_001EF300(), which divides the engine's accumulated display-time tick count by 60"
   },
   "arguments": [],
   "notes": "func_001EF210 converts the accumulated display-time counter D_002B833C using the engine's tick scale, and func_001EF300 returns that value in whole seconds. The command's sole JP call stores the result; another script divides it by 3600 modulo 12 for hours and subtracts that component before dividing by 60 for minutes, directly confirming the seconds unit."

@@ -8,7 +8,7 @@
     "inputs": 5,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D06F0 consumes a value ID, RGB components, and duration; resolves D_0038858C[value_id], normalizes each component by 255, derives per-tick deltas from the value's current color, and decrements Script stackTop by five"
+    "evidence": "ScriptCommand_TransitionInterpolationValueColor consumes a value ID, RGB components, and duration; resolves D_0038858C[value_id], normalizes each component by 255, derives per-tick deltas from the value's current color, and decrements Script stackTop by five"
   },
   "arguments": [
     {

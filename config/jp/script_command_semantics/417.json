@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8408 takes no Script context, clears D_002B9660, and does not access the value stack"
+    "evidence": "ScriptCommand_DisableInputSuppression takes no Script context, clears D_002B9660, and does not access the value stack"
   },
   "arguments": [],
   "notes": "D_002B9660 gates func_00114480's controller-state clearing path. Clearing it stops that path from zeroing the synthesized controller masks. In the JP corpus, 167 calls restore ordinary event/gameplay state and commonly follow commands 112 show_party_status_ui and 114 enable_player_control. This is the inverse of command 418 enable_input_suppression."

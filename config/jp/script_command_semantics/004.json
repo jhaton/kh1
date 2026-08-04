@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDE20 consumes a window ID, width, and height and stores the dimensions in the window descriptor fields used with 12-pixel half extents"
+    "evidence": "ScriptCommand_SetTextWindowSize consumes a window ID, width, and height and stores the dimensions in the window descriptor fields used with 12-pixel half extents"
   },
   "arguments": [
     {

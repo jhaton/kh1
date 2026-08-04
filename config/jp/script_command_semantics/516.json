@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DAE38 reads duration and pitch, yaw, and roll deltas from the Script value stack, converts the angle deltas from degrees to radians, stores twice the duration and three target Euler angles in Script interpolation state, and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_RotateScriptObjectByAnglesOverDuration reads duration and pitch, yaw, and roll deltas from the Script value stack, converts the angle deltas from degrees to radians, stores twice the duration and three target Euler angles in Script interpolation state, and decrements Script stackTop by four"
   },
   "arguments": [
     {
@@ -28,5 +28,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001DAE38 snapshots the script-bound object's scalar Euler-angle fields, adds the supplied angle deltas, and sets Script update flag 0x1000. While set, func_001DAD58 linearly interpolates those fields and writes object offsets 0x30, 0x34, and 0x38 until the requested duration completes. The JP corpus contains 46 calls; 42 use (100, 0, 0, 0), two use (30, 0, 0, 30), and the remaining calls derive one angle from script state."
+  "notes": "ScriptCommand_RotateScriptObjectByAnglesOverDuration snapshots the script-bound object's scalar Euler-angle fields, adds the supplied angle deltas, and sets Script update flag 0x1000. While set, func_001DAD58 linearly interpolates those fields and writes object offsets 0x30, 0x34, and 0x38 until the requested duration completes. The JP corpus contains 46 calls; 42 use (100, 0, 0, 0), two use (30, 0, 0, 30), and the remaining calls derive one angle from script state."
 }

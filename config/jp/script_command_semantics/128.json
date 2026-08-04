@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D1F08 increments Script stackTop and pushes the current room index from D_002B8680"
+    "evidence": "ScriptCommand_GetCurrentRoomIndex increments Script stackTop and pushes the current room index from D_002B8680"
   },
   "arguments": [],
   "notes": "D_002B8680 is the second component of the world/room/entrance tuple written by func_00112848. worldfile_getNames adds one to it when constructing the two-digit room archive filename, while func_00142290 packs it between the world and entrance indices in a location identifier. The JP corpus contains 41 calls across 13 archives; every result is immediately stored, 31 calls follow command 127 get_current_world_index, and 32 are followed by command 129 get_current_entrance_index."

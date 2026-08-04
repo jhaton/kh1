@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E9448 passes the top value to func_0011E900 as the wave-bank ID, stores the preceding value minus one as the destination slot, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_LoadBackgroundMusicWaveBank passes the top value to func_0011E900 as the wave-bank ID, stores the preceding value minus one as the destination slot, and decrements Script stackTop by two"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_0011E900 formats the ID as amusic/wave%4d.wd, and func_001E9448 queues that file for asynchronous CD/DVD loading. Its completion chain passes the loaded buffer and zero-based slot into the sound loader before the paired background-music sequence is loaded by command 566. All five JP calls use slot 1 and are immediately followed by command 406's wave-bank load wait."
+  "notes": "func_0011E900 formats the ID as amusic/wave%4d.wd, and ScriptCommand_LoadBackgroundMusicWaveBank queues that file for asynchronous CD/DVD loading. Its completion chain passes the loaded buffer and zero-based slot into the sound loader before the paired background-music sequence is loaded by command 566. All five JP calls use slot 1 and are immediately followed by command 406's wave-bank load wait."
 }

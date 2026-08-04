@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D7DD0 consumes one progression index and passes it to func_00111580, which applies the corresponding row of the current world's progression table through func_001114B8"
+    "evidence": "ScriptCommand_ApplyCurrentWorldProgressionRoomStates consumes one progression index and passes it to func_00111580, which applies the corresponding row of the current world's progression table through func_001114B8"
   },
   "arguments": [
     {

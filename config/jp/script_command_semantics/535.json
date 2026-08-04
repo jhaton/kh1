@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E09E0 consumes one effect ID, stores it in an event-effect task record, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_SpawnSelectedObjectEffect consumes one effect ID, stores it in an event-effect task record, and decrements Script stackTop by one"
   },
   "arguments": [
     {
@@ -16,5 +16,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001E09E0 queues dispatcher state 7 with the Script-bound object. State 7 resolves effect_id from the effect package referenced by that object, spawns the PPP effect at the object's current position through func_001779A0, and retains it in an eight-slot attachment table that updates the effect from the live object transform. The JP corpus contains 32 calls; representative reward scripts pass effect ID 1."
+  "notes": "ScriptCommand_SpawnSelectedObjectEffect queues dispatcher state 7 with the Script-bound object. State 7 resolves effect_id from the effect package referenced by that object, spawns the PPP effect at the object's current position through func_001779A0, and retains it in an eight-slot attachment table that updates the effect from the live object transform. The JP corpus contains 32 calls; representative reward scripts pass effect ID 1."
 }

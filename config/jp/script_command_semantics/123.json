@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1D70 consumes three values, doubles the first two frame values, and queues object operation type 31 with the third value in its payload header"
+    "evidence": "ScriptCommand_ConfigureSelectedObjectMotionPart consumes three values, doubles the first two frame values, and queues object operation type 31 with the third value in its payload header"
   },
   "arguments": [
     {

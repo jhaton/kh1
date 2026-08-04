@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D8D60 replaces the top spawn-group ID with the result of func_0014E710"
+    "evidence": "ScriptCommand_GetRemainingSpawnGroupObjectCount replaces the top spawn-group ID with the result of func_0014E710"
   },
   "arguments": [
     {

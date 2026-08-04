@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E9EB0 consumes a sound ID and channel and passes them to func_0011CEB0; sound.c selects the sound bank from the ID, plays it at full left/right volume, and registers the sound"
+    "evidence": "ScriptCommand_PlaySound consumes a sound ID and channel and passes them to func_0011CEB0; sound.c selects the sound bank from the ID, plays it at full left/right volume, and registers the sound"
   },
   "arguments": [
     {

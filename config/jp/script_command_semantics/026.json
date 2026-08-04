@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF5F0 queues operation type 11; the object-operation dispatcher sets object flag 0x20, which propagates to the registered model entry and causes the collision-query passes to skip it"
+    "evidence": "ScriptCommand_DisableSelectedObjectCollision queues operation type 11; the object-operation dispatcher sets object flag 0x20, which propagates to the registered model entry and causes the collision-query passes to skip it"
   },
   "arguments": []
 }

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D54B0 consumes one value, converts it to float, and stores it at offset 0x18 of the selected object's state record"
+    "evidence": "ScriptCommand_SetSelectedObjectHp consumes one value, converts it to float, and stores it at offset 0x18 of the selected object's state record"
   },
   "arguments": [
     {

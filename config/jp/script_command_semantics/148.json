@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001C8E68 consumes the lower camera-preset index and upper object ID, resolves the object through func_001EAB00, loads the indexed event-camera record, and selects reference mode 2"
+    "evidence": "ScriptCommand_LoadObjectYawRelativeEventCameraPreset consumes the lower camera-preset index and upper object ID, resolves the object through func_001EAB00, loads the indexed event-camera record, and selects reference mode 2"
   },
   "arguments": [
     {

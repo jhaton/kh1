@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDD18 consumes a window ID and position index and stores the index at window descriptor +0x08; when the window is not following a world target, func_0010B0D0 divides indices 0 through 19 into four groups of five and maps them to successive positions around the window perimeter"
+    "evidence": "ScriptCommand_SetTextWindowPointerPosition consumes a window ID and position index and stores the index at window descriptor +0x08; when the window is not following a world target, func_0010B0D0 divides indices 0 through 19 into four groups of five and maps them to successive positions around the window perimeter"
   },
   "arguments": [
     {

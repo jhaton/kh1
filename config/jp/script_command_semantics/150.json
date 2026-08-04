@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D2600 does not access or change the Script value stack"
+    "evidence": "ScriptCommand_EnableAllObjectControl does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001D2600 selects the active scene-object registry, resolves each registered object ID, and queues operation type 13 for every resolvable object. Type 13 maps to the embedded CONTROL_ON name; its dispatcher clears the control-disable flag 0x100000000. This is the inverse of command 151 disable_all_object_control. The JP corpus contains 110 calls in 96 entries; 41 have an earlier command 151 in the same entry, and 78 immediately precede command 592."
+  "notes": "ScriptCommand_EnableAllObjectControl selects the active scene-object registry, resolves each registered object ID, and queues operation type 13 for every resolvable object. Type 13 maps to the embedded CONTROL_ON name; its dispatcher clears the control-disable flag 0x100000000. This is the inverse of command 151 disable_all_object_control. The JP corpus contains 110 calls in 96 entries; 41 have an earlier command 151 in the same entry, and 78 immediately precede command 592."
 }

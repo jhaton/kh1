@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DC040 consumes an object ID and boolean and passes them in stack order to func_00131B90, which resolves the object's runtime descriptor through func_00131FC0 and clears its disable bit 0x2 when enabled is nonzero or sets that bit when enabled is zero"
+    "evidence": "ScriptCommand_SetObjectEnabled consumes an object ID and boolean and passes them in stack order to func_00131B90, which resolves the object's runtime descriptor through func_00131FC0 and clears its disable bit 0x2 when enabled is nonzero or sets that bit when enabled is zero"
   },
   "arguments": [
     {

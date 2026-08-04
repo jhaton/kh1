@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E0330 takes no Script context and does not access or change the Script value stack"
+    "evidence": "ScriptCommand_ClearAllEventEffects takes no Script context and does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001E0330 queues state 1 on the event-effect task list. func_001DE7C0 dispatches state 1 to func_001776E8, which visits all 64 slots in the D_0035C010 event-effect manager and immediately frees every active PPP effect through func_00181200. The same subsystem loads resources from the eveffect/ directory. The JP corpus contains 17 calls across four archives; all occur in block 50 event sequences between completed event phases and newly started script threads."
+  "notes": "ScriptCommand_ClearAllEventEffects queues state 1 on the event-effect task list. func_001DE7C0 dispatches state 1 to func_001776E8, which visits all 64 slots in the D_0035C010 event-effect manager and immediately frees every active PPP effect through func_00181200. The same subsystem loads resources from the eveffect/ directory. The JP corpus contains 17 calls across four archives; all occur in block 50 event sequences between completed event phases and newly started script threads."
 }

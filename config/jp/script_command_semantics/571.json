@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DB910 resolves the top object ID through func_001EAB00, calls func_00141348 on the resolved object, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_FinishObjectAnimation resolves the top object ID through func_001EAB00, calls func_00141348 on the resolved object, and decrements Script stackTop by one"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D4D00 passes the top value to func_00111C20 and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_SetTimerSeconds passes the top value to func_00111C20 and decrements Script stackTop by one"
   },
   "arguments": [
     {

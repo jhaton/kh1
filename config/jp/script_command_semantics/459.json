@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8EE0 takes no Script context and does not access or change the Script value stack"
+    "evidence": "ScriptCommand_WaitForCharacterModelVariantLoad takes no Script context and does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001D8EE0 returns state 4 while asynchronous flag 0x2000000000000000 remains set and state 2 after func_001D8DB8 clears it from the character-model load callback. Each of the four JP calls immediately follows command 458 load_character_model_variant_async after a one-tick delay."
+  "notes": "ScriptCommand_WaitForCharacterModelVariantLoad returns state 4 while asynchronous flag 0x2000000000000000 remains set and state 2 after func_001D8DB8 clears it from the character-model load callback. Each of the four JP calls immediately follows command 458 load_character_model_variant_async after a one-tick delay."
 }

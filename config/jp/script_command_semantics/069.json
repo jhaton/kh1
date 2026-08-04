@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D0078 consumes an angle and duration, converts the angle to a horizontal unit vector, and queues operation type 4; the object-operation dispatcher turns the selected object toward that vector over the encoded duration using the shortest angular path"
+    "evidence": "ScriptCommand_TurnSelectedObjectToAngle consumes an angle and duration, converts the angle to a horizontal unit vector, and queues operation type 4; the object-operation dispatcher turns the selected object toward that vector over the encoded duration using the shortest angular path"
   },
   "arguments": [
     {

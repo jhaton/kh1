@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D5C68 resolves the top object ID with func_001EAB00 and replaces it with the integer-converted value of object offset 0x16C multiplied by 0.5"
+    "evidence": "ScriptCommand_GetObjectAnimationFrame resolves the top object ID with func_001EAB00 and replaces it with the integer-converted value of object offset 0x16C multiplied by 0.5"
   },
   "arguments": [
     {

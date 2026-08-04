@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001CF320 converts the selected object's X position to s32 and pushes it on the Script value stack"
+    "evidence": "ScriptCommand_GetSelectedObjectPositionX converts the selected object's X position to s32 and pushes it on the Script value stack"
   },
   "arguments": []
 }

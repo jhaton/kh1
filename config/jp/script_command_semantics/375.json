@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EBB50 consumes one object ID, resolves it through func_001EAB00, queues two object operations when found, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_EnableObjectDamage consumes one object ID, resolves it through func_001EAB00, queues two object operations when found, and decrements Script stackTop by one"
   },
   "arguments": [
     {
@@ -16,5 +16,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001EBB50 queues operation types 0x23 and 0x2A for the resolved object. Both map to embedded DAMAGE_ON entries and clear the corresponding damage-disable flags. This is the explicit-object counterpart of command 335 enable_script_object_damage and the inverse of command 376 disable_object_damage. The JP corpus contains 142 calls."
+  "notes": "ScriptCommand_EnableObjectDamage queues operation types 0x23 and 0x2A for the resolved object. Both map to embedded DAMAGE_ON entries and clear the corresponding damage-disable flags. This is the explicit-object counterpart of command 335 enable_script_object_damage and the inverse of command 376 disable_object_damage. The JP corpus contains 142 calls."
 }

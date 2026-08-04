@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001DD708 replaces the top character index with the byte at offset 0x36 of the corresponding 0x74-byte character record in D_003010F8"
+    "evidence": "ScriptCommand_GetCharacterEquippedWeaponItemId replaces the top character index with the byte at offset 0x36 of the corresponding 0x74-byte character record in D_003010F8"
   },
   "arguments": [
     {

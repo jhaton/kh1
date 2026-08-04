@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E1420 uses the earlier value to select a six-byte world path prefix, uses the top value as the event number, queues the resulting file load, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_LoadEventVoiceSet uses the earlier value to select a six-byte world path prefix, uses the top value as the event number, queues the resulting file load, and decrements Script stackTop by two"
   },
   "arguments": [
     {

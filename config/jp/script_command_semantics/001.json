@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CD4D0 consumes a window ID and text resource ID, resolves D_00383CD0[text_id], and attaches func_001CD8E8 to the active window"
+    "evidence": "ScriptCommand_SetTextWindowText consumes a window ID and text resource ID, resolves D_00383CD0[text_id], and attaches func_001CD8E8 to the active window"
   },
   "arguments": [
     {

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D2308 consumes one value and calls func_0013DEE8 with that same value for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, the player and two party-member slots"
+    "evidence": "ScriptCommand_EnablePartyColorOverride consumes one value and calls func_0013DEE8 with that same value for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, the player and two party-member slots"
   },
   "arguments": [
     {

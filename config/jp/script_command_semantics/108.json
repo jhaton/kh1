@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1628 consumes one animation ID, ORs it with 0x10000, and queues the same type-5 selected-object animation operation used by command 13"
+    "evidence": "ScriptCommand_SetObjectAnimationWithFlag0x10000 consumes one animation ID, ORs it with 0x10000, and queues the same type-5 selected-object animation operation used by command 13"
   },
   "arguments": [
     {
@@ -16,5 +16,5 @@
       "type": "s32"
     }
   ],
-  "notes": "This is the flagged counterpart to command 13 set_object_animation: the handlers are structurally identical except that func_001D1628 sets motion-request bit 0x10000 before the object-operation dispatcher passes the request to func_00130248. The downstream meaning of that motion-request bit remains unresolved, so the name records the proven encoding rather than speculating about playback behavior. The JP corpus contains 380 calls."
+  "notes": "This is the flagged counterpart to command 13 set_object_animation: the handlers are structurally identical except that ScriptCommand_SetObjectAnimationWithFlag0x10000 sets motion-request bit 0x10000 before the object-operation dispatcher passes the request to func_00130248. The downstream meaning of that motion-request bit remains unresolved, so the name records the proven encoding rather than speculating about playback behavior. The JP corpus contains 380 calls."
 }

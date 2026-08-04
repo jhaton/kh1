@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D4540 consumes X, Y, Z, and duration, converts the coordinates to a vector, and passes the script-bound object, target vector, and doubled duration to func_0014FC10; that routine stores the look target and initializes the object's facing interpolation"
+    "evidence": "ScriptCommand_TurnScriptObjectTowardPosition consumes X, Y, Z, and duration, converts the coordinates to a vector, and passes the script-bound object, target vector, and doubled duration to func_0014FC10; that routine stores the look target and initializes the object's facing interpolation"
   },
   "arguments": [
     {

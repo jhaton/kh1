@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D3860 resolves two stack object IDs with func_001EAB00, computes sqrt((x_b-x_a)^2 + (y_b-y_a)^2 + (z_b-z_a)^2) from their position fields, decrements stackTop by one, and replaces the remaining value with the integer distance"
+    "evidence": "ScriptCommand_DistanceBetweenObjects resolves two stack object IDs with func_001EAB00, computes sqrt((x_b-x_a)^2 + (y_b-y_a)^2 + (z_b-z_a)^2) from their position fields, decrements stackTop by one, and replaces the remaining value with the integer distance"
   },
   "arguments": [
     {

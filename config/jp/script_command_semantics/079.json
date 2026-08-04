@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D0918 consumes one value ID, resolves D_0038858C[value_id], passes that value to Interpolation_ClearValue, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_ClearInterpolationValue consumes one value ID, resolves D_0038858C[value_id], passes that value to Interpolation_ClearValue, and decrements Script stackTop by one"
   },
   "arguments": [
     {

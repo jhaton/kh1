@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8C50 consumes two values and stores them with the Script-bound object in one of eight 24-byte records immediately preceding the current object-message code"
+    "evidence": "ScriptCommand_RegisterObjectMessageMapping consumes two values and stores them with the Script-bound object in one of eight 24-byte records immediately preceding the current object-message code"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001D8C50 selects a free record or the existing record for the same Script-bound object, then stores the two stack values at record offsets 0x08 and 0x10. The eight-record table ends immediately before D_00388924, which command 455 get_object_message_code returns after the object-message dispatcher starts entry 9. This establishes the table as per-object message mapping state; the exact interpretation of the second mapped value remains unresolved. The JP corpus contains 352 calls, all in object-message entry logic."
+  "notes": "ScriptCommand_RegisterObjectMessageMapping selects a free record or the existing record for the same Script-bound object, then stores the two stack values at record offsets 0x08 and 0x10. The eight-record table ends immediately before D_00388924, which command 455 get_object_message_code returns after the object-message dispatcher starts entry 9. This establishes the table as per-object message mapping state; the exact interpretation of the second mapped value remains unresolved. The JP corpus contains 352 calls, all in object-message entry logic."
 }

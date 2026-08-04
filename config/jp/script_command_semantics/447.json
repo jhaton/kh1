@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DFF08 consumes three values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID in a persistent update task"
+    "evidence": "ScriptCommand_AttachMapEffectRotationToObject consumes three values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID in a persistent update task"
   },
   "arguments": [
     {

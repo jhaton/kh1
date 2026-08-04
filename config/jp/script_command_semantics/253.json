@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D5068 replaces the top item ID with the sum of the stock byte at D_003010F8 + 0x499 + item_id and matching item IDs in the four character item-slot lists"
+    "evidence": "ScriptCommand_GetTotalItemCount replaces the top item ID with the sum of the stock byte at D_003010F8 + 0x499 + item_id and matching item IDs in the four character item-slot lists"
   },
   "arguments": [
     {

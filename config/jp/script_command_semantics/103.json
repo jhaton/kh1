@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1568 immediately returns 2 without reading Script state or producing any other side effect"
+    "evidence": "ScriptCommand_Noop_Cmd103 immediately returns 2 without reading Script state or producing any other side effect"
   },
   "arguments": [],
   "notes": "The complete handler is a leaf consisting only of `return 2`; it does not inspect its Script argument, touch global state, call another routine, or alter stackTop. The JP corpus nevertheless contains 385 calls, so this is an intentional compatibility no-op rather than an unused table slot.",

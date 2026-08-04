@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E9F18 passes the lower sound ID and upper channel to func_0011CF08 and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_StopSound passes the lower sound ID and upper channel to func_0011CF08 and decrements Script stackTop by two"
   },
   "arguments": [
     {

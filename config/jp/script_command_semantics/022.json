@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF4D0 queues operation type 7; its dispatcher clears the selected object's visible flag"
+    "evidence": "ScriptCommand_HideObject queues operation type 7; its dispatcher clears the selected object's visible flag"
   },
   "arguments": []
 }

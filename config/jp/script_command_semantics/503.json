@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8E90 reads world index and flag-bit index from the Script stack in that order, passes them to func_0013C098, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_SetWorldFlag reads world index and flag-bit index from the Script stack in that order, passes them to func_0013C098, and decrements Script stackTop by two"
   },
   "arguments": [
     {

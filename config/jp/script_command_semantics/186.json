@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E0370 consumes one effect ID and queues event-effect dispatcher state 2"
+    "evidence": "ScriptCommand_DeleteEventEffect consumes one effect ID and queues event-effect dispatcher state 2"
   },
   "arguments": [
     {

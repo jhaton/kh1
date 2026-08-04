@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D6FD0 replaces the top value with func_0013C638(treasure_id), which reads the same persistent bit written by func_0013C5C8"
+    "evidence": "ScriptCommand_GetTreasureOpenedFlag replaces the top value with func_0013C638(treasure_id), which reads the same persistent bit written by func_0013C5C8"
   },
   "arguments": [
     {

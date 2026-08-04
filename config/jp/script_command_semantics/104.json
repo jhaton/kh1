@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1598 does not access the Script value stack and queues object operation type 27 for the selected object"
+    "evidence": "ScriptCommand_EnableSelectedObjectBackgroundCollision does not access the Script value stack and queues object operation type 27 for the selected object"
   },
   "arguments": [],
   "notes": "The embedded operation-name table labels type 27 BGHIT_ON. The object-operation dispatcher clears object flag 0x10; func_00130E18 only removes bit 0 from the object's collision mask when that flag is set. This is the inverse of command 105. The JP corpus contains 219 calls, including 82 immediately preceded by command 25 enable_selected_object_collision."

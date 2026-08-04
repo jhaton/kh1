@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CFA08 consumes world, room, and event indices in stack order, passes them to func_00112810 with spawn-point index -1, and decrements Script stackTop by three"
+    "evidence": "ScriptCommand_TransitionToWorldRoomEventDefaultSpawn consumes world, room, and event indices in stack order, passes them to func_00112810 with spawn-point index -1, and decrements Script stackTop by three"
   },
   "arguments": [
     {

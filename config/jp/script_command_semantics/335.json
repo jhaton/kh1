@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EBA50 does not access or change the Script value stack"
+    "evidence": "ScriptCommand_EnableScriptObjectDamage does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001EBA50 queues operation types 0x23 and 0x2A for the object ID stored at Script offset 0. Both types map to embedded DAMAGE_ON entries; their dispatchers clear damage-disable flags 0x01000080 and 0x40. The JP corpus contains 88 calls; 83 immediately follow command 54 enable_selected_object_control, while 59 are immediately followed by command 25 enable_selected_object_collision."
+  "notes": "ScriptCommand_EnableScriptObjectDamage queues operation types 0x23 and 0x2A for the object ID stored at Script offset 0. Both types map to embedded DAMAGE_ON entries; their dispatchers clear damage-disable flags 0x01000080 and 0x40. The JP corpus contains 88 calls; 83 immediately follow command 54 enable_selected_object_control, while 59 are immediately followed by command 25 enable_selected_object_collision."
 }

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D59B8 replaces party_slot with D_003010F8->unk_48E[party_slot] when the slot is less than four"
+    "evidence": "ScriptCommand_GetPartyMemberCharacterIndex replaces party_slot with D_003010F8->unk_48E[party_slot] when the slot is less than four"
   },
   "arguments": [
     {

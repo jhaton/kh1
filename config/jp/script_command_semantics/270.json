@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D5570 passes the top character ID to func_0013C7D0 and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_RemovePartyCharacter passes the top character ID to func_0013C7D0 and decrements Script stackTop by one"
   },
   "arguments": [
     {

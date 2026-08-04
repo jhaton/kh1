@@ -8,7 +8,7 @@
     "inputs": 5,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D0B98 consumes five values and queues a type-23 COLOR_CHANGE operation for the selected object"
+    "evidence": "ScriptCommand_TransitionSelectedObjectColor consumes five values and queues a type-23 COLOR_CHANGE operation for the selected object"
   },
   "arguments": [
     {
@@ -32,5 +32,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001D0B98 normalizes the red, green, and blue values by 255 and the alpha value by 128, then packs the duration into the operation record. The object-operation dispatcher installs those transition values and sets the color-override flag at object offset 0x370. Command 91 restore_selected_object_default_color clears that flag. The JP corpus contains 190 calls; all 49 command 91 calls follow this command within three instructions."
+  "notes": "ScriptCommand_TransitionSelectedObjectColor normalizes the red, green, and blue values by 255 and the alpha value by 128, then packs the duration into the operation record. The object-operation dispatcher installs those transition values and sets the color-override flag at object offset 0x370. Command 91 restore_selected_object_default_color clears that flag. The JP corpus contains 190 calls; all 49 command 91 calls follow this command within three instructions."
 }

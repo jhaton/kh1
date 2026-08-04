@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D19A8 takes no Script context, sets bit 2 of D_002C1EA8, and does not access the value stack"
+    "evidence": "ScriptCommand_DisablePlayerControl takes no Script context, sets bit 2 of D_002C1EA8, and does not access the value stack"
   },
   "arguments": [],
   "notes": "The controller update func_0012E398 includes D_002C1EA8 bit 2 in the global mask that suppresses its normal player-input path. Command 114 clears the same bit and the associated transient bit 27 to restore control. The JP corpus contains 298 calls; 240 immediately follow command 511 begin_event_mode, and 287 immediately precede command 113 hide_party_status_ui."

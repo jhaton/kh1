@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D54E8 increments Script stackTop and, when the selected object exists, pushes the integer-converted float at selected-object pointer +0x130, field +0x18"
+    "evidence": "ScriptCommand_GetSelectedObjectHp increments Script stackTop and, when the selected object exists, pushes the integer-converted float at selected-object pointer +0x130, field +0x18"
   },
   "arguments": [],
   "notes": "The field is current HP: command 267 writes it from the Script stack, the damage-resolution path func_0016B2E8 updates it, and func_00142810 treats zero as an inactive or defeated object. All 48 JP calls occur in pc06.ard and immediately store the result in local 12; every entry then uses command 267 to set HP to zero and later restore it from local 12."

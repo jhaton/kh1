@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF518 queues a type-8 object operation without accessing the Script value stack"
+    "evidence": "ScriptCommand_ShowSelectedObjectShadow queues a type-8 object operation without accessing the Script value stack"
   },
   "arguments": [],
   "notes": "The embedded object-operation table labels type 8 SHADOW_ON. Its dispatcher restores the selected object's shadow rendering, making this the inverse of command 24 hide_selected_object_shadow. The JP corpus contains 134 calls, and command 21 show_object immediately precedes every one."

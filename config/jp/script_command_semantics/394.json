@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CC2C8 takes no Script context and does not access the value stack"
+    "evidence": "ScriptCommand_EnablePlayerRelativeCameraYaw takes no Script context and does not access the value stack"
   },
   "arguments": [],
-  "notes": "Unless global state bit 1 is set, func_001CC2C8 calls func_00180038. That routine saves camera yaw D_0035EB54 relative to the active player object's facing angle at offset 0x3C, marks the relative-camera state active, and selects camera mode 0 through func_001783D0. Paired command 395 reconstructs an absolute camera yaw from the saved player-relative offset and selects camera mode 1. The JP corpus contains 30 calls across 10 archives; every call is immediately followed by a one-value command 378."
+  "notes": "Unless global state bit 1 is set, ScriptCommand_EnablePlayerRelativeCameraYaw calls func_00180038. That routine saves camera yaw D_0035EB54 relative to the active player object's facing angle at offset 0x3C, marks the relative-camera state active, and selects camera mode 0 through func_001783D0. Paired command 395 reconstructs an absolute camera yaw from the saved player-relative offset and selects camera mode 1. The JP corpus contains 30 calls across 10 archives; every call is immediately followed by a one-value command 378."
 }

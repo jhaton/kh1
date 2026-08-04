@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DA2E8 passes the top value to func_0014A070 and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_SetCharacterEquippedWeaponItemId passes the top value to func_0014A070 and decrements Script stackTop by one"
   },
   "arguments": [
     {

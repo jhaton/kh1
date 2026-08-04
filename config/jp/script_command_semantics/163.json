@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E03D8 consumes one effect ID and queues event-effect dispatcher state 3"
+    "evidence": "ScriptCommand_SpawnMapEffect consumes one effect ID and queues event-effect dispatcher state 3"
   },
   "arguments": [
     {

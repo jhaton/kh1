@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDDB8 consumes a window ID and two coordinates and stores the coordinates in the window descriptor position fields"
+    "evidence": "ScriptCommand_SetTextWindowPosition consumes a window ID and two coordinates and stores the coordinates in the window descriptor position fields"
   },
   "arguments": [
     {

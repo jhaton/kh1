@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D6450 increments Script stackTop and pushes ScriptRuntime.pauseMenuSelection"
+    "evidence": "ScriptCommand_GetPauseMenuSelection increments Script stackTop and pushes ScriptRuntime.pauseMenuSelection"
   },
   "arguments": [],
   "notes": "ScriptRuntime.pauseMenuSelection at offset 0x3150 receives the selected index from func_001DDFA0. That routine is called when world-menu mode 3 finishes, stores the index produced by the menu selection reader func_001FD8D8, finds the owning Script, and schedules its entry 8. Mode 3 is enabled by command 238 through world-state flag 0x8 and disabled by command 239. The JP corpus contains four calls across tz04.ard and tz05.ard, all as the first instruction of entry 8; each result is immediately stored in local 1 and switched over values 0, 1, and 2. Value 0 ends the entry, while values 1 and 2 perform minigame cleanup and request distinct room-selection transitions."

@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D2A80 increments Script stackTop, resolves the selected object ID at Script+0 through func_00123880, refreshes the selected object pointer at Script+4, and writes 1 when resolution succeeds or 0 when it fails"
+    "evidence": "ScriptCommand_SelectedObjectExists increments Script stackTop, resolves the selected object ID at Script+0 through func_00123880, refreshes the selected object pointer at Script+4, and writes 1 when resolution succeeds or 0 when it fails"
   },
   "arguments": [],
   "notes": "func_00123880 resolves encoded object IDs through the active object registries and returns null when no matching object is registered. All 55 JP calls immediately store the result and test it with a nearby conditional branch; 32 calls begin a script entry and four immediately follow command 10 select_object."

@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DB0C8 passes the earlier stack value as the render-channel index and the top value as the duration to func_00108488, then decrements Script stackTop by two"
+    "evidence": "ScriptCommand_FadeRenderChannelOut passes the earlier stack value as the render-channel index and the top value as the duration to func_00108488, then decrements Script stackTop by two"
   },
   "arguments": [
     {

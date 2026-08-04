@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001C99C8 consumes three coordinates, converts them to floats, stores them in the shared camera target-position vector, and rebuilds the camera through func_001C8170"
+    "evidence": "ScriptCommand_SetCameraTargetPosition consumes three coordinates, converts them to floats, stores them in the shared camera target-position vector, and rebuilds the camera through func_001C8170"
   },
   "arguments": [
     {
@@ -24,5 +24,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001C99C8 writes the X, Y, and Z coordinates to D_003C0E30 through D_003C0E38. func_001C8170 uses that vector as the target about which it applies the configured rotation and distance. All 73 JP calls are immediately followed by command 37 set_camera_rotation_degrees and then command 38 set_camera_distance."
+  "notes": "ScriptCommand_SetCameraTargetPosition writes the X, Y, and Z coordinates to D_003C0E30 through D_003C0E38. func_001C8170 uses that vector as the target about which it applies the configured rotation and distance. All 73 JP calls are immediately followed by command 37 set_camera_rotation_degrees and then command 38 set_camera_distance."
 }

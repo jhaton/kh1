@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001C9A70 consumes three values, converts each from degrees to radians, stores them in the camera X/Y/Z rotation fields D_003C0E40 through D_003C0E48, and rebuilds the camera through func_001C8170"
+    "evidence": "ScriptCommand_SetCameraRotationDegrees consumes three values, converts each from degrees to radians, stores them in the camera X/Y/Z rotation fields D_003C0E40 through D_003C0E48, and rebuilds the camera through func_001C8170"
   },
   "arguments": [
     {

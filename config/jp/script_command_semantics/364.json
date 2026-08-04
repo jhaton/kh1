@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D7918 stores the top value in D_002B8000 and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_SetTextObjectId stores the top value in D_002B8000 and decrements Script stackTop by one"
   },
   "arguments": [
     {

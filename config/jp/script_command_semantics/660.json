@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DC5E8 reads the two top Script values as a display-preset selector and reference time, then decrements stackTop by two"
+    "evidence": "ScriptCommand_ShowTimerDisplay reads the two top Script values as a display-preset selector and reference time, then decrements stackTop by two"
   },
   "arguments": [
     {

@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D6EF0 does not access or change the Script value stack"
+    "evidence": "ScriptCommand_EnableScriptObjectPush does not access or change the Script value stack"
   },
   "arguments": [],
-  "notes": "func_001D6EF0 queues operation type 0x25 for the object ID stored at Script offset 0. Type 0x25 maps to the embedded PUSH_ON name, and its dispatcher clears the push-disable flag 0x200000. The JP corpus contains 78 calls; 36 immediately follow command 25 enable_selected_object_collision and 22 immediately follow command 104 enable_selected_object_background_collision."
+  "notes": "ScriptCommand_EnableScriptObjectPush queues operation type 0x25 for the object ID stored at Script offset 0. Type 0x25 maps to the embedded PUSH_ON name, and its dispatcher clears the push-disable flag 0x200000. The JP corpus contains 78 calls; 36 immediately follow command 25 enable_selected_object_collision and 22 immediately follow command 104 enable_selected_object_background_collision."
 }

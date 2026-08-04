@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D0970 takes no Script context and does not access the value stack"
+    "evidence": "ScriptCommand_ShowCinematicBarsSlowly takes no Script context and does not access the value stack"
   },
   "arguments": [],
-  "notes": "func_001D0970 starts func_00104200 with a fixed duration argument of 16 and sets persistent event-state bit 0x1. The transition enables the GS packet containing the black full-width sprites, then func_00104188 fades them into view by changing their shared RGBAQ alpha. This is the slower counterpart of command 139 show_cinematic_bars, which passes duration argument 1 to the same transition routine, and the inverse of command 85 hide_cinematic_bars_slowly. The JP corpus contains three calls, in al02.ard, tz05.ard, and pc06.ard."
+  "notes": "ScriptCommand_ShowCinematicBarsSlowly starts func_00104200 with a fixed duration argument of 16 and sets persistent event-state bit 0x1. The transition enables the GS packet containing the black full-width sprites, then func_00104188 fades them into view by changing their shared RGBAQ alpha. This is the slower counterpart of command 139 show_cinematic_bars, which passes duration argument 1 to the same transition routine, and the inverse of command 85 hide_cinematic_bars_slowly. The JP corpus contains three calls, in al02.ard, tz05.ard, and pc06.ard."
 }

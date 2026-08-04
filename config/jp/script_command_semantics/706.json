@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DF978 consumes effect ID, object ID, attachment ID, and offset, resolves the map effect through func_00177608 and the object through func_001EAB00, passes attachment_id and half-scaled offset to func_001314D0, copies the resulting attachment vector to the map effect, and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_SetMapEffectPositionFromObjectAttachment consumes effect ID, object ID, attachment ID, and offset, resolves the map effect through func_00177608 and the object through func_001EAB00, passes attachment_id and half-scaled offset to func_001314D0, copies the resulting attachment vector to the map effect, and decrements Script stackTop by four"
   },
   "arguments": [
     {

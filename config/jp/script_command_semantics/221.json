@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D4690 consumes one duration and, when the script-bound object exists, passes twice that value to func_0014FCA8 before decrementing Script stackTop"
+    "evidence": "ScriptCommand_StopScriptObjectTurning consumes one duration and, when the script-bound object exists, passes twice that value to func_0014FCA8 before decrementing Script stackTop"
   },
   "arguments": [
     {

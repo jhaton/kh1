@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1C88 consumes four values, divides the three scale components by 100, packs the duration into a type-0x1E object operation, and decrements Script stackTop by four"
+    "evidence": "ScriptCommand_TransitionSelectedObjectScale consumes four values, divides the three scale components by 100, packs the duration into a type-0x1E object operation, and decrements Script stackTop by four"
   },
   "arguments": [
     {

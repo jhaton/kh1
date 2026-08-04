@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D4FF8 consumes an object ID and message code, resolves the object with func_00123880, and passes the resolved object and message code to func_00137230"
+    "evidence": "ScriptCommand_SendObjectMessage consumes an object ID and message code, resolves the object with func_00123880, and passes the resolved object and message code to func_00137230"
   },
   "arguments": [
     {

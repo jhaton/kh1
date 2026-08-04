@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF560 queues a type-9 object operation without accessing the Script value stack"
+    "evidence": "ScriptCommand_HideSelectedObjectShadow queues a type-9 object operation without accessing the Script value stack"
   },
   "arguments": [],
   "notes": "The embedded object-operation table labels type 9 SHADOW_OFF. Its dispatcher suppresses the selected object's shadow rendering, making this the inverse of command 23 show_selected_object_shadow. The JP corpus contains 113 calls; command 22 hide_object immediately precedes 103 of them."

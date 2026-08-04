@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D6968 consumes one object ID and passes it to func_00124CA0"
+    "evidence": "ScriptCommand_DespawnObject consumes one object ID and passes it to func_00124CA0"
   },
   "arguments": [
     {
@@ -16,5 +16,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_00124CA0 resolves the encoded object ID and passes the live object to func_00124BC8. That routine moves the object to its exit state, detaches related resources, marks it for removal, and releases it from the active-object manager. func_001D6968 also clears matching object-list activity fields. The JP corpus contains 450 calls."
+  "notes": "func_00124CA0 resolves the encoded object ID and passes the live object to func_00124BC8. That routine moves the object to its exit state, detaches related resources, marks it for removal, and releases it from the active-object manager. ScriptCommand_DespawnObject also clears matching object-list activity fields. The JP corpus contains 450 calls."
 }

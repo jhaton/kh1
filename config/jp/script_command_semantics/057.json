@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF728 queues operation type 16 without accessing the Script value stack; the object-operation dispatcher sets the motion-disable flag 0x200000000 in the selected object's flags at +0x440"
+    "evidence": "ScriptCommand_DisableSelectedObjectMotion queues operation type 16 without accessing the Script value stack; the object-operation dispatcher sets the motion-disable flag 0x200000000 in the selected object's flags at +0x440"
   },
   "arguments": [],
   "notes": "Operation type 16 maps to the embedded MOTION_OFF name. It sets the same disable flag that type 15 clears; 93 JP calls immediately follow command 338 disable_script_object_push."

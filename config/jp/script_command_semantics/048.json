@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DF1B8 consumes one effect ID, stores it in a newly queued func_001DE7C0 effect task, and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_SpawnEventEffect consumes one effect ID, stores it in a newly queued func_001DE7C0 effect task, and decrements Script stackTop by one"
   },
   "arguments": [
     {

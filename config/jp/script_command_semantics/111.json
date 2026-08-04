@@ -8,7 +8,7 @@
     "inputs": 3,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D1878 consumes three values, queues operation type 19 with animation_id OR 0x10000 and blend_duration, and stores twice frame in the operation payload"
+    "evidence": "ScriptCommand_SetSelectedObjectAnimationAtFrame consumes three values, queues operation type 19 with animation_id OR 0x10000 and blend_duration, and stores twice frame in the operation payload"
   },
   "arguments": [
     {

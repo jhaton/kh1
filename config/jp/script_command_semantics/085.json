@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D0A08 takes no Script context and does not access the value stack"
+    "evidence": "ScriptCommand_HideCinematicBarsSlowly takes no Script context and does not access the value stack"
   },
   "arguments": [],
-  "notes": "func_001D0A08 starts func_00104310 with a fixed duration argument of 16 and clears persistent event-state bit 0x1. func_00104310 schedules func_00104290, which increases the cinematic-bar transition value until it reaches 32, then disables the GS packet containing the black full-width sprites. This is the slower counterpart of command 140 hide_cinematic_bars, which passes duration argument 1 to the same transition routine. The JP corpus contains eight calls across seven archives; seven calls share their script entry with command 139 show_cinematic_bars, two share an entry with command 84's inverse transition, and every call occurs during event or cinematic cleanup."
+  "notes": "ScriptCommand_HideCinematicBarsSlowly starts func_00104310 with a fixed duration argument of 16 and clears persistent event-state bit 0x1. func_00104310 schedules func_00104290, which increases the cinematic-bar transition value until it reaches 32, then disables the GS packet containing the black full-width sprites. This is the slower counterpart of command 140 hide_cinematic_bars, which passes duration argument 1 to the same transition routine. The JP corpus contains eight calls across seven archives; seven calls share their script entry with command 139 show_cinematic_bars, two share an entry with command 84's inverse transition, and every call occurs during event or cinematic cleanup."
 }

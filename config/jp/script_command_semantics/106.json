@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CADC0 is a leaf handler with no Script stack access; it returns retry state 4 while event-camera-active bit 37 of D_00388550 is set and completion state 2 once the bit clears"
+    "evidence": "ScriptCommand_WaitForEventCamera is a leaf handler with no Script stack access; it returns retry state 4 while event-camera-active bit 37 of D_00388550 is set and completion state 2 once the bit clears"
   },
   "arguments": [],
   "notes": "The event-camera loaders set D_00388550 bit 37 when they start update task func_001C72D0, and func_001CC338 tests the same bit before terminating that task during event-camera cleanup. The JP corpus contains 17 calls across four archives; six immediately follow command 34 load_event_camera_preset."

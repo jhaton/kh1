@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CA888 reads two values from the Script value stack, stores the duration and target field of view, and decrements Script stackTop by two"
+    "evidence": "ScriptCommand_StartCameraFovTransition reads two values from the Script value stack, stores the duration and target field of view, and decrements Script stackTop by two"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "func_001CA888 snapshots the current field of view from D_003C0E84, stores the requested field of view, and enables transition flag 0x8. func_001CA7A0 derives a per-tick increment from the starting field of view, target, and duration; it advances and clamps the active value, rebuilds the camera projection, and clears the flag at the target. All 73 JP calls transition to 53 degrees. Fifty-six calls immediately follow command 51 start_camera_distance_transition with the same duration; the remaining 17 independently use a duration of five ticks."
+  "notes": "ScriptCommand_StartCameraFovTransition snapshots the current field of view from D_003C0E84, stores the requested field of view, and enables transition flag 0x8. func_001CA7A0 derives a per-tick increment from the starting field of view, target, and duration; it advances and clamps the active value, rebuilds the camera projection, and clears the flag at the target. All 73 JP calls transition to 53 degrees. Fifty-six calls immediately follow command 51 start_camera_distance_transition with the same duration; the remaining 17 independently use a duration of five ticks."
 }

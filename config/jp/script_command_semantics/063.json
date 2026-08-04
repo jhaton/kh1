@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CFD90 consumes one group ID and passes it to func_00107FD8, which clears bit 1 << group_id in D_002B91E8"
+    "evidence": "ScriptCommand_DisableMapGroup consumes one group ID and passes it to func_00107FD8, which clears bit 1 << group_id in D_002B91E8"
   },
   "arguments": [
     {

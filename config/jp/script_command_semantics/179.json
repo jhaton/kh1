@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CE1A0 reads two text-window IDs from the Script value stack and decrements stackTop by two on every path"
+    "evidence": "ScriptCommand_ConfigureConversationCameraAndTextWindows reads two text-window IDs from the Script value stack and decrements stackTop by two on every path"
   },
   "arguments": [
     {
@@ -20,5 +20,5 @@
       "type": "s32"
     }
   ],
-  "notes": "When the selected object at Script offset 0x04 exists, func_001CE1A0 passes the player and selected-object positions to func_0017FB88. That routine frames their midpoint, evaluates four camera candidates with collision checks, activates a usable candidate, and returns its index or fallback index 4. func_001CE1A0 then applies the corresponding preset to the two D_00623C30 text-window templates: it sets their screen offsets, pointer styles, perimeter positions, pointer angles, and scales so the paired windows match the chosen view. A fallback result immediately calls func_0017FED8 to cancel the temporary camera; successful setups remain active until command 180 calls the same cleanup routine. The JP corpus contains five calls across al01.ard and pc06.ard. Every call uses a literal window pair, either 0/1 or 3/2, and every script entry later calls command 180."
+  "notes": "When the selected object at Script offset 0x04 exists, ScriptCommand_ConfigureConversationCameraAndTextWindows passes the player and selected-object positions to func_0017FB88. That routine frames their midpoint, evaluates four camera candidates with collision checks, activates a usable candidate, and returns its index or fallback index 4. ScriptCommand_ConfigureConversationCameraAndTextWindows then applies the corresponding preset to the two D_00623C30 text-window templates: it sets their screen offsets, pointer styles, perimeter positions, pointer angles, and scales so the paired windows match the chosen view. A fallback result immediately calls func_0017FED8 to cancel the temporary camera; successful setups remain active until command 180 calls the same cleanup routine. The JP corpus contains five calls across al01.ard and pc06.ard. Every call uses a literal window pair, either 0/1 or 3/2, and every script entry later calls command 180."
 }

@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D6920 passes the top stack value to func_001037C8 and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_FadeBlackOverlayIn passes the top stack value to func_001037C8 and decrements Script stackTop by one"
   },
   "arguments": [
     {

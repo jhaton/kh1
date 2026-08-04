@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D23D8 does not access the Script value stack and calls func_0013DF48 for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, clearing the RGBA override for the whole party"
+    "evidence": "ScriptCommand_DisablePartyColorOverride does not access the Script value stack and calls func_0013DF48 for each non-null object in D_002DEC00, D_002DEC04, and D_002DEC08, clearing the RGBA override for the whole party"
   },
   "arguments": [],
   "notes": "Party-wide counterpart of opcode 142. It occurs six times across the corpus."

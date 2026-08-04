@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001E9818 takes no Script context and does not access the value stack"
+    "evidence": "ScriptCommand_WaitForMusicSequenceLoad takes no Script context and does not access the value stack"
   },
   "arguments": [],
-  "notes": "func_001E9818 returns pending state 4 while background-music sequence load bit 51 is set in D_00388550 and completion state 2 after it clears. All five JP calls immediately follow command 566 load_background_music_sequence; the paired wave-bank load is awaited separately by command 406."
+  "notes": "ScriptCommand_WaitForMusicSequenceLoad returns pending state 4 while background-music sequence load bit 51 is set in D_00388550 and completion state 2 after it clears. All five JP calls immediately follow command 566 load_background_music_sequence; the paired wave-bank load is awaited separately by command 406."
 }

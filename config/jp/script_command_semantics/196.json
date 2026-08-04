@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DFE10 consumes four values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID and half-scaled offset in a persistent update task"
+    "evidence": "ScriptCommand_AttachMapEffectToObject consumes four values, resolves the first through the D_0035D420 map-effect manager and the second through the object registry, then stores the attachment ID and half-scaled offset in a persistent update task"
   },
   "arguments": [
     {

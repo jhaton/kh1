@@ -8,7 +8,7 @@
     "inputs": 2,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CDED8 consumes a window ID and preset index and stores it at window descriptor +0x0C; func_0010BB50 maps that preset through D_002B2D10 to the opening countdown, and func_0010B810 branches on it while opening the window"
+    "evidence": "ScriptCommand_SetTextWindowOpenTransition consumes a window ID and preset index and stores it at window descriptor +0x0C; func_0010BB50 maps that preset through D_002B2D10 to the opening countdown, and func_0010B810 branches on it while opening the window"
   },
   "arguments": [
     {

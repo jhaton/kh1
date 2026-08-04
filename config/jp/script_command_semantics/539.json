@@ -8,7 +8,7 @@
     "inputs": 4,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001DAFC8 consumes four values from Script stackTop, converts each integer percentage to a float by dividing by 100, and passes the four results to func_00103158"
+    "evidence": "ScriptCommand_EnableAnimatedScreenFilter consumes four values from Script stackTop, converts each integer percentage to a float by dividing by 100, and passes the four results to func_00103158"
   },
   "arguments": [
     {

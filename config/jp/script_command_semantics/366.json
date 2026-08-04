@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D7940 increments Script stackTop and pushes the number of valid IDs in the four-byte party roster at D_003010F8 + 0x48E"
+    "evidence": "ScriptCommand_GetPartyMemberCount increments Script stackTop and pushes the number of valid IDs in the four-byte party roster at D_003010F8 + 0x48E"
   },
   "arguments": [],
-  "notes": "func_001D7940 scans all four contiguous party-character slots and counts IDs below 20, excluding the 0xFF empty-slot sentinel. Party initialization sets the primary slot to character 0 and the other slots to 0xFF; func_0013C708 configures the three optional slots with character IDs 0 through 9 or 0xFF, and func_001F0B10 derives the engine's party count from the same roster. The JP corpus contains seven calls across tz04.ard and tz05.ard. Every result is immediately stored and switched over values 2, 3, and 4 to start a matching set of party-member threads; the four-member case also queries roster index 3 through command 281."
+  "notes": "ScriptCommand_GetPartyMemberCount scans all four contiguous party-character slots and counts IDs below 20, excluding the 0xFF empty-slot sentinel. Party initialization sets the primary slot to character 0 and the other slots to 0xFF; func_0013C708 configures the three optional slots with character IDs 0 through 9 or 0xFF, and func_001F0B10 derives the engine's party count from the same roster. The JP corpus contains seven calls across tz04.ard and tz05.ard. Every result is immediately stored and switched over values 2, 3, and 4 to start a matching set of party-member threads; the four-member case also queries roster index 3 through command 281."
 }

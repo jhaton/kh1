@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D6520 converts degrees to radians, calls sin, multiplies by 10000.0, and replaces the top value"
+    "evidence": "ScriptCommand_SinDegreesTimes10000 converts degrees to radians, calls sin, multiplies by 10000.0, and replaces the top value"
   },
   "arguments": [
     {

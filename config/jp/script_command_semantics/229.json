@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D4B70 consumes one value and passes it to func_00111A00"
+    "evidence": "ScriptCommand_StartCountUpTimer consumes one value and passes it to func_00111A00"
   },
   "arguments": [
     {

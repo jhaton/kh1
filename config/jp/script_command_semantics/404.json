@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 1,
     "confidence": "high",
-    "evidence": "func_001D6B88 resolves the top object ID with func_001EAB00 and replaces it with object offset 0x164"
+    "evidence": "ScriptCommand_GetObjectMotionId resolves the top object ID with func_001EAB00 and replaces it with object offset 0x164"
   },
   "arguments": [
     {

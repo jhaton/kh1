@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D23A8 does not access the Script value stack; when a selected object exists, it calls func_0013DF48, which clears object flag 0x4000 and thereby disables the RGBA override consumed by the render path"
+    "evidence": "ScriptCommand_DisableSelectedObjectColorOverride does not access the Script value stack; when a selected object exists, it calls func_0013DF48, which clears object flag 0x4000 and thereby disables the RGBA override consumed by the render path"
   },
   "arguments": [],
   "notes": "This is the zero-argument inverse of opcode 141 and occurs 333 times across the corpus."

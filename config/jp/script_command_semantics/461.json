@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001D8FB0 retains the top group ID while event-audio work is pending, then passes it to func_00131E58 and decrements Script stackTop by one"
+    "evidence": "ScriptCommand_DestroySpawnGroupObjectsAsync retains the top group ID while event-audio work is pending, then passes it to func_00131E58 and decrements Script stackTop by one"
   },
   "arguments": [
     {

@@ -8,8 +8,8 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CF940 takes no Script context and does not access the value stack"
+    "evidence": "ScriptCommand_ResetDisplayAndSoundModes takes no Script context and does not access the value stack"
   },
   "arguments": [],
-  "notes": "func_001CF940 resets display-mode selector D_002B834C to zero, calls func_001ED878(0) to clear the sound-RPC suppression mask D_003DE5B8, and calls func_0023F748 to clear auxiliary mode flag D_0064C8A8. The renderer func_00105E10 uses display modes 1 and 4 for the transformed screen-texture path, while mode 0 follows the ordinary path. The JP corpus contains nine calls across five archives; two follow command 31 after a 10-tick wait through command 8, and the remaining seven occur in independent display-state reset sequences."
+  "notes": "ScriptCommand_ResetDisplayAndSoundModes resets display-mode selector D_002B834C to zero, calls func_001ED878(0) to clear the sound-RPC suppression mask D_003DE5B8, and calls func_0023F748 to clear auxiliary mode flag D_0064C8A8. The renderer func_00105E10 uses display modes 1 and 4 for the transformed screen-texture path, while mode 0 follows the ordinary path. The JP corpus contains nine calls across five archives; two follow command 31 after a 10-tick wait through command 8, and the remaining seven occur in independent display-state reset sequences."
 }

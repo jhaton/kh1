@@ -8,7 +8,7 @@
     "inputs": 0,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001EB840 queues operation type 13 without accessing the Script value stack; the object-operation dispatcher clears the control-disable flag 0x100000000 in the selected object's flags at +0x440"
+    "evidence": "ScriptCommand_EnableSelectedObjectControl queues operation type 13 without accessing the Script value stack; the object-operation dispatcher clears the control-disable flag 0x100000000 in the selected object's flags at +0x440"
   },
   "arguments": [],
   "notes": "Operation type 13 maps to the embedded CONTROL_ON name. Across the JP corpus, 83 of its 98 calls immediately precede command 335 enable_script_object_damage."

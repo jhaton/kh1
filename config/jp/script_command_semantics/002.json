@@ -8,7 +8,7 @@
     "inputs": 1,
     "outputs": 0,
     "confidence": "high",
-    "evidence": "func_001CC9A8 consumes a window ID, schedules func_001CC950 for its active slot, and advances that slot to the closing state"
+    "evidence": "ScriptCommand_CloseTextWindow consumes a window ID, schedules func_001CC950 for its active slot, and advances that slot to the closing state"
   },
   "arguments": [
     {
