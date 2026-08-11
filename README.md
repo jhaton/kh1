@@ -1,41 +1,105 @@
 # Kingdom Hearts De:Compiled
 
-A decompilation of the Playstation 2 releases of Kingdom Hearts.
+An in-progress decompilation of the PlayStation 2 releases of **Kingdom Hearts**.
+
+The project reconstructs the original game executable from C and assembly. Binary matching is the primary correctness target: a successful full build must reproduce the expected SHA-1 exactly. Many functions are still assembly-backed while their C implementations are recovered.
+
+> [!IMPORTANT]
+> This repository does not contain game executables, disc images, or extracted assets. You must provide files from a legally obtained copy of the game.
 
 ## Supported Versions
 
-| Game Version             | ELF           | Sha1                                     |
-|--------------------------|---------------|------------------------------------------|
-| Original Japanese        | `SLPS_251.05` |`9dabbf867a7ec2a030df99ba1ed969f2deef0488`|
-| Final Mix (JP Exclusive) | `SLPS_251.98` |`e70bda789916142aafb53d85cef2e806b35ad8d8`|
+| Release | Configure target | Required ELF | Build output | Expected SHA-1 |
+|---|---|---|---|---|
+| Original Japanese | `jp` | `SLPS_251.05` | `build/jp/SLPS_251.05` | `9dabbf867a7ec2a030df99ba1ed969f2deef0488` |
+| Final Mix | `fm` | `SLPS_251.98` | `build/fm/SLPS_251.98` | `e70bda789916142aafb53d85cef2e806b35ad8d8` |
 
----
+## Requirements
 
-### Dependencies
+- Python 3 and `pip`
+- [Ninja](https://ninja-build.org/)
+- GNU MIPS cross-binutils available as `mips-linux-gnu-*`
+- The target game's main ELF, named exactly as shown above
 
-Some python dependencies are required, which you can obtain by running `pip install -U -r requirements.txt`.
+The matching EE GCC toolchains are included under `tools/cc/`; do not replace them with a host compiler.
 
----
+Install the Python dependencies:
 
-### Setup
+```sh
+python3 -m pip install -U -r requirements.txt
+```
 
-1. Extract the ELF file from an ISO of the game version you're targeting and place it in the root of the repo.
-2. Run `./configure.py` to generate the build files.
-   - Optionally, specify the game version you're targeting with the `--version`/`-v` flag. Defaults to the original Japanese version if not specified.
-   - You can clear existing configurations with the `--clean`/`-c` flag
-   - eg: `./configure.py -c -v fm` will clear the existing build configuration and generate a new one for the Final Mix version.
+## Building
 
-3. Run `ninja` to build the project. Final output will be stored by version in the `build` directory.
+Run all commands from the repository root.
 
----
-aaa
-### Notes
+### Original Japanese
 
-No game assets are published in this repository. This includes any files required to run the game, such as the game's executable, ISO, or any files extracted from it.
+```sh
+# Place SLPS_251.05 in the repository root first.
+./configure.py -v jp
+ninja
+```
 
-This repository targets the game's main executable, an elf file named uniquely by the game's serial number. A copy of the elf file is required to build the project, and must be provided by the user by extracting it from a legal copy of the game.
+`jp` is the default, so `./configure.py` without `-v` selects the same version.
 
- >[!WARNING]
- > Additional asset extraction is currently only supported by the JP version of the game.
+### Final Mix
 
-Additional assets that are not used in this project may optionally be extracted by running `./tools/iso/extract.py` on the game's ISO. The extracted files are in the `kingdom` directory.
+```sh
+# Place SLPS_251.98 in the repository root first.
+./configure.py -v fm
+ninja
+```
+
+`configure.py` runs Splat to generate assembly, assets, the linker script, and `build.ninja`. Ninja then compiles and links the selected version. The final build step checks the output against `config/<version>/checksum.sha1`; a checksum mismatch fails the build.
+
+### Clean regeneration
+
+```sh
+./configure.py -c -v jp
+ninja
+```
+
+> [!WARNING]
+> `-c` removes `.splache`, `asm/`, `assets/`, and `build/` before regenerating them. Use the version you intend to build after cleaning.
+
+Each configure invocation rewrites `build.ninja` for one version. Re-run `configure.py` when switching between `jp` and `fm`.
+
+## Repository Layout
+
+| Path | Purpose |
+|---|---|
+| `src/` | Decompiled game C and reconstructed runtime/library sources |
+| `src/ppp/` | PPP particle and effect engine modules |
+| `include/` | Project types, recovered structures, PS2 SDK headers, and assembly macros |
+| `config/kh.*.yaml` | Per-version Splat segment layouts |
+| `config/jp/`, `config/fm/` | Symbol maps, undefined symbols, and expected checksums |
+| `tools/cc/` | Bundled matching EE GCC toolchains |
+| `tools/iso/` | Optional JP asset extraction and filename-hash tools |
+| `asm/`, `assets/`, `build/` | Generated and ignored build artifacts |
+
+## Decompilation Notes
+
+- Unmatched functions use `INCLUDE_ASM("asm/nonmatchings/...", symbol)` until their C implementation reproduces the target assembly.
+- Address-based names such as `func_00123456`, `D_00123456`, and `unk_10` indicate unresolved semantics. Prefer evidence-backed names over guesses.
+- Structure offsets, padding, integer widths, expression order, and control flow can all affect EE GCC output.
+- `.clang-format` documents the C style, but avoid broad formatting changes in matching-sensitive code.
+- Run a full `ninja` build after source, header, symbol-map, compiler, or build-system changes.
+
+See [`AGENTS.md`](AGENTS.md) for detailed repository conventions and guidance for automated contributors.
+
+## Optional JP Asset Extraction
+
+Additional assets are not required for the executable build. For the original Japanese release, they can be extracted from a legal ISO:
+
+```sh
+# The extractor imports rich in addition to the standard project requirements.
+python3 -m pip install rich
+python3 tools/iso/extract.py /path/to/KingdomHearts.iso
+```
+
+Files are written to `kingdom/`, which is ignored by Git. Final Mix asset extraction is not currently supported.
+
+## Continuous Integration
+
+`Jenkinsfile` configures and builds both supported versions. CI requires legal local copies of both game executables and validates each reconstructed output through the same SHA-1 build target.
