@@ -1,0 +1,2698 @@
+.khsasm 2
+
+.resource 18
+.block 0
+.script 0
+.entry 0
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 0
+    STORE_VAR16 0x001120
+    PUSH_S24 0
+    STORE_VAR16 0x001122
+    PUSH_S24 0
+    STORE_VAR16 0x001124
+    PUSH_S24 0
+    STORE_VAR16 0x001126
+    PUSH_S24 0
+    STORE_VAR16 0x001128
+    PUSH_S24 0
+    STORE_VAR16 0x00112A
+    PUSH_S24 0
+    STORE_VAR16 0x00112C
+    PUSH_S24 0
+    STORE_VAR16 0x00112E
+    PUSH_S24 0
+    STORE_VAR8 0x001130
+    PUSH_S24 0
+    STORE_VAR8 0x001131
+    PUSH_S24 0
+    STORE_VAR8 0x001132
+    PUSH_S24 0
+    STORE_VAR8 0x001133
+    PUSH_S24 0
+    STORE_VAR8 0x001134
+    PUSH_S24 0
+    STORE_VAR8 0x001135
+    PUSH_S24 0
+    STORE_VAR8 0x001136
+    PUSH_S24 0
+    STORE_VAR8 0x001137
+    PUSH_S24 0
+    STORE_VAR8 0x000D5D
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D5C
+    LOAD_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_OR
+    JUMP_IF_FALSE L0053
+    PUSH_S24 4
+    STORE_VAR8 0x000D43
+L0053:
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    STORE_WORK_BIT 0x006B2F
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 1
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_LOCAL 0
+    PUSH_S24 2
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_LOCAL 1
+    PUSH_S24 3
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_LOCAL 2
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+    CALL_COMMAND enable_pause_menu_override@486
+    CALL_COMMAND command_301@301
+    PUSH_S24 0
+    STORE_LOCAL 12
+    END 16
+.entry 1
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_screen_in@27
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    CALL_COMMAND enable_all_spawn_groups@363
+    CALL_COMMAND command_702@702
+    PUSH_S24_ALT 1
+    CALL_COMMAND finish_object_animation@571
+    LOAD_LOCAL 0
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 1
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 2
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 0
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 1
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0127
+    LOAD_LOCAL 2
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0122
+    PUSH_S24 1
+    PUSH_S24 2
+    PUSH_S24 5
+    CALL_COMMAND set_party_members@350
+    JUMP L0127
+L0122:
+    PUSH_S24 1
+    PUSH_S24 2
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+L0127:
+    LOAD_LOCAL 0
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 1
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0149
+    LOAD_LOCAL 2
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0144
+    PUSH_S24 1
+    PUSH_S24 5
+    PUSH_S24 2
+    CALL_COMMAND set_party_members@350
+    JUMP L0149
+L0144:
+    PUSH_S24 1
+    PUSH_S24 5
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+L0149:
+    LOAD_LOCAL 0
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0171
+    LOAD_LOCAL 2
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0166
+    PUSH_S24 2
+    PUSH_S24 1
+    PUSH_S24 5
+    CALL_COMMAND set_party_members@350
+    JUMP L0171
+L0166:
+    PUSH_S24 2
+    PUSH_S24 1
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+L0171:
+    LOAD_LOCAL 0
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 1
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0193
+    LOAD_LOCAL 2
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0188
+    PUSH_S24 2
+    PUSH_S24 5
+    PUSH_S24 1
+    CALL_COMMAND set_party_members@350
+    JUMP L0193
+L0188:
+    PUSH_S24 2
+    PUSH_S24 5
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+L0193:
+    LOAD_LOCAL 0
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0215
+    LOAD_LOCAL 2
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0210
+    PUSH_S24 5
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_party_members@350
+    JUMP L0215
+L0210:
+    PUSH_S24 5
+    PUSH_S24 1
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+L0215:
+    LOAD_LOCAL 0
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 1
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0237
+    LOAD_LOCAL 2
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0232
+    PUSH_S24 5
+    PUSH_S24 2
+    PUSH_S24 1
+    CALL_COMMAND set_party_members@350
+    JUMP L0237
+L0232:
+    PUSH_S24 5
+    PUSH_S24 2
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+L0237:
+    CALL_COMMAND enable_immediate_room_load_completion@643
+L0238:
+    LOAD_LOCAL 12
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0243
+    JUMP L0238
+L0243:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    PUSH_S24 0
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 2
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 3
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 4
+.entry 0
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND disable_party_damage@593
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+
+.block 1
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 2
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 3
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 4
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 5
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 6
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 7
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 8
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 9
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 10
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 11
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 12
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 13
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 14
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 15
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 16
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 17
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 18
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 19
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 20
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 21
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 22
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 23
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 24
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 25
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 26
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 27
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 28
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 29
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 30
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 31
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 32
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 33
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 34
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 35
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 36
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 37
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 38
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 39
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 40
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 41
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 42
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 43
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 44
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 45
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 46
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 47
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 48
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 49
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 50
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 51
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 52
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 53
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 54
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 55
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 56
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 57
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 58
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 59
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 60
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 61
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 62
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 63
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 64
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 65
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 66
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 67
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 68
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 69
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 70
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 71
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 72
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 73
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 74
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 75
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 76
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 77
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 78
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 79
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 80
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 81
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 82
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 83
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 84
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 85
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 86
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 87
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 88
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 89
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 90
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 91
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 92
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 93
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 94
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 95
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 96
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 97
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 98
+.script 0
+.entry 0
+    END 16
+.entry 1
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+
+.block 99
+.script 0
+.entry 0
+    END 16
+.entry 1
+    PUSH_S24 164
+    CALL_COMMAND hide_map_parts@133
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND enable_all_object_shadows_and_collision@315
+    PUSH_S24_ALT 1
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_party_damage@593
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND enable_input_suppression@418
+    CALL_COMMAND noop@201
+    CALL_COMMAND enable_player_relative_camera_yaw@394
+    PUSH_S24_ALT 1
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_party_damage@593
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D40
+    LOAD_VAR8 0x000D41
+    STORE_VAR8 0x000D00
+    CALL_COMMAND get_current_room_index@128
+    STORE_VAR8 0x000D41
+    CALL_COMMAND get_current_entrance_index@129
+    STORE_VAR8 0x000D42
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    CALL_COMMAND enable_input_suppression@418
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0049
+    PUSH_S24 1
+    CALL_COMMAND queue_world_image_load@445
+L0049:
+    PUSH_S24 15
+    CALL_COMMAND fade_screen_out@28
+    PUSH_S24 15
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24_ALT 1
+    CALL_COMMAND finish_object_animation@571
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND disable_pause_menu_override@487
+    CALL_COMMAND command_300@300
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_input_suppression@418
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    CALL_COMMAND disable_event_camera@514
+    PUSH_S24 1
+    CALL_COMMAND transition_to_room_selection@60
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    PUSH_S24 0
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 2
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 3
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+
+
+.resource 31
+.block 0
+.script 0
+.entry 0
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 0
+    STORE_VAR16 0x001120
+    PUSH_S24 0
+    STORE_VAR16 0x001122
+    PUSH_S24 0
+    STORE_VAR16 0x001124
+    PUSH_S24 0
+    STORE_VAR16 0x001126
+    PUSH_S24 0
+    STORE_VAR16 0x001128
+    PUSH_S24 0
+    STORE_VAR16 0x00112A
+    PUSH_S24 0
+    STORE_VAR16 0x00112C
+    PUSH_S24 0
+    STORE_VAR16 0x00112E
+    PUSH_S24 0
+    STORE_VAR8 0x001130
+    PUSH_S24 0
+    STORE_VAR8 0x001131
+    PUSH_S24 0
+    STORE_VAR8 0x001132
+    PUSH_S24 0
+    STORE_VAR8 0x001133
+    PUSH_S24 0
+    STORE_VAR8 0x001134
+    PUSH_S24 0
+    STORE_VAR8 0x001135
+    PUSH_S24 0
+    STORE_VAR8 0x001136
+    PUSH_S24 0
+    STORE_VAR8 0x001137
+    PUSH_S24 0
+    STORE_VAR8 0x000D5D
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D5C
+    LOAD_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_OR
+    JUMP_IF_FALSE L0047
+    PUSH_S24 4
+    STORE_VAR8 0x000D43
+L0047:
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    STORE_WORK_BIT 0x006B2F
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND begin_event_mode@511
+    END 16
+.entry 1
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_screen_in@27
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    CALL_COMMAND enable_all_spawn_groups@363
+L0070:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0073
+    JUMP L0070
+L0073:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    PUSH_S24 0
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 2
+.entry 0
+    PUSH_S24 1
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 3
+.entry 0
+    PUSH_S24 2
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 4
+.entry 0
+    PUSH_S24 5
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 5
+.entry 0
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND disable_party_damage@593
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16

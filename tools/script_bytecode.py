@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 import struct
 from dataclasses import dataclass
-from typing import Iterable, Iterator
+from typing import Iterable, Iterator, Mapping
 
 
 OPCODE_NAMES = (
@@ -342,8 +342,17 @@ def opcode_name(opcode: int) -> str:
     return f"OP_{opcode:02X}"
 
 
-def _format_source_operand(instruction: Instruction, instruction_index: int, labels: set[int]) -> str:
+def _format_source_operand(
+    instruction: Instruction,
+    instruction_index: int,
+    labels: set[int],
+    command_names: Mapping[int, str] | None,
+) -> str:
     opcode = instruction.opcode
+    if opcode == OPCODE_BY_NAME["CALL_COMMAND"] and command_names is not None:
+        if instruction.operand not in command_names:
+            raise FormatError(f"missing command name for ID {instruction.operand}")
+        return f"{command_names[instruction.operand]}@{instruction.operand}"
     if opcode == 1 and instruction.operand < len(OPERATOR_NAMES):
         return OPERATOR_NAMES[instruction.operand]
     if opcode in BRANCH_OPCODES:
@@ -358,8 +367,10 @@ def _format_source_operand(instruction: Instruction, instruction_index: int, lab
     return str(instruction.operand)
 
 
-def dump_khsasm(blocks: Iterable[ScriptBlock]) -> str:
-    lines = [".khsasm 1"]
+def dump_khsasm(
+    blocks: Iterable[ScriptBlock], command_names: Mapping[int, str] | None = None
+) -> str:
+    lines = [f".khsasm {2 if command_names is not None else 1}"]
     previous_resource: int | None = None
 
     for block in blocks:
@@ -383,7 +394,9 @@ def dump_khsasm(blocks: Iterable[ScriptBlock]) -> str:
                 for instruction in entry:
                     if instruction_index in labels:
                         lines.append(f"L{instruction_index:04d}:")
-                    operand = _format_source_operand(instruction, instruction_index, labels)
+                    operand = _format_source_operand(
+                        instruction, instruction_index, labels, command_names
+                    )
                     lines.append(f"    {opcode_name(instruction.opcode)} {operand}")
                     instruction_index += 1
         lines.append("")
@@ -408,7 +421,49 @@ def _parse_integer(token: str, line_number: int) -> int:
         raise FormatError(f"line {line_number}: expected integer operand, got {token!r}") from error
 
 
-def _resolve_source_script(source: _SourceScript) -> Script:
+def _resolve_command_operand(
+    item: _SourceInstruction,
+    format_version: int,
+    command_names: Mapping[int, str] | None,
+) -> int:
+    if "@" not in item.operand:
+        return _parse_integer(item.operand, item.line_number)
+    if format_version == 1:
+        raise FormatError(
+            f"line {item.line_number}: symbolic CALL_COMMAND operands require '.khsasm 2'"
+        )
+    match = re.fullmatch(r"([^@\s]+)@([0-9]+)", item.operand)
+    if match is None:
+        raise FormatError(
+            f"line {item.line_number}: malformed symbolic CALL_COMMAND operand "
+            f"{item.operand!r}; expected '<name>@<decimal_id>'"
+        )
+    command_name, command_id_text = match.groups()
+    command_id = int(command_id_text, 10)
+    if command_names is None:
+        raise FormatError(
+            f"line {item.line_number}: symbolic CALL_COMMAND operand requires command metadata"
+        )
+    if command_id not in command_names:
+        raise FormatError(f"line {item.line_number}: unknown command ID {command_id}")
+    expected_name = command_names[command_id]
+    if command_name != expected_name:
+        raise FormatError(
+            f"line {item.line_number}: command name {command_name!r} does not match ID "
+            f"{command_id} (expected {expected_name!r})"
+        )
+    if command_id > 0xFFFFFF:
+        raise FormatError(
+            f"line {item.line_number}: command ID {command_id} does not fit in 24 bits"
+        )
+    return command_id
+
+
+def _resolve_source_script(
+    source: _SourceScript,
+    format_version: int,
+    command_names: Mapping[int, str] | None,
+) -> Script:
     entries: list[tuple[Instruction, ...]] = []
     instruction_index = 0
     for source_entry in source.entries:
@@ -418,6 +473,8 @@ def _resolve_source_script(source: _SourceScript) -> Script:
                 operand = OPERATOR_BY_NAME[item.operand.upper()]
             elif item.opcode in BRANCH_OPCODES and item.operand in source.labels:
                 operand = source.labels[item.operand] - instruction_index
+            elif item.opcode == OPCODE_BY_NAME["CALL_COMMAND"]:
+                operand = _resolve_command_operand(item, format_version, command_names)
             else:
                 operand = _parse_integer(item.operand, item.line_number)
             instructions.append(Instruction(item.opcode, encode_s24(operand)))
@@ -430,8 +487,10 @@ def _resolve_source_script(source: _SourceScript) -> Script:
     return Script(source.script_index, tuple(entries))
 
 
-def parse_khsasm(source: str) -> tuple[ScriptBlock, ...]:
-    version_seen = False
+def parse_khsasm(
+    source: str, command_names: Mapping[int, str] | None = None
+) -> tuple[ScriptBlock, ...]:
+    format_version: int | None = None
     resource_index: int | None = None
     current_block: _SourceBlock | None = None
     current_script: _SourceScript | None = None
@@ -449,11 +508,18 @@ def parse_khsasm(source: str) -> tuple[ScriptBlock, ...]:
                 raise FormatError(f"line {line_number}: malformed directive")
             directive, value = parts
             if directive == ".khsasm":
-                if version_seen or value != "1" or blocks or resource_index is not None:
-                    raise FormatError(f"line {line_number}: expected one leading '.khsasm 1'")
-                version_seen = True
+                if (
+                    format_version is not None
+                    or value not in {"1", "2"}
+                    or blocks
+                    or resource_index is not None
+                ):
+                    raise FormatError(
+                        f"line {line_number}: expected one leading '.khsasm 1' or '.khsasm 2'"
+                    )
+                format_version = int(value)
             elif directive == ".resource":
-                if not version_seen:
+                if format_version is None:
                     raise FormatError(f"line {line_number}: missing '.khsasm 1' header")
                 resource_index = _parse_integer(value, line_number)
                 current_block = None
@@ -512,7 +578,7 @@ def parse_khsasm(source: str) -> tuple[ScriptBlock, ...]:
         current_entry.append(_SourceInstruction(_parse_opcode(parts[0], line_number), parts[1], line_number))
         instruction_index += 1
 
-    if not version_seen:
+    if format_version is None:
         raise FormatError("missing '.khsasm 1' header")
     if not blocks:
         raise FormatError("assembly contains no script blocks")
@@ -530,7 +596,10 @@ def parse_khsasm(source: str) -> tuple[ScriptBlock, ...]:
             ScriptBlock(
                 block.resource_index,
                 block.block_index,
-                tuple(_resolve_source_script(script) for script in block.scripts),
+                tuple(
+                    _resolve_source_script(script, format_version, command_names)
+                    for script in block.scripts
+                ),
             )
         )
     return tuple(resolved)

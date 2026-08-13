@@ -104,6 +104,67 @@ The generator can write machine-derived handler, inferred-stack, call-count, and
 
 The remaining files in this directory support the JP executable build and symbol mapping. They are not part of the script command database schema.
 
+### Area script sources
+
+[`../../scripts/jp/`](../../scripts/jp/) contains one committed `.khsasm` source file for each of the 17 JP
+area archives that carries a KGR script package. The file name matches the source `.ard` basename.
+
+Committed sources use `.khsasm 2`. Native calls carry both the reviewed display name and the encoded command ID:
+
+```text
+CALL_COMMAND select_object@10
+CALL_COMMAND command_31@31
+```
+
+The numeric ID after `@` is always the encoded operand. When a command database is supplied, the assembler verifies
+that the preceding name is the current display name for that ID. This makes semantic renames and mistyped names fail
+without allowing database changes to retarget bytecode silently. Commands without a defensible semantic name use the
+deterministic `command_<id>@<id>` form.
+
+The original `.khsasm 1` format remains supported for numeric command operands. A same-edition decompressed `.ard`
+is still required as the assembly base because non-script resources and package metadata are not represented in the
+source file.
+
+## Area script source workflow
+
+Extract the local JP ISO when the matching base archives are not already available:
+
+```sh
+python3 tools/iso/extract.py 'Kingdom Hearts (Japan)/Kingdom Hearts (Japan).iso'
+```
+
+Regenerate one canonical source file with reviewed command names:
+
+```sh
+python3 tools/disassemble_script.py kingdom/al01.ard \
+  --command-db config/jp/script_commands.json \
+  --output scripts/jp/al01.khsasm
+```
+
+Assemble the source back into a decompressed area archive:
+
+```sh
+python3 tools/assemble_script.py \
+  --command-db config/jp/script_commands.json \
+  scripts/jp/al01.khsasm \
+  kingdom/al01.ard \
+  build/jp/scripts/al01.ard
+```
+
+The committed sources reconstruct the original decompressed JP archives exactly. Verify a regenerated source and
+rebuilt archive before committing changes:
+
+```sh
+python3 tools/disassemble_script.py kingdom/al01.ard \
+  --command-db config/jp/script_commands.json \
+  --output build/jp/scripts/al01.khsasm
+cmp scripts/jp/al01.khsasm build/jp/scripts/al01.khsasm
+cmp kingdom/al01.ard build/jp/scripts/al01.ard
+```
+
+These tools do not compress rebuilt archives, insert them into an ISO, or provide structured control-flow syntax.
+
+
 ## Generator
 
 [`../../tools/script_command_db.py`](../../tools/script_command_db.py) builds and validates the database. Run its commands from the repository root.

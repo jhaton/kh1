@@ -262,7 +262,12 @@ def disassemble(
     if output is not None:
         if resource_filter is not None or script_filter is not None:
             raise FormatError("--output cannot be combined with --resource or --script")
-        output.write_text(dump_khsasm(blocks))
+        command_names = (
+            {command_id: metadata.display_name for command_id, metadata in commands.items()}
+            if commands is not None
+            else None
+        )
+        output.write_text(dump_khsasm(blocks, command_names))
         script_count = sum(len(block.scripts) for block in blocks)
         instruction_count = sum(
             len(entry)
@@ -294,8 +299,6 @@ def main() -> int:
     args = parser.parse_args()
 
     try:
-        if args.output is not None and args.command_db is not None:
-            raise FormatError("--command-db cannot be combined with --output")
         return disassemble(args.archive, args.resource, args.script, args.output, args.command_db)
     except (FormatError, OSError) as error:
         parser.error(str(error))

@@ -1,0 +1,9176 @@
+.khsasm 2
+
+.resource 6
+.block 0
+.script 0
+.entry 0
+    LOAD_VAR8 0x000B05
+    PUSH_S24 50
+    APPLY_OPERATOR LESS_THAN
+    LOAD_VAR8 0x000622
+    PUSH_S24 0
+    APPLY_OPERATOR GREATER_THAN
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0012
+    LOAD_VAR8 0x000622
+    PUSH_S24 1
+    APPLY_OPERATOR SUBTRACT
+    STORE_VAR8 0x000622
+L0012:
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 0
+    STORE_VAR16 0x001120
+    PUSH_S24 0
+    STORE_VAR16 0x001122
+    PUSH_S24 0
+    STORE_VAR16 0x001124
+    PUSH_S24 0
+    STORE_VAR16 0x001126
+    PUSH_S24 0
+    STORE_VAR16 0x001128
+    PUSH_S24 0
+    STORE_VAR16 0x00112A
+    PUSH_S24 0
+    STORE_VAR16 0x00112C
+    PUSH_S24 0
+    STORE_VAR16 0x00112E
+    PUSH_S24 0
+    STORE_VAR8 0x001130
+    PUSH_S24 0
+    STORE_VAR8 0x001131
+    PUSH_S24 0
+    STORE_VAR8 0x001132
+    PUSH_S24 0
+    STORE_VAR8 0x001133
+    PUSH_S24 0
+    STORE_VAR8 0x001134
+    PUSH_S24 0
+    STORE_VAR8 0x001135
+    PUSH_S24 0
+    STORE_VAR8 0x001136
+    PUSH_S24 0
+    STORE_VAR8 0x001137
+    PUSH_S24 0
+    STORE_VAR8 0x000D5D
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D5C
+    LOAD_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_OR
+    JUMP_IF_FALSE L0059
+    PUSH_S24 4
+    STORE_VAR8 0x000D43
+L0059:
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    STORE_WORK_BIT 0x006B2F
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND begin_event_mode@511
+    END 16
+.entry 1
+    LOAD_VAR8 0x000B05
+    PUSH_S24 32
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0323
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    PUSH_S24 35
+    STORE_VAR8 0x000B05
+    PUSH_S24 3
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_VAR8 0x000605
+    PUSH_S24 70
+    CALL_COMMAND command_518@518
+    PUSH_S24 71
+    CALL_COMMAND command_518@518
+    PUSH_S24 3
+    CALL_COMMAND apply_current_world_progression_room_states@389
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND enable_event_camera@513
+    CALL_COMMAND show_cinematic_bars_slowly@84
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    CALL_COMMAND suppress_conditional_model_part_variants@441
+    CALL_COMMAND disable_object_messages@434
+    CALL_COMMAND disable_party_color_override@739
+    CALL_COMMAND command_161@161
+    PUSH_S24 1
+    PUSH_S24 0
+    PUSH_S24 40
+    CALL_COMMAND fade_music_channel_volume@427
+    PUSH_S24 2
+    PUSH_S24 0
+    PUSH_S24 40
+    CALL_COMMAND fade_music_channel_volume@427
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_VAR8 0x000605
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0109
+    PUSH_S24 3
+    STORE_VAR8 0x000606
+    JUMP L0131
+L0109:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0120
+    PUSH_S24 4
+    STORE_VAR8 0x000606
+    PUSH_S24 131073
+    CALL_COMMAND preload_object_resources@181
+    CALL_COMMAND wait_for_object_resources@182
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 11
+    JUMP L0131
+L0120:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0131
+    PUSH_S24 5
+    STORE_VAR8 0x000606
+    PUSH_S24 131072
+    CALL_COMMAND preload_object_resources@181
+    CALL_COMMAND wait_for_object_resources@182
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 11
+    JUMP L0131
+L0131:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 14
+    PUSH_S24 11
+    CALL_COMMAND load_event_sound_data@384
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_event_sound_data_load@385
+    PUSH_S24 14
+    PUSH_S24 1
+    CALL_COMMAND load_event_voice_set@256
+    CALL_COMMAND wait_for_event_voice_set_load@257
+    PUSH_S24 1
+    PUSH_S24 86
+    CALL_COMMAND load_event_resource@92
+    PUSH_S24 1
+    CALL_COMMAND wait_for_event_resource_load@93
+    PUSH_S24 6
+    PUSH_S24_ALT 3
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 8
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 8
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 9
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 9
+    WAIT_THREAD 11
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_object_messages@433
+    PUSH_S24 6
+    PUSH_S24_ALT 1
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 1
+    WAIT_THREAD 11
+    CALL_COMMAND reload_background_music@252
+    CALL_COMMAND wait_for_background_music_reload@410
+    CALL_COMMAND finish_event_audio@409
+    CALL_COMMAND enable_object_messages@433
+    CALL_COMMAND allow_conditional_model_part_variants@442
+    CALL_COMMAND disable_event_camera@514
+    CALL_COMMAND command_169@169
+    CALL_COMMAND finish_event_mode@512
+    CALL_COMMAND enable_object_script_events@423
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    LOAD_VAR8 0x000625
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0318
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND show_party_status_ui@112
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 2
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 30
+    CALL_COMMAND fade_screen_in@27
+    CALL_COMMAND disable_input_suppression@417
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1
+    STORE_VAR8 0x000625
+    PUSH_S24 31
+    PUSH_S24 99
+    CALL_COMMAND play_sound@353
+    PUSH_S24 2
+    PUSH_S24 1
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 2
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 2
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 2
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 2
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_character_delay@7
+    PUSH_S24 2
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 2
+    PUSH_S24 13
+    PUSH_S24 7
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 2
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 2
+    PUSH_S24 205
+    CALL_COMMAND set_text_window_text@1
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 2
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24 10
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND disable_input_suppression@417
+    PUSH_S24_ALT 3
+    CALL_COMMAND enable_object_control@377
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    CALL_COMMAND get_party_member_count@366
+    STORE_VAR32 0x000904
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_VAR32 0x000904
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0271
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0316
+L0271:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0280
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    JUMP L0316
+L0280:
+    SWITCH_EQ 4
+    JUMP_IF_FALSE L0316
+    PUSH_S24 3
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_VAR32 0x000908
+    LOAD_VAR32 0x000908
+    SAVE_SWITCH_VALUE 1
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0296
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    JUMP L0314
+L0296:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0305
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0314
+L0305:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0314
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0314
+L0314:
+    POP_SWITCH_VALUE 0
+    JUMP L0316
+L0316:
+    POP_SWITCH_VALUE 0
+    JUMP L0322
+L0318:
+    PUSH_S24_ALT 3
+    CALL_COMMAND enable_object_control@377
+    PUSH_S24 30
+    CALL_COMMAND fade_screen_in@27
+L0322:
+    JUMP L0525
+L0323:
+    LOAD_VAR8 0x000625
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0445
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND show_party_status_ui@112
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 2
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 30
+    CALL_COMMAND fade_screen_in@27
+    CALL_COMMAND disable_input_suppression@417
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1
+    STORE_VAR8 0x000625
+    PUSH_S24 31
+    PUSH_S24 99
+    CALL_COMMAND play_sound@353
+    PUSH_S24 2
+    PUSH_S24 1
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 2
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 2
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 2
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 2
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_character_delay@7
+    PUSH_S24 2
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 2
+    PUSH_S24 13
+    PUSH_S24 7
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 2
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 2
+    PUSH_S24 205
+    CALL_COMMAND set_text_window_text@1
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 2
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24 10
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND disable_input_suppression@417
+    PUSH_S24_ALT 3
+    CALL_COMMAND enable_object_control@377
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    CALL_COMMAND get_party_member_count@366
+    STORE_VAR32 0x000904
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_VAR32 0x000904
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0398
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0443
+L0398:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0407
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    JUMP L0443
+L0407:
+    SWITCH_EQ 4
+    JUMP_IF_FALSE L0443
+    PUSH_S24 3
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_VAR32 0x000908
+    LOAD_VAR32 0x000908
+    SAVE_SWITCH_VALUE 1
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0423
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    JUMP L0441
+L0423:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0432
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0441
+L0432:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0441
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0441
+L0441:
+    POP_SWITCH_VALUE 0
+    JUMP L0443
+L0443:
+    POP_SWITCH_VALUE 0
+    JUMP L0525
+L0445:
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND show_party_status_ui@112
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 2
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 8
+    CALL_COMMAND fade_screen_in@27
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    CALL_COMMAND enable_all_spawn_groups@363
+    CALL_COMMAND get_party_member_count@366
+    STORE_VAR32 0x000A18
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_VAR32 0x000A18
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0479
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0524
+L0479:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0488
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    JUMP L0524
+L0488:
+    SWITCH_EQ 4
+    JUMP_IF_FALSE L0524
+    PUSH_S24 3
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_VAR32 0x000A1C
+    LOAD_VAR32 0x000A1C
+    SAVE_SWITCH_VALUE 1
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0504
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    JUMP L0522
+L0504:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0513
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0522
+L0513:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0522
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 15
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0522
+L0522:
+    POP_SWITCH_VALUE 0
+    JUMP L0524
+L0524:
+    POP_SWITCH_VALUE 0
+L0525:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0528
+    JUMP L0525
+L0528:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 11
+    PUSH_S24 60
+    CALL_COMMAND fade_screen_in@27
+    CALL_COMMAND disable_input_suppression@417
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    START_THREAD 12
+    PUSH_S24 20327
+    PUSH_S24 0
+    CALL_COMMAND play_sound@353
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    STORE_VAR32 0x000900
+L0041:
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    LOAD_VAR32 0x000900
+    APPLY_OPERATOR LESS_THAN
+    JUMP_IF_FALSE L0047
+    JUMP L0054
+L0047:
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    PUSH_S24 39
+    APPLY_OPERATOR LESS_THAN
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0041
+L0054:
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 15
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    START_THREAD 13
+    PUSH_S24 20328
+    PUSH_S24 1
+    CALL_COMMAND play_sound@353
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    STORE_VAR32 0x000900
+L0078:
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    LOAD_VAR32 0x000900
+    APPLY_OPERATOR LESS_THAN
+    JUMP_IF_FALSE L0084
+    JUMP L0091
+L0084:
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    PUSH_S24 15
+    APPLY_OPERATOR LESS_THAN
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0078
+L0091:
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 13
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    STORE_VAR32 0x000900
+L0100:
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    LOAD_VAR32 0x000900
+    APPLY_OPERATOR LESS_THAN
+    JUMP_IF_FALSE L0106
+    JUMP L0113
+L0106:
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_animation_frame@289
+    PUSH_S24 149
+    APPLY_OPERATOR LESS_THAN
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0100
+L0113:
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 16
+    PUSH_S24 10
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 15
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 16
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 17
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    START_THREAD 16
+    PUSH_S24 20329
+    PUSH_S24 2
+    CALL_COMMAND play_sound@353
+    PUSH_S24 20
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 6
+    PUSH_S24_ALT 9
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 17
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 18
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 18
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 19
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 17
+    PUSH_S24 20330
+    PUSH_S24 3
+    CALL_COMMAND play_sound@353
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 17
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 18
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 18
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 19
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 20
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 19
+    PUSH_S24 20331
+    PUSH_S24 4
+    CALL_COMMAND play_sound@353
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 19
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 20
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 24
+    PUSH_S24 20332
+    PUSH_S24 5
+    CALL_COMMAND play_sound@353
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 24
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 21
+    PUSH_S24 6
+    PUSH_S24_ALT 8
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 8
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 22
+    PUSH_S24 6
+    PUSH_S24_ALT 3
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 8
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 9
+    START_THREAD 13
+    PUSH_S24 20333
+    PUSH_S24 6
+    CALL_COMMAND play_sound@353
+    PUSH_S24 20
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 20
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 20
+    PUSH_S24 6
+    PUSH_S24_ALT 9
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    START_THREAD 23
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    START_THREAD 15
+    PUSH_S24 20334
+    PUSH_S24 7
+    CALL_COMMAND play_sound@353
+    PUSH_S24 6
+    PUSH_S24_ALT 10
+    WAIT_THREAD 23
+    CALL_COMMAND hide_cinematic_bars_slowly@85
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 21
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 21
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    START_THREAD 22
+    PUSH_S24 6
+    PUSH_S24_ALT 2
+    WAIT_THREAD 22
+    PUSH_S24 60
+    CALL_COMMAND fade_screen_out@28
+    PUSH_S24 60
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    START_THREAD 17
+    PUSH_S24 6
+    PUSH_S24_ALT 7
+    WAIT_THREAD 17
+    LOAD_VAR8 0x000606
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 5
+    JUMP_IF_FALSE L0299
+    PUSH_S24 131072
+    CALL_COMMAND despawn_object@319
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    WAIT_THREAD 12
+    JUMP L0331
+L0299:
+    SWITCH_EQ 4
+    JUMP_IF_FALSE L0316
+    PUSH_S24 131073
+    CALL_COMMAND despawn_object@319
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    WAIT_THREAD 12
+    JUMP L0331
+L0316:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0331
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    WAIT_THREAD 14
+    JUMP L0331
+L0331:
+    POP_SWITCH_VALUE 0
+    END 16
+.script 2
+.entry 0
+    PUSH_S24 0
+    PUSH_S24 0
+    PUSH_S24 132
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 0
+    PUSH_S24 20
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_character_delay@7
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_orientation@5
+    END 16
+.entry 1
+L0024:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0027
+    JUMP L0024
+L0027:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24_ALT 6
+    PUSH_S24 33
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24 0
+    PUSH_S24 100
+    PUSH_S24 100
+    CALL_COMMAND play_event_sound@124
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 116
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24_ALT 6
+    PUSH_S24 30
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    END 16
+.entry 12
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 117
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.entry 13
+    PUSH_S24 0
+    PUSH_S24 8
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24_ALT 6
+    PUSH_S24 33
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24 1
+    PUSH_S24 100
+    PUSH_S24 100
+    CALL_COMMAND play_event_sound@124
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 118
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24_ALT 6
+    PUSH_S24 30
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24 0
+    PUSH_S24 20
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    END 16
+.entry 14
+    PUSH_S24 2
+    PUSH_S24 100
+    PUSH_S24 100
+    CALL_COMMAND play_event_sound@124
+    PUSH_S24_ALT 6
+    PUSH_S24 33
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 119
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24_ALT 6
+    PUSH_S24 30
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    END 16
+.entry 15
+    PUSH_S24_ALT 6
+    PUSH_S24 12
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24_ALT 6
+    PUSH_S24 33
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 120
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24_ALT 6
+    PUSH_S24 30
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    END 16
+.entry 16
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 121
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.entry 17
+    PUSH_S24 3
+    PUSH_S24 100
+    PUSH_S24 100
+    CALL_COMMAND play_event_sound@124
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 122
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.entry 18
+    PUSH_S24 4
+    PUSH_S24 100
+    PUSH_S24 100
+    CALL_COMMAND play_event_sound@124
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 123
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.entry 19
+    PUSH_S24 5
+    PUSH_S24 100
+    PUSH_S24 100
+    CALL_COMMAND play_event_sound@124
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 124
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.entry 20
+    PUSH_S24 6
+    PUSH_S24 100
+    PUSH_S24 100
+    CALL_COMMAND play_event_sound@124
+    PUSH_S24 0
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 0
+    PUSH_S24 125
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 0
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.entry 21
+    PUSH_S24 1
+    PUSH_S24 9
+    PUSH_S24 1
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 1
+    PUSH_S24 3
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 1
+    PUSH_S24 1
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_character_delay@7
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 1
+    PUSH_S24 80
+    PUSH_S24 100
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 1
+    PUSH_S24 9
+    PUSH_S24 1
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 1
+    PUSH_S24 3
+    CALL_COMMAND set_text_window_pointer_position@81
+    PUSH_S24 1
+    PUSH_S24 45
+    CALL_COMMAND set_text_window_pointer_angle@82
+    PUSH_S24 1
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 1
+    PUSH_S24 126
+    CALL_COMMAND set_text_window_text@1
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 1
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.entry 22
+    PUSH_S24 1
+    PUSH_S24 9
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 1
+    PUSH_S24 3
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 1
+    PUSH_S24 1
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_character_delay@7
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 1
+    PUSH_S24 0
+    PUSH_S24 120
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 1
+    PUSH_S24 9
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 1
+    PUSH_S24 13
+    CALL_COMMAND set_text_window_pointer_position@81
+    PUSH_S24 1
+    PUSH_S24 135
+    CALL_COMMAND set_text_window_pointer_angle@82
+    PUSH_S24 1
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 1
+    PUSH_S24 127
+    CALL_COMMAND set_text_window_text@1
+    CALL_COMMAND wait_for_text_window_input@33
+    PUSH_S24 1
+    CALL_COMMAND wait_for_text_window@107
+    END 16
+.script 3
+.entry 0
+    PUSH_S24 196608
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 2350
+    PUSH_S24 28
+    PUSH_S24 1355
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 112
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND disable_selected_object_color_override@142
+    END 16
+.entry 12
+    PUSH_S24 2416
+    PUSH_S24 12
+    PUSH_S24 1390
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 112
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    END 16
+.script 4
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    LOAD_VAR8 0x000606
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0037
+    PUSH_S24 131072
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 131072
+    CALL_COMMAND select_object@10
+    PUSH_S24 2412
+    PUSH_S24 18
+    PUSH_S24 1274
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 133
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 4
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    JUMP L0054
+L0037:
+    PUSH_S24 196609
+    CALL_COMMAND select_object@10
+    PUSH_S24 2412
+    PUSH_S24 18
+    PUSH_S24 1274
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 133
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND disable_selected_object_control@55
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 4
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+L0054:
+    END 16
+.entry 12
+    PUSH_S24 201
+    PUSH_S24 10
+    PUSH_S24 90
+    CALL_COMMAND set_selected_object_animation_at_frame@111
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND noop@103
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 13
+    CALL_COMMAND enable_selected_object_motion@56
+    CALL_COMMAND restore_selected_object_motion_resource@95
+    PUSH_S24 0
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 14
+    PUSH_S24 196609
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    END 16
+.script 5
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    LOAD_VAR8 0x000606
+    PUSH_S24 4
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0031
+    PUSH_S24 131073
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 131073
+    CALL_COMMAND select_object@10
+    PUSH_S24 2342
+    PUSH_S24 28
+    PUSH_S24 1278
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_selected_object_initial_position@306
+    PUSH_S24 124
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    JUMP L0042
+L0031:
+    PUSH_S24 196610
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    PUSH_S24 2342
+    PUSH_S24 28
+    PUSH_S24 1278
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_selected_object_initial_position@306
+    PUSH_S24 124
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+L0042:
+    END 16
+.entry 12
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 0
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 80
+    PUSH_S24 140
+    PUSH_S24 0
+    CALL_COMMAND configure_selected_object_motion_part@123
+    END 16
+.entry 13
+    CALL_COMMAND enable_selected_object_motion@56
+    CALL_COMMAND restore_selected_object_motion_resource@95
+    PUSH_S24 0
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 14
+    CALL_COMMAND enable_selected_object_motion@56
+    CALL_COMMAND restore_selected_object_motion_resource@95
+    PUSH_S24 0
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 15
+    PUSH_S24 196610
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    END 16
+.script 6
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    LOAD_VAR8 0x000606
+    PUSH_S24 3
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0023
+    PUSH_S24 196611
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    CALL_COMMAND hide_object@22
+    CALL_COMMAND hide_selected_object_shadow@24
+L0023:
+    END 16
+.entry 12
+    CALL_COMMAND show_object@21
+    CALL_COMMAND show_selected_object_shadow@23
+    END 16
+.entry 13
+    PUSH_S24 196611
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    END 16
+.script 7
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 131076
+    CALL_COMMAND preload_object_resources@181
+    CALL_COMMAND wait_for_object_resources@182
+    PUSH_S24 131076
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 131076
+    CALL_COMMAND select_object@10
+    PUSH_S24 1
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0028
+    CALL_COMMAND hide_object@22
+    CALL_COMMAND hide_selected_object_shadow@24
+    JUMP L0033
+L0028:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0033
+    CALL_COMMAND show_object@21
+    CALL_COMMAND show_selected_object_shadow@23
+    JUMP L0033
+L0033:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 1
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0041
+    CALL_COMMAND disable_selected_object_background_collision@105
+    CALL_COMMAND disable_selected_object_collision@26
+    JUMP L0046
+L0041:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0046
+    CALL_COMMAND enable_selected_object_background_collision@104
+    CALL_COMMAND enable_selected_object_collision@25
+    JUMP L0046
+L0046:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 2643
+    PUSH_S24 0
+    PUSH_S24 1427
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 127
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND wait_for_selected_object_turn@98
+    END 16
+.entry 12
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 1
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 120
+    PUSH_S24 180
+    PUSH_S24 0
+    CALL_COMMAND configure_selected_object_motion_part@123
+    END 16
+.entry 13
+    PUSH_S24 201
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 340
+    PUSH_S24 400
+    PUSH_S24 0
+    CALL_COMMAND configure_selected_object_motion_part@123
+    END 16
+.entry 14
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 1
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 202
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 25
+    PUSH_S24 65
+    PUSH_S24 0
+    CALL_COMMAND configure_selected_object_motion_part@123
+    END 16
+.entry 15
+    PUSH_S24 203
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 50
+    PUSH_S24 100
+    PUSH_S24 0
+    CALL_COMMAND configure_selected_object_motion_part@123
+    END 16
+.entry 16
+    PUSH_S24 204
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 17
+    CALL_COMMAND enable_selected_object_motion@56
+    CALL_COMMAND restore_selected_object_motion_resource@95
+    PUSH_S24 0
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 131076
+    CALL_COMMAND despawn_object@319
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    END 16
+.script 8
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 131075
+    CALL_COMMAND preload_object_resources@181
+    CALL_COMMAND wait_for_object_resources@182
+    PUSH_S24 131075
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 131075
+    CALL_COMMAND select_object@10
+    PUSH_S24 1
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0028
+    CALL_COMMAND hide_object@22
+    CALL_COMMAND hide_selected_object_shadow@24
+    JUMP L0033
+L0028:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0033
+    CALL_COMMAND show_object@21
+    CALL_COMMAND show_selected_object_shadow@23
+    JUMP L0033
+L0033:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0041
+    CALL_COMMAND disable_selected_object_background_collision@105
+    CALL_COMMAND disable_selected_object_collision@26
+    JUMP L0046
+L0041:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0046
+    CALL_COMMAND enable_selected_object_background_collision@104
+    CALL_COMMAND enable_selected_object_collision@25
+    JUMP L0046
+L0046:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND wait_for_selected_object_turn@98
+    PUSH_S24 3420
+    PUSH_S24 321
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2498
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 44
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 3
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 0
+    PUSH_S24 60
+    PUSH_S24 0
+    CALL_COMMAND configure_selected_object_motion_part@123
+    END 16
+.entry 12
+    PUSH_S24 200
+    PUSH_S24 10
+    PUSH_S24 61
+    CALL_COMMAND set_selected_object_animation_at_frame@111
+    PUSH_S24_ALT 8
+    PUSH_S24 10
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24 8
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24_ALT 8
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    CALL_COMMAND noop@103
+    END 16
+.entry 13
+    PUSH_S24_ALT 8
+    PUSH_S24 12
+    PUSH_S24 0
+    CALL_COMMAND set_object_part_scale@109
+    PUSH_S24 201
+    CALL_COMMAND set_object_animation_with_flag_0x10000@108
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND noop@103
+    PUSH_S24 131075
+    CALL_COMMAND despawn_object@319
+    END 16
+.script 9
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 131074
+    CALL_COMMAND preload_object_resources@181
+    CALL_COMMAND wait_for_object_resources@182
+    PUSH_S24 131074
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 131074
+    CALL_COMMAND select_object@10
+    PUSH_S24 1
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0028
+    CALL_COMMAND hide_object@22
+    CALL_COMMAND hide_selected_object_shadow@24
+    JUMP L0033
+L0028:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0033
+    CALL_COMMAND show_object@21
+    CALL_COMMAND show_selected_object_shadow@23
+    JUMP L0033
+L0033:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0041
+    CALL_COMMAND disable_selected_object_background_collision@105
+    CALL_COMMAND disable_selected_object_collision@26
+    JUMP L0046
+L0041:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0046
+    CALL_COMMAND enable_selected_object_background_collision@104
+    CALL_COMMAND enable_selected_object_collision@25
+    JUMP L0046
+L0046:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND wait_for_selected_object_turn@98
+    PUSH_S24 3305
+    PUSH_S24 327
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2608
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 33
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 2
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 12
+    PUSH_S24 201
+    PUSH_S24 15
+    CALL_COMMAND stop_selected_object_movement_and_set_animation@110
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND noop@103
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 13
+    CALL_COMMAND disable_selected_object_view_culling@263
+    PUSH_S24 201
+    CALL_COMMAND set_object_animation_with_flag_0x10000@108
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND noop@103
+    PUSH_S24 202
+    CALL_COMMAND set_object_animation_with_flag_0x10000@108
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND noop@103
+    PUSH_S24 131074
+    CALL_COMMAND despawn_object@319
+    END 16
+.script 10
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    CALL_COMMAND load_event_camera_preset@34
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 12
+    PUSH_S24 1
+    CALL_COMMAND load_event_camera_preset@34
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 13
+    PUSH_S24 2
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0034
+    CALL_COMMAND command_169@169
+    JUMP L0039
+L0034:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0038
+    CALL_COMMAND command_168@168
+    JUMP L0039
+L0038:
+    CALL_COMMAND command_169@169
+L0039:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 8000
+    CALL_COMMAND command_171@171
+    END 16
+.entry 14
+    PUSH_S24 3
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0057
+    CALL_COMMAND command_169@169
+    JUMP L0062
+L0057:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0061
+    CALL_COMMAND command_168@168
+    JUMP L0062
+L0061:
+    CALL_COMMAND command_169@169
+L0062:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 30000
+    CALL_COMMAND command_171@171
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 15
+    PUSH_S24 4
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0081
+    CALL_COMMAND command_169@169
+    JUMP L0086
+L0081:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0085
+    CALL_COMMAND command_168@168
+    JUMP L0086
+L0085:
+    CALL_COMMAND command_169@169
+L0086:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 20000
+    CALL_COMMAND command_171@171
+    END 16
+.entry 16
+    PUSH_S24 5
+    CALL_COMMAND load_event_camera_preset@34
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 17
+    PUSH_S24 6
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0108
+    CALL_COMMAND command_169@169
+    JUMP L0113
+L0108:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0112
+    CALL_COMMAND command_168@168
+    JUMP L0113
+L0112:
+    CALL_COMMAND command_169@169
+L0113:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 35000
+    CALL_COMMAND command_171@171
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 18
+    PUSH_S24 7
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0132
+    CALL_COMMAND command_169@169
+    JUMP L0137
+L0132:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0136
+    CALL_COMMAND command_168@168
+    JUMP L0137
+L0136:
+    CALL_COMMAND command_169@169
+L0137:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 8500
+    CALL_COMMAND command_171@171
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 19
+    PUSH_S24 8
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0156
+    CALL_COMMAND command_169@169
+    JUMP L0161
+L0156:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0160
+    CALL_COMMAND command_168@168
+    JUMP L0161
+L0160:
+    CALL_COMMAND command_169@169
+L0161:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 85000
+    CALL_COMMAND command_171@171
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 20
+    PUSH_S24 9
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0180
+    CALL_COMMAND command_169@169
+    JUMP L0185
+L0180:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0184
+    CALL_COMMAND command_168@168
+    JUMP L0185
+L0184:
+    CALL_COMMAND command_169@169
+L0185:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 40000
+    CALL_COMMAND command_171@171
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 21
+    PUSH_S24 10
+    CALL_COMMAND load_event_camera_preset@34
+    END 16
+.entry 22
+    PUSH_S24 11
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0207
+    CALL_COMMAND command_169@169
+    JUMP L0212
+L0207:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0211
+    CALL_COMMAND command_168@168
+    JUMP L0212
+L0211:
+    CALL_COMMAND command_169@169
+L0212:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 40000
+    CALL_COMMAND command_171@171
+    END 16
+.entry 23
+    PUSH_S24 12
+    CALL_COMMAND load_event_camera_preset@34
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.entry 24
+    PUSH_S24 13
+    CALL_COMMAND load_event_camera_preset@34
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 0
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0234
+    CALL_COMMAND command_169@169
+    JUMP L0239
+L0234:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0238
+    CALL_COMMAND command_168@168
+    JUMP L0239
+L0238:
+    CALL_COMMAND command_169@169
+L0239:
+    POP_SWITCH_VALUE 0
+    PUSH_S24 0
+    CALL_COMMAND command_170@170
+    PUSH_S24 52000
+    CALL_COMMAND command_171@171
+    CALL_COMMAND wait_for_event_camera@106
+    END 16
+.script 11
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 12
+.entry 0
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND disable_party_damage@593
+    END 16
+.entry 1
+    PUSH_S24 8
+    CALL_COMMAND wait_ticks@8
+    LOAD_VAR8 0x000E51
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0074
+    LOAD_VAR8 0x000E51
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0019
+    PUSH_S24 6
+    CALL_COMMAND command_743@743
+    PUSH_S24 6
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0019:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0029
+    PUSH_S24 7
+    CALL_COMMAND command_743@743
+    PUSH_S24 7
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0029:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 4
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0039
+    PUSH_S24 8
+    CALL_COMMAND command_743@743
+    PUSH_S24 8
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0039:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0049
+    PUSH_S24 9
+    CALL_COMMAND command_743@743
+    PUSH_S24 9
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0049:
+    LOAD_LOCAL 6
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0056
+    PUSH_S24 18000
+    STORE_LOCAL 6
+L0056:
+    PUSH_S24 1
+    LOAD_LOCAL 6
+    CALL_COMMAND show_timer_display@660
+    CALL_COMMAND command_238@238
+    CALL_COMMAND resume_timer@232
+    PUSH_S24 1
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 2
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 6
+    PUSH_S24_ALT 44
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 44
+    WAIT_THREAD 11
+    JUMP L0142
+L0074:
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 11
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+L0142:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0145
+    JUMP L0142
+L0145:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    CALL_COMMAND get_pause_menu_selection@305
+    STORE_LOCAL 1
+    LOAD_LOCAL 1
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0159
+    JUMP L0261
+L0159:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0210
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND resume_timer@232
+    CALL_COMMAND stop_timer_and_get_frames@233
+    STORE_LOCAL 8
+    CALL_COMMAND command_239@239
+    CALL_COMMAND hide_timer_display@661
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_relative_camera_yaw@394
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_party_damage@593
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D40
+    LOAD_VAR8 0x000D41
+    STORE_VAR8 0x000D03
+    CALL_COMMAND get_current_room_index@128
+    STORE_VAR8 0x000D41
+    CALL_COMMAND get_current_entrance_index@129
+    STORE_VAR8 0x000D42
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    CALL_COMMAND enable_input_suppression@418
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 30
+    CALL_COMMAND fade_screen_out@28
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    CALL_COMMAND disable_event_camera@514
+    PUSH_S24 9
+    CALL_COMMAND transition_to_room_selection@60
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+    JUMP L0261
+L0210:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0261
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND resume_timer@232
+    CALL_COMMAND stop_timer_and_get_frames@233
+    STORE_LOCAL 8
+    CALL_COMMAND command_239@239
+    CALL_COMMAND hide_timer_display@661
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+    CALL_COMMAND enable_player_relative_camera_yaw@394
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_party_damage@593
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D40
+    LOAD_VAR8 0x000D41
+    STORE_VAR8 0x000D03
+    CALL_COMMAND get_current_room_index@128
+    STORE_VAR8 0x000D41
+    CALL_COMMAND get_current_entrance_index@129
+    STORE_VAR8 0x000D42
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    CALL_COMMAND enable_input_suppression@418
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 30
+    CALL_COMMAND fade_screen_out@28
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    CALL_COMMAND disable_event_camera@514
+    PUSH_S24 12
+    CALL_COMMAND transition_to_room_selection@60
+    JUMP L0261
+L0261:
+    POP_SWITCH_VALUE 0
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 13
+.entry 0
+    END 16
+.entry 1
+    PUSH_S24 2
+    CALL_COMMAND enable_map_group@62
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 14
+.entry 0
+    PUSH_S24 262173
+    CALL_COMMAND select_object@10
+    LOAD_VAR8 0x000E51
+    STORE_VAR32 0x000A04
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.entry 1
+    LOAD_VAR32 0x000A04
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0143
+L0011:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0143
+    PUSH_S24_ALT 3
+    PUSH_S24_ALT 14
+    CALL_COMMAND distance_between_objects@422
+    STORE_LOCAL 6
+    LOAD_LOCAL 6
+    PUSH_S24 200
+    APPLY_OPERATOR LESS_THAN
+    LOAD_LOCAL 6
+    PUSH_S24 0
+    APPLY_OPERATOR GREATER_OR_EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0142
+    PUSH_S24_ALT 3
+    CALL_COMMAND get_object_position_y@285
+    PUSH_S24 40
+    APPLY_OPERATOR LESS_OR_EQUAL
+    JUMP_IF_FALSE L0142
+    CALL_COMMAND is_player_in_default_action_state@438
+    STORE_VAR32 0x000A00
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0142
+    LOAD_VAR32 0x000A00
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0142
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_damage@376
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 66
+    PUSH_S24 0
+    CALL_COMMAND play_sound@353
+    LOAD_VAR8 0x000D43
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0059
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+L0059:
+    PUSH_S24 7
+    PUSH_S24 8
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 6
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 7
+    PUSH_S24 243
+    PUSH_S24 220
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 150
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND fit_text_window_to_text@365
+    PUSH_S24 7
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 7
+    PUSH_S24 243
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 7
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    LOAD_VAR8 0x000D43
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0099
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+L0099:
+    CALL_COMMAND stop_timer_and_get_frames@233
+    STORE_VAR32 0x000A30
+    LOAD_VAR8 0x000E51
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0109
+    PUSH_S24 6
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0109:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0117
+    PUSH_S24 7
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0117:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 4
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0125
+    PUSH_S24 8
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0125:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0133
+    PUSH_S24 9
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0133:
+    CALL_COMMAND command_239@239
+    CALL_COMMAND hide_timer_display@661
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+    CALL_COMMAND finish_event_mode@512
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND enable_party_damage@592
+    PUSH_S24_ALT 3
+    CALL_COMMAND enable_object_control@377
+L0142:
+    JUMP L0011
+L0143:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 15
+.entry 0
+    END 16
+.entry 1
+    LOAD_VAR8 0x000E51
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0138
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    WAIT_THREAD 11
+    JUMP L0548
+L0138:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0275
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    WAIT_THREAD 12
+    JUMP L0548
+L0275:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 4
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0412
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    WAIT_THREAD 13
+    JUMP L0548
+L0412:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0548
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 36
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 37
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 38
+    WAIT_THREAD 14
+L0548:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0551
+    JUMP L0548
+L0551:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 16
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 17
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 18
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262146
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262146
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262146
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262146
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 19
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262147
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262147
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262147
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262147
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 20
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262148
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262148
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262148
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262148
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 21
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262149
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262149
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 22
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262150
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262150
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 23
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262151
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262151
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 24
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262152
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262152
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262152
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262152
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 25
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262153
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262153
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262153
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262153
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 26
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262154
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262154
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 27
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262155
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262155
+    CALL_COMMAND select_object@10
+    PUSH_S24 2161
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1515
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 28
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 29
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262158
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262158
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262158
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262158
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 30
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262159
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262159
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262159
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262159
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 31
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262160
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262160
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262160
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262160
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 32
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262161
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262161
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262161
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262161
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262161
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262161
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 33
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262162
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262162
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262162
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262162
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262162
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262162
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 34
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262163
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262163
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262163
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262163
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262163
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262163
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 35
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262164
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262164
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262164
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262164
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 36
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262165
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262165
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262165
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262165
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 37
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262166
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262166
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262166
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 38
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262167
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262167
+    CALL_COMMAND select_object@10
+    PUSH_S24 2161
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1515
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262167
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262167
+    CALL_COMMAND select_object@10
+    PUSH_S24 2161
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1515
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 39
+.entry 0
+    PUSH_S24 262168
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 255
+    PUSH_S24 112
+    PUSH_S24 96
+    PUSH_S24 128
+    PUSH_S24 0
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 40
+.entry 0
+    PUSH_S24 262169
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 240
+    PUSH_S24 96
+    PUSH_S24 240
+    PUSH_S24 128
+    PUSH_S24 0
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 41
+.entry 0
+    PUSH_S24 262170
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 128
+    PUSH_S24 152
+    PUSH_S24 248
+    PUSH_S24 128
+    PUSH_S24 0
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 42
+.entry 0
+    PUSH_S24 262171
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 255
+    PUSH_S24 255
+    PUSH_S24 40
+    PUSH_S24 128
+    PUSH_S24 35
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 43
+.entry 0
+    PUSH_S24 262172
+    CALL_COMMAND select_object@10
+    PUSH_S24 115
+    CALL_COMMAND set_selected_object_proximity_radius_mode_2@199
+    END 16
+.entry 1
+L0005:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_damage@376
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    LOAD_VAR8 0x000D43
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0024
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+L0024:
+    PUSH_S24 7
+    PUSH_S24 8
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 6
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 7
+    PUSH_S24 244
+    PUSH_S24 220
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 150
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND fit_text_window_to_text@365
+    PUSH_S24 7
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 7
+    PUSH_S24 244
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 7
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    LOAD_VAR8 0x000D43
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0064
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+L0064:
+    CALL_COMMAND finish_event_mode@512
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND enable_party_damage@592
+    PUSH_S24_ALT 3
+    CALL_COMMAND enable_object_control@377
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 44
+.entry 0
+    PUSH_S24 262156
+    CALL_COMMAND select_object@10
+    CALL_COMMAND selected_object_exists@152
+    STORE_LOCAL 0
+    LOAD_LOCAL 0
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0010
+    CALL_COMMAND refresh_selected_object_background_color@452
+    CALL_COMMAND disable_script_object_push@338
+L0010:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    END 16
+.entry 1
+L0013:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0016
+    JUMP L0013
+L0016:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    CALL_COMMAND selected_object_exists@152
+    STORE_LOCAL 0
+    LOAD_LOCAL 0
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0036
+    PUSH_S24 262156
+    CALL_COMMAND despawn_object@319
+    PUSH_S24 1
+    STORE_LOCAL 1
+L0036:
+    END 16
+.entry 12
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0045
+    PUSH_S24 262156
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 0
+    STORE_LOCAL 1
+L0045:
+    END 16
+.script 45
+.entry 0
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0021:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0116
+    LOAD_VAR8 0x000D43
+    PUSH_S24 4
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0115
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1510
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 712
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_x@290
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_z@292
+    CALL_COMMAND distance_between_points_xz@419
+    STORE_LOCAL 20
+    LOAD_LOCAL 20
+    PUSH_S24 250
+    APPLY_OPERATOR LESS_THAN
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_y@291
+    PUSH_S24 800
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 100
+    APPLY_OPERATOR ADD
+    APPLY_OPERATOR LESS_OR_EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0053
+    PUSH_S24 1
+    STORE_LOCAL 18
+    JUMP L0055
+L0053:
+    PUSH_S24 0
+    STORE_LOCAL 18
+L0055:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0095
+    PUSH_S24 1
+    STORE_LOCAL 19
+    PUSH_S24 1
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    PUSH_S24 6
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 7
+    PUSH_S24 0
+    PUSH_S24 150
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 7
+    CALL_COMMAND reopen_text_window@177
+    PUSH_S24 7
+    PUSH_S24 224
+    CALL_COMMAND set_text_window_text@1
+    JUMP L0109
+L0095:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0109
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0109:
+    LOAD_VAR8 0x000D43
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0115
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0115:
+    JUMP L0021
+L0116:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 46
+.entry 0
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0021:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0114
+    LOAD_VAR8 0x000D43
+    PUSH_S24 4
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 310
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 131
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_x@290
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_z@292
+    CALL_COMMAND distance_between_points_xz@419
+    STORE_LOCAL 20
+    LOAD_LOCAL 20
+    PUSH_S24 250
+    APPLY_OPERATOR LESS_THAN
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_y@291
+    PUSH_S24 101
+    APPLY_OPERATOR LESS_OR_EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0051
+    PUSH_S24 1
+    STORE_LOCAL 18
+    JUMP L0053
+L0051:
+    PUSH_S24 0
+    STORE_LOCAL 18
+L0053:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0093
+    PUSH_S24 1
+    STORE_LOCAL 19
+    PUSH_S24 1
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    PUSH_S24 6
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 7
+    PUSH_S24 0
+    PUSH_S24 150
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 7
+    CALL_COMMAND reopen_text_window@177
+    PUSH_S24 7
+    PUSH_S24 223
+    CALL_COMMAND set_text_window_text@1
+    JUMP L0107
+L0093:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0107
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0107:
+    LOAD_VAR8 0x000D43
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0113
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0113:
+    JUMP L0021
+L0114:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+
+
+.resource 31
+.block 0
+.script 0
+.entry 0
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 0
+    STORE_VAR16 0x001120
+    PUSH_S24 0
+    STORE_VAR16 0x001122
+    PUSH_S24 0
+    STORE_VAR16 0x001124
+    PUSH_S24 0
+    STORE_VAR16 0x001126
+    PUSH_S24 0
+    STORE_VAR16 0x001128
+    PUSH_S24 0
+    STORE_VAR16 0x00112A
+    PUSH_S24 0
+    STORE_VAR16 0x00112C
+    PUSH_S24 0
+    STORE_VAR16 0x00112E
+    PUSH_S24 0
+    STORE_VAR8 0x001130
+    PUSH_S24 0
+    STORE_VAR8 0x001131
+    PUSH_S24 0
+    STORE_VAR8 0x001132
+    PUSH_S24 0
+    STORE_VAR8 0x001133
+    PUSH_S24 0
+    STORE_VAR8 0x001134
+    PUSH_S24 0
+    STORE_VAR8 0x001135
+    PUSH_S24 0
+    STORE_VAR8 0x001136
+    PUSH_S24 0
+    STORE_VAR8 0x001137
+    PUSH_S24 0
+    STORE_VAR8 0x000D5D
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D5C
+    LOAD_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_OR
+    JUMP_IF_FALSE L0047
+    PUSH_S24 4
+    STORE_VAR8 0x000D43
+L0047:
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    STORE_WORK_BIT 0x006B2F
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND begin_event_mode@511
+    END 16
+.entry 1
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND show_party_status_ui@112
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 2
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 8
+    CALL_COMMAND fade_screen_in@27
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    CALL_COMMAND enable_all_spawn_groups@363
+    CALL_COMMAND get_party_member_count@366
+    STORE_VAR32 0x000A18
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    LOAD_VAR32 0x000A18
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0088
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0133
+L0088:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0097
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 14
+    JUMP L0133
+L0097:
+    SWITCH_EQ 4
+    JUMP_IF_FALSE L0133
+    PUSH_S24 3
+    CALL_COMMAND get_party_member_character_index@281
+    STORE_VAR32 0x000A1C
+    LOAD_VAR32 0x000A1C
+    SAVE_SWITCH_VALUE 1
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0113
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 14
+    JUMP L0131
+L0113:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0122
+    PUSH_S24 6
+    PUSH_S24_ALT 4
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0131
+L0122:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0131
+    PUSH_S24 6
+    PUSH_S24_ALT 5
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 6
+    START_THREAD 13
+    JUMP L0131
+L0131:
+    POP_SWITCH_VALUE 0
+    JUMP L0133
+L0133:
+    POP_SWITCH_VALUE 0
+L0134:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0137
+    JUMP L0134
+L0137:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 2
+.entry 0
+    PUSH_S24 0
+    PUSH_S24 0
+    PUSH_S24 132
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 0
+    PUSH_S24 20
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_character_delay@7
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 0
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_orientation@5
+    END 16
+.entry 1
+L0024:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0027
+    JUMP L0024
+L0027:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 3
+.entry 0
+    PUSH_S24 196608
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 2350
+    PUSH_S24 28
+    PUSH_S24 1355
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 112
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    END 16
+.entry 12
+    PUSH_S24 2416
+    PUSH_S24 12
+    PUSH_S24 1390
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 112
+    PUSH_S24 0
+    CALL_COMMAND turn_selected_object_to_angle@69
+    END 16
+.script 4
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    CALL_COMMAND enable_selected_object_motion@56
+    CALL_COMMAND restore_selected_object_motion_resource@95
+    PUSH_S24 0
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 12
+    PUSH_S24 196609
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    END 16
+.script 5
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    CALL_COMMAND disable_selected_object_motion@57
+    PUSH_S24 1
+    PUSH_S24 0
+    CALL_COMMAND replace_selected_object_motion_resource@94
+    PUSH_S24 200
+    CALL_COMMAND set_object_animation@13
+    PUSH_S24 80
+    PUSH_S24 140
+    PUSH_S24 0
+    CALL_COMMAND configure_selected_object_motion_part@123
+    END 16
+.entry 12
+    CALL_COMMAND enable_selected_object_motion@56
+    CALL_COMMAND restore_selected_object_motion_resource@95
+    PUSH_S24 0
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 13
+    CALL_COMMAND enable_selected_object_motion@56
+    CALL_COMMAND restore_selected_object_motion_resource@95
+    PUSH_S24 0
+    CALL_COMMAND set_object_animation@13
+    END 16
+.entry 14
+    PUSH_S24 196610
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    END 16
+.script 6
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    LOAD_VAR8 0x000606
+    PUSH_S24 3
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0023
+    PUSH_S24 196611
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    CALL_COMMAND hide_object@22
+    CALL_COMMAND hide_selected_object_shadow@24
+L0023:
+    END 16
+.entry 12
+    CALL_COMMAND show_object@21
+    CALL_COMMAND show_selected_object_shadow@23
+    END 16
+.entry 13
+    PUSH_S24 196611
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_selected_object_control@55
+    END 16
+.script 7
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 8
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 9
+.entry 0
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND disable_party_damage@593
+    END 16
+.entry 1
+    PUSH_S24 8
+    CALL_COMMAND wait_ticks@8
+    LOAD_VAR8 0x000E51
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0074
+    LOAD_VAR8 0x000E51
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0019
+    PUSH_S24 6
+    CALL_COMMAND command_743@743
+    PUSH_S24 6
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0019:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0029
+    PUSH_S24 7
+    CALL_COMMAND command_743@743
+    PUSH_S24 7
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0029:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 4
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0039
+    PUSH_S24 8
+    CALL_COMMAND command_743@743
+    PUSH_S24 8
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0039:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0049
+    PUSH_S24 9
+    CALL_COMMAND command_743@743
+    PUSH_S24 9
+    PUSH_S24 1
+    CALL_COMMAND get_ranked_value@523
+    STORE_LOCAL 6
+L0049:
+    LOAD_LOCAL 6
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0056
+    PUSH_S24 18000
+    STORE_LOCAL 6
+L0056:
+    PUSH_S24 1
+    LOAD_LOCAL 6
+    CALL_COMMAND show_timer_display@660
+    CALL_COMMAND command_238@238
+    CALL_COMMAND resume_timer@232
+    PUSH_S24 1
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 2
+    CALL_COMMAND hide_party_status_component@408
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 6
+    PUSH_S24_ALT 41
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 41
+    WAIT_THREAD 11
+    JUMP L0142
+L0074:
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 11
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+L0142:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0145
+    JUMP L0142
+L0145:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    CALL_COMMAND get_pause_menu_selection@305
+    STORE_LOCAL 1
+    LOAD_LOCAL 1
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 0
+    JUMP_IF_FALSE L0159
+    JUMP L0261
+L0159:
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0210
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND resume_timer@232
+    CALL_COMMAND stop_timer_and_get_frames@233
+    STORE_LOCAL 8
+    CALL_COMMAND command_239@239
+    CALL_COMMAND hide_timer_display@661
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND enable_player_relative_camera_yaw@394
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_party_damage@593
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D40
+    LOAD_VAR8 0x000D41
+    STORE_VAR8 0x000D03
+    CALL_COMMAND get_current_room_index@128
+    STORE_VAR8 0x000D41
+    CALL_COMMAND get_current_entrance_index@129
+    STORE_VAR8 0x000D42
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    CALL_COMMAND enable_input_suppression@418
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 30
+    CALL_COMMAND fade_screen_out@28
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    CALL_COMMAND disable_event_camera@514
+    PUSH_S24 9
+    CALL_COMMAND transition_to_room_selection@60
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+    JUMP L0261
+L0210:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0261
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND resume_timer@232
+    CALL_COMMAND stop_timer_and_get_frames@233
+    STORE_LOCAL 8
+    CALL_COMMAND command_239@239
+    CALL_COMMAND hide_timer_display@661
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+    CALL_COMMAND enable_player_relative_camera_yaw@394
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_party_damage@593
+    CALL_COMMAND begin_event_mode@511
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D40
+    LOAD_VAR8 0x000D41
+    STORE_VAR8 0x000D03
+    CALL_COMMAND get_current_room_index@128
+    STORE_VAR8 0x000D41
+    CALL_COMMAND get_current_entrance_index@129
+    STORE_VAR8 0x000D42
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    CALL_COMMAND enable_input_suppression@418
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 30
+    CALL_COMMAND fade_screen_out@28
+    PUSH_S24 30
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    CALL_COMMAND disable_event_camera@514
+    PUSH_S24 12
+    CALL_COMMAND transition_to_room_selection@60
+    JUMP L0261
+L0261:
+    POP_SWITCH_VALUE 0
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 10
+.entry 0
+    END 16
+.entry 1
+    PUSH_S24 2
+    CALL_COMMAND enable_map_group@62
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 11
+.entry 0
+    PUSH_S24 262173
+    CALL_COMMAND select_object@10
+    LOAD_VAR8 0x000E51
+    STORE_VAR32 0x000A04
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.entry 1
+    LOAD_VAR32 0x000A04
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0143
+L0011:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0143
+    PUSH_S24_ALT 3
+    PUSH_S24_ALT 11
+    CALL_COMMAND distance_between_objects@422
+    STORE_LOCAL 6
+    LOAD_LOCAL 6
+    PUSH_S24 200
+    APPLY_OPERATOR LESS_THAN
+    LOAD_LOCAL 6
+    PUSH_S24 0
+    APPLY_OPERATOR GREATER_OR_EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0142
+    PUSH_S24_ALT 3
+    CALL_COMMAND get_object_position_y@285
+    PUSH_S24 40
+    APPLY_OPERATOR LESS_OR_EQUAL
+    JUMP_IF_FALSE L0142
+    CALL_COMMAND is_player_in_default_action_state@438
+    STORE_VAR32 0x000A00
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0142
+    LOAD_VAR32 0x000A00
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0142
+    PUSH_S24 1
+    STORE_LOCAL 0
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_damage@376
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    PUSH_S24 66
+    PUSH_S24 0
+    CALL_COMMAND play_sound@353
+    LOAD_VAR8 0x000D43
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0059
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+L0059:
+    PUSH_S24 7
+    PUSH_S24 8
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 6
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 7
+    PUSH_S24 31
+    PUSH_S24 220
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 150
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND fit_text_window_to_text@365
+    PUSH_S24 7
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 7
+    PUSH_S24 31
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 7
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    LOAD_VAR8 0x000D43
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0099
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+L0099:
+    CALL_COMMAND stop_timer_and_get_frames@233
+    STORE_VAR32 0x000A30
+    LOAD_VAR8 0x000E51
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0109
+    PUSH_S24 6
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0109:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0117
+    PUSH_S24 7
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0117:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 4
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0125
+    PUSH_S24 8
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0125:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0133
+    PUSH_S24 9
+    PUSH_S24 1
+    LOAD_VAR32 0x000A30
+    CALL_COMMAND insert_ranked_value@522
+L0133:
+    CALL_COMMAND command_239@239
+    CALL_COMMAND hide_timer_display@661
+    PUSH_S24 0
+    STORE_VAR8 0x000E51
+    CALL_COMMAND finish_event_mode@512
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND enable_party_damage@592
+    PUSH_S24_ALT 3
+    CALL_COMMAND enable_object_control@377
+L0142:
+    JUMP L0011
+L0143:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 12
+.entry 0
+    END 16
+.entry 1
+    LOAD_VAR8 0x000E51
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0138
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 11
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 11
+    JUMP L0548
+L0138:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0275
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 12
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 12
+    JUMP L0548
+L0275:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 4
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0412
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 13
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 13
+    JUMP L0548
+L0412:
+    LOAD_VAR8 0x000E51
+    PUSH_S24 5
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0548
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 14
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 15
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 16
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 17
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 18
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 19
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 23
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 24
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 25
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 26
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 27
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 28
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 29
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 30
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 31
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 32
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 33
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 34
+    WAIT_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    START_THREAD 14
+    PUSH_S24 6
+    PUSH_S24_ALT 35
+    WAIT_THREAD 14
+L0548:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0551
+    JUMP L0548
+L0551:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 13
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 14
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262145
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262145
+    CALL_COMMAND select_object@10
+    PUSH_S24 651
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 699
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 15
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262146
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262146
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262146
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262146
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 16
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262147
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262147
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262147
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262147
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 17
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262148
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262148
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262148
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262148
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 18
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262149
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262149
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 19
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262150
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262150
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 20
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262151
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262151
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 21
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262152
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262152
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262152
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262152
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 22
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262153
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262153
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    PUSH_S24 262153
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262153
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    END 16
+.script 23
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262154
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262154
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 24
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 262155
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262155
+    CALL_COMMAND select_object@10
+    PUSH_S24 2161
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1515
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 25
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    END 16
+.script 26
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262158
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262158
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262158
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262158
+    CALL_COMMAND select_object@10
+    PUSH_S24 1029
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 903
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 45
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 27
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262159
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262159
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262159
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262159
+    CALL_COMMAND select_object@10
+    PUSH_S24 1505
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1403
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 28
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262160
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262160
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262160
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262160
+    CALL_COMMAND select_object@10
+    PUSH_S24 982
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1542
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 29
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262161
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262161
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262161
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262161
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262161
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262161
+    CALL_COMMAND select_object@10
+    PUSH_S24 533
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1300
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 30
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262162
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262162
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262162
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262162
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262162
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262162
+    CALL_COMMAND select_object@10
+    PUSH_S24 110
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1406
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 31
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262163
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262163
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262163
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262163
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262163
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262163
+    CALL_COMMAND select_object@10
+    PUSH_S24 430
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1219
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 32
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262164
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262164
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262164
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262164
+    CALL_COMMAND select_object@10
+    PUSH_S24 907
+    PUSH_S24 2250
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1354
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 33
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262165
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262165
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262165
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262165
+    CALL_COMMAND select_object@10
+    PUSH_S24 1281
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1469
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 34
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262166
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    PUSH_S24 262166
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 14
+    PUSH_S24 262166
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    PUSH_S24 1626
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1323
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 35
+.entry 0
+    END 16
+.entry 1
+L0001:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0004
+    JUMP L0001
+L0004:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    END 16
+.entry 12
+    PUSH_S24 262167
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262167
+    CALL_COMMAND select_object@10
+    PUSH_S24 2161
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1515
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.entry 13
+    END 16
+.entry 14
+    PUSH_S24 262167
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 262167
+    CALL_COMMAND select_object@10
+    PUSH_S24 2161
+    PUSH_S24 2150
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 1515
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 0
+    PUSH_S24 90
+    PUSH_S24 0
+    CALL_COMMAND set_object_rotation@12
+    END 16
+.script 36
+.entry 0
+    PUSH_S24 262168
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 255
+    PUSH_S24 112
+    PUSH_S24 96
+    PUSH_S24 128
+    PUSH_S24 0
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 37
+.entry 0
+    PUSH_S24 262169
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 240
+    PUSH_S24 96
+    PUSH_S24 240
+    PUSH_S24 128
+    PUSH_S24 0
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 38
+.entry 0
+    PUSH_S24 262170
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 128
+    PUSH_S24 152
+    PUSH_S24 248
+    PUSH_S24 128
+    PUSH_S24 0
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 39
+.entry 0
+    PUSH_S24 262171
+    CALL_COMMAND select_object@10
+    CALL_COMMAND disable_script_object_targeting@321
+    END 16
+.entry 1
+    PUSH_S24 255
+    PUSH_S24 255
+    PUSH_S24 40
+    PUSH_S24 128
+    PUSH_S24 35
+    CALL_COMMAND transition_selected_object_color@90
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 40
+.entry 0
+    PUSH_S24 262172
+    CALL_COMMAND select_object@10
+    PUSH_S24 115
+    CALL_COMMAND set_selected_object_proximity_radius_mode_2@199
+    END 16
+.entry 1
+L0005:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_damage@376
+    PUSH_S24_ALT 3
+    CALL_COMMAND disable_object_control@378
+    CALL_COMMAND disable_player_control@115
+    CALL_COMMAND hide_party_status_ui@113
+    LOAD_VAR8 0x000D43
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0024
+    PUSH_S24 2
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+L0024:
+    PUSH_S24 7
+    PUSH_S24 8
+    PUSH_S24 2
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 6
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 7
+    PUSH_S24 32
+    PUSH_S24 220
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 150
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND fit_text_window_to_text@365
+    PUSH_S24 7
+    CALL_COMMAND open_text_window@0
+    PUSH_S24 7
+    PUSH_S24 32
+    CALL_COMMAND set_text_window_text@1
+    PUSH_S24 7
+    CALL_COMMAND wait_for_text_window@107
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    LOAD_VAR8 0x000D43
+    PUSH_S24 2
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0064
+    PUSH_S24 3
+    STORE_VAR8 0x000D43
+L0064:
+    CALL_COMMAND finish_event_mode@512
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND enable_party_damage@592
+    PUSH_S24_ALT 3
+    CALL_COMMAND enable_object_control@377
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 41
+.entry 0
+    PUSH_S24 262156
+    CALL_COMMAND select_object@10
+    CALL_COMMAND selected_object_exists@152
+    STORE_LOCAL 0
+    LOAD_LOCAL 0
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0010
+    CALL_COMMAND refresh_selected_object_background_color@452
+    CALL_COMMAND disable_script_object_push@338
+L0010:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    END 16
+.entry 1
+L0013:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0016
+    JUMP L0013
+L0016:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    CALL_COMMAND selected_object_exists@152
+    STORE_LOCAL 0
+    LOAD_LOCAL 0
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0036
+    PUSH_S24 262156
+    CALL_COMMAND despawn_object@319
+    PUSH_S24 1
+    STORE_LOCAL 1
+L0036:
+    END 16
+.entry 12
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0045
+    PUSH_S24 262156
+    CALL_COMMAND spawn_and_select_object@183
+    PUSH_S24 0
+    STORE_LOCAL 1
+L0045:
+    END 16
+.script 42
+.entry 0
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0021:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0116
+    LOAD_VAR8 0x000D43
+    PUSH_S24 4
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0115
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 1510
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 712
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_x@290
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_z@292
+    CALL_COMMAND distance_between_points_xz@419
+    STORE_LOCAL 20
+    LOAD_LOCAL 20
+    PUSH_S24 250
+    APPLY_OPERATOR LESS_THAN
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_y@291
+    PUSH_S24 800
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 100
+    APPLY_OPERATOR ADD
+    APPLY_OPERATOR LESS_OR_EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0053
+    PUSH_S24 1
+    STORE_LOCAL 18
+    JUMP L0055
+L0053:
+    PUSH_S24 0
+    STORE_LOCAL 18
+L0055:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0095
+    PUSH_S24 1
+    STORE_LOCAL 19
+    PUSH_S24 1
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    PUSH_S24 6
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 7
+    PUSH_S24 0
+    PUSH_S24 150
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 7
+    CALL_COMMAND reopen_text_window@177
+    PUSH_S24 7
+    PUSH_S24 12
+    CALL_COMMAND set_text_window_text@1
+    JUMP L0109
+L0095:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0109
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0109:
+    LOAD_VAR8 0x000D43
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0115
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0115:
+    JUMP L0021
+L0116:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 43
+.entry 0
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0021:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0114
+    LOAD_VAR8 0x000D43
+    PUSH_S24 4
+    APPLY_OPERATOR NOT_EQUAL
+    JUMP_IF_FALSE L0113
+    PUSH_S24 1
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 310
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 131
+    APPLY_OPERATOR NEGATE
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_x@290
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_z@292
+    CALL_COMMAND distance_between_points_xz@419
+    STORE_LOCAL 20
+    LOAD_LOCAL 20
+    PUSH_S24 250
+    APPLY_OPERATOR LESS_THAN
+    PUSH_S24 0
+    CALL_COMMAND get_party_member_position_y@291
+    PUSH_S24 101
+    APPLY_OPERATOR LESS_OR_EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0051
+    PUSH_S24 1
+    STORE_LOCAL 18
+    JUMP L0053
+L0051:
+    PUSH_S24 0
+    STORE_LOCAL 18
+L0053:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR NOT_EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0093
+    PUSH_S24 1
+    STORE_LOCAL 19
+    PUSH_S24 1
+    STORE_VAR8 0x000D43
+    PUSH_S24 7
+    PUSH_S24 6
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_size@4
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_orientation@5
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_open_transition@6
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_close_transition@83
+    PUSH_S24 7
+    PUSH_S24 0
+    CALL_COMMAND set_text_window_pointer_style@80
+    PUSH_S24 7
+    PUSH_S24 0
+    PUSH_S24 150
+    CALL_COMMAND set_text_window_position@3
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 7
+    CALL_COMMAND reopen_text_window@177
+    PUSH_S24 7
+    PUSH_S24 11
+    CALL_COMMAND set_text_window_text@1
+    JUMP L0107
+L0093:
+    LOAD_LOCAL 18
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    LOAD_LOCAL 19
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0107
+    PUSH_S24 7
+    CALL_COMMAND close_text_window@2
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0107:
+    LOAD_VAR8 0x000D43
+    PUSH_S24 3
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0113
+    PUSH_S24 0
+    STORE_LOCAL 19
+L0113:
+    JUMP L0021
+L0114:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16

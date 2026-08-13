@@ -1,0 +1,4283 @@
+.khsasm 2
+
+.resource 18
+.block 0
+.script 0
+.entry 0
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 0
+    STORE_VAR16 0x001120
+    PUSH_S24 0
+    STORE_VAR16 0x001122
+    PUSH_S24 0
+    STORE_VAR16 0x001124
+    PUSH_S24 0
+    STORE_VAR16 0x001126
+    PUSH_S24 0
+    STORE_VAR16 0x001128
+    PUSH_S24 0
+    STORE_VAR16 0x00112A
+    PUSH_S24 0
+    STORE_VAR16 0x00112C
+    PUSH_S24 0
+    STORE_VAR16 0x00112E
+    PUSH_S24 0
+    STORE_VAR8 0x001130
+    PUSH_S24 0
+    STORE_VAR8 0x001131
+    PUSH_S24 0
+    STORE_VAR8 0x001132
+    PUSH_S24 0
+    STORE_VAR8 0x001133
+    PUSH_S24 0
+    STORE_VAR8 0x001134
+    PUSH_S24 0
+    STORE_VAR8 0x001135
+    PUSH_S24 0
+    STORE_VAR8 0x001136
+    PUSH_S24 0
+    STORE_VAR8 0x001137
+    PUSH_S24 0
+    STORE_VAR8 0x000D5D
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D5C
+    LOAD_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_OR
+    JUMP_IF_FALSE L0048
+    PUSH_S24 4
+    STORE_VAR8 0x000D43
+L0048:
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    STORE_WORK_BIT 0x006B2F
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 7
+    STORE_VAR8 0x001029
+    PUSH_S24 1
+    STORE_WORK_BIT 0x008147
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 1
+    PUSH_S24 2
+    PUSH_S24 1
+    APPLY_OPERATOR NEGATE
+    CALL_COMMAND set_party_members@350
+    END 16
+.entry 1
+    PUSH_S24 16
+    PUSH_S24 0
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 1
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 2
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 3
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 4
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 5
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 6
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 7
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 8
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 9
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 10
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 11
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 12
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 13
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 14
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 15
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 16
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 17
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 18
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 19
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 20
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 21
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 22
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 23
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 24
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 25
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 26
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 27
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 28
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 29
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 30
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 31
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 32
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 33
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 34
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 35
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 36
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 37
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 16
+    PUSH_S24 38
+    PUSH_S24 12
+    CALL_COMMAND set_world_room_state@134
+    PUSH_S24 1
+    STORE_WORK_BIT 0x008000
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006AD8
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006AD9
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006ADA
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006ADB
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006ADC
+    CALL_COMMAND disable_all_spawn_groups@362
+    LOAD_VAR8 0x000D41
+    PUSH_S24 15
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0255
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_overlay_out@29
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    JUMP L0271
+L0255:
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_screen_in@27
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+L0271:
+    CALL_COMMAND disable_all_spawn_groups@362
+L0272:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0275
+    JUMP L0272
+L0275:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    PUSH_S24 0
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 2
+.entry 0
+    PUSH_S24 1
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 3
+.entry 0
+    PUSH_S24 2
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 4
+.entry 0
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND disable_party_damage@593
+    LOAD_WORK_BIT 0x008144
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0011
+    PUSH_S24 84
+    PUSH_S24 72
+    PUSH_S24 98
+    PUSH_S24 4
+    CALL_COMMAND enable_animated_screen_filter@539
+L0011:
+    PUSH_S24 14
+    CALL_COMMAND enable_map_group@62
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    PUSH_S24 1
+    STORE_LOCAL 25
+    END 16
+.entry 1
+    PUSH_S24 60
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 25
+    CALL_COMMAND enable_spawn_group@361
+L0072:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0188
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    LOAD_LOCAL 25
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 0
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0088
+    PUSH_S24 1
+    STORE_LOCAL 1
+    JUMP L0092
+L0088:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 8
+L0092:
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0100
+    LOAD_LOCAL 8
+    PUSH_S24 1
+    APPLY_OPERATOR ADD
+    STORE_LOCAL 8
+L0100:
+    LOAD_LOCAL 8
+    PUSH_S24 60
+    APPLY_OPERATOR GREATER_THAN
+    JUMP_IF_FALSE L0187
+    LOAD_LOCAL 25
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0120
+    PUSH_S24 2
+    STORE_LOCAL 25
+    PUSH_S24 2
+    CALL_COMMAND enable_spawn_group@361
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 11
+    CALL_COMMAND command_160@160
+    JUMP L0186
+L0120:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0134
+    PUSH_S24 3
+    STORE_LOCAL 25
+    PUSH_S24 3
+    CALL_COMMAND enable_spawn_group@361
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 11
+    CALL_COMMAND command_160@160
+    JUMP L0186
+L0134:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0186
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 11
+    PUSH_S24 1
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0149
+    PUSH_S24 1
+    STORE_LOCAL 1
+    JUMP L0153
+L0149:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 8
+L0153:
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0161
+    LOAD_LOCAL 8
+    PUSH_S24 1
+    APPLY_OPERATOR ADD
+    STORE_LOCAL 8
+L0161:
+    LOAD_LOCAL 8
+    PUSH_S24 5
+    APPLY_OPERATOR GREATER_THAN
+    LOAD_WORK_BIT 0x008144
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0181
+    PUSH_S24 1
+    STORE_WORK_BIT 0x008144
+    PUSH_S24 1
+    CALL_COMMAND fade_overlay_in@30
+    PUSH_S24 2
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 57275
+    PUSH_S24 0
+    CALL_COMMAND play_sound@353
+    CALL_COMMAND disable_animated_screen_filter@540
+    PUSH_S24 1
+    CALL_COMMAND fade_overlay_out@29
+L0181:
+    PUSH_S24 99
+    STORE_LOCAL 25
+    CALL_COMMAND command_161@161
+    CALL_COMMAND suppress_conditional_model_part_variants@441
+    JUMP L0186
+L0186:
+    POP_SWITCH_VALUE 0
+L0187:
+    JUMP L0072
+L0188:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 5
+.entry 0
+    PUSH_S24 327690
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 5
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 5
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 6
+.entry 0
+    PUSH_S24 327696
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 6
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 6
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 7
+.entry 0
+    PUSH_S24 327692
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 8
+.entry 0
+    PUSH_S24 327697
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 8
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 8
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 9
+.entry 0
+    PUSH_S24 327693
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 9
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 9
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 10
+.entry 0
+    PUSH_S24 327698
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 10
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 10
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 11
+.entry 0
+    PUSH_S24 327694
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 11
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 11
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 12
+.entry 0
+    PUSH_S24 327699
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 12
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 12
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 13
+.entry 0
+    PUSH_S24 327695
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 13
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 13
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 14
+.entry 0
+    PUSH_S24 327700
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 14
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 14
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 15
+.entry 0
+    PUSH_S24 327706
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 15
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 15
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 16
+.entry 0
+    PUSH_S24 327707
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 16
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 16
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 17
+.entry 0
+    PUSH_S24 327708
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 17
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 17
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 18
+.entry 0
+    PUSH_S24 327709
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 18
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 18
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 19
+.entry 0
+    PUSH_S24 327710
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 19
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 19
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 20
+.entry 0
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.script 21
+.entry 0
+    PUSH_S24 262167
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.script 22
+.entry 0
+    PUSH_S24 262168
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+
+
+.resource 19
+.block 0
+.script 0
+.entry 0
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 0
+    STORE_VAR16 0x001120
+    PUSH_S24 0
+    STORE_VAR16 0x001122
+    PUSH_S24 0
+    STORE_VAR16 0x001124
+    PUSH_S24 0
+    STORE_VAR16 0x001126
+    PUSH_S24 0
+    STORE_VAR16 0x001128
+    PUSH_S24 0
+    STORE_VAR16 0x00112A
+    PUSH_S24 0
+    STORE_VAR16 0x00112C
+    PUSH_S24 0
+    STORE_VAR16 0x00112E
+    PUSH_S24 0
+    STORE_VAR8 0x001130
+    PUSH_S24 0
+    STORE_VAR8 0x001131
+    PUSH_S24 0
+    STORE_VAR8 0x001132
+    PUSH_S24 0
+    STORE_VAR8 0x001133
+    PUSH_S24 0
+    STORE_VAR8 0x001134
+    PUSH_S24 0
+    STORE_VAR8 0x001135
+    PUSH_S24 0
+    STORE_VAR8 0x001136
+    PUSH_S24 0
+    STORE_VAR8 0x001137
+    PUSH_S24 0
+    STORE_VAR8 0x000D5D
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D5C
+    LOAD_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_OR
+    JUMP_IF_FALSE L0048
+    PUSH_S24 4
+    STORE_VAR8 0x000D43
+L0048:
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    STORE_WORK_BIT 0x006B2F
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 7
+    STORE_VAR8 0x001029
+    PUSH_S24 1
+    STORE_WORK_BIT 0x008147
+    CALL_COMMAND disable_all_spawn_groups@362
+    END 16
+.entry 1
+    CALL_COMMAND disable_all_spawn_groups@362
+    LOAD_VAR8 0x000D41
+    PUSH_S24 15
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0082
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_overlay_out@29
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    JUMP L0098
+L0082:
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_screen_in@27
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+L0098:
+    CALL_COMMAND disable_all_spawn_groups@362
+L0099:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0102
+    JUMP L0099
+L0102:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    PUSH_S24 0
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 2
+.entry 0
+    PUSH_S24 1
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 3
+.entry 0
+    PUSH_S24 2
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 4
+.entry 0
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND disable_party_damage@593
+    LOAD_WORK_BIT 0x008144
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0011
+    PUSH_S24 84
+    PUSH_S24 72
+    PUSH_S24 98
+    PUSH_S24 4
+    CALL_COMMAND enable_animated_screen_filter@539
+L0011:
+    PUSH_S24 14
+    CALL_COMMAND enable_map_group@62
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    PUSH_S24 1
+    STORE_LOCAL 25
+    END 16
+.entry 1
+    PUSH_S24 60
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 25
+    CALL_COMMAND enable_spawn_group@361
+L0072:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0188
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    LOAD_LOCAL 25
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 0
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0088
+    PUSH_S24 1
+    STORE_LOCAL 1
+    JUMP L0092
+L0088:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 8
+L0092:
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0100
+    LOAD_LOCAL 8
+    PUSH_S24 1
+    APPLY_OPERATOR ADD
+    STORE_LOCAL 8
+L0100:
+    LOAD_LOCAL 8
+    PUSH_S24 60
+    APPLY_OPERATOR GREATER_THAN
+    JUMP_IF_FALSE L0187
+    LOAD_LOCAL 25
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0120
+    PUSH_S24 2
+    STORE_LOCAL 25
+    PUSH_S24 2
+    CALL_COMMAND enable_spawn_group@361
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 11
+    CALL_COMMAND command_160@160
+    JUMP L0186
+L0120:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0134
+    PUSH_S24 3
+    STORE_LOCAL 25
+    PUSH_S24 3
+    CALL_COMMAND enable_spawn_group@361
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 11
+    CALL_COMMAND command_160@160
+    JUMP L0186
+L0134:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0186
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 11
+    PUSH_S24 1
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0149
+    PUSH_S24 1
+    STORE_LOCAL 1
+    JUMP L0153
+L0149:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 8
+L0153:
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0161
+    LOAD_LOCAL 8
+    PUSH_S24 1
+    APPLY_OPERATOR ADD
+    STORE_LOCAL 8
+L0161:
+    LOAD_LOCAL 8
+    PUSH_S24 5
+    APPLY_OPERATOR GREATER_THAN
+    LOAD_WORK_BIT 0x008144
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0181
+    PUSH_S24 1
+    STORE_WORK_BIT 0x008144
+    PUSH_S24 1
+    CALL_COMMAND fade_overlay_in@30
+    PUSH_S24 2
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 57275
+    PUSH_S24 0
+    CALL_COMMAND play_sound@353
+    CALL_COMMAND disable_animated_screen_filter@540
+    PUSH_S24 1
+    CALL_COMMAND fade_overlay_out@29
+L0181:
+    PUSH_S24 99
+    STORE_LOCAL 25
+    CALL_COMMAND command_161@161
+    CALL_COMMAND suppress_conditional_model_part_variants@441
+    JUMP L0186
+L0186:
+    POP_SWITCH_VALUE 0
+L0187:
+    JUMP L0072
+L0188:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 5
+.entry 0
+    PUSH_S24 327690
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 5
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 5
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 6
+.entry 0
+    PUSH_S24 327696
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 6
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 6
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 7
+.entry 0
+    PUSH_S24 327692
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 8
+.entry 0
+    PUSH_S24 327697
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 8
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 8
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 9
+.entry 0
+    PUSH_S24 327693
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 9
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 9
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 10
+.entry 0
+    PUSH_S24 327698
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 10
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 10
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 11
+.entry 0
+    PUSH_S24 327694
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 11
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 11
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 12
+.entry 0
+    PUSH_S24 327699
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 12
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 12
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 13
+.entry 0
+    PUSH_S24 327695
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 13
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 13
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 14
+.entry 0
+    PUSH_S24 327700
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 14
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 14
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 15
+.entry 0
+    PUSH_S24 327706
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 15
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 15
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 16
+.entry 0
+    PUSH_S24 327707
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 16
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 16
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 17
+.entry 0
+    PUSH_S24 327708
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 17
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 17
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 18
+.entry 0
+    PUSH_S24 327709
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 18
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 18
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 19
+.entry 0
+    PUSH_S24 327710
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 19
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 19
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 20
+.entry 0
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.script 21
+.entry 0
+    PUSH_S24 262167
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.script 22
+.entry 0
+    PUSH_S24 262168
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+
+
+.resource 31
+.block 0
+.script 0
+.entry 0
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND disable_all_spawn_groups@362
+    PUSH_S24 0
+    STORE_VAR16 0x001120
+    PUSH_S24 0
+    STORE_VAR16 0x001122
+    PUSH_S24 0
+    STORE_VAR16 0x001124
+    PUSH_S24 0
+    STORE_VAR16 0x001126
+    PUSH_S24 0
+    STORE_VAR16 0x001128
+    PUSH_S24 0
+    STORE_VAR16 0x00112A
+    PUSH_S24 0
+    STORE_VAR16 0x00112C
+    PUSH_S24 0
+    STORE_VAR16 0x00112E
+    PUSH_S24 0
+    STORE_VAR8 0x001130
+    PUSH_S24 0
+    STORE_VAR8 0x001131
+    PUSH_S24 0
+    STORE_VAR8 0x001132
+    PUSH_S24 0
+    STORE_VAR8 0x001133
+    PUSH_S24 0
+    STORE_VAR8 0x001134
+    PUSH_S24 0
+    STORE_VAR8 0x001135
+    PUSH_S24 0
+    STORE_VAR8 0x001136
+    PUSH_S24 0
+    STORE_VAR8 0x001137
+    PUSH_S24 0
+    STORE_VAR8 0x000D5D
+    CALL_COMMAND get_current_world_index@127
+    STORE_VAR8 0x000D5C
+    LOAD_WORK_BIT 0x006B2F
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    LOAD_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_OR
+    JUMP_IF_FALSE L0048
+    PUSH_S24 4
+    STORE_VAR8 0x000D43
+L0048:
+    PUSH_S24 1
+    STORE_WORK_BIT 0x006B2E
+    PUSH_S24 0
+    STORE_WORK_BIT 0x006B2F
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND begin_event_mode@511
+    PUSH_S24 7
+    STORE_VAR8 0x001029
+    PUSH_S24 1
+    STORE_WORK_BIT 0x008147
+    CALL_COMMAND disable_all_spawn_groups@362
+    END 16
+.entry 1
+    CALL_COMMAND disable_all_spawn_groups@362
+    LOAD_VAR8 0x000D41
+    PUSH_S24 15
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0082
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_overlay_out@29
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+    JUMP L0098
+L0082:
+    CALL_COMMAND disable_player_relative_camera_yaw@395
+    PUSH_S24 4
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 8
+    CALL_COMMAND fade_screen_in@27
+    PUSH_S24 6
+    CALL_COMMAND wait_ticks@8
+    CALL_COMMAND disable_all_spawn_groups@362
+    CALL_COMMAND enable_player_control@114
+    CALL_COMMAND show_party_status_ui@112
+    CALL_COMMAND disable_input_suppression@417
+    CALL_COMMAND enable_all_object_control@150
+    CALL_COMMAND enable_party_damage@592
+    CALL_COMMAND finish_event_mode@512
+    PUSH_S24 0
+    STORE_VAR8 0x000D43
+L0098:
+    CALL_COMMAND disable_all_spawn_groups@362
+L0099:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0102
+    JUMP L0099
+L0102:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 1
+.entry 0
+    PUSH_S24 0
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 2
+.entry 0
+    PUSH_S24 196609
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 3
+.entry 0
+    PUSH_S24 196610
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+L0003:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0006
+    JUMP L0003
+L0006:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 4
+.entry 0
+    CALL_COMMAND disable_all_object_control@151
+    CALL_COMMAND disable_party_damage@593
+    LOAD_WORK_BIT 0x008144
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0011
+    PUSH_S24 84
+    PUSH_S24 72
+    PUSH_S24 98
+    PUSH_S24 4
+    CALL_COMMAND enable_animated_screen_filter@539
+L0011:
+    PUSH_S24 14
+    CALL_COMMAND enable_map_group@62
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    PUSH_S24 1
+    STORE_LOCAL 25
+    END 16
+.entry 1
+    PUSH_S24 60
+    CALL_COMMAND wait_ticks@8
+    LOAD_LOCAL 25
+    CALL_COMMAND enable_spawn_group@361
+L0072:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0188
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    LOAD_LOCAL 25
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 0
+    CALL_COMMAND discard_value@9
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0088
+    PUSH_S24 1
+    STORE_LOCAL 1
+    JUMP L0092
+L0088:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 8
+L0092:
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0100
+    LOAD_LOCAL 8
+    PUSH_S24 1
+    APPLY_OPERATOR ADD
+    STORE_LOCAL 8
+L0100:
+    LOAD_LOCAL 8
+    PUSH_S24 60
+    APPLY_OPERATOR GREATER_THAN
+    JUMP_IF_FALSE L0187
+    LOAD_LOCAL 25
+    SAVE_SWITCH_VALUE 0
+    SWITCH_EQ 1
+    JUMP_IF_FALSE L0120
+    PUSH_S24 2
+    STORE_LOCAL 25
+    PUSH_S24 2
+    CALL_COMMAND enable_spawn_group@361
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    PUSH_S24 6
+    PUSH_S24_ALT 20
+    START_THREAD 11
+    CALL_COMMAND command_160@160
+    JUMP L0186
+L0120:
+    SWITCH_EQ 2
+    JUMP_IF_FALSE L0134
+    PUSH_S24 3
+    STORE_LOCAL 25
+    PUSH_S24 3
+    CALL_COMMAND enable_spawn_group@361
+    LOAD_LOCAL 25
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    PUSH_S24 6
+    PUSH_S24_ALT 21
+    START_THREAD 11
+    CALL_COMMAND command_160@160
+    JUMP L0186
+L0134:
+    SWITCH_EQ 3
+    JUMP_IF_FALSE L0186
+    PUSH_S24 6
+    PUSH_S24_ALT 22
+    START_THREAD 11
+    PUSH_S24 1
+    CALL_COMMAND get_remaining_spawn_group_object_count@457
+    STORE_LOCAL 0
+    LOAD_LOCAL 0
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0149
+    PUSH_S24 1
+    STORE_LOCAL 1
+    JUMP L0153
+L0149:
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 8
+L0153:
+    LOAD_LOCAL 1
+    PUSH_S24 1
+    APPLY_OPERATOR EQUAL
+    JUMP_IF_FALSE L0161
+    LOAD_LOCAL 8
+    PUSH_S24 1
+    APPLY_OPERATOR ADD
+    STORE_LOCAL 8
+L0161:
+    LOAD_LOCAL 8
+    PUSH_S24 5
+    APPLY_OPERATOR GREATER_THAN
+    LOAD_WORK_BIT 0x008144
+    PUSH_S24 0
+    APPLY_OPERATOR EQUAL
+    APPLY_OPERATOR BIT_AND
+    JUMP_IF_FALSE L0181
+    PUSH_S24 1
+    STORE_WORK_BIT 0x008144
+    PUSH_S24 1
+    CALL_COMMAND fade_overlay_in@30
+    PUSH_S24 2
+    CALL_COMMAND wait_ticks@8
+    PUSH_S24 57275
+    PUSH_S24 0
+    CALL_COMMAND play_sound@353
+    CALL_COMMAND disable_animated_screen_filter@540
+    PUSH_S24 1
+    CALL_COMMAND fade_overlay_out@29
+L0181:
+    PUSH_S24 99
+    STORE_LOCAL 25
+    CALL_COMMAND command_161@161
+    CALL_COMMAND suppress_conditional_model_part_variants@441
+    JUMP L0186
+L0186:
+    POP_SWITCH_VALUE 0
+L0187:
+    JUMP L0072
+L0188:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 5
+.entry 0
+    PUSH_S24 327690
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 5
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 5
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 6
+.entry 0
+    PUSH_S24 327696
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 6
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 6
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 7
+.entry 0
+    PUSH_S24 327692
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 7
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 8
+.entry 0
+    PUSH_S24 327697
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 8
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 8
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 9
+.entry 0
+    PUSH_S24 327693
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 9
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 9
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 10
+.entry 0
+    PUSH_S24 327698
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 10
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 10
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 11
+.entry 0
+    PUSH_S24 327694
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 11
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 11
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 12
+.entry 0
+    PUSH_S24 327699
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 12
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 12
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 13
+.entry 0
+    PUSH_S24 327695
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 13
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 13
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 14
+.entry 0
+    PUSH_S24 327700
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 14
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 14
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    END 16
+.entry 1
+L0010:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0013
+    JUMP L0010
+L0013:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 15
+.entry 0
+    PUSH_S24 327706
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 15
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 15
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 16
+.entry 0
+    PUSH_S24 327707
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 16
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 16
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 17
+.entry 0
+    PUSH_S24 327708
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 17
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 17
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 18
+.entry 0
+    PUSH_S24 327709
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 18
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 18
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 19
+.entry 0
+    PUSH_S24 327710
+    CALL_COMMAND select_object@10
+    PUSH_S24_ALT 19
+    CALL_COMMAND get_object_position_x@284
+    PUSH_S24 240
+    APPLY_OPERATOR NEGATE
+    PUSH_S24_ALT 19
+    CALL_COMMAND get_object_position_y@285
+    CALL_COMMAND set_object_position@19
+    PUSH_S24 0
+    STORE_LOCAL 0
+    PUSH_S24 0
+    STORE_LOCAL 1
+    PUSH_S24 0
+    STORE_LOCAL 2
+    PUSH_S24 0
+    STORE_LOCAL 3
+    PUSH_S24 0
+    STORE_LOCAL 4
+    PUSH_S24 0
+    STORE_LOCAL 5
+    PUSH_S24 0
+    STORE_LOCAL 6
+    PUSH_S24 0
+    STORE_LOCAL 7
+    PUSH_S24 0
+    STORE_LOCAL 8
+    PUSH_S24 0
+    STORE_LOCAL 9
+    PUSH_S24 0
+    STORE_LOCAL 10
+    PUSH_S24 0
+    STORE_LOCAL 11
+    PUSH_S24 0
+    STORE_LOCAL 12
+    PUSH_S24 0
+    STORE_LOCAL 13
+    PUSH_S24 0
+    STORE_LOCAL 14
+    PUSH_S24 0
+    STORE_LOCAL 15
+    PUSH_S24 0
+    STORE_LOCAL 16
+    PUSH_S24 0
+    STORE_LOCAL 17
+    PUSH_S24 0
+    STORE_LOCAL 18
+    PUSH_S24 0
+    STORE_LOCAL 19
+    PUSH_S24 0
+    STORE_LOCAL 20
+    PUSH_S24 0
+    STORE_LOCAL 21
+    PUSH_S24 0
+    STORE_LOCAL 22
+    PUSH_S24 0
+    STORE_LOCAL 23
+    PUSH_S24 0
+    STORE_LOCAL 24
+    PUSH_S24 0
+    STORE_LOCAL 25
+    END 16
+.entry 1
+L0062:
+    PUSH_S24 1
+    JUMP_IF_FALSE L0065
+    JUMP L0062
+L0065:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.script 20
+.entry 0
+    PUSH_S24 262166
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.script 21
+.entry 0
+    PUSH_S24 262167
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16
+.script 22
+.entry 0
+    PUSH_S24 262168
+    CALL_COMMAND select_object@10
+    END 16
+.entry 1
+    PUSH_S24 1
+    STORE_LOCAL 0
+L0005:
+    LOAD_LOCAL 0
+    JUMP_IF_FALSE L0008
+    JUMP L0005
+L0008:
+    END 16
+.entry 2
+    END 16
+.entry 3
+    END 16
+.entry 4
+    END 16
+.entry 5
+    END 16
+.entry 6
+    END 16
+.entry 7
+    END 16
+.entry 8
+    END 16
+.entry 9
+    END 16
+.entry 10
+    END 16
+.entry 11
+    PUSH_S24 0
+    STORE_LOCAL 0
+    END 16

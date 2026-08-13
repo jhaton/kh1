@@ -6,6 +6,7 @@ from tools.script_bytecode import (
     Instruction,
     Script,
     ScriptBlock,
+    FormatError,
     assemble_archive,
     dump_khsasm,
     find_script_blocks,
@@ -65,6 +66,27 @@ def build_area_archive() -> bytes:
     return build_archive((resource,))
 
 
+def build_call_block(*command_ids: int) -> tuple[ScriptBlock, ...]:
+    entry = tuple(Instruction(24, command_id) for command_id in command_ids) + (Instruction(5, 16),)
+    return (ScriptBlock(0, 0, (Script(0, (entry,)),)),)
+
+
+def build_call_source(version: int, operand: str) -> str:
+    return "\n".join(
+        (
+            f".khsasm {version}",
+            "",
+            ".resource 0",
+            ".block 0",
+            ".script 0",
+            ".entry 0",
+            f"    CALL_COMMAND {operand}",
+            "    END 16",
+            "",
+        )
+    )
+
+
 class ScriptBytecodeTests(unittest.TestCase):
     def test_disassembly_roundtrips_exactly(self) -> None:
         original = build_area_archive()
@@ -74,6 +96,106 @@ class ScriptBytecodeTests(unittest.TestCase):
         self.assertEqual(dump_khsasm(blocks), source)
         self.assertEqual(assemble_archive(original, blocks), original)
         self.assertIn("END 16", source)
+
+    def test_mapped_commands_emit_canonical_v2_and_parse(self) -> None:
+        blocks = build_call_block(27)
+        command_names = {27: "fade_screen_in"}
+
+        source = dump_khsasm(blocks, command_names)
+
+        self.assertEqual(
+            source,
+            ".khsasm 2\n"
+            "\n"
+            ".resource 0\n"
+            ".block 0\n"
+            ".script 0\n"
+            ".entry 0\n"
+            "    CALL_COMMAND fade_screen_in@27\n"
+            "    END 16\n",
+        )
+        parsed = parse_khsasm(source, command_names)
+        self.assertEqual(parsed[0].scripts[0].entries[0][0], Instruction(24, 27))
+        self.assertEqual(parsed, blocks)
+
+    def test_numeric_command_source_remains_v1_compatible(self) -> None:
+        blocks = build_call_block(27)
+
+        source = dump_khsasm(blocks)
+
+        self.assertTrue(source.startswith(".khsasm 1\n"))
+        self.assertIn("    CALL_COMMAND 27\n", source)
+        parsed = parse_khsasm(source)
+        self.assertEqual(parsed[0].scripts[0].entries[0][0].operand, 27)
+        self.assertEqual(parsed, blocks)
+
+    def test_v2_accepts_numeric_command_operand_without_metadata(self) -> None:
+        parsed = parse_khsasm(build_call_source(2, "27"))
+
+        self.assertEqual(parsed[0].scripts[0].entries[0][0], Instruction(24, 27))
+
+    def test_duplicate_command_names_are_disambiguated_by_id(self) -> None:
+        blocks = build_call_block(27, 28)
+        command_names = {27: "fade_screen", 28: "fade_screen"}
+
+        source = dump_khsasm(blocks, command_names)
+
+        self.assertIn("    CALL_COMMAND fade_screen@27\n", source)
+        self.assertIn("    CALL_COMMAND fade_screen@28\n", source)
+        parsed = parse_khsasm(source, command_names)
+        self.assertEqual(
+            tuple(instruction.operand for instruction in parsed[0].scripts[0].entries[0]),
+            (27, 28, 16),
+        )
+        self.assertEqual(parsed, blocks)
+
+    def test_unnamed_command_style_roundtrips_symbolically(self) -> None:
+        blocks = build_call_block(31)
+        command_names = {31: "command_31"}
+
+        source = dump_khsasm(blocks, command_names)
+
+        self.assertIn("    CALL_COMMAND command_31@31\n", source)
+        parsed = parse_khsasm(source, command_names)
+        self.assertEqual(parsed[0].scripts[0].entries[0][0].operand, 31)
+        self.assertEqual(parsed, blocks)
+
+    def test_mapped_dump_requires_every_command_id(self) -> None:
+        with self.assertRaisesRegex(FormatError, "missing command name for ID 31"):
+            dump_khsasm(build_call_block(31), {27: "fade_screen_in"})
+
+    def test_symbolic_command_name_must_match_id(self) -> None:
+        with self.assertRaises(FormatError) as raised:
+            parse_khsasm(build_call_source(2, "wrong_name@31"), {31: "command_31"})
+
+        self.assertEqual(
+            str(raised.exception),
+            "line 7: command name 'wrong_name' does not match ID 31 (expected 'command_31')",
+        )
+
+    def test_symbolic_command_id_must_exist_in_metadata(self) -> None:
+        with self.assertRaises(FormatError) as raised:
+            parse_khsasm(build_call_source(2, "command_31@31"), {27: "fade_screen_in"})
+
+        self.assertEqual(str(raised.exception), "line 7: unknown command ID 31")
+
+    def test_symbolic_command_requires_metadata(self) -> None:
+        with self.assertRaises(FormatError) as raised:
+            parse_khsasm(build_call_source(2, "command_31@31"))
+
+        self.assertEqual(
+            str(raised.exception),
+            "line 7: symbolic CALL_COMMAND operand requires command metadata",
+        )
+
+    def test_v1_rejects_symbolic_command_operand(self) -> None:
+        with self.assertRaises(FormatError) as raised:
+            parse_khsasm(build_call_source(1, "command_31@31"), {31: "command_31"})
+
+        self.assertEqual(
+            str(raised.exception),
+            "line 7: symbolic CALL_COMMAND operands require '.khsasm 2'",
+        )
 
     def test_resized_block_updates_following_offset(self) -> None:
         original = build_area_archive()
